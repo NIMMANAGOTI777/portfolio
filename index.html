@@ -13,9 +13,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- GSAP & Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -55,18 +53,18 @@
                         'glow-primary': '0 0 20px -5px rgba(59, 130, 246, 0.5)',
                         'glow-accent': '0 0 15px -3px rgba(251, 191, 36, 0.3)',
                     },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                    },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'spin-slow': 'spin 12s linear infinite',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-20px)'
+                            },
                         }
                     }
                 }
@@ -143,35 +141,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* LITE MODE OVERRIDES (Performance) */
-        body.lite-mode .glass {
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        body.lite-mode.dark .glass {
-            background: #1e293b;
-        }
-
-        body.lite-mode canvas {
-            display: none;
-        }
-
-        body.lite-mode * {
-            animation: none !important;
-            transition: none !important;
-        }
-
-        body.lite-mode .cursor-dot,
-        body.lite-mode .cursor-outline {
-            display: none;
-        }
-
-        body.lite-mode {
-            cursor: auto;
-        }
-
         /* Preloader */
         #preloader {
             position: fixed;
@@ -229,8 +198,13 @@
             transition: width 0.3s ease;
         }
 
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after {
             width: 100%;
+        }
+        
+        .nav-link.active {
+            color: #3b82f6;
         }
 
         /* Typing Cursor */
@@ -251,6 +225,48 @@
             perspective: 1000px;
         }
 
+        /* Glitch Effect */
+        .glitch-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+        .glitch-wrapper::before,
+        .glitch-wrapper::after {
+            content: "KARTHIK";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        .glitch-wrapper::before {
+            color: #0ff;
+            z-index: -1;
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+        }
+        .glitch-wrapper::after {
+            color: #f0f;
+            z-index: -2;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+            60% { clip-path: inset(80% 0 5% 0); transform: translate(1px, -2px); }
+            80% { clip-path: inset(10% 0 60% 0); transform: translate(-1px, 1px); }
+            100% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+            20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 2px); }
+            40% { clip-path: inset(70% 0 30% 0); transform: translate(1px, -2px); }
+            60% { clip-path: inset(20% 0 80% 0); transform: translate(-1px, 1px); }
+            80% { clip-path: inset(50% 0 10% 0); transform: translate(2px, 1px); }
+            100% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, -1px); }
+        }
+
         /* Lenis */
         html.lenis {
             height: auto;
@@ -261,7 +277,7 @@
         }
 
         .lenis.lenis-smooth [data-lenis-prevent] {
-            overscroll-behavior: contain;
+            oversizer-behavior: contain;
         }
 
         .lenis.lenis-stopped {
@@ -280,7 +296,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 4px;
             z-index: 10000;
             background: transparent;
         }
@@ -328,11 +344,6 @@
         .accordion-item.active .accordion-icon {
             transform: rotate(180deg);
         }
-
-        /* Image fade transitions */
-        .fade-img {
-            transition: opacity 1s ease-in-out;
-        }
     </style>
 </head>
 
@@ -347,9 +358,7 @@
     <div id="preloader">
         <div class="relative">
             <div class="w-20 h-20 border-4 border-slate-200 dark:border-slate-700 rounded-full"></div>
-            <div
-                class="w-20 h-20 border-4 border-primary border-t-transparent rounded-full animate-spin absolute top-0 left-0">
-            </div>
+            <div class="w-20 h-20 border-4 border-primary border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
             <div class="absolute inset-0 flex items-center justify-center font-bold text-xl font-display">KN</div>
         </div>
     </div>
@@ -363,46 +372,27 @@
 
     <!-- Ambient Blobs -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div
-            class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-400/20 dark:bg-blue-600/10 rounded-full blur-[120px] animate-pulse">
-        </div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-cyan-400/20 dark:bg-cyan-600/10 rounded-full blur-[120px] animate-pulse"
-            style="animation-delay: 2s;"></div>
+        <div class="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-400/20 dark:bg-blue-600/10 rounded-full blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-cyan-400/20 dark:bg-cyan-600/10 rounded-full blur-[120px] animate-pulse" style="animation-delay: 2s;"></div>
     </div>
 
     <!-- Smart Resume Sidebar -->
-    <div id="resume-sidebar"
-        class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-white/95 dark:bg-dark-surface/95 backdrop-blur-xl shadow-2xl z-[60] transform translate-x-full transition-transform duration-500 cubic-bezier(0.77, 0, 0.175, 1) p-8 flex flex-col border-l border-slate-200 dark:border-slate-700">
+    <div id="resume-sidebar" class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-white/95 dark:bg-dark-surface/95 backdrop-blur-xl shadow-2xl z-[60] transform translate-x-full transition-transform duration-500 cubic-bezier(0.77, 0, 0.175, 1) p-8 flex flex-col border-l border-slate-200 dark:border-slate-700">
         <div class="flex justify-between items-center mb-8 pb-4 border-b border-slate-200 dark:border-slate-700">
             <h2 class="text-2xl font-bold font-display text-gradient">Resume</h2>
-            <button onclick="toggleResume()"
-                class="magnetic text-slate-500 hover:text-primary transition-colors text-2xl">
+            <button onclick="toggleResume()" class="magnetic text-slate-500 hover:text-primary transition-colors text-2xl">
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <!-- Resume Preview Placeholder -->
-        <div
-            class="flex-1 bg-slate-50 dark:bg-slate-900/50 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl flex flex-col items-center justify-center mb-6 group hover:border-primary transition-colors relative overflow-hidden">
-            <!-- Abstract resume representation -->
-            <div
-                class="w-48 h-64 bg-white dark:bg-slate-800 shadow-xl rounded-lg transform rotate-3 group-hover:rotate-0 transition-transform duration-500 p-4 space-y-3">
-                <div class="h-4 w-12 bg-slate-200 dark:bg-slate-700 rounded"></div>
-                <div class="h-2 w-full bg-slate-100 dark:bg-slate-700/50 rounded"></div>
-                <div class="h-2 w-3/4 bg-slate-100 dark:bg-slate-700/50 rounded"></div>
-                <div class="h-16 w-full bg-slate-50 dark:bg-slate-700/30 rounded mt-4"></div>
-                <div class="space-y-2 pt-2">
-                    <div class="h-2 w-full bg-slate-100 dark:bg-slate-700/50 rounded"></div>
-                    <div class="h-2 w-full bg-slate-100 dark:bg-slate-700/50 rounded"></div>
-                </div>
+        <div class="flex-1 bg-slate-50 dark:bg-slate-900/50 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl flex flex-col items-center justify-center mb-6 group hover:border-primary transition-colors">
+            <div class="w-16 h-16 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-lg mb-4 group-hover:scale-110 transition-transform">
+                <i class="fas fa-file-pdf text-3xl text-red-500"></i>
             </div>
-            <div class="absolute bottom-8 text-center">
-                <p class="text-slate-500 dark:text-slate-400 font-medium font-display">Karthik's Resume</p>
-                <p class="text-xs text-slate-400 mt-1">PDF • 2025 Edition</p>
-            </div>
+            <p class="text-slate-500 dark:text-slate-400 font-medium">Preview Unavailable in Demo</p>
+            <p class="text-xs text-slate-400 mt-2">karthik-resume-2025.pdf</p>
         </div>
         <div class="flex gap-4">
-            <button
-                class="magnetic flex-1 bg-primary text-white py-4 rounded-xl font-bold hover:bg-blue-600 transition-all shadow-glow-primary flex items-center justify-center gap-2 group">
+            <button class="magnetic flex-1 bg-primary text-white py-4 rounded-xl font-bold hover:bg-blue-600 transition-all shadow-glow-primary flex items-center justify-center gap-2 group">
                 <span>Download PDF</span>
                 <i class="fas fa-download group-hover:translate-y-1 transition-transform"></i>
             </button>
@@ -414,40 +404,24 @@
         <div class="glass absolute inset-0 w-full h-full shadow-sm"></div>
         <div class="max-w-7xl mx-auto px-6 relative">
             <div class="flex justify-between items-center h-20">
-                <a href="#"
-                    class="magnetic font-display font-bold text-2xl tracking-tight z-10 flex items-center gap-2">
-                    <div
-                        class="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-secondary flex items-center justify-center text-white text-sm">
-                        KN</div>
-                    <span>Karthik<span class="text-primary">.</span></span>
+                <a href="#" class="magnetic font-display font-bold text-2xl tracking-tight z-10">
+                    Karthik<span class="text-primary">.</span>
                 </a>
 
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#about"
-                        class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">About</a>
-                    <a href="#growth"
-                        class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Academy</a>
-                    <a href="#projects"
-                        class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Projects</a>
-                    <a href="#timeline"
-                        class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Journey</a>
+                    <a href="#about" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">About</a>
+                    <a href="#impact" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Impact</a>
+                    <a href="#leadership" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Leadership</a>
+                    <a href="#projects" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Projects</a>
 
                     <div class="h-6 w-px bg-slate-300 dark:bg-slate-700"></div>
 
-                    <button id="lite-toggle" onclick="toggleLiteMode()"
-                        class="magnetic text-slate-600 dark:text-slate-300 hover:text-green-500 transition-colors text-lg w-8 h-8 flex items-center justify-center"
-                        title="Lite Mode (Save Data)">
-                        <i class="fas fa-bolt"></i>
-                    </button>
-
-                    <button id="theme-toggle"
-                        class="magnetic text-slate-600 dark:text-slate-300 hover:text-accent transition-colors text-lg w-8 h-8 flex items-center justify-center">
+                    <button id="theme-toggle" class="magnetic text-slate-600 dark:text-slate-300 hover:text-accent transition-colors text-lg w-8 h-8 flex items-center justify-center">
                         <i class="fas fa-moon dark:hidden"></i>
                         <i class="fas fa-sun hidden dark:block"></i>
                     </button>
 
-                    <a href="mailto:aktechintelligence@gmail.com"
-                        class="magnetic px-6 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-lg animate-pulse-slow hover:animate-none">
+                    <a href="mailto:aktechintelligence@gmail.com" class="magnetic px-6 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold text-sm hover:scale-105 transition-transform shadow-lg">
                         Let's Talk
                     </a>
                 </div>
@@ -461,22 +435,13 @@
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu"
-        class="fixed inset-0 z-40 bg-white/95 dark:bg-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center space-y-8 md:hidden">
-        <a href="#about"
-            class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">About</a>
-        <a href="#growth"
-            class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Academy</a>
-        <a href="#projects"
-            class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Projects</a>
-        <a href="mailto:aktechintelligence@gmail.com"
-            class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Contact</a>
-        <button onclick="toggleResume(); document.getElementById('mobile-menu').classList.add('translate-x-full')"
-            class="text-xl font-bold text-primary">Resume</button>
-        <button onclick="toggleLiteMode()"
-            class="px-6 py-2 rounded-full border border-slate-300 dark:border-slate-600 text-lg font-bold">
-            <i class="fas fa-bolt mr-2"></i> Lite Mode
-        </button>
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-white/95 dark:bg-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center space-y-8 md:hidden">
+        <a href="#about" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">About</a>
+        <a href="#impact" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Impact</a>
+        <a href="#leadership" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Leadership</a>
+        <a href="#projects" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Projects</a>
+        <a href="mailto:aktechintelligence@gmail.com" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Contact</a>
+        <button onclick="toggleResume(); document.getElementById('mobile-menu').classList.add('translate-x-full')" class="text-xl font-bold text-primary">Resume</button>
         <button id="mobile-theme-toggle" class="p-4 rounded-full bg-slate-100 dark:bg-slate-800 text-xl">
             <i class="fas fa-moon dark:hidden"></i>
             <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
@@ -490,1025 +455,811 @@
             <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 overflow-hidden">
                 <div class="max-w-7xl mx-auto text-center relative z-10">
 
-                    <div
-                        class="gsap-hero-reveal inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 backdrop-blur-md mb-8 hover:border-accent transition-colors duration-300 shadow-sm">
+                    <div class="gsap-hero-reveal inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 backdrop-blur-md mb-8 hover:border-accent transition-colors duration-300 shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span class="text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300">PORTFOLIO
-                            2025</span>
+                        <span class="text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300">PORTFOLIO 2025</span>
                     </div>
 
-                    <h1
-                        class="font-display font-bold text-6xl md:text-8xl lg:text-9xl tracking-tighter mb-6 leading-[0.9] text-slate-900 dark:text-white">
-                        <div class="overflow-hidden"><span class="gsap-hero-text inline-block">KARTHIK</span></div>
-                        <div class="overflow-hidden"><span
-                                class="gsap-hero-text inline-block text-gradient">NIMMANAGOTI</span></div>
+                    <h1 class="font-display font-bold text-6xl md:text-8xl lg:text-9xl tracking-tighter mb-6 leading-[0.9] text-slate-900 dark:text-white">
+                        <div class="overflow-hidden"><span class="gsap-hero-text inline-block glitch-wrapper">KARTHIK</span></div>
+                        <div class="overflow-hidden"><span class="gsap-hero-text inline-block text-gradient">NIMMANAGOTI</span></div>
                     </h1>
 
                     <div class="gsap-hero-reveal h-[40px] mb-12 flex justify-center items-center">
                         <p class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 font-light">
-                            <span id="typing-text"
-                                class="cursor-blink font-medium text-slate-800 dark:text-slate-200"></span>
+                            <span id="typing-text" class="cursor-blink font-medium text-slate-800 dark:text-slate-200"></span>
                         </p>
                     </div>
 
                     <!-- 3D Profile Card -->
-                    <div class="gsap-hero-reveal mb-12 relative inline-block profile-container group" data-tilt
-                        data-tilt-glare data-tilt-max-glare="0.3" data-tilt-scale="1.05">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse">
-                        </div>
-                        <div
-                            class="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-2 bg-white/30 dark:bg-white/10 backdrop-blur-md border border-white/50 shadow-2xl overflow-hidden">
+                    <div class="gsap-hero-reveal mb-12 relative inline-block profile-container group" data-tilt data-tilt-glare data-tilt-max-glare="0.3" data-tilt-scale="1.05">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse"></div>
+                        <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-2 bg-white/30 dark:bg-white/10 backdrop-blur-md border border-white/50 shadow-2xl overflow-hidden">
                             <!-- Fallback image used if the specific Cloudinary link fails -->
-                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/WhatsApp_Image_2025-11-07_at_14.15.07_ca236187_yxh4ak.jpg"
-                                alt="Karthik Nimmanagoti" class="w-full h-full object-cover rounded-full"
-                                loading="eager" onerror="this.src='https://placehold.co/400x400?text=KN'">
+                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/WhatsApp_Image_2025-11-07_at_14.15.07_ca236187_yxh4ak.jpg" alt="Karthik Nimmanagoti" class="w-full h-full object-cover rounded-full" loading="eager" onerror="this.src='https://placehold.co/400x400?text=KN'">
                         </div>
                     </div>
 
                     <div class="gsap-hero-reveal flex flex-col sm:flex-row gap-5 justify-center items-center">
-
+                        <a href="#impact" class="magnetic w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-full font-bold text-white hover:shadow-glow-primary transition-all shadow-lg flex items-center justify-center gap-2 group">
+                            Explore Work <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform"></i>
+                        </a>
                     </div>
                 </div>
             </header>
 
             <!-- Impact Statistics -->
-            <section id="impact-stats"
-                class="relative z-10 py-20 border-y border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
+            <section id="impact-stats" class="relative z-10 py-20 border-y border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
                 <div class="max-w-7xl mx-auto px-6">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center" id="counter-section">
                         <div class="gsap-fade-up group">
-                            <h3
-                                class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
+                            <h3 class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
                                 <span class="counter" data-target="2000">0</span>+
                             </h3>
-                            <p
-                                class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-                                Students Impacted</p>
+                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Students Impacted</p>
                         </div>
                         <div class="gsap-fade-up group">
-                            <h3
-                                class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-secondary transition-colors">
+                            <h3 class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-secondary transition-colors">
                                 <span class="counter" data-target="200">0</span>+
                             </h3>
-                            <p
-                                class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-                                LinkedIn Mentorships</p>
+                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">LinkedIn Mentorships</p>
                         </div>
                         <div class="gsap-fade-up group">
-                            <h3
-                                class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-accent transition-colors">
+                            <h3 class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-accent transition-colors">
                                 <span class="counter" data-target="10">0</span>+
                             </h3>
-                            <p
-                                class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-                                Events Led</p>
+                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Events Led</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Services Section -->
-            <section id="services" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="text-center mb-16 gsap-fade-up">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-                            Services</h2>
-                        <p class="text-slate-600 dark:text-slate-400">How I can add value to your organization.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="glass p-8 rounded-3xl hover:border-blue-500/50 transition-colors gsap-fade-up group"
-                            data-tilt>
-                            <div
-                                class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-bullhorn"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Social Media Strategy</h3>
-                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                Managing brand presence, content scheduling (Linkedify), and engagement strategies to
-                                boost organic growth.
-                            </p>
+            <!-- About Section -->
+            <section id="about" class="relative z-10 py-32">
+                <!-- Skills Section (Updated) -->
+                <section id="skills" class="relative z-10 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Skills & Tools</h2>
+                            <p class="text-slate-600 dark:text-slate-400">My technical and leadership arsenal.</p>
                         </div>
 
-                        <div class="glass p-8 rounded-3xl hover:border-orange-500/50 transition-colors gsap-fade-up group"
-                            data-tilt>
-                            <div
-                                class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Event Architecture</h3>
-                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                End-to-end event planning, from logistics and security to guest management and on-ground
-                                execution.
-                            </p>
-                        </div>
-
-                        <div class="glass p-8 rounded-3xl hover:border-green-500/50 transition-colors gsap-fade-up group"
-                            data-tilt>
-                            <div
-                                class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Community Building</h3>
-                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                Fostering student communities, organizing hackathons, and bridging the gap between
-                                students and industry.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- GROWTH & ACADEMY SECTION (NEW) -->
-            <section id="growth" class="relative z-10 py-24">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="text-center mb-16 gsap-fade-up">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-                            Academy & Mentorship</h2>
-                        <p class="text-slate-600 dark:text-slate-400">Gated resources and 1:1 guidance to accelerate
-                            your growth.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <!-- Micro Course -->
-                        <div class="glass p-8 rounded-3xl relative overflow-hidden group hover:border-accent/50 transition-colors gsap-fade-up"
-                            data-tilt>
-                            <div
-                                class="absolute top-0 right-0 bg-accent text-white text-xs font-bold px-4 py-1 rounded-bl-xl">
-                                POPULAR</div>
-                            <div class="mb-6">
-                                <span class="text-4xl font-display font-bold text-slate-900 dark:text-white">₹499</span>
-                                <span class="text-slate-500 text-sm">/ course</span>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">The Event Blueprint</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                                A 3-module micro-course on organizing college hackathons. Includes templates for
-                                sponsorship emails and logistics checklists.
-                            </p>
-                            <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 mb-8">
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i>
-                                    Sponsorship Templates</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i>
-                                    Logistics Tracker</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i>
-                                    Certificate of Completion</li>
-                            </ul>
-                            <button
-                                class="w-full py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:scale-105 transition-transform">Enroll
-                                Now</button>
-                        </div>
-
-                        <!-- 1:1 Mentorship -->
-                        <div class="glass p-8 rounded-3xl relative overflow-hidden group hover:border-primary/50 transition-colors gsap-fade-up"
-                            data-tilt>
-                            <div class="mb-6">
-                                <span class="text-4xl font-display font-bold text-slate-900 dark:text-white">₹999</span>
-                                <span class="text-slate-500 text-sm">/ 45 mins</span>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">1:1 Strategy Call</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                                Personalized guidance on LinkedIn personal branding or student community building. Get
-                                actionable feedback on your profile.
-                            </p>
-                            <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 mb-8">
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Profile
-                                    Audit</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Content
-                                    Strategy Map</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i>
-                                    Recording Provided</li>
-                            </ul>
-                            <button
-                                class="w-full py-3 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Book
-                                Slot</button>
-                        </div>
-
-                        <!-- Inner Circle (Cohort) -->
-                        <div class="glass p-8 rounded-3xl relative overflow-hidden group hover:border-green-500/50 transition-colors gsap-fade-up"
-                            data-tilt>
-                            <div class="mb-6">
-                                <span class="text-4xl font-display font-bold text-slate-900 dark:text-white">FREE</span>
-                                <span class="text-slate-500 text-sm">/ lifetime</span>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white">The Inner Circle</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                                Join the exclusive WhatsApp cohort for Peerancheru student leaders. Get early access to
-                                hackathon updates and volunteer roles.
-                            </p>
-                            <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2 mb-8">
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Event
-                                    Updates</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i>
-                                    Networking Ops</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-check text-green-500"></i> Weekly
-                                    Tips</li>
-                            </ul>
-                            <button
-                                class="w-full py-3 rounded-xl bg-green-600 text-white font-bold hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
-                                <i class="fab fa-whatsapp"></i> Join Cohort
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Highlights / Impact -->
-            <section id="impact" class="relative z-10 py-24">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="text-center mb-16 gsap-fade-up">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-                            Impact & Collaborations</h2>
-                        <p class="text-slate-600 dark:text-slate-400">Connecting students with industry leaders.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Card 1 -->
-                        <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up"
-                            onclick="openModal('ishan')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
-                            <div class="h-56 overflow-hidden relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.22.34_AM_vm6hrl.jpg"
-                                    onerror="this.src='https://placehold.co/600x400?text=Ishan+Sharma'"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    loading="lazy">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
-                                </div>
-                                <div
-                                    class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                    <i class="fas fa-arrow-up-right-from-square text-white"></i>
-                                </div>
-                            </div>
-                            <div class="p-8">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="w-2 h-2 rounded-full bg-primary"></span>
-                                    <span class="text-xs font-bold text-primary uppercase tracking-widest">Guest
-                                        Session</span>
-                                </div>
-                                <h3
-                                    class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
-                                    Ishan Sharma</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">Hosted renowned
-                                    creator Ishan Sharma for an electrifying session inspiring hundreds.</p>
-                                <div class="flex gap-4">
-                                    <a href="https://www.linkedin.com/in/ishansharma7390/" target="_blank"
-                                        onclick="event.stopPropagation()"
-                                        class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i
-                                            class="fab fa-linkedin"></i></a>
-                                    <a href="https://www.instagram.com/ishansharma7390/" target="_blank"
-                                        onclick="event.stopPropagation()"
-                                        class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i
-                                            class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2 -->
-                        <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up"
-                            onclick="openModal('madhu')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
-                            <div class="h-56 overflow-hidden relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179680/WhatsApp_Image_2025-11-15_at_9.29.46_AM_ornq12.jpg"
-                                    onerror="this.src='https://placehold.co/600x400?text=Workshop'"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    loading="lazy">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
-                                </div>
-                            </div>
-                            <div class="p-8">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="w-2 h-2 rounded-full bg-secondary"></span>
-                                    <span
-                                        class="text-xs font-bold text-secondary uppercase tracking-widest">Workshop</span>
-                                </div>
-                                <h3
-                                    class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-secondary transition-colors">
-                                    Madhu Kiran</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">Curated "Learn.
-                                    Create. Influence." featuring top creator Madhu Kiran on content strategy.</p>
-                                <div class="flex gap-4">
-                                    <a href="https://www.linkedin.com/in/madhu-kiran-guntur-54036226b/?originalSubdomain=in"
-                                        target="_blank" onclick="event.stopPropagation()"
-                                        class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i
-                                            class="fab fa-linkedin"></i></a>
-                                    <a href="https://www.instagram.com/thelazylearning/" target="_blank"
-                                        onclick="event.stopPropagation()"
-                                        class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i
-                                            class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up"
-                            onclick="openModal('sid')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
-                            <div class="h-56 overflow-hidden relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.24.22_AM_njlqzg.jpg"
-                                    onerror="this.src='https://placehold.co/600x400?text=Podcast'"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    loading="lazy">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
-                                </div>
-                            </div>
-                            <div class="p-8">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                                    <span
-                                        class="text-xs font-bold text-green-500 uppercase tracking-widest">Podcast</span>
-                                </div>
-                                <h3
-                                    class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-green-500 transition-colors">
-                                    Sid’s Farm CEO</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">Deep dive into
-                                    AgriTech and sustainable startups with Kishore Indukuri.</p>
-                                <div class="flex gap-4">
-                                    <a href="https://www.instagram.com/sidsfarmpure/" target="_blank"
-                                        onclick="event.stopPropagation()"
-                                        class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i
-                                            class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4 -->
-                        <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up"
-                            onclick="openModal('tharun')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
-                            <div class="h-56 overflow-hidden relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.21.22_AM_zywwfg.jpg"
-                                    onerror="this.src='https://placehold.co/600x400?text=Tharun+Speaks'"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    loading="lazy">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
-                                </div>
-                            </div>
-                            <div class="p-8">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="w-2 h-2 rounded-full bg-primary"></span>
-                                    <span class="text-xs font-bold text-primary uppercase tracking-widest">Guest
-                                        Session</span>
-                                </div>
-                                <h3
-                                    class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
-                                    Tharun Speaks</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">Inspiring
-                                    dialogue on personal branding and storytelling with Tharun Naik.</p>
-                                <div class="flex gap-4">
-                                    <a href="https://www.youtube.com/@TharunSpeaks" target="_blank"
-                                        onclick="event.stopPropagation()"
-                                        class="text-slate-400 hover:text-red-600 transition-colors text-xl relative z-10"><i
-                                            class="fab fa-youtube"></i></a>
-                                    <a href="https://www.linkedin.com/in/tharunnaik/" target="_blank"
-                                        onclick="event.stopPropagation()"
-                                        class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i
-                                            class="fab fa-linkedin"></i></a>
-                                    <a href="https://www.instagram.com/tharunnaik.0/" target="_blank"
-                                        onclick="event.stopPropagation()"
-                                        class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i
-                                            class="fab fa-instagram"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up"
-                            onclick="openModal('hack')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
-                            <div class="h-56 overflow-hidden relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061209/Screenshot_2025-11-25_142832_gv8kdz.png"
-                                    onerror="this.src='https://placehold.co/600x400?text=Hacking'"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    loading="lazy">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
-                                </div>
-                            </div>
-                            <div class="p-8">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
-                                    <span
-                                        class="text-xs font-bold text-red-500 uppercase tracking-widest">Workshop</span>
-                                </div>
-                                <h3
-                                    class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-red-500 transition-colors">
-                                    Ethical Hacking</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">Cybersecurity
-                                    workshop bridging creativity and responsibility with Sai Krishna.</p>
-                            </div>
-                        </div>
-
-                        <!-- Card 6 -->
-                        <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up"
-                            onclick="openModal('drone')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
-                            <div class="h-56 overflow-hidden relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061567/Screenshot_2025-11-25_143521_fuc1bn.png"
-                                    onerror="this.src='https://placehold.co/600x400?text=Drone+Club'"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    loading="lazy">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity">
-                                </div>
-                            </div>
-                            <div class="p-8">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-                                    <span
-                                        class="text-xs font-bold text-blue-600 uppercase tracking-widest">Collaboration</span>
-                                </div>
-                                <h3
-                                    class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">
-                                    Drone Club</h3>
-                                <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">Professional-grade
-                                    media coverage of drone technology workshops.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Projects -->
-            <section id="projects" class="relative z-10 py-24">
-                <div class="max-w-7xl mx-auto px-6">
-                    <h2
-                        class="font-display text-4xl md:text-5xl font-bold text-center mb-16 text-slate-900 dark:text-white gsap-fade-up">
-                        Projects</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                        <!-- Project 1: Linkedify -->
-                        <div class="glass p-8 rounded-3xl text-center hover:border-blue-500/50 transition-colors gsap-fade-up relative"
-                            data-tilt data-tilt-scale="1.02">
-                            <div class="absolute top-6 right-6">
-                                <span
-                                    class="bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-200 dark:border-blue-800">SMM</span>
-                            </div>
-                            <div
-                                class="w-20 h-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner group">
-                                <i
-                                    class="fab fa-linkedin-in text-4xl text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Linkedify</h3>
-                            <p class="text-xs font-bold text-blue-500 mb-4 uppercase tracking-wide">Professional
-                                LinkedIn Automation</p>
-                            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
-                                Transform Your LinkedIn Presence. Streamline content creation with AI-powered posts,
-                                smart scheduling, and powerful analytics. Elevate your professional brand effortlessly.
-                            </p>
-                            <a href="https://linkedify.app/" target="_blank"
-                                class="inline-block px-6 py-2.5 rounded-full bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors shadow-lg hover:shadow-blue-500/30">View
-                                Project</a>
-                        </div>
-
-                        <!-- Project 2: AI Profile Optimizer -->
-                        <div class="glass p-8 rounded-3xl text-center hover:border-purple-500/50 transition-colors gsap-fade-up"
-                            data-tilt data-tilt-scale="1.02">
-                            <div
-                                class="w-20 h-20 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner">
-                                <i class="fa-solid fa-robot text-4xl text-purple-600 dark:text-purple-400"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">AI Profile Optimizer</h3>
-                            <p class="text-xs font-bold text-purple-500 mb-4 uppercase tracking-wide">Instagram Growth
-                                Tool</p>
-                            <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed">Students get
-                                instant Instagram profile suggestions to maximize reach and engagement using advanced AI
-                                algorithms.</p>
-                            <a href="https://aiprofile.niat.tech" target="_blank"
-                                class="inline-block px-6 py-2.5 rounded-full bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 transition-colors shadow-lg hover:shadow-purple-500/30">View
-                                Project</a>
-                        </div>
-
-                        <!-- Project 3: BASE44 Hackathon Platform -->
-                        <div class="glass p-8 rounded-3xl text-center hover:border-green-500/50 transition-colors gsap-fade-up relative"
-                            data-tilt data-tilt-scale="1.02">
-                            <div class="absolute top-6 right-6">
-                                <span
-                                    class="bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-green-200 dark:border-green-800">Web
-                                    App</span>
-                            </div>
-                            <div
-                                class="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner group">
-                                <i
-                                    class="fas fa-server text-4xl text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform"></i>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2 text-slate-900 dark:text-white leading-tight">BASE44
-                                Hackathon</h3>
-                            <p class="text-xs font-bold text-green-500 mb-4 uppercase tracking-wide">Lead Organizer &
-                                Architect</p>
-                            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed text-left">
-                                Built the official platform (base44.niat.tech) for 1,665+ participants. Managed
-                                registrations, check-ins, and live updates, coordinating tech flow with on-ground
-                                logistics.
-                            </p>
-                            <a href="https://base44results.niat.tech/" target="_blank"
-                                class="inline-block px-6 py-2.5 rounded-full bg-green-600 text-white font-bold text-sm hover:bg-green-700 transition-colors shadow-lg hover:shadow-green-500/30">View
-                                Project</a>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            <!-- Gallery Section -->
-            <section id="gallery" class="relative z-10 py-24">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="text-center mb-16 gsap-fade-up">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-                            Moments in Action</h2>
-                        <p class="text-slate-600 dark:text-slate-400">Capturing the energy of events and networking.</p>
-                    </div>
-
-                    <div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-                        <!-- Image 1 -->
-                        <div
-                            class="glass p-2 rounded-2xl break-inside-avoid hover:scale-[1.02] transition-transform duration-300 gsap-fade-up">
-                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378248/Screenshot_2025-12-22_100305_ay8p5z.png"
-                                class="w-full rounded-xl" alt="Gallery Moment 1">
-                        </div>
-                        <!-- Image 2 -->
-                        <div
-                            class="glass p-2 rounded-2xl break-inside-avoid hover:scale-[1.02] transition-transform duration-300 gsap-fade-up">
-                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378248/Screenshot_2025-12-22_100242_ymx1y8.png"
-                                class="w-full rounded-xl" alt="Gallery Moment 2">
-                        </div>
-                        <!-- Image 3 -->
-                        <div
-                            class="glass p-2 rounded-2xl break-inside-avoid hover:scale-[1.02] transition-transform duration-300 gsap-fade-up">
-                            <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378338/Screenshot_2025-12-22_100847_vrhlpy.png"
-                                class="w-full rounded-xl" alt="Gallery Moment 3">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Video Highlights Section -->
-            <section id="videos" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="text-center mb-16 gsap-fade-up">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-                            Experience the Hype</h2>
-                        <p class="text-slate-600 dark:text-slate-400">Watch the energy of our biggest summits unfold.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Video 1 -->
-                        <div class="glass p-4 rounded-3xl gsap-fade-up group cursor-pointer" data-tilt
-                            data-tilt-scale="1.02">
-                            <div
-                                class="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg bg-black group-hover:shadow-glow-primary transition-all">
-                                <!-- Placeholder for YouTube/Video using existing HexaVerse image -->
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763181948/IMG-20250527-WA0031_dvjfhr.jpg"
-                                    class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity transform group-hover:scale-105 duration-700"
-                                    alt="HexaVerse Video">
-                                <div
-                                    class="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <div
-                                        class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/50 shadow-2xl relative z-10 group-hover:bg-red-600 group-hover:border-red-600 transition-colors">
-                                        <i class="fas fa-play text-white text-2xl ml-1"></i>
-                                    </div>
-                                    <!-- Ripple effect -->
-                                    <div class="absolute w-20 h-20 bg-white/30 rounded-full animate-ping"></div>
-                                </div>
-                                <div class="absolute bottom-6 left-6 z-10">
-                                    <span
-                                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full uppercase tracking-wider mb-3 inline-block">Aftermovie</span>
-                                    <h3 class="text-white font-display font-bold text-2xl">HexaVerse 2025</h3>
-                                </div>
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Video 2 -->
-                        <div class="glass p-4 rounded-3xl gsap-fade-up group cursor-pointer" data-tilt
-                            data-tilt-scale="1.02">
-                            <div
-                                class="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg bg-black group-hover:shadow-glow-accent transition-all">
-                                <!-- Placeholder for YouTube/Video using existing HES image -->
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763180175/WhatsApp_Image_2025-11-15_at_9.45.07_AM_uwaqkr.jpg"
-                                    class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity transform group-hover:scale-105 duration-700"
-                                    alt="HES Video">
-                                <div
-                                    class="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                    <div
-                                        class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/50 shadow-2xl relative z-10 group-hover:bg-blue-600 group-hover:border-blue-600 transition-colors">
-                                        <i class="fas fa-play text-white text-2xl ml-1"></i>
-                                    </div>
-                                    <!-- Ripple effect -->
-                                    <div class="absolute w-20 h-20 bg-white/30 rounded-full animate-ping"></div>
-                                </div>
-                                <div class="absolute bottom-6 left-6 z-10">
-                                    <span
-                                        class="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full uppercase tracking-wider mb-3 inline-block">Official
-                                        Recap</span>
-                                    <h3 class="text-white font-display font-bold text-2xl">HES Summit 2025</h3>
-                                </div>
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Certifications -->
-            <section id="certifications" class="relative z-10 py-24">
-                <div class="max-w-7xl mx-auto px-6">
-                    <h2
-                        class="font-display text-4xl font-bold text-center mb-16 text-slate-900 dark:text-white gsap-fade-up">
-                        Licenses & Certifications</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                        <!-- Cert 1: TCS -->
-                        <a href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764673068/Screenshot_2025-12-02_162733_h53itk.png"
-                            target="_blank"
-                            class="glass p-6 rounded-2xl gsap-fade-up group hover:border-primary/50 transition-colors block"
-                            data-tilt>
-                            <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764673068/Screenshot_2025-12-02_162733_h53itk.png"
-                                    onerror="this.src='https://placehold.co/600x400?text=TCS'" alt="TCS iON"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors">
-                                </div>
-                                <div
-                                    class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                    <i class="fas fa-external-link-alt text-white"></i>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">TCS iON
-                                    Career Edge</h3>
-                                <span
-                                    class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Dec
-                                    2025</span>
-                            </div>
-                            <p class="text-sm font-semibold text-primary mb-1">Tata Consultancy Services</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">IT Service Management & Tools Primer.
-                            </p>
-                        </a>
-
-                        <!-- Cert 2: AWS -->
-                        <a href="https://placehold.co/600x400/fbbf24/000000?text=AWS+ML" target="_blank"
-                            class="glass p-6 rounded-2xl gsap-fade-up group hover:border-accent/50 transition-colors block"
-                            data-tilt>
-                            <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
-                                <img src="https://placehold.co/600x400/fbbf24/000000?text=AWS+ML" alt="AWS ML"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                <div
-                                    class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                    <i class="fas fa-external-link-alt text-white"></i>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">AWS Certified
-                                    ML</h3>
-                                <span
-                                    class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Oct
-                                    2025</span>
-                            </div>
-                            <p class="text-sm font-semibold text-accent mb-1">Amazon Web Services</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Specialty in Artificial Intelligence
-                                (AI) & Machine Learning.</p>
-                        </a>
-
-                        <!-- Cert 3: Gen AI -->
-                        <a href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1735811083/Screenshot_2025-01-02_150942_dlzbyf.png"
-                            target="_blank"
-                            class="glass p-6 rounded-2xl gsap-fade-up group hover:border-blue-400/50 transition-colors block"
-                            data-tilt>
-                            <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1735811083/Screenshot_2025-01-02_150942_dlzbyf.png"
-                                    onerror="this.src='https://placehold.co/600x400?text=GenAI'" alt="Generative AI"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                <div
-                                    class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                    <i class="fas fa-external-link-alt text-white"></i>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Generative AI
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                            <!-- Technical & SMM -->
+                            <div class="glass p-8 rounded-3xl gsap-fade-up" data-tilt data-tilt-scale="1.01">
+                                <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-3">
+                                    <i class="fas fa-laptop-code text-primary"></i> Technical & Analysis
                                 </h3>
-                                <span
-                                    class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Jan
-                                    2025</span>
-                            </div>
-                            <p class="text-sm font-semibold text-blue-400 mb-1">Simplilearn</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Comprehensive introduction to
-                                Generative AI technologies.</p>
-                        </a>
-
-                        <!-- Cert 4: MSME -->
-                        <a href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1736232194/Picsart_25-01-06_23-20-36-401_b0ceud.jpg"
-                            target="_blank"
-                            class="glass p-6 rounded-2xl gsap-fade-up group hover:border-orange-500/50 transition-colors block"
-                            data-tilt>
-                            <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1736232194/Picsart_25-01-06_23-20-36-401_b0ceud.jpg"
-                                    onerror="this.src='https://placehold.co/600x400?text=MSME'" alt="MSME"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                <div
-                                    class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                    <i class="fas fa-external-link-alt text-white"></i>
+                                <div class="flex flex-wrap gap-3">
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Social Media Performance</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Growth Analyst</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Digital Insights</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Audits & Reporting</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Static Web Development</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">HTML/CSS/JS</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Python & SQL</span>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">MSME &
-                                    Startup India</h3>
-                                <span
-                                    class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Jan
-                                    2025</span>
-                            </div>
-                            <p class="text-sm font-semibold text-orange-500 mb-1">Govt. of India</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Entrepreneurship, innovation, and
-                                skill development program.</p>
-                        </a>
 
-                        <!-- Cert 5: HubSpot -->
-                        <a href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1735620143/2809d81dd69242fbab985eacccec3c47_ebzz3k.png"
-                            target="_blank"
-                            class="glass p-6 rounded-2xl gsap-fade-up group hover:border-red-500/50 transition-colors block"
-                            data-tilt>
-                            <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
-                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1735620143/2809d81dd69242fbab985eacccec3c47_ebzz3k.png"
-                                    onerror="this.src='https://placehold.co/600x400?text=HubSpot'" alt="HubSpot"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                <div
-                                    class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                    <i class="fas fa-external-link-alt text-white"></i>
+                            <!-- Leadership & Creative -->
+                            <div class="glass p-8 rounded-3xl gsap-fade-up" data-tilt data-tilt-scale="1.01">
+                                <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-3">
+                                    <i class="fas fa-users-cog text-accent"></i> Leadership & Creative
+                                </h3>
+                                <div class="flex flex-wrap gap-3">
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">President—Influencer Club</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Storytelling</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">System Building</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Opportunity Creation</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Event Architecture</span>
+                                    <span class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium text-sm border border-slate-200 dark:border-slate-600">Team Management</span>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Digital
-                                    Marketing</h3>
-                                <span
-                                    class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Dec
-                                    2024</span>
-                            </div>
-                            <p class="text-sm font-semibold text-red-500 mb-1">HubSpot Academy</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Inbound marketing strategies and
-                                digital campaign management.</p>
-                        </a>
+                        </div>
 
-                        <!-- Cert 6: HackerRank -->
-                        <a href="https://placehold.co/600x400/22c55e/ffffff?text=HackerRank" target="_blank"
-                            class="glass p-6 rounded-2xl gsap-fade-up group hover:border-green-500/50 transition-colors block"
-                            data-tilt>
-                            <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
-                                <img src="https://placehold.co/600x400/22c55e/ffffff?text=HackerRank" alt="HackerRank"
-                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                <div
-                                    class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                    <i class="fas fa-external-link-alt text-white"></i>
+                        <!-- Tools Marquee (NEW) -->
+                        <div class="marquee-container w-full py-8 border-y border-slate-200 dark:border-slate-800 bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm">
+                            <div class="marquee-content text-4xl text-slate-400 dark:text-slate-600 flex gap-16 items-center">
+                                <!-- Duplicate items for seamless loop -->
+                                <i class="fab fa-python hover:text-blue-500 transition-colors"></i>
+                                <i class="fab fa-js hover:text-yellow-400 transition-colors"></i>
+                                <i class="fab fa-html5 hover:text-orange-500 transition-colors"></i>
+                                <i class="fab fa-css3-alt hover:text-blue-400 transition-colors"></i>
+                                <i class="fab fa-linkedin hover:text-blue-700 transition-colors"></i>
+                                <i class="fab fa-instagram hover:text-pink-500 transition-colors"></i>
+                                <i class="fas fa-database hover:text-green-500 transition-colors"></i>
+                                <i class="fab fa-figma hover:text-purple-500 transition-colors"></i>
+                                <i class="fas fa-bullhorn hover:text-red-500 transition-colors"></i>
+                                <!-- Repeat -->
+                                <i class="fab fa-python hover:text-blue-500 transition-colors"></i>
+                                <i class="fab fa-js hover:text-yellow-400 transition-colors"></i>
+                                <i class="fab fa-html5 hover:text-orange-500 transition-colors"></i>
+                                <i class="fab fa-css3-alt hover:text-blue-400 transition-colors"></i>
+                                <i class="fab fa-linkedin hover:text-blue-700 transition-colors"></i>
+                                <i class="fab fa-instagram hover:text-pink-500 transition-colors"></i>
+                                <i class="fas fa-database hover:text-green-500 transition-colors"></i>
+                                <i class="fab fa-figma hover:text-purple-500 transition-colors"></i>
+                                <i class="fas fa-bullhorn hover:text-red-500 transition-colors"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Process Section (NEW - How I Do The Work) -->
+                <section id="process" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">How I Work</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Crafting stories, systems, and opportunities.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="glass p-8 rounded-3xl gsap-fade-up group relative overflow-hidden" data-tilt>
+                                <div class="absolute -right-4 -top-4 text-9xl font-display font-bold text-slate-100 dark:text-slate-800 opacity-50 z-0">01</div>
+                                <div class="relative z-10">
+                                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-blue-600 dark:text-blue-400">
+                                        <i class="fas fa-search-dollar"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Audit & Insights</h3>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                        I start with deep Digital Audits. Analyzing performance metrics, identifying gaps, and generating actionable reports to set a solid foundation.
+                                    </p>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Skill
-                                    Certificate</h3>
-                                <span
-                                    class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Nov
-                                    2024</span>
+
+                            <div class="glass p-8 rounded-3xl gsap-fade-up group relative overflow-hidden" data-tilt>
+                                <div class="absolute -right-4 -top-4 text-9xl font-display font-bold text-slate-100 dark:text-slate-800 opacity-50 z-0">02</div>
+                                <div class="relative z-10">
+                                    <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-purple-600 dark:text-purple-400">
+                                        <i class="fas fa-layer-group"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Craft & Build</h3>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                        Whether it's Static Web Development or Content Strategy, I craft compelling stories and build scalable systems that resonate with the audience.
+                                    </p>
+                                </div>
                             </div>
-                            <p class="text-sm font-semibold text-green-500 mb-1">HackerRank</p>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Verified problem solving and technical
-                                proficiency.</p>
-                        </a>
+
+                            <div class="glass p-8 rounded-3xl gsap-fade-up group relative overflow-hidden" data-tilt>
+                                <div class="absolute -right-4 -top-4 text-9xl font-display font-bold text-slate-100 dark:text-slate-800 opacity-50 z-0">03</div>
+                                <div class="relative z-10">
+                                    <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-green-600 dark:text-green-400">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Growth & Reporting</h3>
+                                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                        I focus on Social Media Performance. Tracking results, optimizing strategies, and creating opportunities for exponential growth.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Services Section (NEW) -->
+                <section id="services" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Services</h2>
+                            <p class="text-slate-600 dark:text-slate-400">How I can add value to your organization.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="glass p-8 rounded-3xl hover:border-blue-500/50 transition-colors gsap-fade-up group" data-tilt>
+                                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-bullhorn"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Social Media Strategy</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    Managing brand presence, content scheduling (Linkedify), and engagement strategies to boost organic growth.
+                                </p>
+                            </div>
+
+                            <div class="glass p-8 rounded-3xl hover:border-orange-500/50 transition-colors gsap-fade-up group" data-tilt>
+                                <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Event Architecture</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    End-to-end event planning, from logistics and security to guest management and on-ground execution.
+                                </p>
+                            </div>
+
+                            <div class="glass p-8 rounded-3xl hover:border-green-500/50 transition-colors gsap-fade-up group" data-tilt>
+                                <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Community Building</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                    Fostering student communities, organizing hackathons, and bridging the gap between students and industry.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Performance Audit Banner (NEW) -->
+                        <div class="mt-12 gsap-fade-up">
+                            <div class="glass p-8 rounded-3xl relative overflow-hidden group" data-tilt>
+                                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                                    <div>
+                                        <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2 flex items-center justify-center md:justify-start gap-2">
+                                            <i class="fas fa-chart-pie text-primary"></i> Performance Audit
+                                        </h3>
+                                        <p class="text-slate-600 dark:text-slate-300 max-w-2xl text-lg leading-relaxed">
+                                            Curious how your social media is really performing? I audit pages, decode insights, and unlock growth.
+                                        </p>
+                                    </div>
+                                    <a href="https://auditpro.niat.tech" target="_blank" class="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold hover:scale-105 transition-transform shadow-lg whitespace-nowrap flex items-center gap-2">
+                                        <span>Get Yours Reviewed</span>
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Testimonials Section -->
-            <section id="testimonials" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="text-center mb-16 gsap-fade-up">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-                            Words of Trust</h2>
-                        <p class="text-slate-600 dark:text-slate-400">What people say about working with me.</p>
+                <!-- Highlights / Impact -->
+                <section id="impact" class="relative z-10 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Impact & Collaborations</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Connecting students with industry leaders.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Card 1 -->
+                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('ishan')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                                <div class="h-56 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.22.34_AM_vm6hrl.jpg" onerror="this.src='https://placehold.co/600x400?text=Ishan+Sharma'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                        <i class="fas fa-arrow-up-right-from-square text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="p-8">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                                        <span class="text-xs font-bold text-primary uppercase tracking-widest">Guest Session</span>
+                                    </div>
+                                    <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">Ishan Sharma</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">Hosted renowned creator Ishan Sharma for an electrifying session inspiring hundreds.</p>
+                                    <div class="flex gap-4">
+                                        <a href="https://www.linkedin.com/in/ishansharma7390/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i class="fab fa-linkedin"></i></a>
+                                        <a href="https://www.instagram.com/ishansharma7390/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('madhu')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                                <div class="h-56 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179680/WhatsApp_Image_2025-11-15_at_9.29.46_AM_ornq12.jpg" onerror="this.src='https://placehold.co/600x400?text=Workshop'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                </div>
+                                <div class="p-8">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                                        <span class="text-xs font-bold text-secondary uppercase tracking-widest">Workshop</span>
+                                    </div>
+                                    <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-secondary transition-colors">Madhu Kiran</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">Curated "Learn. Create. Influence." featuring top creator Madhu Kiran on content strategy.</p>
+                                    <div class="flex gap-4">
+                                        <a href="https://www.linkedin.com/in/madhu-kiran-guntur-54036226b/?originalSubdomain=in" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i class="fab fa-linkedin"></i></a>
+                                        <a href="https://www.instagram.com/thelazylearning/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('sid')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                                <div class="h-56 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.24.22_AM_njlqzg.jpg" onerror="this.src='https://placehold.co/600x400?text=Podcast'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                </div>
+                                <div class="p-8">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                        <span class="text-xs font-bold text-green-500 uppercase tracking-widest">Podcast</span>
+                                    </div>
+                                    <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-green-500 transition-colors">Sid’s Farm CEO</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">Deep dive into AgriTech and sustainable startups with Kishore Indukuri.</p>
+                                    <div class="flex gap-4">
+                                        <a href="https://www.instagram.com/sidsfarmpure/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('tharun')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                                <div class="h-56 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.21.22_AM_zywwfg.jpg" onerror="this.src='https://placehold.co/600x400?text=Tharun+Speaks'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                </div>
+                                <div class="p-8">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <span class="w-2 h-2 rounded-full bg-primary"></span>
+                                        <span class="text-xs font-bold text-primary uppercase tracking-widest">Guest Session</span>
+                                    </div>
+                                    <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">Tharun Speaks</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">Inspiring dialogue on personal branding and storytelling with Tharun Naik.</p>
+                                    <div class="flex gap-4">
+                                        <a href="https://www.youtube.com/@TharunSpeaks" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-red-600 transition-colors text-xl relative z-10"><i class="fab fa-youtube"></i></a>
+                                        <a href="https://www.linkedin.com/in/tharunnaik/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i class="fab fa-linkedin"></i></a>
+                                        <a href="https://www.instagram.com/tharunnaik.0/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 5 -->
+                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('hack')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                                <div class="h-56 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061209/Screenshot_2025-11-25_142832_gv8kdz.png" onerror="this.src='https://placehold.co/600x400?text=Hacking'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                </div>
+                                <div class="p-8">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                                        <span class="text-xs font-bold text-red-500 uppercase tracking-widest">Workshop</span>
+                                    </div>
+                                    <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-red-500 transition-colors">Ethical Hacking</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">Cybersecurity workshop bridging creativity and responsibility with Sai Krishna.</p>
+                                </div>
+                            </div>
+
+                            <!-- Card 6 -->
+                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('drone')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                                <div class="h-56 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061567/Screenshot_2025-11-25_143521_fuc1bn.png" onerror="this.src='https://placehold.co/600x400?text=Drone+Club'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                </div>
+                                <div class="p-8">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                                        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">Collaboration</span>
+                                    </div>
+                                    <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">Drone Club</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">Professional-grade media coverage of drone technology workshops.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </section>
 
-                    <div class="max-w-3xl mx-auto mb-20">
-                        <!-- Testimonial 1: Sudheer -->
-                        <div class="glass p-8 rounded-3xl relative gsap-fade-up" data-tilt data-tilt-scale="1.01">
-                            <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-8 left-8"></i>
-                            <p
-                                class="text-slate-600 dark:text-slate-300 mb-6 italic relative z-10 pt-6 text-sm leading-relaxed">
-                                "I had the opportunity to mentor Karthik closely and was impressed by his commitment and
-                                positive approach to challenges. He takes feedback seriously, asks thoughtful questions,
-                                and applies insights effectively. Karthik also played an active role in promoting one of
-                                our ongoing products as a social media manager, contributing to content planning and
-                                outreach efforts, which reflects his strong understanding of product positioning and
-                                audience engagement."
+                <!-- Connections -->
+                <section id="connections" class="relative z-10 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Connections</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Networking with industry leaders.</p>
+                        </div>
+
+                        <div class="flex justify-center flex-wrap gap-8">
+
+                            <!-- Connection 1: Rahul Attuluri -->
+                            <div class="glass p-4 rounded-3xl hover:border-primary/50 transition-colors gsap-fade-up group flex flex-col w-full md:w-[350px]" data-tilt data-tilt-scale="1.02">
+                                <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766124714/WhatsApp_Image_2025-12-11_at_6.38.35_PM_tj3eqb.jpg" alt="Rahul Attuluri" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                </div>
+                                <div class="px-2 text-center">
+                                    <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Rahul Attuluri</h3>
+                                    <p class="text-xs font-bold text-primary uppercase tracking-wide mb-3">Co-founder & CEO at NxtWave</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                        Revolutionizing tech education at scale | WEF Technology Pioneer 2024 | Raised $33M in Series-A
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Connection 2: Mohammed Farhaad Yenepoya -->
+                            <div class="glass p-4 rounded-3xl hover:border-secondary/50 transition-colors gsap-fade-up group flex flex-col w-full md:w-[350px]" data-tilt data-tilt-scale="1.02">
+                                <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378819/WhatsApp_Image_2025-12-10_at_2.42.37_PM_z8bi7h.jpg" alt="Mohammed Farhaad Yenepoya" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                </div>
+                                <div class="px-2 text-center">
+                                    <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Mr. Mohammed Farhaad Yenepoya</h3>
+                                    <p class="text-xs font-bold text-secondary uppercase tracking-wide mb-3">Pro Chancellor, Yenepoya University</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                        Key role in shaping future-ready campuses, driving multidisciplinary education, and building global collaborations across education & healthcare.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Event Leadership -->
+                <section id="leadership" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Event Leadership</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Organizing large-scale experiences.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <!-- Event 1: HES 2025 (Carousel) -->
+                            <div class="glass rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500 gsap-fade-up" data-tilt>
+                                <div class="h-52 overflow-hidden relative hes-carousel">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763180175/WhatsApp_Image_2025-11-15_at_9.45.07_AM_uwaqkr.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-100 z-10" alt="HES 2025 Image 1">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763183051/WhatsApp_Image_2025-11-15_at_10.33.48_AM_lqgmxs.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="HES 2025 Image 2">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763182985/WhatsApp_Image_2025-11-15_at_10.32.01_AM_1_pyrmji.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="HES 2025 Image 3">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763182979/WhatsApp_Image_2025-11-15_at_10.32.00_AM_1_ctxbi3.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="HES 2025 Image 4">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763182983/WhatsApp_Image_2025-11-15_at_10.32.00_AM_aodgx4.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="HES 2025 Image 5">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">HES 2025</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Campus POC for Hyderabad Entrepreneurship Summit. Networking with IIT/BITS leaders.</p>
+                                </div>
+                            </div>
+
+                            <!-- Event 2: HexaVerse 2025 (Carousel) -->
+                            <div class="glass rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500 gsap-fade-up" data-tilt>
+                                <div class="h-52 overflow-hidden relative hexaverse-carousel">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763181948/IMG-20250527-WA0031_dvjfhr.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-100 z-10" alt="HexaVerse 1">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763181939/IMG-20250527-WA0026_riyfdp.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="HexaVerse 2">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763181944/IMG-20250527-WA0029_efme7q.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="HexaVerse 3">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763181945/IMG-20250527-WA0030_kplb1y.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="HexaVerse 4">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">HexaVerse 2025</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Head of Security & Promotions. Managed a 10-member team for safety.</p>
+                                </div>
+                            </div>
+                            <!-- Event 3: OpenAI Hackathon (Carousel) -->
+                            <div class="glass rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500 gsap-fade-up" data-tilt>
+                                <div class="h-52 overflow-hidden relative openai-carousel">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.23.19_AM_cyqaoo.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-100 z-10" alt="OpenAI Hackathon 1">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/9b8b371407594ec8ab3e6137f7cda67d_pbwxaz.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="OpenAI Hackathon 2">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/a6021a5ab1034849a7a828a3f18c2568_dstb90.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="OpenAI Hackathon 3">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">OpenAI Hackathon</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Managed campus logistics for India’s biggest hackathon with NxtWave.</p>
+                                </div>
+                            </div>
+                            <!-- Event 4 -->
+                            <div class="glass rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500 gsap-fade-up" data-tilt>
+                                <div class="h-52 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061402/Screenshot_2025-11-25_143255_eoibgl.png" onerror="this.src='https://placehold.co/600x400?text=TS+Hackathon'" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Telangana Hackathon</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Organized state-level hackathon with BAS44, Wix Studio, and Hugging Face.</p>
+                                </div>
+                            </div>
+                            <!-- Event 5 -->
+                            <div class="glass rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500 gsap-fade-up" data-tilt>
+                                <div class="h-52 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.21.05_AM_kvtup4.jpg" onerror="this.src='https://placehold.co/600x400?text=Microsoft'" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Microsoft Series</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Expert series with Meera Kannan (Microsoft) on transforming ideas.</p>
+                                </div>
+                            </div>
+                            <!-- Event 6 -->
+                            <div class="glass rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500 gsap-fade-up" data-tilt>
+                                <div class="h-52 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.23.00_AM_uo4xp7.jpg" onerror="this.src='https://placehold.co/600x400?text=Innovators'" class="w-full h-full object-cover">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Innovator's Workshop</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Session with Revanth Gopi Konakanchi (Head of Eng, NxtWave).</p>
+                                </div>
+                            </div>
+
+                            <!-- Event 7: Blend AI Hackathon -->
+                            <div class="glass rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500 gsap-fade-up" data-tilt>
+                                <div class="h-52 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766126518/Screenshot_2025-12-19_121133_rll0yt.png" class="w-full h-full object-cover" alt="Blend AI Hackathon">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Blend AI Hackathon 2025</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Event Organizer. Managed social media, participant support, and operations for this global event.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects -->
+                <section id="projects" class="relative z-10 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-16 text-slate-900 dark:text-white gsap-fade-up">Projects</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                            <!-- Project 1: Linkedify -->
+                            <div class="glass p-8 rounded-3xl text-center hover:border-blue-500/50 transition-colors gsap-fade-up relative" data-tilt data-tilt-scale="1.02">
+                                <div class="absolute top-6 right-6">
+                                    <span class="bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-200 dark:border-blue-800">SMM</span>
+                                </div>
+                                <div class="w-20 h-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner group">
+                                    <i class="fab fa-linkedin-in text-4xl text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Linkedify</h3>
+                                <p class="text-xs font-bold text-blue-500 mb-4 uppercase tracking-wide">Professional LinkedIn Automation</p>
+                                <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
+                                    Transform Your LinkedIn Presence. Streamline content creation with AI-powered posts, smart scheduling, and powerful analytics. Elevate your professional brand effortlessly.
+                                </p>
+                                <a href="https://linkedify.app/" target="_blank" class="inline-block px-6 py-2.5 rounded-full bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors shadow-lg hover:shadow-blue-500/30">View Project</a>
+                            </div>
+
+                            <!-- Project 2: AI Profile Optimizer -->
+                            <div class="glass p-8 rounded-3xl text-center hover:border-purple-500/50 transition-colors gsap-fade-up" data-tilt data-tilt-scale="1.02">
+                                <div class="w-20 h-20 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner">
+                                    <i class="fa-solid fa-robot text-4xl text-purple-600 dark:text-purple-400"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">AI Profile Optimizer</h3>
+                                <p class="text-xs font-bold text-purple-500 mb-4 uppercase tracking-wide">Instagram Growth Tool</p>
+                                <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed">Students get instant Instagram profile suggestions to maximize reach and engagement using advanced AI algorithms.</p>
+                                <a href="https://aiprofile.niat.tech" target="_blank" class="inline-block px-6 py-2.5 rounded-full bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 transition-colors shadow-lg hover:shadow-purple-500/30">View Project</a>
+                            </div>
+
+                            <!-- Project 3: Quick Story Maker -->
+                            <div class="glass p-8 rounded-3xl text-center hover:border-pink-500/50 transition-colors gsap-fade-up" data-tilt data-tilt-scale="1.02">
+                                <div class="w-20 h-20 bg-pink-100 dark:bg-pink-900/30 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-4xl text-pink-600 dark:text-pink-400"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Quick Story Maker</h3>
+                                <p class="text-xs font-bold text-pink-500 mb-4 uppercase tracking-wide">Creative Templates</p>
+                                <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed">Templates for students to create their first professional story or reel in minutes without design skills.</p>
+                                <button class="px-6 py-2.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-500 font-bold text-sm cursor-not-allowed opacity-70">Coming Soon</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NEW: Social Impact Section (Manavistra) -->
+                <section id="social-impact" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Social Impact</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Serving the nation and giving back to society.</p>
+                        </div>
+
+                        <div class="glass p-8 md:p-12 rounded-3xl relative overflow-hidden group gsap-fade-up">
+                            <!-- Background gradient -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                            <div class="flex flex-col lg:flex-row gap-12 relative z-10">
+                                <!-- Left: Text Info -->
+                                <div class="flex-1 space-y-6">
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <div class="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+                                            <i class="fas fa-hands-helping text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <span class="text-xs font-bold text-orange-500 uppercase tracking-widest block">Founder & Lead</span>
+                                            <h3 class="text-2xl md:text-3xl font-display font-bold text-slate-900 dark:text-white">Manavistra (MSSO)</h3>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+                                        <p>
+                                            Over the years, I’ve explored different paths, but one purpose always stayed close to my heart: <strong>serving the nation and giving back to society.</strong>
+                                        </p>
+                                        <p>
+                                            With leadership responsibilities and long-term goals shaping my journey, it took time to move from <strong>intention to action</strong>. Building an organization and creating real impact requires patience, people, and purpose. Today, I’m proud to say that the journey has truly begun.
+                                        </p>
+                                        <div class="p-4 bg-orange-50 dark:bg-slate-800/50 rounded-xl border-l-4 border-orange-500 italic">
+                                            "This drive reinforced a simple truth: when the right people come together with the right intent, change follows."
+                                        </div>
+                                    </div>
+
+                                    <!-- Impact Stats Grid -->
+                                    <div class="grid grid-cols-2 gap-4 mt-2">
+                                        <div class="bg-white/50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                                            <div class="text-orange-500 text-2xl font-bold">₹6,000</div>
+                                            <div class="text-xs text-slate-500 uppercase tracking-wide font-bold">Funds Raised</div>
+                                        </div>
+                                        <div class="bg-white/50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                                            <div class="text-orange-500 text-2xl font-bold">30+</div>
+                                            <div class="text-xs text-slate-500 uppercase tracking-wide font-bold">People Served</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-wrap gap-4 pt-4">
+                                        <a href="https://lnkd.in/gtCK9MyP" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold hover:scale-105 transition-transform shadow-lg">
+                                            Visit Website <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                        <a href="https://www.instagram.com/msso_org?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-bold hover:scale-105 transition-transform shadow-lg hover:shadow-pink-500/30">
+                                            Instagram <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <span class="inline-flex items-center gap-2 px-6 py-3 border border-slate-200 dark:border-slate-700 rounded-full font-medium text-slate-600 dark:text-slate-300">
+                                            <i class="far fa-calendar-check text-orange-500"></i> Feb 8th, 2026
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Right: Media -->
+                                <div class="flex-1 flex flex-col gap-6">
+                                    <!-- Video Container -->
+                                    <div class="rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700 bg-black relative group/video h-64 md:h-72">
+                                        <video class="w-full h-full object-cover" controls playsinline poster="https://res.cloudinary.com/do4nuj2kh/image/upload/v1770911234/WhatsApp_Image_2026-02-10_at_6.52.21_PM_2_xwi4hm.jpg">
+                                            <source src="https://res.cloudinary.com/do4nuj2kh/video/upload/v1770911243/WhatsApp_Video_2026-02-12_at_9.13.51_PM_jwbfpe.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <div class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">
+                                            Blanket Drive Highlights
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Additional Image / Context -->
+                                    <div class="relative rounded-2xl overflow-hidden h-48 shadow-lg group/img">
+                                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1770911234/WhatsApp_Image_2026-02-10_at_6.52.21_PM_2_xwi4hm.jpg" alt="Team Manavistra" class="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-700">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                        <div class="absolute bottom-4 left-4 text-white">
+                                            <p class="font-bold text-sm">Lingampally Railway Station</p>
+                                            <p class="text-xs opacity-80">Providing blankets, meals, & water.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gallery Section (NEW) -->
+                <section id="gallery" class="relative z-10 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Words of Trust</h2>
+                            <p class="text-slate-600 dark:text-slate-400">What people say about working with me.</p>
+                        </div>
+
+                        <div class="max-w-3xl mx-auto mb-20">
+                            <!-- Testimonial 1: Sudheer -->
+                            <div class="glass p-8 rounded-3xl relative gsap-fade-up" data-tilt data-tilt-scale="1.01">
+                                <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-8 left-8"></i>
+                                <p class="text-slate-600 dark:text-slate-300 mb-6 italic relative z-10 pt-6 text-sm leading-relaxed">
+                                    "I had the opportunity to mentor Karthik closely and was impressed by his commitment and positive approach to challenges. He takes feedback seriously, asks thoughtful questions, and applies insights effectively. Karthik also played an active role in promoting one of our ongoing products as a social media manager, contributing to content planning and outreach efforts, which reflects his strong understanding of product positioning and audience engagement."
+                                </p>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 dark:border-slate-700">
+                                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766396528/Screenshot_2025-12-22_150919_kx6w9v.png" alt="Sudheer Chikile" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                                            Sudheer Chikile
+                                            <a href="https://www.linkedin.com/in/sudheerchikile/" target="_blank" class="text-blue-500 hover:text-blue-600 transition-colors"><i class="fab fa-linkedin"></i></a>
+                                        </h4>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Mentor at NIAT</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Accordion (NEW) -->
+                        <div class="max-w-3xl mx-auto">
+                            <h3 class="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white">Frequently Asked Questions</h3>
+                            <div class="space-y-4">
+                                <div class="glass rounded-2xl overflow-hidden accordion-item group">
+                                    <button class="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none" onclick="toggleAccordion(this)">
+                                        <span class="font-bold text-slate-800 dark:text-slate-200">Are you open to freelance SMM projects?</span>
+                                        <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"></i>
+                                    </button>
+                                    <div class="accordion-content bg-white/50 dark:bg-slate-800/50">
+                                        <div class="px-6 pb-4 text-slate-600 dark:text-slate-400 text-sm">
+                                            Yes! I actively take on projects involving LinkedIn growth, content strategy, and social media management.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="glass rounded-2xl overflow-hidden accordion-item group">
+                                    <button class="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none" onclick="toggleAccordion(this)">
+                                        <span class="font-bold text-slate-800 dark:text-slate-200">What kind of events do you organize?</span>
+                                        <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"></i>
+                                    </button>
+                                    <div class="accordion-content bg-white/50 dark:bg-slate-800/50">
+                                        <div class="px-6 pb-4 text-slate-600 dark:text-slate-400 text-sm">
+                                            I specialize in large-scale tech summits, hackathons (like Blend AI & OpenAI Hackathon), and workshops. I handle logistics, security, and operations.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="glass rounded-2xl overflow-hidden accordion-item group">
+                                    <button class="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none" onclick="toggleAccordion(this)">
+                                        <span class="font-bold text-slate-800 dark:text-slate-200">How can I contact you?</span>
+                                        <i class="fas fa-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"></i>
+                                    </button>
+                                    <div class="accordion-content bg-white/50 dark:bg-slate-800/50">
+                                        <div class="px-6 pb-4 text-slate-600 dark:text-slate-400 text-sm">
+                                            You can reach me via the "Start a Conversation" button below, or directly email me at aktechintelligence@gmail.com.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Call to Action (New) -->
+                <section class="relative z-10 py-24">
+                    <div class="max-w-4xl mx-auto px-6 text-center">
+                        <div class="glass p-12 rounded-[3rem] relative overflow-hidden group gsap-fade-up" data-tilt>
+                            <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors"></div>
+                            <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-secondary/20 rounded-full blur-3xl group-hover:bg-secondary/30 transition-colors"></div>
+
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white relative z-10">Ready to Create Impact?</h2>
+                            <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 relative z-10 leading-relaxed max-w-2xl mx-auto">
+                                Whether it's scaling your LinkedIn presence or organizing a massive event, let's build something extraordinary together.
                             </p>
-                            <div class="flex items-center gap-4">
-                                <div
-                                    class="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 dark:border-slate-700">
-                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766396528/Screenshot_2025-12-22_150919_kx6w9v.png"
-                                        alt="Sudheer Chikile" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                                        Sudheer Chikile
-                                        <a href="https://www.linkedin.com/in/sudheerchikile/" target="_blank"
-                                            class="text-blue-500 hover:text-blue-600 transition-colors"><i
-                                                class="fab fa-linkedin"></i></a>
-                                    </h4>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400">Mentor at NIAT</p>
-                                </div>
-                            </div>
+                            <!-- Updated Trigger Button (Direct Google Form Link) -->
+                            <a href="https://forms.gle/42ww2vvayEDmk5Ls8" target="_blank" class="magnetic inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl hover:shadow-2xl relative z-10 group-btn cursor-pointer">
+                                <span>Start a Conversation</span>
+                                <i class="fas fa-arrow-right group-btn-hover:translate-x-1 transition-transform"></i>
+                            </a>
                         </div>
                     </div>
+                </section>
 
-                    <!-- FAQ Accordion -->
-                    <div class="max-w-3xl mx-auto">
-                        <h3 class="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white">Frequently Asked
-                            Questions</h3>
-                        <div class="space-y-4">
-                            <div class="glass rounded-2xl overflow-hidden accordion-item group">
-                                <button
-                                    class="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none"
-                                    onclick="toggleAccordion(this)">
-                                    <span class="font-bold text-slate-800 dark:text-slate-200">Are you open to freelance
-                                        SMM projects?</span>
-                                    <i
-                                        class="fas fa-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"></i>
-                                </button>
-                                <div class="accordion-content bg-white/50 dark:bg-slate-800/50">
-                                    <div class="px-6 pb-4 text-slate-600 dark:text-slate-400 text-sm">
-                                        Yes! I actively take on projects involving LinkedIn growth, content strategy,
-                                        and social media management.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="glass rounded-2xl overflow-hidden accordion-item group">
-                                <button
-                                    class="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none"
-                                    onclick="toggleAccordion(this)">
-                                    <span class="font-bold text-slate-800 dark:text-slate-200">What kind of events do
-                                        you organize?</span>
-                                    <i
-                                        class="fas fa-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"></i>
-                                </button>
-                                <div class="accordion-content bg-white/50 dark:bg-slate-800/50">
-                                    <div class="px-6 pb-4 text-slate-600 dark:text-slate-400 text-sm">
-                                        I specialize in large-scale tech summits, hackathons (like Blend AI & OpenAI
-                                        Hackathon), and workshops. I handle logistics, security, and operations.
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="glass rounded-2xl overflow-hidden accordion-item group">
-                                <button
-                                    class="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none"
-                                    onclick="toggleAccordion(this)">
-                                    <span class="font-bold text-slate-800 dark:text-slate-200">How can I contact
-                                        you?</span>
-                                    <i
-                                        class="fas fa-chevron-down text-slate-400 transition-transform duration-300 accordion-icon"></i>
-                                </button>
-                                <div class="accordion-content bg-white/50 dark:bg-slate-800/50">
-                                    <div class="px-6 pb-4 text-slate-600 dark:text-slate-400 text-sm">
-                                        You can reach me via the "Start a Conversation" button below, or directly email
-                                        me at aktechintelligence@gmail.com.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Footer -->
+                <footer class="relative z-10 py-12 border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-dark/80 backdrop-blur-lg text-center">
+                    <div class="flex justify-center gap-6 mb-8">
+                        <a href="mailto:aktechintelligence@gmail.com" class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-red-500 hover:text-white transition-all text-xl"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/karthik-nimmanagoti-52a403324" target="_blank" class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-blue-600 hover:text-white transition-all text-xl"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/nimmanagoti.karthik?igsh=MTFyZ3ptZTQweTNvcw==" target="_blank" class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-pink-600 hover:text-white transition-all text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/karthikkampu07?t=WoJFT1BY2jNLZ_Q1DMZH4w&s=09" target="_blank" class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-black hover:text-white transition-all text-xl"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/channel/UC211RzEXC26FitAswIElwZg" target="_blank" class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-red-600 hover:text-white transition-all text-xl"><i class="fab fa-youtube"></i></a>
+                        <a href="https://github.com/NIMMANAGOTI777" target="_blank" class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-900 hover:text-white transition-all text-xl"><i class="fab fa-github"></i></a>
                     </div>
-                </div>
-            </section>
-
-            <!-- Call to Action -->
-            <section class="relative z-10 py-24">
-                <div class="max-w-4xl mx-auto px-6 text-center">
-                    <div class="glass p-12 rounded-[3rem] relative overflow-hidden group gsap-fade-up" data-tilt>
-                        <div
-                            class="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        </div>
-                        <div
-                            class="absolute -top-20 -right-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors">
-                        </div>
-                        <div
-                            class="absolute -bottom-20 -left-20 w-40 h-40 bg-secondary/20 rounded-full blur-3xl group-hover:bg-secondary/30 transition-colors">
-                        </div>
-
-                        <h2
-                            class="font-display text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white relative z-10">
-                            Ready to Create Impact?</h2>
-                        <p
-                            class="text-lg text-slate-600 dark:text-slate-300 mb-8 relative z-10 leading-relaxed max-w-2xl mx-auto">
-                            Whether it's scaling your LinkedIn presence or organizing a massive event, let's build
-                            something extraordinary together.
-                        </p>
-                        <!-- Updated Trigger Button (Direct Google Form Link) -->
-                        <a href="https://forms.gle/42ww2vvayEDmk5Ls8" target="_blank"
-                            class="magnetic inline-flex items-center gap-3 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl hover:shadow-2xl relative z-10 group-btn cursor-pointer">
-                            <span>Start a Conversation</span>
-                            <i class="fas fa-arrow-right group-btn-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Footer -->
-            <footer
-                class="relative z-10 py-12 border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-dark/80 backdrop-blur-lg text-center">
-                <div class="flex justify-center gap-6 mb-8">
-                    <a href="mailto:aktechintelligence@gmail.com"
-                        class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-red-500 hover:text-white transition-all text-xl"><i
-                            class="fas fa-envelope"></i></a>
-                    <a href="https://www.linkedin.com/in/karthik-nimmanagoti-52a403324" target="_blank"
-                        class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-blue-600 hover:text-white transition-all text-xl"><i
-                            class="fab fa-linkedin-in"></i></a>
-                    <a href="https://www.instagram.com/nimmanagoti.karthik?igsh=MTFyZ3ptZTQweTNvcw==" target="_blank"
-                        class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-pink-600 hover:text-white transition-all text-xl"><i
-                            class="fab fa-instagram"></i></a>
-                    <a href="https://x.com/karthikkampu07?t=WoJFT1BY2jNLZ_Q1DMZH4w&s=09" target="_blank"
-                        class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-black hover:text-white transition-all text-xl"><i
-                            class="fab fa-twitter"></i></a>
-                    <a href="https://www.youtube.com/channel/UC211RzEXC26FitAswIElwZg" target="_blank"
-                        class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-red-600 hover:text-white transition-all text-xl"><i
-                            class="fab fa-youtube"></i></a>
-                    <a href="https://github.com/NIMMANAGOTI777" target="_blank"
-                        class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-900 hover:text-white transition-all text-xl"><i
-                            class="fab fa-github"></i></a>
-                </div>
-                <p class="text-sm text-slate-500 dark:text-slate-500 font-medium">© 2025 Karthik Nimmanagoti. All rights
-                    reserved.</p>
-            </footer>
+                    <p class="text-sm text-slate-500 dark:text-slate-500 font-medium">© 2025 Karthik Nimmanagoti. All rights reserved.</p>
+                </footer>
 
         </div>
     </main>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-        class="fixed bottom-24 right-6 z-40 w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-primary opacity-0 pointer-events-none transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary">
+    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 right-6 z-40 w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-primary opacity-0 pointer-events-none transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- KarthikAI Chatbot -->
     <div id="chatbot-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-        <div id="chat-window"
-            class="hidden bg-white dark:bg-slate-800 w-80 h-96 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 mb-4 flex flex-col overflow-hidden origin-bottom-right transition-all">
+        <div id="chat-window" class="hidden bg-white dark:bg-slate-800 w-80 h-96 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 mb-4 flex flex-col overflow-hidden origin-bottom-right transition-all">
             <div class="bg-gradient-to-r from-primary to-secondary p-4 text-white flex justify-between items-center">
                 <span class="font-bold flex items-center gap-2"><i class="fas fa-robot"></i> KarthikAI</span>
-                <button onclick="toggleChat()" class="text-white hover:rotate-90 transition-transform"><i
-                        class="fas fa-times"></i></button>
+                <button onclick="toggleChat()" class="text-white hover:rotate-90 transition-transform"><i class="fas fa-times"></i></button>
             </div>
             <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 dark:bg-slate-900 text-sm">
-                <div
-                    class="bg-white dark:bg-slate-700 p-3 rounded-lg rounded-tl-none shadow-sm text-slate-700 dark:text-slate-200 max-w-[85%] animate-pulse">
-                    Hi! I'm Karthik's AI assistant. To help you better, who are you?
+                <div class="bg-white dark:bg-slate-700 p-3 rounded-lg rounded-tl-none shadow-sm text-slate-700 dark:text-slate-200 max-w-[85%] animate-pulse">
+                    Hello! Ask me about Karthik's events, skills, or grab his resume.
                 </div>
             </div>
-            <div class="p-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-2"
-                id="chat-options">
-                <button onclick="chatReply('Student')"
-                    class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">🎓
-                    Student</button>
-                <button onclick="chatReply('Recruiter')"
-                    class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">👔
-                    Recruiter</button>
-                <button onclick="chatReply('Founder')"
-                    class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">🚀
-                    Founder</button>
-                <button onclick="chatReply('Just Visiting')"
-                    class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">👋
-                    Just Visiting</button>
+            <div class="p-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 grid grid-cols-2 gap-2">
+                <button onclick="chatReply('About Karthik')" class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">About</button>
+                <button onclick="chatReply('Event Info')" class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">Events</button>
+                <button onclick="chatReply('Resume')" class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">Resume</button>
+                <button onclick="chatReply('Contact')" class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">Contact</button>
             </div>
         </div>
-        <button onclick="toggleChat()"
-            class="magnetic w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-full text-white text-2xl shadow-glow-primary hover:scale-110 transition-transform flex items-center justify-center z-50">
+        <button onclick="toggleChat()" class="magnetic w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-full text-white text-2xl shadow-glow-primary hover:scale-110 transition-transform flex items-center justify-center z-50">
             <i class="fas fa-comment-dots"></i>
         </button>
     </div>
 
     <!-- Event Modal Overlay -->
-    <div id="modal-overlay"
-        class="fixed inset-0 bg-black/60 z-[70] hidden backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 opacity-0 transition-all duration-300"
-            id="modal-content">
+    <div id="modal-overlay" class="fixed inset-0 bg-black/60 z-[70] hidden backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modal-content">
             <div class="relative h-64">
                 <img id="modal-img" src="" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <button onclick="closeModal()"
-                    class="magnetic absolute top-4 right-4 bg-black/50 text-white w-10 h-10 rounded-full hover:bg-red-500 transition-colors flex items-center justify-center backdrop-blur-sm"><i
-                        class="fas fa-times"></i></button>
+                <button onclick="closeModal()" class="magnetic absolute top-4 right-4 bg-black/50 text-white w-10 h-10 rounded-full hover:bg-red-500 transition-colors flex items-center justify-center backdrop-blur-sm"><i class="fas fa-times"></i></button>
             </div>
             <div class="p-8">
-                <span id="modal-tag"
-                    class="text-xs font-bold text-white bg-primary px-3 py-1 rounded-full uppercase tracking-wider">Event</span>
-                <h2 id="modal-title" class="text-3xl font-display font-bold text-slate-900 dark:text-white mt-4 mb-4">
-                </h2>
-                <div
-                    class="flex gap-6 mb-6 text-sm text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 pb-6">
+                <span id="modal-tag" class="text-xs font-bold text-white bg-primary px-3 py-1 rounded-full uppercase tracking-wider">Event</span>
+                <h2 id="modal-title" class="text-3xl font-display font-bold text-slate-900 dark:text-white mt-4 mb-4"></h2>
+                <div class="flex gap-6 mb-6 text-sm text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 pb-6">
                     <span id="modal-date"><i class="far fa-calendar-alt mr-2"></i></span>
                     <span id="modal-attendees"><i class="fas fa-users mr-2"></i></span>
                 </div>
                 <p id="modal-desc" class="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 text-lg"></p>
-                <button
-                    class="w-full py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-white font-bold hover:bg-primary hover:text-white transition-colors flex items-center justify-center gap-2">
+                <button class="w-full py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-white font-bold hover:bg-primary hover:text-white transition-colors flex items-center justify-center gap-2">
                     <i class="fab fa-instagram"></i> View Highlights
                 </button>
             </div>
@@ -1546,14 +1297,7 @@
             });
 
             // Trigger Hero Animations after load
-            if (!document.body.classList.contains('lite-mode')) {
-                initHeroAnimations();
-            }
-
-            // Start Carousels
-            document.querySelectorAll('.carousel-container').forEach(carousel => {
-                startCarousel(carousel);
-            });
+            initHeroAnimations();
         });
 
         // 3. Custom Cursor Logic
@@ -1591,12 +1335,12 @@
             const tl = gsap.timeline();
 
             tl.from(".gsap-hero-text", {
-                y: 100,
-                opacity: 0,
-                duration: 1.2,
-                stagger: 0.2,
-                ease: "power4.out"
-            })
+                    y: 100,
+                    opacity: 0,
+                    duration: 1.2,
+                    stagger: 0.2,
+                    ease: "power4.out"
+                })
                 .from(".gsap-hero-reveal", {
                     y: 50,
                     opacity: 0,
@@ -1615,6 +1359,21 @@
                     start: "top 85%",
                 },
                 y: 60,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+
+        // Timeline Animation
+        const timelineItems = document.querySelectorAll(".gsap-timeline-item");
+        timelineItems.forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                },
+                x: index % 2 === 0 ? -50 : 50,
                 opacity: 0,
                 duration: 1,
                 ease: "power3.out"
@@ -1671,26 +1430,6 @@
 
         themeToggle.addEventListener('click', toggleTheme);
         mobileThemeToggle.addEventListener('click', toggleTheme);
-
-        // Lite Mode Logic (New)
-        function toggleLiteMode() {
-            document.body.classList.toggle('lite-mode');
-            const isLite = document.body.classList.contains('lite-mode');
-            const icon = document.querySelector('#lite-toggle i');
-
-            if (isLite) {
-                icon.classList.remove('fa-bolt');
-                icon.classList.add('fa-battery-full'); // Indicate saving mode
-                alert("Lite Mode Enabled: Animations disabled to save data/battery.");
-            } else {
-                icon.classList.remove('fa-battery-full');
-                icon.classList.add('fa-bolt');
-                // Reload to restore animations cleanly if user turns it off
-                if (confirm("Reload page to restore full animations?")) {
-                    location.reload();
-                }
-            }
-        }
 
         // 7. Typing Text
         const typingText = document.getElementById('typing-text');
@@ -1813,7 +1552,6 @@
         }
 
         function animateParticles() {
-            if (document.body.classList.contains('lite-mode')) return; // Stop animation loop in lite mode
             requestAnimationFrame(animateParticles);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < particlesArray.length; i++) {
@@ -1830,10 +1568,6 @@
 
         // 10. Counter Animation
         function startCounters() {
-            if (document.body.classList.contains('lite-mode')) {
-                document.querySelectorAll('.counter').forEach(c => c.innerText = c.getAttribute('data-target'));
-                return;
-            }
             const counters = document.querySelectorAll('.counter');
             counters.forEach(counter => {
                 const target = +counter.getAttribute('data-target');
@@ -1933,6 +1667,7 @@
             }, 10);
 
             lenis.stop();
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
@@ -1945,6 +1680,7 @@
             setTimeout(() => {
                 overlay.classList.add('hidden');
                 lenis.start();
+                document.body.style.overflow = '';
             }, 300);
         }
 
@@ -1967,29 +1703,23 @@
 
             setTimeout(() => {
                 let responseText = "";
-                let buttonsHTML = "";
-
                 switch (option) {
-                    case 'Student':
-                        responseText = "Awesome! If you're looking to upskill, check out the new 'Academy' section for micro-courses on event management.";
+                    case 'About Karthik':
+                        responseText = "Karthik is a B.Tech student, Influencer Club President, and Event Organizer passionate about leadership.";
                         break;
-                    case 'Recruiter':
-                        responseText = "Glad to have you here! My 'Projects' and 'Impact' sections showcase my operational scale. Would you like to see my Resume?";
-                        buttonsHTML = `<button onclick="toggleResume()" class="text-xs bg-green-100 dark:bg-green-900 hover:bg-green-200 p-2 rounded text-green-800 dark:text-green-100 mt-2">View Resume</button>`;
+                    case 'Event Info':
+                        responseText = "He has managed major events like HexaVerse and HES, impacting over 8000 students.";
                         break;
-                    case 'Founder':
-                        responseText = "Building something cool? I specialize in community growth and event architecture. Let's discuss collaboration.";
+                    case 'Resume':
+                        responseText = "You can view or download the resume from the top navigation bar or the sidebar!";
                         break;
-                    case 'Just Visiting':
-                        responseText = "Enjoy the portfolio! Don't forget to toggle 'Lite Mode' if you're on mobile data.";
+                    case 'Contact':
+                        responseText = "Reach out via LinkedIn or email linked in the footer below.";
                         break;
-                    default:
-                        responseText = "How can I help you today?";
                 }
-
                 const botDiv = document.createElement('div');
                 botDiv.className = "bg-white dark:bg-slate-700 p-3 rounded-lg rounded-tl-none shadow-sm text-slate-700 dark:text-slate-200 max-w-[85%] text-xs";
-                botDiv.innerHTML = responseText + buttonsHTML;
+                botDiv.innerText = responseText;
                 msgContainer.appendChild(botDiv);
                 msgContainer.scrollTop = msgContainer.scrollHeight;
             }, 600);
@@ -2004,14 +1734,11 @@
             }
         }
 
-        // 12. Generic Carousel Logic (Refactored)
-        function startCarousel(container) {
-            if (document.body.classList.contains('lite-mode')) return;
-
-            const intervalTime = parseInt(container.getAttribute('data-interval')) || 3000;
+        // 12. HES Carousel
+        function initHESCarousel() {
+            const container = document.querySelector('.hes-carousel');
+            if (!container) return;
             const images = container.querySelectorAll('img');
-            if (images.length === 0) return;
-
             let current = 0;
 
             setInterval(() => {
@@ -2022,10 +1749,52 @@
 
                 images[current].classList.remove('opacity-0');
                 images[current].classList.add('opacity-100');
-            }, intervalTime);
+            }, 3000); // Change every 3 seconds
         }
 
-        // 13. Scroll Progress & Back to Top
+        // 13. OpenAI Carousel
+        function initOpenAICarousel() {
+            const container = document.querySelector('.openai-carousel');
+            if (!container) return;
+            const images = container.querySelectorAll('img');
+            let current = 0;
+
+            setInterval(() => {
+                images[current].classList.remove('opacity-100');
+                images[current].classList.add('opacity-0');
+
+                current = (current + 1) % images.length;
+
+                images[current].classList.remove('opacity-0');
+                images[current].classList.add('opacity-100');
+            }, 3500); // Change every 3.5 seconds
+        }
+
+        // 14. HexaVerse Carousel
+        function initHexaVerseCarousel() {
+            const container = document.querySelector('.hexaverse-carousel');
+            if (!container) return;
+            const images = container.querySelectorAll('img');
+            let current = 0;
+
+            setInterval(() => {
+                images[current].classList.remove('opacity-100');
+                images[current].classList.add('opacity-0');
+
+                current = (current + 1) % images.length;
+
+                images[current].classList.remove('opacity-0');
+                images[current].classList.add('opacity-100');
+            }, 4000); // Change every 4 seconds
+        }
+
+        window.addEventListener('load', () => {
+            initHESCarousel();
+            initOpenAICarousel();
+            initHexaVerseCarousel();
+        });
+
+        // 15. Scroll Progress & Back to Top (New)
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -2040,7 +1809,7 @@
             }
         });
 
-        // 14. FAQ Accordion Logic
+        // 16. FAQ Accordion Logic (New)
         function toggleAccordion(button) {
             const item = button.parentElement;
             const isActive = item.classList.contains('active');
@@ -2055,6 +1824,31 @@
                 item.classList.add('active');
             }
         }
+
+        // 17. Active Navigation State (New)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
     </script>
 </body>
 
