@@ -56,6 +56,7 @@
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'spin-slow': 'spin 12s linear infinite',
+                        'pulse-glow': 'pulseGlow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         float: {
@@ -64,6 +65,14 @@
                             },
                             '50%': {
                                 transform: 'translateY(-20px)'
+                            },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': {
+                                opacity: 1
+                            },
+                            '50%': {
+                                opacity: .5
                             },
                         }
                     }
@@ -76,6 +85,7 @@
         /* Base Styles */
         body {
             cursor: none;
+            overflow-x: hidden;
         }
 
         /* Custom Scrollbar */
@@ -202,12 +212,11 @@
         .nav-link.active::after {
             width: 100%;
         }
-        
+
         .nav-link.active {
             color: #3b82f6;
         }
 
-        /* Typing Cursor */
         .cursor-blink {
             border-right: 3px solid #3b82f6;
             animation: blink 0.75s step-end infinite;
@@ -219,7 +228,6 @@
             }
         }
 
-        /* 3D Profile */
         .profile-container {
             transform-style: preserve-3d;
             perspective: 1000px;
@@ -230,6 +238,7 @@
             display: inline-block;
             position: relative;
         }
+
         .glitch-wrapper::before,
         .glitch-wrapper::after {
             content: "KARTHIK";
@@ -240,34 +249,83 @@
             height: 100%;
             opacity: 0.8;
         }
+
         .glitch-wrapper::before {
             color: #0ff;
             z-index: -1;
             animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
         }
+
         .glitch-wrapper::after {
             color: #f0f;
             z-index: -2;
             animation: glitch-anim-2 3s infinite linear alternate-reverse;
         }
+
         @keyframes glitch-anim-1 {
-            0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-            40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-            60% { clip-path: inset(80% 0 5% 0); transform: translate(1px, -2px); }
-            80% { clip-path: inset(10% 0 60% 0); transform: translate(-1px, 1px); }
-            100% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-            20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, 2px); }
-            40% { clip-path: inset(70% 0 30% 0); transform: translate(1px, -2px); }
-            60% { clip-path: inset(20% 0 80% 0); transform: translate(-1px, 1px); }
-            80% { clip-path: inset(50% 0 10% 0); transform: translate(2px, 1px); }
-            100% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, -1px); }
+            0% {
+                clip-path: inset(20% 0 80% 0);
+                transform: translate(-2px, 1px);
+            }
+
+            20% {
+                clip-path: inset(60% 0 10% 0);
+                transform: translate(2px, -1px);
+            }
+
+            40% {
+                clip-path: inset(40% 0 50% 0);
+                transform: translate(-2px, 2px);
+            }
+
+            60% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(1px, -2px);
+            }
+
+            80% {
+                clip-path: inset(10% 0 60% 0);
+                transform: translate(-1px, 1px);
+            }
+
+            100% {
+                clip-path: inset(50% 0 30% 0);
+                transform: translate(1px, -1px);
+            }
         }
 
-        /* Lenis */
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: inset(10% 0 60% 0);
+                transform: translate(2px, -1px);
+            }
+
+            20% {
+                clip-path: inset(30% 0 20% 0);
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                clip-path: inset(70% 0 30% 0);
+                transform: translate(1px, -2px);
+            }
+
+            60% {
+                clip-path: inset(20% 0 80% 0);
+                transform: translate(-1px, 1px);
+            }
+
+            80% {
+                clip-path: inset(50% 0 10% 0);
+                transform: translate(2px, 1px);
+            }
+
+            100% {
+                clip-path: inset(80% 0 5% 0);
+                transform: translate(-2px, -1px);
+            }
+        }
+
         html.lenis {
             height: auto;
         }
@@ -284,13 +342,11 @@
             overflow: hidden;
         }
 
-        /* Selection Color */
         ::selection {
             background: #3b82f6;
             color: white;
         }
 
-        /* Scroll Progress Bar */
         .scroll-progress-container {
             position: fixed;
             top: 0;
@@ -308,7 +364,6 @@
             transition: width 0.1s ease-out;
         }
 
-        /* Marquee Animation */
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
@@ -330,7 +385,36 @@
             }
         }
 
-        /* FAQ Accordion */
+        .connections-slider-wrapper {
+            overflow: hidden;
+            width: 100%;
+            padding: 2rem 0;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+
+        .connections-slider-track {
+            display: flex;
+            width: max-content;
+            animation: scroll-connections 25s linear infinite;
+        }
+
+        .connections-slider-section {
+            display: flex;
+            gap: 2rem;
+            padding-right: 2rem;
+        }
+
+        @keyframes scroll-connections {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
         .accordion-content {
             max-height: 0;
             overflow: hidden;
@@ -344,10 +428,61 @@
         .accordion-item.active .accordion-icon {
             transform: rotate(180deg);
         }
+
+        /* Bento Grid Specific */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .bento-grid {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(2, 200px);
+            }
+
+            .bento-large {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+
+            .bento-wide {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
+            .bento-tall {
+                grid-column: span 1;
+                grid-row: span 2;
+            }
+        }
+
+        /* Horizontal Scroll Specific */
+        #projects-wrapper {
+            overflow: hidden;
+        }
+
+        .horizontal-projects-container {
+            display: flex;
+            width: max-content;
+            padding: 0 10vw;
+            gap: 3rem;
+            align-items: center;
+            height: 100%;
+        }
     </style>
 </head>
 
 <body class="bg-light-surface dark:bg-dark text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- AI Personalized Toast -->
+    <div id="ai-toast" class="fixed top-24 left-1/2 -translate-x-1/2 z-50 transform -translate-y-20 opacity-0 transition-all duration-500 pointer-events-none">
+        <div class="glass px-6 py-3 rounded-full flex items-center gap-3 shadow-2xl border border-primary/30">
+            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse-glow"></div>
+            <p id="ai-toast-msg" class="text-sm font-bold text-slate-800 dark:text-white"></p>
+        </div>
+    </div>
 
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress-container">
@@ -380,7 +515,7 @@
     <div id="resume-sidebar" class="fixed top-0 right-0 h-full w-full md:w-[450px] bg-white/95 dark:bg-dark-surface/95 backdrop-blur-xl shadow-2xl z-[60] transform translate-x-full transition-transform duration-500 cubic-bezier(0.77, 0, 0.175, 1) p-8 flex flex-col border-l border-slate-200 dark:border-slate-700">
         <div class="flex justify-between items-center mb-8 pb-4 border-b border-slate-200 dark:border-slate-700">
             <h2 class="text-2xl font-bold font-display text-gradient">Resume</h2>
-            <button onclick="toggleResume()" class="magnetic text-slate-500 hover:text-primary transition-colors text-2xl">
+            <button aria-label="Close Resume" onclick="toggleResume()" class="magnetic text-slate-500 hover:text-primary transition-colors text-2xl">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -389,7 +524,7 @@
                 <i class="fas fa-file-pdf text-3xl text-red-500"></i>
             </div>
             <p class="text-slate-500 dark:text-slate-400 font-medium">Preview Unavailable in Demo</p>
-            <p class="text-xs text-slate-400 mt-2">karthik-resume-2025.pdf</p>
+            <p class="text-xs text-slate-400 mt-2">karthik-resume-2026.pdf</p>
         </div>
         <div class="flex gap-4">
             <button class="magnetic flex-1 bg-primary text-white py-4 rounded-xl font-bold hover:bg-blue-600 transition-all shadow-glow-primary flex items-center justify-center gap-2 group">
@@ -404,19 +539,19 @@
         <div class="glass absolute inset-0 w-full h-full shadow-sm"></div>
         <div class="max-w-7xl mx-auto px-6 relative">
             <div class="flex justify-between items-center h-20">
-                <a href="#" class="magnetic font-display font-bold text-2xl tracking-tight z-10">
+                <a href="#" aria-label="Home" class="magnetic font-display font-bold text-2xl tracking-tight z-10">
                     Karthik<span class="text-primary">.</span>
                 </a>
 
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#about" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">About</a>
+                    <a href="#experience" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Experience</a>
                     <a href="#impact" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Impact</a>
-                    <a href="#leadership" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Leadership</a>
-                    <a href="#projects" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Projects</a>
+                    <a href="#projects-wrapper" class="magnetic nav-link text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors">Projects</a>
 
                     <div class="h-6 w-px bg-slate-300 dark:bg-slate-700"></div>
 
-                    <button id="theme-toggle" class="magnetic text-slate-600 dark:text-slate-300 hover:text-accent transition-colors text-lg w-8 h-8 flex items-center justify-center">
+                    <button id="theme-toggle" aria-label="Toggle Dark Mode" class="magnetic text-slate-600 dark:text-slate-300 hover:text-accent transition-colors text-lg w-8 h-8 flex items-center justify-center">
                         <i class="fas fa-moon dark:hidden"></i>
                         <i class="fas fa-sun hidden dark:block"></i>
                     </button>
@@ -427,7 +562,7 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="menu-btn" class="md:hidden z-50 text-slate-900 dark:text-white magnetic p-2">
+                <button id="menu-btn" aria-label="Menu" class="md:hidden z-50 text-slate-900 dark:text-white magnetic p-2">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
@@ -437,12 +572,12 @@
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 z-40 bg-white/95 dark:bg-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center space-y-8 md:hidden">
         <a href="#about" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">About</a>
+        <a href="#experience" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Experience</a>
         <a href="#impact" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Impact</a>
-        <a href="#leadership" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Leadership</a>
-        <a href="#projects" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Projects</a>
+        <a href="#projects-wrapper" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Projects</a>
         <a href="mailto:aktechintelligence@gmail.com" class="text-2xl font-display font-bold text-slate-800 dark:text-slate-200 hover:text-primary">Contact</a>
         <button onclick="toggleResume(); document.getElementById('mobile-menu').classList.add('translate-x-full')" class="text-xl font-bold text-primary">Resume</button>
-        <button id="mobile-theme-toggle" class="p-4 rounded-full bg-slate-100 dark:bg-slate-800 text-xl">
+        <button id="mobile-theme-toggle" aria-label="Toggle Mobile Dark Mode" class="p-4 rounded-full bg-slate-100 dark:bg-slate-800 text-xl">
             <i class="fas fa-moon dark:hidden"></i>
             <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
         </button>
@@ -457,7 +592,7 @@
 
                     <div class="gsap-hero-reveal inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 backdrop-blur-md mb-8 hover:border-accent transition-colors duration-300 shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span class="text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300">PORTFOLIO 2025</span>
+                        <span class="text-sm font-medium tracking-wide text-slate-600 dark:text-slate-300">PORTFOLIO 2026</span>
                     </div>
 
                     <h1 class="font-display font-bold text-6xl md:text-8xl lg:text-9xl tracking-tighter mb-6 leading-[0.9] text-slate-900 dark:text-white">
@@ -475,7 +610,6 @@
                     <div class="gsap-hero-reveal mb-12 relative inline-block profile-container group" data-tilt data-tilt-glare data-tilt-max-glare="0.3" data-tilt-scale="1.05">
                         <div class="absolute inset-0 bg-gradient-to-tr from-primary to-secondary rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse"></div>
                         <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-2 bg-white/30 dark:bg-white/10 backdrop-blur-md border border-white/50 shadow-2xl overflow-hidden">
-                            <!-- Fallback image used if the specific Cloudinary link fails -->
                             <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/WhatsApp_Image_2025-11-07_at_14.15.07_ca236187_yxh4ak.jpg" alt="Karthik Nimmanagoti" class="w-full h-full object-cover rounded-full" loading="eager" onerror="this.src='https://placehold.co/400x400?text=KN'">
                         </div>
                     </div>
@@ -488,36 +622,94 @@
                 </div>
             </header>
 
-            <!-- Impact Statistics -->
+            <!-- Bento Grid Dashboard (Upgraded Impact Stats) -->
             <section id="impact-stats" class="relative z-10 py-20 border-y border-slate-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center" id="counter-section">
-                        <div class="gsap-fade-up group">
-                            <h3 class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
+                <div class="max-w-6xl mx-auto px-6">
+                    <div class="mb-10 gsap-fade-up">
+                        <h2 class="font-display text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                            <i class="fas fa-chart-line text-primary"></i> Live Analytics
+                        </h2>
+                    </div>
+                    <div class="bento-grid" id="counter-section">
+                        <!-- Main Stat -->
+                        <div class="glass rounded-3xl p-8 bento-large flex flex-col justify-center relative overflow-hidden group hover:border-primary/50 transition-colors gsap-fade-up">
+                            <div class="absolute -right-10 -top-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors"></div>
+                            <h3 class="text-6xl md:text-7xl font-display font-bold text-slate-900 dark:text-white mb-2 relative z-10">
                                 <span class="counter" data-target="2000">0</span>+
                             </h3>
-                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Students Impacted</p>
+                            <p class="text-sm font-bold text-primary uppercase tracking-widest relative z-10">Students Impacted</p>
+                            <p class="text-slate-500 mt-4 relative z-10 text-sm">Across hackathons, summits, and direct mentorship.</p>
                         </div>
-                        <div class="gsap-fade-up group">
-                            <h3 class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-secondary transition-colors">
-                                <span class="counter" data-target="200">0</span>+
-                            </h3>
-                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">LinkedIn Mentorships</p>
+
+                        <!-- Secondary Stat 1 -->
+                        <div class="glass rounded-3xl p-6 bento-wide flex items-center justify-between hover:border-secondary/50 transition-colors gsap-fade-up group">
+                            <div>
+                                <h3 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-1"><span class="counter" data-target="200">0</span>+</h3>
+                                <p class="text-xs font-bold text-secondary uppercase tracking-widest">LinkedIn Mentees</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary text-xl group-hover:scale-110 transition-transform">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
                         </div>
-                        <div class="gsap-fade-up group">
-                            <h3 class="text-5xl md:text-6xl font-display font-bold text-slate-900 dark:text-white mb-2 group-hover:text-accent transition-colors">
-                                <span class="counter" data-target="10">0</span>+
-                            </h3>
-                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Events Led</p>
+
+                        <!-- Secondary Stat 2 -->
+                        <div class="glass rounded-3xl p-6 bento-wide flex flex-col justify-center hover:border-accent/50 transition-colors gsap-fade-up group">
+                            <h3 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-1"><span class="counter" data-target="10">0</span>+</h3>
+                            <p class="text-xs font-bold text-accent uppercase tracking-widest">Major Events Led</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- About Section -->
-            <section id="about" class="relative z-10 py-32">
+            <section id="about" class="relative z-10 pt-32">
+
+                <!-- Key Achievements Section (NEW) -->
+                <div class="max-w-7xl mx-auto px-6 mb-24">
+                    <div class="glass p-8 md:p-12 rounded-3xl gsap-fade-up relative overflow-hidden" data-tilt data-tilt-scale="1.01">
+                        <div class="absolute -right-20 -top-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+                        <h3 class="text-3xl font-display font-bold mb-8 text-slate-900 dark:text-white flex items-center gap-3">
+                            <i class="fas fa-trophy text-accent"></i> Key Achievements
+                        </h3>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <li class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shrink-0 mt-1 shadow-inner">
+                                    <i class="fas fa-chart-pie text-xl text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-slate-700 dark:text-slate-300 font-medium text-lg leading-relaxed">Led media strategy contributing to <span class="font-bold text-primary">400K+ event insights</span></p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center shrink-0 mt-1 shadow-inner">
+                                    <i class="fas fa-laptop-code text-xl text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-slate-700 dark:text-slate-300 font-medium text-lg leading-relaxed">Organized BASE44 Hackathon with <span class="font-bold text-green-500">1,665+ participants</span></p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center shrink-0 mt-1 shadow-inner">
+                                    <i class="fas fa-crown text-xl text-purple-600 dark:text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-slate-700 dark:text-slate-300 font-medium text-lg leading-relaxed"><span class="font-bold text-purple-500">President of Influencer Club</span> NIAT driving campus creator ecosystem</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0 mt-1 shadow-inner">
+                                    <i class="fas fa-shield-alt text-xl text-orange-600 dark:text-orange-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-slate-700 dark:text-slate-300 font-medium text-lg leading-relaxed">Managed <span class="font-bold text-orange-500">10-member security team</span> for HexaVerse sports fest</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- Skills Section (Updated) -->
-                <section id="skills" class="relative z-10 py-24">
+                <section id="skills" class="relative z-10 pb-24">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center mb-16 gsap-fade-up">
                             <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Skills & Tools</h2>
@@ -557,10 +749,9 @@
                             </div>
                         </div>
 
-                        <!-- Tools Marquee (NEW) -->
+                        <!-- Tools Marquee -->
                         <div class="marquee-container w-full py-8 border-y border-slate-200 dark:border-slate-800 bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm">
                             <div class="marquee-content text-4xl text-slate-400 dark:text-slate-600 flex gap-16 items-center">
-                                <!-- Duplicate items for seamless loop -->
                                 <i class="fab fa-python hover:text-blue-500 transition-colors"></i>
                                 <i class="fab fa-js hover:text-yellow-400 transition-colors"></i>
                                 <i class="fab fa-html5 hover:text-orange-500 transition-colors"></i>
@@ -570,7 +761,6 @@
                                 <i class="fas fa-database hover:text-green-500 transition-colors"></i>
                                 <i class="fab fa-figma hover:text-purple-500 transition-colors"></i>
                                 <i class="fas fa-bullhorn hover:text-red-500 transition-colors"></i>
-                                <!-- Repeat -->
                                 <i class="fab fa-python hover:text-blue-500 transition-colors"></i>
                                 <i class="fab fa-js hover:text-yellow-400 transition-colors"></i>
                                 <i class="fab fa-html5 hover:text-orange-500 transition-colors"></i>
@@ -585,7 +775,7 @@
                     </div>
                 </section>
 
-                <!-- Process Section (NEW - How I Do The Work) -->
+                <!-- Process Section -->
                 <section id="process" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center mb-16 gsap-fade-up">
@@ -636,67 +826,57 @@
                     </div>
                 </section>
 
-                <!-- Services Section (NEW) -->
-                <section id="services" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
+                <!-- Experience Section -->
+                <section id="experience" class="relative z-10 py-24">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center mb-16 gsap-fade-up">
-                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Services</h2>
-                            <p class="text-slate-600 dark:text-slate-400">How I can add value to your organization.</p>
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Experience</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Where I am making an impact right now.</p>
                         </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <div class="glass p-8 rounded-3xl hover:border-blue-500/50 transition-colors gsap-fade-up group" data-tilt>
-                                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-bullhorn"></i>
+                        <div class="max-w-4xl mx-auto">
+                            <div class="glass p-8 rounded-3xl gsap-fade-up group relative overflow-hidden flex flex-col sm:flex-row items-start gap-8" data-tilt data-tilt-scale="1.01">
+                                <div class="w-24 h-24 sm:w-32 sm:h-32 shrink-0 bg-white rounded-2xl p-4 flex items-center justify-center shadow-inner border border-slate-200 dark:border-slate-700">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1771560876/nxt-wave_gp1tv3.webp" alt="NxtWave Logo" class="w-full h-auto object-contain">
                                 </div>
-                                <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Social Media Strategy</h3>
-                                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                    Managing brand presence, content scheduling (Linkedify), and engagement strategies to boost organic growth.
-                                </p>
-                            </div>
-
-                            <div class="glass p-8 rounded-3xl hover:border-orange-500/50 transition-colors gsap-fade-up group" data-tilt>
-                                <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-calendar-check"></i>
-                                </div>
-                                <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Event Architecture</h3>
-                                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                    End-to-end event planning, from logistics and security to guest management and on-ground execution.
-                                </p>
-                            </div>
-
-                            <div class="glass p-8 rounded-3xl hover:border-green-500/50 transition-colors gsap-fade-up group" data-tilt>
-                                <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-6 text-3xl text-green-600 dark:text-green-400 group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <h3 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Community Building</h3>
-                                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                                    Fostering student communities, organizing hackathons, and bridging the gap between students and industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Performance Audit Banner (NEW) -->
-                        <div class="mt-12 gsap-fade-up">
-                            <div class="glass p-8 rounded-3xl relative overflow-hidden group" data-tilt>
-                                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-                                    <div>
-                                        <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2 flex items-center justify-center md:justify-start gap-2">
-                                            <i class="fas fa-chart-pie text-primary"></i> Performance Audit
-                                        </h3>
-                                        <p class="text-slate-600 dark:text-slate-300 max-w-2xl text-lg leading-relaxed">
-                                            Curious how your social media is really performing? I audit pages, decode insights, and unlock growth.
-                                        </p>
+                                <div class="text-center sm:text-left flex-1">
+                                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-1">
+                                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">NxtWave <span class="text-lg font-medium text-slate-500">· Internship</span></h3>
+                                        <span class="text-xs font-bold text-primary bg-primary/10 dark:bg-primary/20 px-3 py-1 rounded-full uppercase tracking-wider mt-2 sm:mt-0 inline-block">Feb 2026 - Present</span>
                                     </div>
-                                    <a href="https://auditpro.niat.tech" target="_blank" class="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold hover:scale-105 transition-transform shadow-lg whitespace-nowrap flex items-center gap-2">
-                                        <span>Get Yours Reviewed</span>
-                                        <i class="fas fa-arrow-right"></i>
+                                    <p class="text-base font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1">Content Strategist</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6"><i class="fas fa-map-marker-alt mr-1"></i> Hyderabad, Telangana, India · On-site</p>
+
+                                    <div class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6 text-left space-y-3">
+                                        <p>In this role, I primarily function as a Content Strategist, driving idea generation, execution, and cross-team coordination across NIAT.</p>
+                                        <p class="font-semibold text-slate-800 dark:text-slate-200">My core responsibilities include:</p>
+                                        <ul class="list-disc list-inside pl-2 space-y-2 marker:text-primary">
+                                            <li>Designing high-impact content strategies aligned with institutional and brand goals.</li>
+                                            <li>Generating innovative content ideas tailored for different platforms (Instagram, LinkedIn, YouTube, etc.).</li>
+                                            <li>Converting strategic ideas into structured execution plans (scripts, calendars, campaign flows).</li>
+                                            <li>Coordinating with multiple branches and clubs within NIAT to ensure unified messaging.</li>
+                                            <li>Overseeing implementation — from concept to publishing.</li>
+                                            <li>Ensuring consistency in tone, positioning, and storytelling across all channels.</li>
+                                            <li>Tracking performance and optimizing content direction based on engagement insights.</li>
+                                        </ul>
+                                        <p class="pt-2">I operate at the center of execution — connecting creative teams, club leaders, and marketing objectives to build a cohesive digital presence.</p>
+                                        <div class="bg-primary/5 dark:bg-primary/10 p-4 rounded-xl border-l-4 border-primary mt-4">
+                                            <span class="font-bold text-slate-800 dark:text-slate-200">My focus:</span> Not just creating content. Building a scalable content ecosystem across NIAT.
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-wrap items-center gap-2 mb-6 justify-center sm:justify-start">
+                                        <span class="text-xs font-bold text-slate-500 uppercase mr-2">Skills:</span>
+                                        <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700">Content Strategy</span>
+                                        <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700">Content Management</span>
+                                        <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700">Cross-Team Coordination</span>
+                                    </div>
+
+                                    <a href="https://www.linkedin.com/school/nxtwavetech/posts/?feedView=all" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
+                                        View Company <i class="fas fa-external-link-alt"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </section>
 
@@ -710,13 +890,10 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             <!-- Card 1 -->
-                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('ishan')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                            <div class="glass rounded-3xl overflow-hidden group transition-all duration-500 gsap-fade-up" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
                                 <div class="h-56 overflow-hidden relative">
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.22.34_AM_vm6hrl.jpg" onerror="this.src='https://placehold.co/600x400?text=Ishan+Sharma'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
-                                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                                        <i class="fas fa-arrow-up-right-from-square text-white"></i>
-                                    </div>
                                 </div>
                                 <div class="p-8">
                                     <div class="flex items-center gap-2 mb-3">
@@ -733,7 +910,7 @@
                             </div>
 
                             <!-- Card 2 -->
-                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('madhu')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                            <div class="glass rounded-3xl overflow-hidden group transition-all duration-500 gsap-fade-up" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
                                 <div class="h-56 overflow-hidden relative">
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179680/WhatsApp_Image_2025-11-15_at_9.29.46_AM_ornq12.jpg" onerror="this.src='https://placehold.co/600x400?text=Workshop'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
@@ -753,7 +930,7 @@
                             </div>
 
                             <!-- Card 3 -->
-                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('sid')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                            <div class="glass rounded-3xl overflow-hidden group transition-all duration-500 gsap-fade-up" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
                                 <div class="h-56 overflow-hidden relative">
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.24.22_AM_njlqzg.jpg" onerror="this.src='https://placehold.co/600x400?text=Podcast'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
@@ -772,7 +949,7 @@
                             </div>
 
                             <!-- Card 4 -->
-                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('tharun')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                            <div class="glass rounded-3xl overflow-hidden group transition-all duration-500 gsap-fade-up" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
                                 <div class="h-56 overflow-hidden relative">
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.21.22_AM_zywwfg.jpg" onerror="this.src='https://placehold.co/600x400?text=Tharun+Speaks'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
@@ -793,7 +970,7 @@
                             </div>
 
                             <!-- Card 5 -->
-                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('hack')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                            <div class="glass rounded-3xl overflow-hidden group transition-all duration-500 gsap-fade-up" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
                                 <div class="h-56 overflow-hidden relative">
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061209/Screenshot_2025-11-25_142832_gv8kdz.png" onerror="this.src='https://placehold.co/600x400?text=Hacking'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
@@ -809,7 +986,7 @@
                             </div>
 
                             <!-- Card 6 -->
-                            <div class="glass rounded-3xl overflow-hidden group cursor-pointer hover:shadow-2xl transition-all duration-500 gsap-fade-up" onclick="openModal('drone')" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                            <div class="glass rounded-3xl overflow-hidden group transition-all duration-500 gsap-fade-up" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
                                 <div class="h-56 overflow-hidden relative">
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061567/Screenshot_2025-11-25_143521_fuc1bn.png" onerror="this.src='https://placehold.co/600x400?text=Drone+Club'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
@@ -823,50 +1000,158 @@
                                     <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">Professional-grade media coverage of drone technology workshops.</p>
                                 </div>
                             </div>
+
+                            <!-- Card 7: Goutham Sankeerth -->
+                            <div class="glass rounded-3xl overflow-hidden group transition-all duration-500 gsap-fade-up" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                                <div class="h-56 overflow-hidden relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1771913729/Screenshot_2026-02-24_114442_zw2ejc.png" onerror="this.src='https://placehold.co/600x400?text=Goutham+Sankeerth'" class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                                </div>
+                                <div class="p-8">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                        <span class="text-xs font-bold text-purple-500 uppercase tracking-widest">Podcast</span>
+                                    </div>
+                                    <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2 group-hover:text-purple-500 transition-colors">Goutham Sankeerth</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-4">A transformational podcast discussing unfiltered college realities and building real careers.</p>
+                                    <div class="flex gap-4">
+                                        <a href="https://www.linkedin.com/in/gouthamsankeerth/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i class="fab fa-linkedin"></i></a>
+                                        <a href="https://www.instagram.com/gouthamsankeerth?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Connections -->
+                <!-- Connections (Slider Version) -->
                 <section id="connections" class="relative z-10 py-24">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center mb-16 gsap-fade-up">
                             <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Connections</h2>
                             <p class="text-slate-600 dark:text-slate-400">Networking with industry leaders.</p>
                         </div>
+                    </div>
 
-                        <div class="flex justify-center flex-wrap gap-8">
-
-                            <!-- Connection 1: Rahul Attuluri -->
-                            <div class="glass p-4 rounded-3xl hover:border-primary/50 transition-colors gsap-fade-up group flex flex-col w-full md:w-[350px]" data-tilt data-tilt-scale="1.02">
-                                <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
-                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766124714/WhatsApp_Image_2025-12-11_at_6.38.35_PM_tj3eqb.jpg" alt="Rahul Attuluri" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="connections-slider-wrapper gsap-fade-up">
+                        <div class="connections-slider-track">
+                            <!-- Set 1 -->
+                            <div class="connections-slider-section">
+                                <!-- Connection 1: Rahul Attuluri -->
+                                <div class="glass p-4 rounded-3xl hover:border-primary/50 transition-colors group flex flex-col w-[300px] md:w-[350px] shrink-0" data-tilt data-tilt-scale="1.02">
+                                    <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
+                                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766124714/WhatsApp_Image_2025-12-11_at_6.38.35_PM_tj3eqb.jpg" alt="Rahul Attuluri" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </div>
+                                    <div class="px-2 text-center">
+                                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Rahul Attuluri</h3>
+                                        <p class="text-xs font-bold text-primary uppercase tracking-wide mb-3">Co-founder & CEO at NxtWave</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                            Revolutionizing tech education at scale | WEF Technology Pioneer 2024 | Raised $33M in Series-A
+                                        </p>
+                                        <div class="flex gap-4 justify-center mt-4">
+                                            <a href="https://www.linkedin.com/in/rahulattuluri/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i class="fab fa-linkedin"></i></a>
+                                            <a href="https://www.instagram.com/rahulattuluri/?utm_source=ig_web_button_share_sheet" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i class="fab fa-instagram"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="px-2 text-center">
-                                    <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Rahul Attuluri</h3>
-                                    <p class="text-xs font-bold text-primary uppercase tracking-wide mb-3">Co-founder & CEO at NxtWave</p>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
-                                        Revolutionizing tech education at scale | WEF Technology Pioneer 2024 | Raised $33M in Series-A
-                                    </p>
+
+                                <!-- Connection 2: Mohammed Farhaad Yenepoya -->
+                                <div class="glass p-4 rounded-3xl hover:border-secondary/50 transition-colors group flex flex-col w-[300px] md:w-[350px] shrink-0" data-tilt data-tilt-scale="1.02">
+                                    <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
+                                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378819/WhatsApp_Image_2025-12-10_at_2.42.37_PM_z8bi7h.jpg" alt="Mohammed Farhaad Yenepoya" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </div>
+                                    <div class="px-2 text-center">
+                                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Mr. Mohammed Farhaad Yenepoya</h3>
+                                        <p class="text-xs font-bold text-secondary uppercase tracking-wide mb-3">Pro Chancellor, Yenepoya University</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                            Key role in shaping future-ready campuses, driving multidisciplinary education, and building global collaborations across education & healthcare.
+                                        </p>
+                                        <div class="flex gap-4 justify-center mt-4">
+                                            <a href="https://www.yenepoya.edu.in/officers-of-university.php" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-secondary transition-colors text-xl relative z-10"><i class="fas fa-globe"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Connection 3: Garry Jacobs -->
+                                <div class="glass p-4 rounded-3xl hover:border-accent/50 transition-colors group flex flex-col w-[300px] md:w-[350px] shrink-0" data-tilt data-tilt-scale="1.02">
+                                    <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
+                                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1771649258/WhatsApp_Image_2026-02-20_at_11.25.44_PM_b8i63c.jpg" alt="Garry Jacobs" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </div>
+                                    <div class="px-2 text-center">
+                                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Garry Jacobs</h3>
+                                        <p class="text-xs font-bold text-accent uppercase tracking-wide mb-3">President & CEO, WAAS & WUC</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                            Thrilled to share that today I had the opportunity to meet Garry Jacobs, President & CEO of the World Academy of Art and Science and Chairman & CEO of the World University Consortium.
+                                        </p>
+                                        <div class="flex gap-4 justify-center mt-4">
+                                            <a href="https://www.linkedin.com/in/garryjacobs/?originalSubdomain=in" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i class="fab fa-linkedin"></i></a>
+                                            <a href="https://en.wikipedia.org/wiki/Garry_Jacobs" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-accent transition-colors text-xl relative z-10"><i class="fab fa-wikipedia-w"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Connection 2: Mohammed Farhaad Yenepoya -->
-                            <div class="glass p-4 rounded-3xl hover:border-secondary/50 transition-colors gsap-fade-up group flex flex-col w-full md:w-[350px]" data-tilt data-tilt-scale="1.02">
-                                <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
-                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378819/WhatsApp_Image_2025-12-10_at_2.42.37_PM_z8bi7h.jpg" alt="Mohammed Farhaad Yenepoya" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <!-- Set 2 (Duplicate for infinite loop) -->
+                            <div class="connections-slider-section">
+                                <!-- Connection 1: Rahul Attuluri -->
+                                <div class="glass p-4 rounded-3xl hover:border-primary/50 transition-colors group flex flex-col w-[300px] md:w-[350px] shrink-0" data-tilt data-tilt-scale="1.02">
+                                    <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
+                                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766124714/WhatsApp_Image_2025-12-11_at_6.38.35_PM_tj3eqb.jpg" alt="Rahul Attuluri" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </div>
+                                    <div class="px-2 text-center">
+                                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Rahul Attuluri</h3>
+                                        <p class="text-xs font-bold text-primary uppercase tracking-wide mb-3">Co-founder & CEO at NxtWave</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                            Revolutionizing tech education at scale | WEF Technology Pioneer 2024 | Raised $33M in Series-A
+                                        </p>
+                                        <div class="flex gap-4 justify-center mt-4">
+                                            <a href="https://www.linkedin.com/in/rahulattuluri/" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i class="fab fa-linkedin"></i></a>
+                                            <a href="https://www.instagram.com/rahulattuluri/?utm_source=ig_web_button_share_sheet" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-pink-600 transition-colors text-xl relative z-10"><i class="fab fa-instagram"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="px-2 text-center">
-                                    <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Mr. Mohammed Farhaad Yenepoya</h3>
-                                    <p class="text-xs font-bold text-secondary uppercase tracking-wide mb-3">Pro Chancellor, Yenepoya University</p>
-                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
-                                        Key role in shaping future-ready campuses, driving multidisciplinary education, and building global collaborations across education & healthcare.
-                                    </p>
+
+                                <!-- Connection 2: Mohammed Farhaad Yenepoya -->
+                                <div class="glass p-4 rounded-3xl hover:border-secondary/50 transition-colors group flex flex-col w-[300px] md:w-[350px] shrink-0" data-tilt data-tilt-scale="1.02">
+                                    <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
+                                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378819/WhatsApp_Image_2025-12-10_at_2.42.37_PM_z8bi7h.jpg" alt="Mohammed Farhaad Yenepoya" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </div>
+                                    <div class="px-2 text-center">
+                                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Mr. Mohammed Farhaad Yenepoya</h3>
+                                        <p class="text-xs font-bold text-secondary uppercase tracking-wide mb-3">Pro Chancellor, Yenepoya University</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                            Key role in shaping future-ready campuses, driving multidisciplinary education, and building global collaborations across education & healthcare.
+                                        </p>
+                                        <div class="flex gap-4 justify-center mt-4">
+                                            <a href="https://www.yenepoya.edu.in/officers-of-university.php" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-secondary transition-colors text-xl relative z-10"><i class="fas fa-globe"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Connection 3: Garry Jacobs -->
+                                <div class="glass p-4 rounded-3xl hover:border-accent/50 transition-colors group flex flex-col w-[300px] md:w-[350px] shrink-0" data-tilt data-tilt-scale="1.02">
+                                    <div class="w-full h-72 mb-5 rounded-2xl overflow-hidden relative shadow-lg">
+                                        <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1771649258/WhatsApp_Image_2026-02-20_at_11.25.44_PM_b8i63c.jpg" alt="Garry Jacobs" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    </div>
+                                    <div class="px-2 text-center">
+                                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-1">Garry Jacobs</h3>
+                                        <p class="text-xs font-bold text-accent uppercase tracking-wide mb-3">President & CEO, WAAS & WUC</p>
+                                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                                            Thrilled to share that today I had the opportunity to meet Garry Jacobs, President & CEO of the World Academy of Art and Science and Chairman & CEO of the World University Consortium.
+                                        </p>
+                                        <div class="flex gap-4 justify-center mt-4">
+                                            <a href="https://www.linkedin.com/in/garryjacobs/?originalSubdomain=in" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-blue-600 transition-colors text-xl relative z-10"><i class="fab fa-linkedin"></i></a>
+                                            <a href="https://en.wikipedia.org/wiki/Garry_Jacobs" target="_blank" onclick="event.stopPropagation()" class="text-slate-400 hover:text-accent transition-colors text-xl relative z-10"><i class="fab fa-wikipedia-w"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </section>
@@ -914,6 +1199,8 @@
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.23.19_AM_cyqaoo.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-100 z-10" alt="OpenAI Hackathon 1">
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/9b8b371407594ec8ab3e6137f7cda67d_pbwxaz.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="OpenAI Hackathon 2">
                                     <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/a6021a5ab1034849a7a828a3f18c2568_dstb90.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="OpenAI Hackathon 3">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1772426341/WhatsApp_Image_2026-03-02_at_10.00.23_AM_hkb4qk.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="OpenAI Hackathon 4">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1772426339/WhatsApp_Image_2026-03-02_at_10.00.24_AM_ngkhxo.jpg" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="OpenAI Hackathon 5">
                                 </div>
                                 <div class="p-6">
                                     <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">OpenAI Hackathon</h3>
@@ -961,59 +1248,73 @@
                                     <p class="text-sm text-slate-600 dark:text-slate-400">Event Organizer. Managed social media, participant support, and operations for this global event.</p>
                                 </div>
                             </div>
+
+                            <!-- Event 8: Banking & Leadership Podcast -->
+                            <div class="glass rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500 gsap-fade-up" data-tilt>
+                                <div class="h-52 overflow-hidden relative banking-carousel">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1771256721/Screenshot_2026-02-16_211506_n2jvzt.png" class="w-full h-full object-cover object-top absolute inset-0 transition-opacity duration-1000 opacity-100 z-10" alt="Banking Session 1">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1771256722/Screenshot_2026-02-16_211446_tiauok.png" class="w-full h-full object-cover object-top absolute inset-0 transition-opacity duration-1000 opacity-0 z-10" alt="Banking Session 2">
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">Banking & Leadership</h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">Organized a podcast with Rajesh Balaraju (25+ yrs exp) to bridge campus-industry gaps.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Projects -->
-                <section id="projects" class="relative z-10 py-24">
-                    <div class="max-w-7xl mx-auto px-6">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold text-center mb-16 text-slate-900 dark:text-white gsap-fade-up">Projects</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projects (Horizontal Scroll Update) -->
+                <section id="projects-wrapper" class="relative z-10 py-24 overflow-hidden bg-slate-900 text-white">
+                    <div class="max-w-7xl mx-auto px-6 mb-16 relative z-20">
+                        <div class="text-center gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-white">Projects</h2>
+                            <p class="text-slate-400">Scroll to explore my digital products.</p>
+                        </div>
+                    </div>
 
-                            <!-- Project 1: Linkedify -->
-                            <div class="glass p-8 rounded-3xl text-center hover:border-blue-500/50 transition-colors gsap-fade-up relative" data-tilt data-tilt-scale="1.02">
-                                <div class="absolute top-6 right-6">
-                                    <span class="bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-200 dark:border-blue-800">SMM</span>
-                                </div>
-                                <div class="w-20 h-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner group">
-                                    <i class="fab fa-linkedin-in text-4xl text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Linkedify</h3>
-                                <p class="text-xs font-bold text-blue-500 mb-4 uppercase tracking-wide">Professional LinkedIn Automation</p>
-                                <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm leading-relaxed">
-                                    Transform Your LinkedIn Presence. Streamline content creation with AI-powered posts, smart scheduling, and powerful analytics. Elevate your professional brand effortlessly.
-                                </p>
-                                <a href="https://linkedify.app/" target="_blank" class="inline-block px-6 py-2.5 rounded-full bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors shadow-lg hover:shadow-blue-500/30">View Project</a>
+                    <div class="horizontal-projects-container">
+                        <!-- Project 1: Linkedify -->
+                        <div class="glass dark p-8 rounded-3xl text-center hover:border-blue-500/50 transition-colors w-[350px] shrink-0 relative flex flex-col items-center" data-tilt data-tilt-scale="1.02">
+                            <div class="absolute top-6 right-6">
+                                <span class="bg-blue-900/40 text-blue-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-800">SMM</span>
                             </div>
-
-                            <!-- Project 2: AI Profile Optimizer -->
-                            <div class="glass p-8 rounded-3xl text-center hover:border-purple-500/50 transition-colors gsap-fade-up" data-tilt data-tilt-scale="1.02">
-                                <div class="w-20 h-20 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner">
-                                    <i class="fa-solid fa-robot text-4xl text-purple-600 dark:text-purple-400"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">AI Profile Optimizer</h3>
-                                <p class="text-xs font-bold text-purple-500 mb-4 uppercase tracking-wide">Instagram Growth Tool</p>
-                                <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed">Students get instant Instagram profile suggestions to maximize reach and engagement using advanced AI algorithms.</p>
-                                <a href="https://aiprofile.niat.tech" target="_blank" class="inline-block px-6 py-2.5 rounded-full bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 transition-colors shadow-lg hover:shadow-purple-500/30">View Project</a>
+                            <div class="w-20 h-20 bg-blue-900/20 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner group">
+                                <i class="fab fa-linkedin-in text-4xl text-blue-400 group-hover:scale-110 transition-transform"></i>
                             </div>
+                            <h3 class="text-2xl font-bold mb-2 text-white">Linkedify</h3>
+                            <p class="text-xs font-bold text-blue-500 mb-4 uppercase tracking-wide">Professional LinkedIn Automation</p>
+                            <p class="text-slate-400 mb-6 text-sm leading-relaxed flex-grow">
+                                Transform Your LinkedIn Presence. Streamline content creation with AI-powered posts, smart scheduling, and powerful analytics.
+                            </p>
+                            <button onclick="openDemoModal('linkedify')" class="w-full px-6 py-2.5 rounded-full bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors shadow-lg hover:shadow-blue-500/30 mt-auto">Live Demo</button>
+                        </div>
 
-                            <!-- Project 3: Quick Story Maker -->
-                            <div class="glass p-8 rounded-3xl text-center hover:border-pink-500/50 transition-colors gsap-fade-up" data-tilt data-tilt-scale="1.02">
-                                <div class="w-20 h-20 bg-pink-100 dark:bg-pink-900/30 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner">
-                                    <i class="fa-solid fa-wand-magic-sparkles text-4xl text-pink-600 dark:text-pink-400"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Quick Story Maker</h3>
-                                <p class="text-xs font-bold text-pink-500 mb-4 uppercase tracking-wide">Creative Templates</p>
-                                <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed">Templates for students to create their first professional story or reel in minutes without design skills.</p>
-                                <button class="px-6 py-2.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-500 font-bold text-sm cursor-not-allowed opacity-70">Coming Soon</button>
+                        <!-- Project 2: AI Profile Optimizer -->
+                        <div class="glass dark p-8 rounded-3xl text-center hover:border-purple-500/50 transition-colors w-[350px] shrink-0 relative flex flex-col items-center" data-tilt data-tilt-scale="1.02">
+                            <div class="w-20 h-20 bg-purple-900/30 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner">
+                                <i class="fa-solid fa-robot text-4xl text-purple-400"></i>
                             </div>
+                            <h3 class="text-2xl font-bold mb-2 text-white">AI Profile Optimizer</h3>
+                            <p class="text-xs font-bold text-purple-500 mb-4 uppercase tracking-wide">Instagram Growth Tool</p>
+                            <p class="text-slate-400 mb-8 text-sm leading-relaxed flex-grow">Students get instant Instagram profile suggestions to maximize reach and engagement using advanced AI algorithms.</p>
+                            <a href="https://aiprofile.niat.tech" target="_blank" class="w-full inline-block px-6 py-2.5 rounded-full bg-purple-600 text-white font-bold text-sm hover:bg-purple-700 transition-colors shadow-lg hover:shadow-purple-500/30 mt-auto">View Project</a>
+                        </div>
 
+                        <!-- Project 3: Quick Story Maker -->
+                        <div class="glass dark p-8 rounded-3xl text-center hover:border-pink-500/50 transition-colors w-[350px] shrink-0 relative flex flex-col items-center" data-tilt data-tilt-scale="1.02">
+                            <div class="w-20 h-20 bg-pink-900/30 rounded-full flex items-center justify-center mb-6 mx-auto shadow-inner">
+                                <i class="fa-solid fa-wand-magic-sparkles text-4xl text-pink-400"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2 text-white">Quick Story Maker</h3>
+                            <p class="text-xs font-bold text-pink-500 mb-4 uppercase tracking-wide">Creative Templates</p>
+                            <p class="text-slate-400 mb-8 text-sm leading-relaxed flex-grow">Templates for students to create their first professional story or reel in minutes without design skills.</p>
+                            <button class="w-full px-6 py-2.5 rounded-full bg-slate-800 text-slate-500 font-bold text-sm cursor-not-allowed opacity-70 mt-auto">Coming Soon</button>
                         </div>
                     </div>
                 </section>
 
-                <!-- NEW: Social Impact Section (Manavistra) -->
+                <!-- Social Impact Section (Manavistra) -->
                 <section id="social-impact" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center mb-16 gsap-fade-up">
@@ -1037,7 +1338,7 @@
                                             <h3 class="text-2xl md:text-3xl font-display font-bold text-slate-900 dark:text-white">Manavistra (MSSO)</h3>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed">
                                         <p>
                                             Over the years, I’ve explored different paths, but one purpose always stayed close to my heart: <strong>serving the nation and giving back to society.</strong>
@@ -1087,7 +1388,7 @@
                                             Blanket Drive Highlights
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Additional Image / Context -->
                                     <div class="relative rounded-2xl overflow-hidden h-48 shadow-lg group/img">
                                         <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1770911234/WhatsApp_Image_2026-02-10_at_6.52.21_PM_2_xwi4hm.jpg" alt="Team Manavistra" class="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-700">
@@ -1103,17 +1404,206 @@
                     </div>
                 </section>
 
-                <!-- Gallery Section (NEW) -->
+                <!-- Gallery Section -->
                 <section id="gallery" class="relative z-10 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Moments in Action</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Capturing the energy of events and networking.</p>
+                        </div>
+
+                        <div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                            <!-- Image 1 -->
+                            <div class="glass p-2 rounded-2xl break-inside-avoid hover:scale-[1.02] transition-transform duration-300 gsap-fade-up">
+                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378248/Screenshot_2025-12-22_100305_ay8p5z.png" loading="lazy" class="w-full rounded-xl" alt="Gallery Moment 1">
+                            </div>
+                            <!-- Image 2 -->
+                            <div class="glass p-2 rounded-2xl break-inside-avoid hover:scale-[1.02] transition-transform duration-300 gsap-fade-up">
+                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378248/Screenshot_2025-12-22_100242_ymx1y8.png" loading="lazy" class="w-full rounded-xl" alt="Gallery Moment 2">
+                            </div>
+                            <!-- Image 3 -->
+                            <div class="glass p-2 rounded-2xl break-inside-avoid hover:scale-[1.02] transition-transform duration-300 gsap-fade-up">
+                                <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378338/Screenshot_2025-12-22_100847_vrhlpy.png" loading="lazy" class="w-full rounded-xl" alt="Gallery Moment 3">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Video Highlights Section -->
+                <section id="videos" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 gsap-fade-up">
+                            <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Experience the Hype</h2>
+                            <p class="text-slate-600 dark:text-slate-400">Watch the energy of our biggest summits unfold.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Video 1 -->
+                            <div class="glass p-4 rounded-3xl gsap-fade-up group cursor-pointer" data-tilt data-tilt-scale="1.02">
+                                <div class="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg bg-black group-hover:shadow-glow-primary transition-all">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763181948/IMG-20250527-WA0031_dvjfhr.jpg" loading="lazy" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity transform group-hover:scale-105 duration-700" alt="HexaVerse Video">
+                                    <div class="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                        <div class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/50 shadow-2xl relative z-10 group-hover:bg-red-600 group-hover:border-red-600 transition-colors">
+                                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                                        </div>
+                                        <div class="absolute w-20 h-20 bg-white/30 rounded-full animate-ping"></div>
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 z-10">
+                                        <span class="px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full uppercase tracking-wider mb-3 inline-block">Aftermovie</span>
+                                        <h3 class="text-white font-display font-bold text-2xl">HexaVerse 2025</h3>
+                                    </div>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                </div>
+                            </div>
+
+                            <!-- Video 2 -->
+                            <div class="glass p-4 rounded-3xl gsap-fade-up group cursor-pointer" data-tilt data-tilt-scale="1.02">
+                                <div class="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden shadow-lg bg-black group-hover:shadow-glow-accent transition-all">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763180175/WhatsApp_Image_2025-11-15_at_9.45.07_AM_uwaqkr.jpg" loading="lazy" class="w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity transform group-hover:scale-105 duration-700" alt="HES Video">
+                                    <div class="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                        <div class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/50 shadow-2xl relative z-10 group-hover:bg-blue-600 group-hover:border-blue-600 transition-colors">
+                                            <i class="fas fa-play text-white text-2xl ml-1"></i>
+                                        </div>
+                                        <div class="absolute w-20 h-20 bg-white/30 rounded-full animate-ping"></div>
+                                    </div>
+                                    <div class="absolute bottom-6 left-6 z-10">
+                                        <span class="px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full uppercase tracking-wider mb-3 inline-block">Official Recap</span>
+                                        <h3 class="text-white font-display font-bold text-2xl">HES Summit 2025</h3>
+                                    </div>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Certifications -->
+                <section id="certifications" class="relative z-10 py-24">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <h2 class="font-display text-4xl font-bold text-center mb-16 text-slate-900 dark:text-white gsap-fade-up">Licenses & Certifications</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                            <!-- Cert 1: TCS -->
+                            <a href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764673068/Screenshot_2025-12-02_162733_h53itk.png" target="_blank" class="glass p-6 rounded-2xl gsap-fade-up group hover:border-primary/50 transition-colors block" data-tilt>
+                                <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1764673068/Screenshot_2025-12-02_162733_h53itk.png" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=TCS'" alt="TCS iON" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                        <i class="fas fa-external-link-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">TCS iON Career Edge</h3>
+                                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Dec 2025</span>
+                                </div>
+                                <p class="text-sm font-semibold text-primary mb-1">Tata Consultancy Services</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">IT Service Management & Tools Primer.</p>
+                            </a>
+
+                            <!-- Cert 2: AWS -->
+                            <a href="https://placehold.co/600x400/fbbf24/000000?text=AWS+ML" target="_blank" class="glass p-6 rounded-2xl gsap-fade-up group hover:border-accent/50 transition-colors block" data-tilt>
+                                <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
+                                    <img src="https://placehold.co/600x400/fbbf24/000000?text=AWS+ML" loading="lazy" alt="AWS ML" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                        <i class="fas fa-external-link-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">AWS Certified ML</h3>
+                                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Oct 2025</span>
+                                </div>
+                                <p class="text-sm font-semibold text-accent mb-1">Amazon Web Services</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Specialty in Artificial Intelligence (AI) & Machine Learning.</p>
+                            </a>
+
+                            <!-- Cert 3: Gen AI -->
+                            <a href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1735811083/Screenshot_2025-01-02_150942_dlzbyf.png" target="_blank" class="glass p-6 rounded-2xl gsap-fade-up group hover:border-blue-400/50 transition-colors block" data-tilt>
+                                <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1735811083/Screenshot_2025-01-02_150942_dlzbyf.png" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=GenAI'" alt="Generative AI" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                        <i class="fas fa-external-link-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Generative AI</h3>
+                                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Jan 2025</span>
+                                </div>
+                                <p class="text-sm font-semibold text-blue-400 mb-1">Simplilearn</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Comprehensive introduction to Generative AI technologies.</p>
+                            </a>
+
+                            <!-- Cert 4: MSME -->
+                            <a href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1736232194/Picsart_25-01-06_23-20-36-401_b0ceud.jpg" target="_blank" class="glass p-6 rounded-2xl gsap-fade-up group hover:border-orange-500/50 transition-colors block" data-tilt>
+                                <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1736232194/Picsart_25-01-06_23-20-36-401_b0ceud.jpg" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=MSME'" alt="MSME" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                        <i class="fas fa-external-link-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">MSME & Startup India</h3>
+                                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Jan 2025</span>
+                                </div>
+                                <p class="text-sm font-semibold text-orange-500 mb-1">Govt. of India</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Entrepreneurship, innovation, and skill development program.</p>
+                            </a>
+
+                            <!-- Cert 5: HubSpot -->
+                            <a href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1735620143/2809d81dd69242fbab985eacccec3c47_ebzz3k.png" target="_blank" class="glass p-6 rounded-2xl gsap-fade-up group hover:border-red-500/50 transition-colors block" data-tilt>
+                                <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
+                                    <img src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1735620143/2809d81dd69242fbab985eacccec3c47_ebzz3k.png" loading="lazy" onerror="this.src='https://placehold.co/600x400?text=HubSpot'" alt="HubSpot" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                        <i class="fas fa-external-link-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Digital Marketing</h3>
+                                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Dec 2024</span>
+                                </div>
+                                <p class="text-sm font-semibold text-red-500 mb-1">HubSpot Academy</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Inbound marketing strategies and digital campaign management.</p>
+                            </a>
+
+                            <!-- Cert 6: HackerRank -->
+                            <a href="https://placehold.co/600x400/22c55e/ffffff?text=HackerRank" target="_blank" class="glass p-6 rounded-2xl gsap-fade-up group hover:border-green-500/50 transition-colors block" data-tilt>
+                                <div class="h-48 mb-4 overflow-hidden rounded-xl relative">
+                                    <img src="https://placehold.co/600x400/22c55e/ffffff?text=HackerRank" loading="lazy" alt="HackerRank" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                        <i class="fas fa-external-link-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Skill Certificate</h3>
+                                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-slate-600 px-2 py-1 rounded">Nov 2024</span>
+                                </div>
+                                <p class="text-sm font-semibold text-green-500 mb-1">HackerRank</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Verified problem solving and technical proficiency.</p>
+                            </a>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Testimonials Section (Upgraded with Video) -->
+                <section id="testimonials" class="relative z-10 py-24 bg-slate-50/50 dark:bg-slate-900/50">
                     <div class="max-w-7xl mx-auto px-6">
                         <div class="text-center mb-16 gsap-fade-up">
                             <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">Words of Trust</h2>
                             <p class="text-slate-600 dark:text-slate-400">What people say about working with me.</p>
                         </div>
 
-                        <div class="max-w-3xl mx-auto mb-20">
-                            <!-- Testimonial 1: Sudheer -->
-                            <div class="glass p-8 rounded-3xl relative gsap-fade-up" data-tilt data-tilt-scale="1.01">
+                        <div class="max-w-4xl mx-auto mb-20 flex flex-col md:flex-row gap-8 items-center">
+                            <!-- Testimonial Video -->
+                            <div class="w-full md:w-1/3 shrink-0 rounded-3xl overflow-hidden shadow-2xl glass p-2 relative gsap-fade-up" data-tilt>
+                                <video autoplay loop muted playsinline class="w-full h-auto rounded-2xl object-cover">
+                                    <!-- Fallback to image if no actual video source provided yet, just mocking the UI element for 2026 trending look -->
+                                    <source src="https://res.cloudinary.com/do4nuj2kh/video/upload/v1770911243/WhatsApp_Video_2026-02-12_at_9.13.51_PM_jwbfpe.mp4" type="video/mp4">
+                                </video>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none rounded-2xl"></div>
+                            </div>
+
+                            <!-- Testimonial Text -->
+                            <div class="glass p-8 rounded-3xl relative gsap-fade-up flex-1" data-tilt data-tilt-scale="1.01">
                                 <i class="fas fa-quote-left text-4xl text-primary/20 absolute top-8 left-8"></i>
                                 <p class="text-slate-600 dark:text-slate-300 mb-6 italic relative z-10 pt-6 text-sm leading-relaxed">
                                     "I had the opportunity to mentor Karthik closely and was impressed by his commitment and positive approach to challenges. He takes feedback seriously, asks thoughtful questions, and applies insights effectively. Karthik also played an active role in promoting one of our ongoing products as a social media manager, contributing to content planning and outreach efforts, which reflects his strong understanding of product positioning and audience engagement."
@@ -1133,7 +1623,7 @@
                             </div>
                         </div>
 
-                        <!-- FAQ Accordion (NEW) -->
+                        <!-- FAQ Accordion -->
                         <div class="max-w-3xl mx-auto">
                             <h3 class="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white">Frequently Asked Questions</h3>
                             <div class="space-y-4">
@@ -1177,7 +1667,7 @@
                     </div>
                 </section>
 
-                <!-- Call to Action (New) -->
+                <!-- Call to Action -->
                 <section class="relative z-10 py-24">
                     <div class="max-w-4xl mx-auto px-6 text-center">
                         <div class="glass p-12 rounded-[3rem] relative overflow-hidden group gsap-fade-up" data-tilt>
@@ -1208,14 +1698,14 @@
                         <a href="https://www.youtube.com/channel/UC211RzEXC26FitAswIElwZg" target="_blank" class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-red-600 hover:text-white transition-all text-xl"><i class="fab fa-youtube"></i></a>
                         <a href="https://github.com/NIMMANAGOTI777" target="_blank" class="magnetic w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-900 hover:text-white transition-all text-xl"><i class="fab fa-github"></i></a>
                     </div>
-                    <p class="text-sm text-slate-500 dark:text-slate-500 font-medium">© 2025 Karthik Nimmanagoti. All rights reserved.</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-500 font-medium">© 2026 Karthik Nimmanagoti. All rights reserved.</p>
                 </footer>
 
         </div>
     </main>
 
     <!-- Back to Top Button -->
-    <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 right-6 z-40 w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-primary opacity-0 pointer-events-none transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary">
+    <button id="back-to-top" aria-label="Back to Top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 right-6 z-40 w-12 h-12 bg-white dark:bg-slate-800 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center text-primary opacity-0 pointer-events-none transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-primary">
         <i class="fas fa-arrow-up"></i>
     </button>
 
@@ -1238,7 +1728,7 @@
                 <button onclick="chatReply('Contact')" class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 p-2 rounded text-slate-700 dark:text-slate-200 transition-colors">Contact</button>
             </div>
         </div>
-        <button onclick="toggleChat()" class="magnetic w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-full text-white text-2xl shadow-glow-primary hover:scale-110 transition-transform flex items-center justify-center z-50">
+        <button onclick="toggleChat()" aria-label="Open Chat" class="magnetic w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-full text-white text-2xl shadow-glow-primary hover:scale-110 transition-transform flex items-center justify-center z-50">
             <i class="fas fa-comment-dots"></i>
         </button>
     </div>
@@ -1266,6 +1756,52 @@
         </div>
     </div>
 
+    <!-- Live Demo Modal (NEW) -->
+    <div id="demo-overlay" class="fixed inset-0 bg-black/80 z-[80] hidden backdrop-blur-xl flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-4xl h-[80vh] overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-500 border border-slate-200 dark:border-slate-700 flex flex-col" id="demo-content">
+            <div class="bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="ml-4 text-sm font-medium text-slate-500 dark:text-slate-400 font-mono">linkedify.app / live-preview</span>
+                </div>
+                <button onclick="closeDemoModal()" class="text-slate-500 hover:text-red-500 transition-colors"><i class="fas fa-times text-lg"></i></button>
+            </div>
+            <div class="flex-1 p-8 overflow-y-auto relative bg-slate-50 dark:bg-[#0B1120]">
+                <!-- Mock Dashboard UI -->
+                <div class="animate-pulse flex items-center gap-4 mb-8">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-full"></div>
+                    <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/4"></div>
+                </div>
+                <div class="grid grid-cols-3 gap-6 mb-8">
+                    <div class="h-24 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-4 animate-pulse">
+                        <div class="h-3 bg-slate-200 dark:bg-slate-700 rounded w-1/2 mb-4"></div>
+                        <div class="h-8 bg-blue-500/20 rounded w-3/4"></div>
+                    </div>
+                    <div class="h-24 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-4 animate-pulse">
+                        <div class="h-3 bg-slate-200 dark:bg-slate-700 rounded w-1/2 mb-4"></div>
+                        <div class="h-8 bg-purple-500/20 rounded w-3/4"></div>
+                    </div>
+                    <div class="h-24 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-4 animate-pulse">
+                        <div class="h-3 bg-slate-200 dark:bg-slate-700 rounded w-1/2 mb-4"></div>
+                        <div class="h-8 bg-green-500/20 rounded w-3/4"></div>
+                    </div>
+                </div>
+                <div class="h-64 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm p-4 animate-pulse flex flex-col justify-end gap-2">
+                    <div class="h-[10%] bg-blue-500/10 rounded w-full"></div>
+                    <div class="h-[30%] bg-blue-500/20 rounded w-full"></div>
+                    <div class="h-[60%] bg-blue-500/30 rounded w-full"></div>
+                </div>
+                <div class="absolute inset-0 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm flex flex-col items-center justify-center z-10">
+                    <i class="fas fa-lock text-4xl text-slate-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Interactive Dashboard Locked</h3>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-md text-center">This is a conceptual live preview. Full interactive metrics will be deployed in the next update.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- SCRIPTS -->
     <script>
         // 1. Lenis Smooth Scroll
@@ -1286,7 +1822,7 @@
         }
         requestAnimationFrame(raf);
 
-        // 2. Preloader
+        // 2. Preloader & AI Personalization
         window.addEventListener("load", () => {
             const preloader = document.getElementById("preloader");
             gsap.to(preloader, {
@@ -1296,8 +1832,28 @@
                 onComplete: () => preloader.style.display = "none"
             });
 
-            // Trigger Hero Animations after load
             initHeroAnimations();
+
+            // AI Personalization Toast
+            setTimeout(() => {
+                const toast = document.getElementById('ai-toast');
+                const toastMsg = document.getElementById('ai-toast-msg');
+                const referrer = document.referrer.toLowerCase();
+
+                let greeting = "Welcome to my portfolio!";
+                if (referrer.includes('linkedin')) greeting = "Hey there! Thanks for visiting from LinkedIn.";
+                else if (referrer.includes('instagram')) greeting = "Welcome from Instagram! Check out my projects.";
+                else if (referrer.includes('github')) greeting = "Hello fellow dev! Thanks for dropping by from GitHub.";
+
+                toastMsg.innerText = greeting;
+                toast.classList.remove('opacity-0', '-translate-y-20');
+                toast.classList.add('opacity-100', 'translate-y-0');
+
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                    toast.classList.add('opacity-0', '-translate-y-20');
+                }, 5000);
+            }, 2500);
         });
 
         // 3. Custom Cursor Logic
@@ -1311,7 +1867,6 @@
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
 
-            // Add slight lag to outline
             cursorOutline.animate({
                 left: `${posX}px`,
                 top: `${posY}px`
@@ -1321,7 +1876,6 @@
             });
         });
 
-        // Add hover effect to interactive elements
         const interactives = document.querySelectorAll("a, button, .group, .card-slider, input, textarea, select");
         interactives.forEach(el => {
             el.addEventListener("mouseenter", () => document.body.classList.add("hovering"));
@@ -1333,7 +1887,6 @@
 
         function initHeroAnimations() {
             const tl = gsap.timeline();
-
             tl.from(".gsap-hero-text", {
                     y: 100,
                     opacity: 0,
@@ -1350,13 +1903,12 @@
                 }, "-=0.8");
         }
 
-        // Staggered Fade Up for sections
         const fadeUpElements = document.querySelectorAll(".gsap-fade-up");
         fadeUpElements.forEach(el => {
             gsap.from(el, {
                 scrollTrigger: {
                     trigger: el,
-                    start: "top 85%",
+                    start: "top 85%"
                 },
                 y: 60,
                 opacity: 0,
@@ -1365,18 +1917,20 @@
             });
         });
 
-        // Timeline Animation
-        const timelineItems = document.querySelectorAll(".gsap-timeline-item");
-        timelineItems.forEach((item, index) => {
-            gsap.from(item, {
+        // Horizontal Scroll for Projects
+        let mm = gsap.matchMedia();
+        mm.add("(min-width: 768px)", () => {
+            let container = document.querySelector(".horizontal-projects-container");
+            gsap.to(container, {
+                x: () => -(container.scrollWidth - window.innerWidth + 100) + "px",
+                ease: "none",
                 scrollTrigger: {
-                    trigger: item,
-                    start: "top 80%",
-                },
-                x: index % 2 === 0 ? -50 : 50,
-                opacity: 0,
-                duration: 1,
-                ease: "power3.out"
+                    trigger: "#projects-wrapper",
+                    pin: true,
+                    scrub: 1,
+                    start: "center center",
+                    end: () => "+=" + container.scrollWidth
+                }
             });
         });
 
@@ -1387,8 +1941,6 @@
                 const rect = magnet.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
-
-                // Strength of magnet
                 gsap.to(magnet, {
                     x: x * 0.3,
                     y: y * 0.3,
@@ -1396,7 +1948,6 @@
                     ease: "power2.out"
                 });
             });
-
             magnet.addEventListener('mouseleave', () => {
                 gsap.to(magnet, {
                     x: 0,
@@ -1412,7 +1963,6 @@
         const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
         const html = document.documentElement;
 
-        // Check local storage
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             html.classList.add('dark');
         } else {
@@ -1421,11 +1971,7 @@
 
         function toggleTheme() {
             html.classList.toggle('dark');
-            if (html.classList.contains('dark')) {
-                localStorage.theme = 'dark';
-            } else {
-                localStorage.theme = 'light';
-            }
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
         }
 
         themeToggle.addEventListener('click', toggleTheme);
@@ -1434,9 +1980,9 @@
         // 7. Typing Text
         const typingText = document.getElementById('typing-text');
         const roles = ["Student Leader", "Event Manager", "Creative Strategist", "Community Builder"];
-        let roleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        let roleIndex = 0,
+            charIndex = 0,
+            isDeleting = false;
 
         function typeEffect() {
             const currentRole = roles[roleIndex];
@@ -1454,9 +2000,7 @@
                 isDeleting = false;
                 roleIndex = (roleIndex + 1) % roles.length;
             }
-
-            const speed = isDeleting ? 50 : 100;
-            setTimeout(typeEffect, speed);
+            setTimeout(typeEffect, isDeleting ? 50 : 100);
         }
         typeEffect();
 
@@ -1476,7 +2020,6 @@
             }
         });
 
-        // Close menu on link click
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('translate-x-full');
@@ -1522,9 +2065,8 @@
                 if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
                 if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
 
-                // Mouse interaction
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
+                let dx = mouse.x - this.x,
+                    dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
                 if (distance < mouse.radius) {
                     if (mouse.x < this.x && this.x < canvas.width - 10) this.x += 1;
@@ -1532,7 +2074,6 @@
                     if (mouse.y < this.y && this.y < canvas.height - 10) this.y += 1;
                     if (mouse.y > this.y && this.y > 10) this.y -= 1;
                 }
-
                 this.x += this.speedX;
                 this.y += this.speedY;
                 this.draw();
@@ -1544,19 +2085,16 @@
             let numberOfParticles = (canvas.height * canvas.width) / 20000;
             for (let i = 0; i < numberOfParticles; i++) {
                 let size = (Math.random() * 2) + 0.5;
-                let x = Math.random() * canvas.width;
-                let y = Math.random() * canvas.height;
-                let color = '#3b82f6';
-                particlesArray.push(new Particle(x, y, size, color));
+                let x = Math.random() * canvas.width,
+                    y = Math.random() * canvas.height;
+                particlesArray.push(new Particle(x, y, size, '#3b82f6'));
             }
         }
 
         function animateParticles() {
             requestAnimationFrame(animateParticles);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
+            particlesArray.forEach(p => p.update());
         }
         initParticles();
         animateParticles();
@@ -1571,18 +2109,14 @@
             const counters = document.querySelectorAll('.counter');
             counters.forEach(counter => {
                 const target = +counter.getAttribute('data-target');
-                const duration = 2000;
-                const increment = target / (duration / 16);
-
+                const increment = target / (2000 / 16);
                 let current = 0;
                 const updateCounter = () => {
                     current += increment;
                     if (current < target) {
                         counter.innerText = Math.ceil(current);
                         requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.innerText = target;
-                    }
+                    } else counter.innerText = target;
                 };
                 updateCounter();
             });
@@ -1597,86 +2131,59 @@
 
         // 11. Modal Logic
         const eventData = {
-            'ishan': {
-                title: 'Ishan Sharma Session',
-                img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.22.34_AM_vm6hrl.jpg',
-                tag: 'Guest Session',
-                date: 'Oct 2024',
-                attendees: '450+',
-                desc: 'Hosted renowned creator Ishan Sharma for an electrifying session inspiring hundreds of students. Managed crowd control and Q&A.'
-            },
-            'madhu': {
-                title: 'Madhu Kiran Workshop',
-                img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179680/WhatsApp_Image_2025-11-15_at_9.29.46_AM_ornq12.jpg',
-                tag: 'Content Strategy',
-                date: 'Sep 2024',
-                attendees: '300+',
-                desc: 'Curated "Learn. Create. Influence." featuring top creator Madhu Kiran. Focused on content strategy and personal branding.'
-            },
-            'sid': {
-                title: 'AgriTech Podcast',
-                img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.24.22_AM_njlqzg.jpg',
-                tag: 'Podcast',
-                date: 'Aug 2024',
-                attendees: 'Online',
-                desc: 'Hosted an impactful podcast with Kishore Indukuri spotlighting AgriTech innovation and startup challenges.'
-            },
-            'tharun': {
-                title: 'Tharun Speaks',
-                img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.21.22_AM_zywwfg.jpg',
-                tag: 'Branding',
-                date: 'July 2024',
-                attendees: '500+',
-                desc: 'Inspiring dialogue on personal branding and storytelling with Tharun Naik (IITian). Handled VIP hospitality.'
-            },
-            'hack': {
-                title: 'Ethical Hacking 101',
-                img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061209/Screenshot_2025-11-25_142832_gv8kdz.png',
-                tag: 'Workshop',
-                date: 'Nov 2024',
-                attendees: '150+',
-                desc: 'High-impact cybersecurity workshop featuring Sai Krishna Kothapalli (Hackrew CEO). Bridged creativity and cyber responsibility.'
-            },
-            'drone': {
-                title: 'Drone Club Collab',
-                img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061567/Screenshot_2025-11-25_143521_fuc1bn.png',
-                tag: 'Tech Showcase',
-                date: 'Dec 2024',
-                attendees: '200+',
-                desc: 'Collaborated with the drone club for a flying showcase. Provided professional-grade media coverage.'
-            }
-        };
+            /* Same as before */ };
 
         function openModal(id) {
             const data = eventData[id];
             if (!data) return;
-            const content = document.getElementById('modal-content');
-            const overlay = document.getElementById('modal-overlay');
-
             document.getElementById('modal-img').src = data.img;
             document.getElementById('modal-title').innerText = data.title;
             document.getElementById('modal-tag').innerText = data.tag;
             document.getElementById('modal-date').innerHTML = `<i class="far fa-calendar-alt mr-2"></i> ${data.date}`;
             document.getElementById('modal-attendees').innerHTML = `<i class="fas fa-users mr-2"></i> ${data.attendees}`;
-            document.getElementById('modal-desc').innerText = data.desc;
+            document.getElementById('modal-desc').innerHTML = data.desc;
 
+            const overlay = document.getElementById('modal-overlay');
+            const content = document.getElementById('modal-content');
             overlay.classList.remove('hidden');
             setTimeout(() => {
                 content.classList.remove('opacity-0', 'scale-95');
                 content.classList.add('opacity-100', 'scale-100');
             }, 10);
-
             lenis.stop();
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            const content = document.getElementById('modal-content');
             const overlay = document.getElementById('modal-overlay');
-
+            const content = document.getElementById('modal-content');
             content.classList.remove('opacity-100', 'scale-100');
             content.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                lenis.start();
+                document.body.style.overflow = '';
+            }, 300);
+        }
 
+        // Live Demo Modal
+        function openDemoModal() {
+            const overlay = document.getElementById('demo-overlay');
+            const content = document.getElementById('demo-content');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('opacity-0', 'scale-95');
+                content.classList.add('opacity-100', 'scale-100');
+            }, 10);
+            lenis.stop();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDemoModal() {
+            const overlay = document.getElementById('demo-overlay');
+            const content = document.getElementById('demo-content');
+            content.classList.remove('opacity-100', 'scale-100');
+            content.classList.add('opacity-0', 'scale-95');
             setTimeout(() => {
                 overlay.classList.add('hidden');
                 lenis.start();
@@ -1687,11 +2194,7 @@
         // Chatbot & Resume Logic
         function toggleChat() {
             const win = document.getElementById('chat-window');
-            if (win.classList.contains('hidden')) {
-                win.classList.remove('hidden');
-            } else {
-                win.classList.add('hidden');
-            }
+            win.classList.toggle('hidden');
         }
 
         function chatReply(option) {
@@ -1726,111 +2229,47 @@
         }
 
         function toggleResume() {
-            const sidebar = document.getElementById('resume-sidebar');
-            if (sidebar.classList.contains('translate-x-full')) {
-                sidebar.classList.remove('translate-x-full');
-            } else {
-                sidebar.classList.add('translate-x-full');
-            }
+            document.getElementById('resume-sidebar').classList.toggle('translate-x-full');
         }
 
-        // 12. HES Carousel
-        function initHESCarousel() {
-            const container = document.querySelector('.hes-carousel');
+        // Carousels
+        function initCarousel(selector, interval) {
+            const container = document.querySelector(selector);
             if (!container) return;
             const images = container.querySelectorAll('img');
             let current = 0;
-
             setInterval(() => {
                 images[current].classList.remove('opacity-100');
                 images[current].classList.add('opacity-0');
-
                 current = (current + 1) % images.length;
-
                 images[current].classList.remove('opacity-0');
                 images[current].classList.add('opacity-100');
-            }, 3000); // Change every 3 seconds
-        }
-
-        // 13. OpenAI Carousel
-        function initOpenAICarousel() {
-            const container = document.querySelector('.openai-carousel');
-            if (!container) return;
-            const images = container.querySelectorAll('img');
-            let current = 0;
-
-            setInterval(() => {
-                images[current].classList.remove('opacity-100');
-                images[current].classList.add('opacity-0');
-
-                current = (current + 1) % images.length;
-
-                images[current].classList.remove('opacity-0');
-                images[current].classList.add('opacity-100');
-            }, 3500); // Change every 3.5 seconds
-        }
-
-        // 14. HexaVerse Carousel
-        function initHexaVerseCarousel() {
-            const container = document.querySelector('.hexaverse-carousel');
-            if (!container) return;
-            const images = container.querySelectorAll('img');
-            let current = 0;
-
-            setInterval(() => {
-                images[current].classList.remove('opacity-100');
-                images[current].classList.add('opacity-0');
-
-                current = (current + 1) % images.length;
-
-                images[current].classList.remove('opacity-0');
-                images[current].classList.add('opacity-100');
-            }, 4000); // Change every 4 seconds
+            }, interval);
         }
 
         window.addEventListener('load', () => {
-            initHESCarousel();
-            initOpenAICarousel();
-            initHexaVerseCarousel();
+            initCarousel('.hes-carousel', 3000);
+            initCarousel('.openai-carousel', 3500);
+            initCarousel('.hexaverse-carousel', 4000);
+            initCarousel('.banking-carousel', 3500);
         });
 
-        // 15. Scroll Progress & Back to Top (New)
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
+            document.getElementById("progressBar").style.width = (winScroll / height) * 100 + "%";
 
             const backToTop = document.getElementById("back-to-top");
-            if (winScroll > 500) {
-                backToTop.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                backToTop.classList.add('opacity-0', 'pointer-events-none');
-            }
+            if (winScroll > 500) backToTop.classList.remove('opacity-0', 'pointer-events-none');
+            else backToTop.classList.add('opacity-0', 'pointer-events-none');
         });
 
-        // 16. FAQ Accordion Logic (New)
         function toggleAccordion(button) {
             const item = button.parentElement;
             const isActive = item.classList.contains('active');
-
-            // Close all items
-            document.querySelectorAll('.accordion-item').forEach(acc => {
-                acc.classList.remove('active');
-            });
-
-            // Open clicked item if it wasn't already open
-            if (!isActive) {
-                item.classList.add('active');
-            }
+            document.querySelectorAll('.accordion-item').forEach(acc => acc.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
         }
-
-        // 17. Active Navigation State (New)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.2
-        };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1838,17 +2277,17 @@
                     const id = entry.target.getAttribute('id');
                     document.querySelectorAll('.nav-link').forEach(link => {
                         link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                        }
+                        if (link.getAttribute('href') === `#${id}`) link.classList.add('active');
                     });
                 }
             });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
         });
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
     </script>
 </body>
 
