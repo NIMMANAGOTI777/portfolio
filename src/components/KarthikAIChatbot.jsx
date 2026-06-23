@@ -46,8 +46,8 @@ export default function KarthikAIChatbot({ onTriggerContact, onTriggerResume }) 
           actionType = 'contact-trigger';
           break;
         case '🎓 Student / Learner':
-          botText = "Welcome! Karthik regularly mentors students and runs 'The Event Circle' community. Be sure to check out the Academy section for micro-courses!";
-          actionType = 'academy-tip';
+          botText = "Welcome! Karthik regularly mentors students and runs the Influencers Club at NIAT. Be sure to check out his Achievements section to see his awards!";
+          actionType = 'achievements-tip';
           break;
         case '👋 General Visitor':
           botText = "Thanks for visiting! Feel free to explore the interactive showcases. If you want to say hi or ask a question, let's connect!";
@@ -157,14 +157,14 @@ export default function KarthikAIChatbot({ onTriggerContact, onTriggerResume }) 
                       </div>
                     )}
 
-                    {msg.action === 'academy-tip' && (
+                    {msg.action === 'achievements-tip' && (
                       <div className="mt-3">
                         <a
-                          href="#growth"
+                          href="#achievements"
                           onClick={() => setIsOpen(false)}
                           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-[10px] font-bold transition"
                         >
-                          <span>Explore Academy</span>
+                          <span>Explore Achievements</span>
                           <ArrowRight size={10} />
                         </a>
                       </div>

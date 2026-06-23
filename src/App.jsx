@@ -5,13 +5,13 @@ import WhatsAppButton from './components/WhatsAppButton';
 import AdminLeads from './components/AdminLeads';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import { 
-  STATS, SERVICES, ACADEMY, COLLABORATIONS, PROJECTS, 
+  STATS, SERVICES, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
   GALLERY, VIDEOS, CERTIFICATIONS, TESTIMONIAL, FAQS 
 } from './lib/portfolioData';
 import { 
   Mail, ArrowRight, Layers, Award, Terminal, Compass, 
   Users, Calendar, Eye, Phone, Briefcase, FileText, 
-  ChevronDown, MessageSquare, Download, LogIn, ExternalLink,
+  ChevronDown, ChevronLeft, ChevronRight, MessageSquare, Download, LogIn, ExternalLink,
   Bot, Check, ArrowUpRight, X
 } from 'lucide-react';
 
@@ -102,6 +102,133 @@ function FAQItem({ faq }) {
   );
 }
 
+// 2.5. AchievementCard Component (with Image Slider)
+function AchievementCard({ achievement }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const images = achievement.images || [];
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <div className="p-6 rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between relative overflow-hidden group">
+      <div>
+        {/* Image Slider / Carousel */}
+        <div className="relative h-48 rounded-xl overflow-hidden mb-6 bg-slate-900 border border-white/5 flex items-center justify-center">
+          {images.length > 0 ? (
+            <>
+              {/* Fallback pattern or actual image */}
+              <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+                <img 
+                  src={images[currentSlide].path} 
+                  alt={images[currentSlide].label}
+                  className="w-full h-full object-cover select-none transition-opacity duration-300"
+                  onError={(e) => {
+                    // Hide the broken image and show the fallback gradient card
+                    e.target.style.display = 'none';
+                    if (e.target.nextSibling) {
+                      e.target.nextSibling.style.display = 'flex';
+                    }
+                  }}
+                />
+                
+                {/* Fallback Glassmorphic Card (hidden by default, shown if image fails to load) */}
+                <div 
+                  className="absolute inset-0 w-full h-full hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950/80 to-purple-950/80 backdrop-blur-sm"
+                >
+                  <Award size={32} className="text-indigo-400 mb-2 animate-pulse" />
+                  <span className="text-xs font-semibold text-slate-300 uppercase tracking-widest px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg">
+                    {images[currentSlide].label}
+                  </span>
+                  <span className="text-[10px] text-slate-500 mt-2">Award Image Asset Placeholder</span>
+                </div>
+              </div>
+
+              {/* Slider Controls */}
+              {images.length > 1 && (
+                <>
+                  <button 
+                    onClick={handlePrev}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-black/40 text-slate-400 hover:text-white hover:bg-black/60 transition cursor-pointer z-10"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  <button 
+                    onClick={handleNext}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-black/40 text-slate-400 hover:text-white hover:bg-black/60 transition cursor-pointer z-10"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+
+                  {/* Dot Indicators */}
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 bg-black/30 px-2.5 py-1 rounded-full">
+                    {images.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentSlide(idx);
+                        }}
+                        className={`w-1.5 h-1.5 rounded-full transition-all ${
+                          currentSlide === idx ? 'bg-indigo-400 w-3' : 'bg-slate-500'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center p-6 text-center">
+              <Award size={36} className="text-indigo-400 mb-2" />
+              <span className="text-sm font-bold text-white">{achievement.title}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Issuer and Title */}
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-[10px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
+            {achievement.issuer}
+          </span>
+        </div>
+        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-indigo-300 transition duration-200">
+          {achievement.title}
+        </h3>
+        
+        {/* Description */}
+        <p className="text-slate-400 text-xs leading-relaxed mb-4">
+          {achievement.description}
+        </p>
+
+        {/* Quote Block */}
+        {achievement.quote && (
+          <div className="relative p-3.5 rounded-xl bg-slate-905/30 border border-white/5 mb-4 text-slate-300 text-xs italic leading-relaxed">
+            <span className="absolute -top-1.5 left-2 text-indigo-500/40 text-2xl font-serif">“</span>
+            <p className="pl-2">{achievement.quote}</p>
+          </div>
+        )}
+      </div>
+
+      {/* Hash Tags */}
+      <div className="flex flex-wrap gap-1.5 mt-auto pt-2 border-t border-white/5">
+        {achievement.tags.map((tag, tIdx) => (
+          <span key={tIdx} className="text-[10px] text-slate-500 font-medium">
+            #{tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // 3. Home View Component
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -169,7 +296,7 @@ function Home() {
           <div className="flex items-center gap-6">
             <a href="#about" className="text-xs text-slate-400 hover:text-white transition font-medium">About</a>
             <a href="#services" className="text-xs text-slate-400 hover:text-white transition font-medium hidden md:inline">Services</a>
-            <a href="#growth" className="text-xs text-slate-400 hover:text-white transition font-medium">Academy</a>
+            <a href="#achievements" className="text-xs text-slate-400 hover:text-white transition font-medium">Achievements</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
             
             <div className="h-4 w-px bg-white/10 hidden md:block"></div>
@@ -281,62 +408,18 @@ function Home() {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Growth & Academy Section */}
-      <section id="growth" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
+      </section>      {/* College Achievements Section */}
+      <section id="achievements" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
-            Academy & Gated Mentorship
+            College Achievements
           </h2>
-          <p className="text-slate-400 text-sm mt-1">Premium resources and 1:1 strategy to accelerate developer growth.</p>
+          <p className="text-slate-400 text-sm mt-1">Milestones, recognitions, and creative wins.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {ACADEMY.map((aca, idx) => (
-            <div key={idx} className="p-6 rounded-2xl glass-panel glass-panel-hover relative flex flex-col justify-between overflow-hidden">
-              {aca.popular && (
-                <div className="absolute top-0 right-0 bg-indigo-650 text-white text-[9px] font-black uppercase px-3 py-1 rounded-bl-xl border-l border-b border-indigo-500/20">
-                  Popular
-                </div>
-              )}
-              
-              <div>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold text-white">{aca.price}</span>
-                  <span className="text-slate-500 text-xs"> {aca.unit}</span>
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2">{aca.title}</h3>
-                <p className="text-slate-400 text-xs leading-relaxed mb-6">{aca.description}</p>
-                
-                <ul className="space-y-2 mb-6 text-xs text-slate-300">
-                  {aca.features.map((feat, fIdx) => (
-                    <li key={fIdx} className="flex items-center gap-2">
-                      <Check size={12} className="text-emerald-400" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {aca.whatsappDirect ? (
-                <a
-                  href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '1234567890'}?text=Hi%20Karthik%2C%20I'd%20like%20to%20join%20the%20Inner%20Circle%20Cohort.`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 bg-emerald-650 hover:bg-emerald-555 text-white font-bold text-xs rounded-xl text-center block transition cursor-pointer"
-                >
-                  Join Cohort
-                </a>
-              ) : (
-                <button
-                  onClick={() => openContactWithPurpose(aca.purpose)}
-                  className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 border border-white/10 text-white font-bold text-xs rounded-xl transition cursor-pointer"
-                >
-                  {aca.actionText}
-                </button>
-              )}
-            </div>
+          {ACHIEVEMENTS.map((achievement, idx) => (
+            <AchievementCard key={achievement.id || idx} achievement={achievement} />
           ))}
         </div>
       </section>

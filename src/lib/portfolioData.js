@@ -28,42 +28,47 @@ export const SERVICES = [
   },
 ];
 
-export const ACADEMY = [
+export const ACHIEVEMENTS = [
   {
-    id: 'course',
-    price: '₹499',
-    unit: '/ course',
-    title: 'The Event Blueprint',
-    popular: true,
-    description: 'A 3-module micro-course on organizing college hackathons. Includes templates for sponsorship emails and logistics checklists.',
-    features: ['Sponsorship Templates', 'Logistics Tracker', 'Certificate of Completion'],
-    actionText: 'Enroll Now',
-    purpose: 'Mentorship',
+    id: 'reel-contest',
+    title: 'Festive Reel Contest Winner',
+    issuer: 'NxtWave (NIAT)',
+    description: 'Honored to receive a Certificate of Appreciation and a trophy for my performance in the Festive Reel Making Contest during the Diwali celebrations.',
+    quote: 'This recognition reminds me how creativity, consistency, and passion can turn small ideas into something meaningful.',
+    tags: ['ContentCreation', 'Storytelling'],
+    images: [
+      { label: 'Reel Contest 1', path: '/assets/achievements/reel_contest_1.jpg' },
+      { label: 'Reel Contest 2', path: '/assets/achievements/reel_contest_2.jpg' }
+    ]
   },
   {
-    id: 'call',
-    price: '₹999',
-    unit: '/ 45 mins',
-    title: '1:1 Strategy Call',
-    popular: false,
-    description: 'Personalized guidance on LinkedIn personal branding or student community building. Get actionable feedback on your profile.',
-    features: ['Profile Audit', 'Content Strategy Map', 'Recording Provided'],
-    actionText: 'Book Slot',
-    purpose: 'Mentorship',
+    id: 'best-student',
+    title: 'Best Student Awardee',
+    issuer: 'NxtWave (NIAT)',
+    description: 'Stood on stage at the Parents’ Success Meet – Worth It Awards. The real highlight wasn’t the award, it was seeing my father in the audience — proud, silent, and fulfilled.',
+    quote: 'A man who taught me discipline not through words, but through consistency. That moment redefined success for me.',
+    tags: ['Leadership', 'FamilyFirst', 'Growth'],
+    images: [
+      { label: 'Best Student 1', path: '/assets/achievements/best_student_1.jpg' },
+      { label: 'Best Student 2', path: '/assets/achievements/best_student_2.jpg' },
+      { label: 'Best Student 3', path: '/assets/achievements/best_student_3.jpg' },
+      { label: 'Best Student 4', path: '/assets/achievements/best_student_4.jpg' }
+    ]
   },
   {
-    id: 'circle',
-    price: 'FREE',
-    unit: '/ lifetime',
-    title: 'The Inner Circle',
-    popular: false,
-    description: 'Join the exclusive WhatsApp cohort for Peerancheru student leaders. Get early access to hackathon updates and volunteer roles.',
-    features: ['Event Updates', 'Networking Ops', 'Weekly Tips'],
-    actionText: 'Join Cohort',
-    purpose: 'Partnership',
-    whatsappDirect: true,
-  },
+    id: 'outstanding-leadership',
+    title: 'Outstanding Leadership Award',
+    issuer: 'NxtWave (NIAT)',
+    description: 'Honored to receive this award for serving as President of the Influencers Club NIAT for the academic year 2024–2026.',
+    quote: 'This recognition reflects the collective effort, dedication, and support of everyone who contributed to our journey.',
+    tags: ['Leadership', 'StudentLeadership'],
+    images: [
+      { label: 'Leadership Award 1', path: '/assets/achievements/leadership_award_1.jpg' },
+      { label: 'Leadership Award 2', path: '/assets/achievements/leadership_award_2.jpg' }
+    ]
+  }
 ];
+
 
 export const COLLABORATIONS = [
   {
