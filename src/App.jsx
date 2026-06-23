@@ -12,7 +12,7 @@ import {
   Mail, ArrowRight, Layers, Award, Terminal, Compass, 
   Users, Calendar, Eye, Phone, Briefcase, FileText, 
   ChevronDown, MessageSquare, Download, LogIn, ExternalLink,
-  Bot, Check, ArrowUpRight
+  Bot, Check, ArrowUpRight, X
 } from 'lucide-react';
 
 // Typewriter Roles List
