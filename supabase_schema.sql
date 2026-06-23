@@ -17,10 +17,10 @@ alter table public.contact_leads enable row level security;
 create policy "Allow public inserts" on public.contact_leads
     for insert with check (true);
 
--- Create policy to allow authenticated admin reads
-create policy "Allow authenticated admin select" on public.contact_leads
-    for select using (auth.role() = 'authenticated');
+-- Create policy to allow public select
+create policy "Allow public select" on public.contact_leads
+    for select using (true);
 
--- Create policy to allow authenticated admin deletes
-create policy "Allow authenticated admin delete" on public.contact_leads
-    for delete using (auth.role() = 'authenticated');
+-- Create policy to allow public delete
+create policy "Allow public delete" on public.contact_leads
+    for delete using (true);

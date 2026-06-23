@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import AdminLogin from './AdminLogin';
 import LeadAnalytics from './LeadAnalytics';
 import { 
-  Search, Filter, Download, LogOut, Calendar, Mail, 
+  Search, Filter, Download, Calendar, Mail, 
   Phone, Briefcase, Eye, Trash2, ArrowUpDown, ChevronRight, X
 } from 'lucide-react';
 
 export default function AdminLeads() {
-  const [session, setSession] = useState(null);
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedLead, setSelectedLead] = useState(null);
@@ -19,19 +17,9 @@ export default function AdminLeads() {
   const [sortOrder, setSortOrder] = useState('desc'); // desc = newest first, asc = oldest first
   const [deletingId, setDeletingId] = useState(null);
 
-  // Check auth session on load
+  // Fetch leads on load
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      if (session) fetchLeads();
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      if (session) fetchLeads();
-    });
-
-    return () => subscription.unsubscribe();
+    fetchLeads();
   }, []);
 
   const fetchLeads = async () => {
@@ -49,12 +37,6 @@ export default function AdminLeads() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setSession(null);
-    setLeads([]);
   };
 
   const handleDeleteLead = async (id, e) => {
@@ -164,10 +146,6 @@ export default function AdminLeads() {
     return ['All', ...Array.from(list)];
   }, [leads]);
 
-  if (!session) {
-    return <AdminLogin onLoginSuccess={(user) => setSession(user)} />;
-  }
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 relative">
       {/* Glow Rings */}
@@ -194,13 +172,6 @@ export default function AdminLeads() {
             >
               <Download size={16} />
               <span>Export CSV</span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-sm bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 font-semibold rounded-xl transition duration-200 cursor-pointer"
-            >
-              <LogOut size={16} />
-              <span>Log Out</span>
             </button>
           </div>
         </header>
