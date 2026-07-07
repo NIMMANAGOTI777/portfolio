@@ -62,8 +62,8 @@ export const ACHIEVEMENTS = [
     quote: 'This recognition reflects the collective effort, dedication, and support of everyone who contributed to our journey.',
     tags: ['Leadership', 'StudentLeadership'],
     images: [
-      { label: 'Leadership Award 1', path: '/assets/achievements/leadership_award_1.jpg' },
-      { label: 'Leadership Award 2', path: '/assets/achievements/leadership_award_2.jpg' }
+      { label: 'Leadership Award 1', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1778312568/Screenshot_2026-05-09_131109_h0satx.png' },
+      { label: 'Leadership Award 2', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1778312568/Screenshot_2026-05-09_131157_ztgn2z.png' }
     ]
   }
 ];
