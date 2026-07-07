@@ -1,5 +1,4 @@
 import React from 'react';
-import { MessageSquare } from 'lucide-react';
 
 export default function WhatsAppButton() {
   const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER || '1234567890';

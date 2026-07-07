@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Mail, User, Phone, Briefcase, HelpCircle, Send, Check } from 'lucide-react';
+import { X, Mail, User, Phone, Briefcase, HelpCircle, Send } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import emailjs from '@emailjs/browser';
 
@@ -49,28 +49,67 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
 
   const sanitizeInput = (val) => {
     if (typeof val !== 'string') return '';
-    return val
-      .trim()
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#x27;')
-      .replace(/\//g, '&#x2F;');
+    return val.trim();
   };
 
   const validate = () => {
     const tempErrors = {};
-    if (!formData.fullName.trim()) tempErrors.fullName = 'Full Name is required';
-    
-    if (!formData.email.trim()) {
-      tempErrors.email = 'Email Address is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      tempErrors.email = 'Please enter a valid email address';
+    const htmlInjectionRegex = /<[^>]*>|javascript:|on\w*\s*=/i;
+
+    // 1. Full Name
+    const nameTrimmed = formData.fullName.trim();
+    if (!nameTrimmed) {
+      tempErrors.fullName = 'Full Name is required';
+    } else if (nameTrimmed.length > 100) {
+      tempErrors.fullName = 'Full Name must be under 100 characters';
+    } else if (htmlInjectionRegex.test(nameTrimmed)) {
+      tempErrors.fullName = 'Invalid characters or HTML injection detected';
     }
-    
-    if (!formData.message.trim()) tempErrors.message = 'Message is required';
-    
+
+    // 2. Email Address
+    const emailTrimmed = formData.email.trim().toLowerCase();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailTrimmed) {
+      tempErrors.email = 'Email Address is required';
+    } else if (emailTrimmed.length > 254) {
+      tempErrors.email = 'Email Address must be under 254 characters';
+    } else if (!emailRegex.test(emailTrimmed)) {
+      tempErrors.email = 'Please enter a valid email address';
+    } else if (htmlInjectionRegex.test(emailTrimmed)) {
+      tempErrors.email = 'Invalid email structure detected';
+    }
+
+    // 3. Phone Number (Optional)
+    const phoneTrimmed = formData.phone.trim();
+    if (phoneTrimmed) {
+      const phoneRegex = /^[+]?[0-9\s()+-]{5,25}$/;
+      if (!phoneRegex.test(phoneTrimmed)) {
+        tempErrors.phone = 'Please enter a valid phone number (digits, spaces, +, -, or parentheses)';
+      } else if (htmlInjectionRegex.test(phoneTrimmed)) {
+        tempErrors.phone = 'Invalid phone character sequence detected';
+      }
+    }
+
+    // 4. Company (Optional)
+    const companyTrimmed = formData.company.trim();
+    if (companyTrimmed) {
+      if (companyTrimmed.length > 100) {
+        tempErrors.company = 'Company name must be under 100 characters';
+      } else if (htmlInjectionRegex.test(companyTrimmed)) {
+        tempErrors.company = 'Invalid characters or HTML injection detected';
+      }
+    }
+
+    // 5. Message Inquiry
+    const messageTrimmed = formData.message.trim();
+    if (!messageTrimmed) {
+      tempErrors.message = 'Message is required';
+    } else if (messageTrimmed.length > 3000) {
+      tempErrors.message = 'Message must be under 3000 characters';
+    } else if (htmlInjectionRegex.test(messageTrimmed)) {
+      tempErrors.message = 'HTML tags or script injections are not allowed in messages';
+    }
+
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
@@ -109,10 +148,9 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
       };
 
       // 1. Save to Supabase contact_leads
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('contact_leads')
-        .insert([sanitizedData])
-        .select();
+        .insert([sanitizedData]);
 
       if (error) {
         console.error('Supabase Error:', error);

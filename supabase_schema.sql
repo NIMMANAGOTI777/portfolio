@@ -17,10 +17,14 @@ alter table public.contact_leads enable row level security;
 create policy "Allow public inserts" on public.contact_leads
     for insert with check (true);
 
--- Create policy to allow public select
-create policy "Allow public select" on public.contact_leads
-    for select using (true);
+-- Create policy to allow authenticated select
+create policy "Allow authenticated select" on public.contact_leads
+    for select using (auth.role() = 'authenticated');
 
--- Create policy to allow public delete
-create policy "Allow public delete" on public.contact_leads
-    for delete using (true);
+-- Create policy to allow authenticated delete
+create policy "Allow authenticated delete" on public.contact_leads
+    for delete using (auth.role() = 'authenticated');
+
+-- Create policy to allow authenticated update
+create policy "Allow authenticated update" on public.contact_leads
+    for update using (auth.role() = 'authenticated');

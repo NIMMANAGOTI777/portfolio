@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageSquare, X, Send, User, Bot, FileText, ArrowRight } from 'lucide-react';
+import { MessageSquare, X, Bot, FileText, ArrowRight } from 'lucide-react';
 
 export default function KarthikAIChatbot({ onTriggerContact, onTriggerResume }) {
   const [isOpen, setIsOpen] = useState(false);

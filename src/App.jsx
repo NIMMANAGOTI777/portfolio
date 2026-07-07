@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ContactModal from './components/ContactModal';
 import WhatsAppButton from './components/WhatsAppButton';
-import AdminLeads from './components/AdminLeads';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import { 
   STATS, SERVICES, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
-  GALLERY, VIDEOS, CERTIFICATIONS, TESTIMONIAL, FAQS 
+  GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS 
 } from './lib/portfolioData';
 import { 
-  Mail, ArrowRight, Layers, Award, Terminal, Compass, 
-  Users, Calendar, Eye, Phone, Briefcase, FileText, 
-  ChevronDown, ChevronLeft, ChevronRight, MessageSquare, Download, LogIn, ExternalLink,
-  Bot, Check, ArrowUpRight, X
+  Mail, ArrowRight, Layers, Award, 
+  Users, Calendar, FileText, 
+  ChevronDown, ChevronLeft, ChevronRight, Download, 
+  ArrowUpRight, X
 } from 'lucide-react';
 
 // Typewriter Roles List
@@ -299,17 +298,9 @@ function Home() {
             <a href="#achievements" className="text-xs text-slate-400 hover:text-white transition font-medium">Achievements</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
             
-            <div className="h-4 w-px bg-white/10 hidden md:block"></div>
-            
-            <Link 
-              to="/admin/leads" 
-              className="text-xs text-slate-400 hover:text-indigo-400 font-semibold transition"
-            >
-              Leads Admin
-            </Link>
             <button
               onClick={() => openContactWithPurpose('Hire Me')}
-              className="px-4 py-2 text-xs bg-indigo-650 hover:bg-indigo-550 border border-indigo-500/20 font-bold text-white rounded-xl shadow-md transition cursor-pointer"
+              className="px-4 py-2 text-xs bg-indigo-650 hover:bg-indigo-550 border border-indigo-500/20 font-bold text-white rounded-xl shadow-md transition cursor-pointer ml-4"
             >
               Let's Talk
             </button>
@@ -381,6 +372,7 @@ function Home() {
               suffix={stat.suffix} 
             />
           ))}
+
         </div>
       </section>
 
@@ -705,6 +697,7 @@ function Home() {
           <a
             href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/WhatsApp_Image_2025-11-07_at_14.15.07_ca236187_yxh4ak.jpg" // Placeholder for download
             target="_blank"
+            rel="noopener noreferrer"
             download="Karthik_Nimmanagoti_Resume.pdf"
             className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-650 hover:bg-indigo-550 text-white text-xs font-bold rounded-xl transition shadow-lg cursor-pointer"
           >
@@ -827,7 +820,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin/leads" element={<AdminLeads />} />
       </Routes>
     </Router>
   );
