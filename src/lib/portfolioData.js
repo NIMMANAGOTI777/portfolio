@@ -37,8 +37,8 @@ export const ACHIEVEMENTS = [
     quote: 'This recognition reminds me how creativity, consistency, and passion can turn small ideas into something meaningful.',
     tags: ['ContentCreation', 'Storytelling'],
     images: [
-      { label: 'Reel Contest 1', path: '/assets/achievements/reel_contest_1.jpg' },
-      { label: 'Reel Contest 2', path: '/assets/achievements/reel_contest_2.jpg' }
+      { label: 'Reel Contest 1', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122425_ub5wyz.png' },
+      { label: 'Reel Contest 2', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122412_bnwpvh.png' }
     ]
   },
   {

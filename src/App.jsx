@@ -116,6 +116,14 @@ function AchievementCard({ achievement }) {
     setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <div className="p-6 rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between relative overflow-hidden group">
       <div>
