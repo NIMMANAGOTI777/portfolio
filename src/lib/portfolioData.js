@@ -146,14 +146,6 @@ export const COLLABORATIONS = [
 
 export const PROJECTS = [
   {
-    title: 'Linkedify',
-    tag: 'SMM',
-    icon: 'linkedin',
-    sub: 'Professional LinkedIn Automation',
-    desc: 'Transform Your LinkedIn Presence. Streamline content creation with AI-powered posts, smart scheduling, and powerful analytics. Elevate your brand.',
-    link: 'https://linkedify.app/',
-  },
-  {
     title: 'AI Profile Optimizer',
     tag: 'Instagram',
     icon: 'robot',
