@@ -335,7 +335,7 @@ function Home() {
           <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition duration-500 animate-pulse"></div>
           <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full p-2 bg-white/5 border border-white/10 shadow-2xl overflow-hidden">
             <img 
-              src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/WhatsApp_Image_2025-11-07_at_14.15.07_ca236187_yxh4ak.jpg"
+              src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1783330744/WhatsApp_Image_2026-07-01_at_7.32.30_PM_vbhtly.jpg"
               alt="Karthik Nimmanagoti" 
               className="w-full h-full object-cover rounded-full"
               loading="eager"
