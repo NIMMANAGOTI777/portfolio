@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import LeadAnalytics from './LeadAnalytics';
+
+import AdminLogin from './AdminLogin';
 import { 
   Search, Filter, Download, Calendar, Mail, 
-  Phone, Briefcase, Eye, Trash2, ArrowUpDown, ChevronRight, X
+  Phone, Briefcase, Eye, Trash2, ArrowUpDown, X, LogOut
 } from 'lucide-react';
 
 export default function AdminLeads() {
+  const [session, setSession] = useState(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedLead, setSelectedLead] = useState(null);
@@ -17,9 +20,34 @@ export default function AdminLeads() {
   const [sortOrder, setSortOrder] = useState('desc'); // desc = newest first, asc = oldest first
   const [deletingId, setDeletingId] = useState(null);
 
-  // Fetch leads on load
+  // Check auth session on load
   useEffect(() => {
-    fetchLeads();
+    let mounted = true;
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (mounted) {
+        setSession(session);
+        setCheckingAuth(false);
+        if (session) fetchLeads();
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (mounted) {
+        setSession(session);
+        setCheckingAuth(false);
+        if (session) {
+          fetchLeads();
+        } else {
+          setLeads([]);
+        }
+      }
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const fetchLeads = async () => {
@@ -37,6 +65,12 @@ export default function AdminLeads() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+    setLeads([]);
   };
 
   const handleDeleteLead = async (id, e) => {
@@ -146,6 +180,22 @@ export default function AdminLeads() {
     return ['All', ...Array.from(list)];
   }, [leads]);
 
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-slate-400">
+        <svg className="animate-spin h-8 w-8 text-indigo-400 mb-4" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        </svg>
+        <p className="text-sm font-semibold">Verifying credentials...</p>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return <AdminLogin onLoginSuccess={(user) => setSession({ user })} />;
+  }
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 relative">
       {/* Glow Rings */}
@@ -172,6 +222,13 @@ export default function AdminLeads() {
             >
               <Download size={16} />
               <span>Export CSV</span>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 text-sm bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 font-semibold rounded-xl transition duration-200 cursor-pointer"
+            >
+              <LogOut size={16} />
+              <span>Log Out</span>
             </button>
           </div>
         </header>
@@ -204,9 +261,6 @@ export default function AdminLeads() {
             <p className="text-xs text-slate-500 mt-1">Hire Me / Projects / Partnerships</p>
           </div>
         </div>
-
-        {/* Analytics Section */}
-        <LeadAnalytics leads={leads} />
 
         {/* Main List Section */}
         <div className="rounded-2xl glass-panel overflow-hidden">
