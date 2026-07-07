@@ -49,10 +49,9 @@ export const ACHIEVEMENTS = [
     quote: 'A man who taught me discipline not through words, but through consistency. That moment redefined success for me.',
     tags: ['Leadership', 'FamilyFirst', 'Growth'],
     images: [
-      { label: 'Best Student 1', path: '/assets/achievements/best_student_1.jpg' },
-      { label: 'Best Student 2', path: '/assets/achievements/best_student_2.jpg' },
-      { label: 'Best Student 3', path: '/assets/achievements/best_student_3.jpg' },
-      { label: 'Best Student 4', path: '/assets/achievements/best_student_4.jpg' }
+      { label: 'Best Student 1', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122112_mj2ygi.png' },
+      { label: 'Best Student 2', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122124_pj7rab.png' },
+      { label: 'Best Student 3', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122051_mowwqz.png' }
     ]
   },
   {
