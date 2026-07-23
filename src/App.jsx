@@ -536,13 +536,15 @@ function Home() {
             <span>Let's Connect</span>
             <ArrowRight size={14} />
           </button>
-          <button
-            onClick={() => setResumeOpen(true)}
+          <a
+            href="https://docs.google.com/document/d/1-krzGfTO1S0r_-o3d9VJGWPw3uuskL9JtvvCC1dPCek/edit?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-6 py-3 bg-slate-900 hover:bg-slate-800 border border-white/10 text-slate-300 text-sm font-semibold rounded-xl transition cursor-pointer"
           >
             <FileText size={14} />
             <span>View Resume</span>
-          </button>
+          </a>
         </div>
       </header>
 
@@ -906,14 +908,13 @@ function Home() {
 
         <div className="space-y-3">
           <a
-            href="https://res.cloudinary.com/do4nuj2kh/image/upload/v1762505182/WhatsApp_Image_2025-11-07_at_14.15.07_ca236187_yxh4ak.jpg" // Placeholder for download
+            href="https://docs.google.com/document/d/1-krzGfTO1S0r_-o3d9VJGWPw3uuskL9JtvvCC1dPCek/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
-            download="Karthik_Nimmanagoti_Resume.pdf"
             className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-650 hover:bg-indigo-550 text-white text-xs font-bold rounded-xl transition shadow-lg cursor-pointer"
           >
-            <Download size={14} />
-            <span>Download PDF</span>
+            <FileText size={14} />
+            <span>Open Google Doc</span>
           </a>
           <button
             onClick={() => {
@@ -1010,7 +1011,7 @@ function Home() {
       {/* Floating Chatbot Assistant Widget */}
       <KarthikAIChatbot 
         onTriggerContact={openContactWithPurpose}
-        onTriggerResume={() => setResumeOpen(true)}
+        onTriggerResume={() => window.open("https://docs.google.com/document/d/1-krzGfTO1S0r_-o3d9VJGWPw3uuskL9JtvvCC1dPCek/edit?usp=sharing", "_blank")}
       />
 
       {/* Floating WhatsApp Widget (Bottom-Left) */}
