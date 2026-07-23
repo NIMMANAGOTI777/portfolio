@@ -604,9 +604,7 @@ function Home() {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* Projects Showcase */}
+      </section>      {/* Projects Showcase */}
       <section id="projects" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
@@ -615,25 +613,35 @@ function Home() {
           <p className="text-slate-400 text-sm mt-1">Tools and platforms developed to scale operations and audits.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {PROJECTS.map((proj, idx) => (
             <div key={idx} className="p-6 rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between">
               <div>
-                <span className="text-[9px] font-black uppercase text-indigo-450 tracking-wider">
+                <span className="text-[9px] font-black uppercase text-indigo-400 tracking-wider bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
                   {proj.tag}
                 </span>
-                <h3 className="text-xl font-bold text-white mt-1 mb-1">{proj.title}</h3>
+                <h3 className="text-xl font-bold text-white mt-3 mb-1">{proj.title}</h3>
                 <p className="text-slate-400 text-[10px] font-semibold mb-3">{proj.sub}</p>
                 <p className="text-slate-400 text-xs leading-relaxed mb-6">{proj.desc}</p>
+                
+                {proj.skills && (
+                  <div className="flex flex-wrap gap-1.5 mb-6 pt-3 border-t border-white/5">
+                    {proj.skills.map((skill, sIdx) => (
+                      <span key={sIdx} className="text-[10px] text-slate-400 font-medium bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-md">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <a 
                 href={proj.link} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 w-full py-2 bg-indigo-600/10 hover:bg-indigo-650/20 border border-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-lg transition"
+                className="inline-flex items-center justify-center gap-1.5 w-full py-2 bg-indigo-650/10 hover:bg-indigo-650/20 border border-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-lg transition"
               >
-                <span>Launch App</span>
+                <span>{proj.link.includes('docs.google.com') ? 'View Spreadsheet' : 'Launch App'}</span>
                 <ArrowUpRight size={12} />
               </a>
             </div>

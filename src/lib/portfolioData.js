@@ -152,6 +152,7 @@ export const PROJECTS = [
     sub: 'Instagram Growth Tool',
     desc: 'Students get instant Instagram profile audits and actionable suggestions to maximize reach and organic engagement using advanced AI algorithms.',
     link: 'https://aiprofile.niat.tech',
+    skills: ['Instagram', 'AI Audit', 'Social Media SMM']
   },
   {
     title: 'BASE44 Hackathon',
@@ -160,7 +161,26 @@ export const PROJECTS = [
     sub: 'Lead Organizer & Architect',
     desc: 'Built the official portal (base44.niat.tech) for 1,665+ participants. Programmed user check-ins, registration queries, and tech operations workflow.',
     link: 'https://base44results.niat.tech/',
+    skills: ['Web Operations', 'System Design', 'User Check-In']
   },
+  {
+    title: 'AidTrace',
+    tag: 'Blockchain Platform',
+    icon: 'link-2',
+    sub: 'Donation Transparency Platform',
+    desc: 'A Cardano-powered donation transparency platform built during IndiaCodex’26. Tracks the complete journey from donation to verified impact, including fundraising campaigns, fund allocations, and expense proofs on the blockchain.',
+    link: 'https://aidtrace-cardano-dapp.vercel.app/',
+    skills: ['Blockchain', 'Cardano', 'Next.js', 'TypeScript', 'Supabase']
+  },
+  {
+    title: 'Siemens Mobility Simulation',
+    tag: 'Project Management',
+    icon: 'bar-chart-2',
+    sub: 'Urban Rail Expansion Simulation',
+    desc: 'Completed virtual project management simulation for the Metroville Urban Rail Expansion under Siemens Mobility. Designed and analyzed KPI dashboards tracking track installation, electrification progress, and budgets.',
+    link: 'https://docs.google.com/spreadsheets/d/191AVtfduvH5h1rd8D4JnYJItELzTRJyOmFPs7IsppZM/edit?gid=0#gid=0',
+    skills: ['Project Management', 'Data Analysis', 'KPI Strategy', 'Dashboard Reporting']
+  }
 ];
 
 export const FEATURED_EVENT = {
