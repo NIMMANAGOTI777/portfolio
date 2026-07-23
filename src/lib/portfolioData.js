@@ -362,3 +362,15 @@ export const FAQS = [
     answer: 'You can reach out using the "Let\'s Talk" buttons to trigger my connection form modal, or message me directly via the WhatsApp widget or at aktechintelligence@gmail.com.',
   },
 ];
+
+export const SKILLS_DATA = [
+  { name: 'Leadership', value: 95 },
+  { name: 'Community', value: 90 },
+  { name: 'Marketing', value: 85 },
+  { name: 'AI', value: 92 },
+  { name: 'Photography', value: 80 },
+  { name: 'Management', value: 92 },
+  { name: 'Design', value: 85 },
+  { name: 'Public Speaking', value: 90 },
+  { name: 'Networking', value: 88 }
+];
