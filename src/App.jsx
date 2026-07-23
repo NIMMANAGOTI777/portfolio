@@ -5,7 +5,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import { 
   STATS, SERVICES, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
-  GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS 
+  GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENT 
 } from './lib/portfolioData';
 import { 
   Mail, ArrowRight, Layers, Award, 
@@ -231,6 +231,144 @@ function AchievementCard({ achievement }) {
             #{tag}
           </span>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// 2.75. FeaturedEvent Component (For Moments in Action)
+function FeaturedEvent({ event }) {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const images = event.images || [];
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setActiveSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setActiveSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 relative overflow-hidden group mb-12">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-100 transition duration-500"></div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
+        
+        {/* Left Column: Image Carousel */}
+        <div className="lg:col-span-5 flex flex-col justify-between">
+          <div className="relative h-64 sm:h-80 lg:h-full min-h-[280px] rounded-2xl overflow-hidden bg-slate-900 border border-white/5 flex items-center justify-center shadow-inner group/carousel">
+            <img 
+              src={images[activeSlide]} 
+              alt={`Event moment ${activeSlide + 1}`}
+              className="w-full h-full object-cover select-none transition-all duration-500 transform scale-100 hover:scale-105"
+            />
+            
+            {images.length > 1 && (
+              <>
+                <button 
+                  onClick={handlePrev}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-slate-950/60 text-slate-300 hover:text-white hover:bg-slate-950/90 transition cursor-pointer z-10 border border-white/5 opacity-0 group-hover/carousel:opacity-100"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button 
+                  onClick={handleNext}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-slate-950/60 text-slate-300 hover:text-white hover:bg-slate-950/90 transition cursor-pointer z-10 border border-white/5 opacity-0 group-hover/carousel:opacity-100"
+                >
+                  <ChevronRight size={18} />
+                </button>
+
+                {/* Dot Indicators */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 bg-slate-950/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/5">
+                  {images.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveSlide(idx);
+                      }}
+                      className={`w-1.5 h-1.5 rounded-full transition-all ${
+                        activeSlide === idx ? 'bg-indigo-400 w-3.5' : 'bg-slate-600 hover:bg-slate-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Right Column: Story Content */}
+        <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-[10px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
+                Featured Experience
+              </span>
+              <span className="text-[10px] font-medium text-slate-500">
+                July 2026
+              </span>
+            </div>
+
+            <h3 className="text-xl sm:text-2xl font-extrabold text-white leading-tight mb-2 bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
+              {event.title}
+            </h3>
+            
+            <p className="text-xs font-semibold text-slate-400 mb-4 tracking-wide uppercase">
+              {event.subtitle}
+            </p>
+
+            <p className="text-slate-300 text-sm leading-relaxed mb-6">
+              {event.description}
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              {event.roles.map((role, rIdx) => (
+                <div key={rIdx} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition duration-300">
+                  <h4 className="text-xs font-bold text-indigo-300 mb-1.5 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                    {role.title}
+                  </h4>
+                  <p className="text-slate-400 text-[11px] leading-relaxed">
+                    {role.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-slate-300 text-xs italic leading-relaxed border-l-2 border-indigo-500/40 pl-3 mb-6">
+              "{event.reflection}"
+            </p>
+
+            <div className="p-4 rounded-xl bg-indigo-950/20 border border-indigo-500/10">
+              <h5 className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1.5">Acknowledgements & Trust</h5>
+              <p className="text-slate-400 text-[11px] leading-relaxed">
+                {event.thanks}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/5">
+            {event.tags.map((tag, tIdx) => (
+              <span key={tIdx} className="text-[10px] text-slate-500 font-medium hover:text-indigo-400 transition cursor-pointer">
+                #{tag}
+              </span>
+            ))}
+          </div>
+
+        </div>
+
       </div>
     </div>
   );
@@ -512,6 +650,10 @@ function Home() {
           <p className="text-slate-400 text-sm mt-1">Glimpses of operational logistics and community events.</p>
         </div>
 
+        {/* Featured Event Experience */}
+        <FeaturedEvent event={FEATURED_EVENT} />
+
+        {/* Other Gallery Moments */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {GALLERY.map((imgUrl, idx) => (
             <div key={idx} className="glass-panel p-2 rounded-2xl border border-white/5 hover:scale-[1.01] transition duration-300">

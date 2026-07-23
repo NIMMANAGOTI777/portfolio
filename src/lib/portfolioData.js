@@ -163,6 +163,35 @@ export const PROJECTS = [
   },
 ];
 
+export const FEATURED_EVENT = {
+  title: "3 Days. 5 Major Events. 2 Critical Responsibilities. One Incredible Learning Experience.",
+  subtitle: "NxtWave of Innovation in Advanced Technologies (NIAT)",
+  description: "Over the past three days, I had the opportunity to be part of one of the busiest and most rewarding event experiences at NxtWave of Innovation in Advanced Technologies. From Takeover Hackathon 2026, including the high-energy Takeover DJ Night, to BRAVE, Makers Conclave, Code Quest, and the GRIT Awards, every event had its own purpose, energy, and story.",
+  roles: [
+    {
+      title: "Social Media Handler & Videographer",
+      desc: "Documented the journey through photos and videos, capturing keynote sessions, project showcases, celebrations, behind-the-scenes moments, and the people who made these events memorable. My goal was to preserve the experience and communicate the impact of each event through visual storytelling."
+    },
+    {
+      title: "Guest Hospitality Team Lead",
+      desc: "Led the Guest Hospitality team, coordinating guest management and ensuring a smooth, welcoming experience for speakers, mentors, judges, and distinguished guests throughout the events."
+    }
+  ],
+  reflection: "Balancing creative execution with operational leadership demanded adaptability, time management, teamwork, and quick decision-making. Every challenge strengthened my ability to perform under pressure while delivering meaningful results.",
+  thanks: "Thanks for this opportunity Pavan Dharma sir, Divyansh Mathur sir, Sundar Jami sir, Vamsi Tallam sir, Saiteja Manchukanti sir, Pravalika Sabbavarapu ma'am, Shivika Shrivastava ma'am, Bogada Chandrakanth sir, Bhagya lakshmi Locharla ma'am, Komali Bangaru ma'am for trusting me 🤗",
+  images: [
+    "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-16_at_6.49.39_PM_mozq5a.jpg",
+    "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_kqgv03.jpg",
+    "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_1_renyfm.jpg"
+  ],
+  tags: [
+    "KarthikNimmanagoti", "NIAT", "TakeoverHackathon2026", "TakeoverDJNight", "BRAVE", 
+    "MakersConclave", "CodeQuest", "GRITAwards", "Leadership", "EventManagement", 
+    "SocialMedia", "Videography", "Photography", "ContentCreation", "VisualStorytelling", 
+    "StudentLeadership", "ProfessionalGrowth"
+  ]
+};
+
 export const GALLERY = [
   'https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378248/Screenshot_2025-12-22_100305_ay8p5z.png',
   'https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378248/Screenshot_2025-12-22_100242_ymx1y8.png',
