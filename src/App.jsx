@@ -619,6 +619,15 @@ function Home() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
+                {collab.video && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/35 group-hover:bg-black/45 transition duration-300">
+                    <div className="w-11 h-11 rounded-full bg-indigo-600/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition duration-300">
+                      <svg className="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
                 <span className="absolute top-4 left-4 bg-indigo-650/80 backdrop-blur-md text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
                   {collab.tag}
@@ -934,14 +943,26 @@ function Home() {
               <X size={18} />
             </button>
 
-            <div className="h-64 sm:h-72 overflow-hidden relative">
-              <img 
-                src={selectedCollab.img} 
-                alt={selectedCollab.title} 
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-              <div className="absolute bottom-6 left-6">
+            <div className="h-64 sm:h-72 overflow-hidden relative bg-slate-950 flex items-center justify-center">
+              {selectedCollab.video ? (
+                <video 
+                  src={selectedCollab.video} 
+                  controls 
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-contain z-10"
+                />
+              ) : (
+                <img 
+                  src={selectedCollab.img} 
+                  alt={selectedCollab.title} 
+                  className="w-full h-full object-cover"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent pointer-events-none z-20"></div>
+              <div className="absolute bottom-6 left-6 z-30 pointer-events-none">
                 <span className="px-3 py-1 bg-indigo-650 text-white text-[9px] font-black uppercase rounded-full tracking-wider mb-2 inline-block">
                   {selectedCollab.tag}
                 </span>
