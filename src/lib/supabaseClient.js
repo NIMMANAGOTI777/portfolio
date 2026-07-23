@@ -8,9 +8,11 @@ const isMock = !supabaseUrl || !supabaseAnonKey;
 let supabaseInstance;
 
 if (isMock) {
-  console.warn(
-    'Supabase environment variables are missing. Falling back to a LocalStorage-backed mock client for local testing.'
-  );
+  if (import.meta.env.DEV) {
+    console.log(
+      'Supabase environment variables are missing. Falling back to a LocalStorage-backed mock client for local testing.'
+    );
+  }
 
   const getMockLeads = () => {
     const data = localStorage.getItem('mock_contact_leads');
