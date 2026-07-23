@@ -729,15 +729,17 @@ function Home() {
         </div>
 
         {/* Live Status Indicator */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/60 border border-white/5 backdrop-blur-md mb-8 text-[10px] text-slate-300 select-none shadow-sm">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="font-semibold text-slate-400 uppercase tracking-widest text-[8px] mr-1 border-r border-white/10 pr-2">Currently Working On</span>
-          <span className="font-bold text-indigo-400 tracking-wide">
-            {workingText}
-          </span>
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/60 border border-white/5 backdrop-blur-md text-[10px] text-slate-300 select-none shadow-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="font-semibold text-slate-400 uppercase tracking-widest text-[8px] mr-1 border-r border-white/10 pr-2">Currently Working On</span>
+            <span className="font-bold text-indigo-400 tracking-wide">
+              {workingText}
+            </span>
+          </div>
         </div>
 
         {/* 3D Profile Frame */}
