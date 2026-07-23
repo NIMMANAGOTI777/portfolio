@@ -237,7 +237,7 @@ function AchievementCard({ achievement }) {
 }
 
 // 2.75. FeaturedEvent Component (For Moments in Action)
-function FeaturedEvent({ event }) {
+function FeaturedEvent({ event, onImageClick }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const images = event.images || [];
 
@@ -268,10 +268,17 @@ function FeaturedEvent({ event }) {
         {/* Left Column: Image Carousel */}
         <div className="lg:col-span-5 flex flex-col justify-between">
           <div className="relative h-64 sm:h-80 lg:h-full min-h-[280px] rounded-2xl overflow-hidden bg-slate-900 border border-white/5 flex items-center justify-center shadow-inner group/carousel">
+            {/* Blurred background reflection */}
+            <div 
+              className="absolute inset-0 w-full h-full bg-cover bg-center blur-md opacity-30 select-none scale-105"
+              style={{ backgroundImage: `url(${images[activeSlide]})` }}
+            ></div>
+            
             <img 
               src={images[activeSlide]} 
               alt={`Event moment ${activeSlide + 1}`}
-              className="w-full h-full object-cover select-none transition-all duration-500 transform scale-100 hover:scale-105"
+              onClick={() => onImageClick && onImageClick(images[activeSlide])}
+              className="relative w-full h-full object-contain select-none transition-all duration-500 transform scale-100 hover:scale-102 z-10 cursor-zoom-in"
             />
             
             {images.length > 1 && (
@@ -409,6 +416,7 @@ function FeaturedEvent({ event }) {
 function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPurpose, setSelectedPurpose] = useState('Hire Me');
+  const [lightboxImage, setLightboxImage] = useState(null);
   
   // Custom Typewriter Effect
   const [roleIndex, setRoleIndex] = useState(0);
@@ -692,20 +700,30 @@ function Home() {
         {/* Featured Event Experience */}
         <div className="space-y-12 mb-12">
           {FEATURED_EVENTS.map((event, idx) => (
-            <FeaturedEvent key={idx} event={event} />
+            <FeaturedEvent key={idx} event={event} onImageClick={setLightboxImage} />
           ))}
         </div>
 
         {/* Other Gallery Moments */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {GALLERY.map((imgUrl, idx) => (
-            <div key={idx} className="glass-panel p-2 rounded-2xl border border-white/5 hover:scale-[1.01] transition duration-300">
-              <img 
-                src={imgUrl} 
-                className="w-full h-52 object-cover rounded-xl" 
-                alt={`Gallery detail ${idx + 1}`} 
-                loading="lazy"
-              />
+            <div 
+              key={idx} 
+              onClick={() => setLightboxImage(imgUrl)}
+              className="glass-panel p-2 rounded-2xl border border-white/5 hover:scale-[1.01] transition duration-300 cursor-zoom-in"
+            >
+              <div className="relative h-52 rounded-xl overflow-hidden bg-slate-900 border border-white/5 flex items-center justify-center">
+                <div 
+                  className="absolute inset-0 w-full h-full bg-cover bg-center blur-md opacity-30 select-none scale-105"
+                  style={{ backgroundImage: `url(${imgUrl})` }}
+                ></div>
+                <img 
+                  src={imgUrl} 
+                  className="relative w-full h-full object-contain rounded-xl z-10" 
+                  alt={`Gallery detail ${idx + 1}`} 
+                  loading="lazy"
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -1004,6 +1022,32 @@ function Home() {
         onClose={() => setModalOpen(false)} 
         initialPurpose={selectedPurpose}
       />
+
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fade-in"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            onClick={() => setLightboxImage(null)}
+            className="absolute top-6 right-6 p-2.5 text-white/70 hover:text-white rounded-full bg-slate-900/50 hover:bg-slate-900/80 transition z-50 border border-white/10"
+          >
+            <X size={24} />
+          </button>
+          
+          <div 
+            className="relative max-w-5xl max-h-[85vh] overflow-hidden rounded-2xl border border-white/10 shadow-2xl flex items-center justify-center animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src={lightboxImage} 
+              alt="Enlarged view" 
+              className="max-w-full max-h-[80vh] object-contain rounded-xl select-none"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
