@@ -183,34 +183,92 @@ export const PROJECTS = [
   }
 ];
 
-export const FEATURED_EVENT = {
-  title: "3 Days. 5 Major Events. 2 Critical Responsibilities. One Incredible Learning Experience.",
-  subtitle: "NxtWave of Innovation in Advanced Technologies (NIAT)",
-  description: "Over the past three days, I had the opportunity to be part of one of the busiest and most rewarding event experiences at NxtWave of Innovation in Advanced Technologies. From Takeover Hackathon 2026, including the high-energy Takeover DJ Night, to BRAVE, Makers Conclave, Code Quest, and the GRIT Awards, every event had its own purpose, energy, and story.",
-  roles: [
-    {
-      title: "Social Media Handler & Videographer",
-      desc: "Documented the journey through photos and videos, capturing keynote sessions, project showcases, celebrations, behind-the-scenes moments, and the people who made these events memorable. My goal was to preserve the experience and communicate the impact of each event through visual storytelling."
-    },
-    {
-      title: "Guest Hospitality Team Lead",
-      desc: "Led the Guest Hospitality team, coordinating guest management and ensuring a smooth, welcoming experience for speakers, mentors, judges, and distinguished guests throughout the events."
-    }
-  ],
-  reflection: "Balancing creative execution with operational leadership demanded adaptability, time management, teamwork, and quick decision-making. Every challenge strengthened my ability to perform under pressure while delivering meaningful results.",
-  thanks: "Thanks for this opportunity Pavan Dharma sir, Divyansh Mathur sir, Sundar Jami sir, Vamsi Tallam sir, Saiteja Manchukanti sir, Pravalika Sabbavarapu ma'am, Shivika Shrivastava ma'am, Bogada Chandrakanth sir, Bhagya lakshmi Locharla ma'am, Komali Bangaru ma'am for trusting me 🤗",
-  images: [
-    "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-16_at_6.49.39_PM_mozq5a.jpg",
-    "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_kqgv03.jpg",
-    "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_1_renyfm.jpg"
-  ],
-  tags: [
-    "KarthikNimmanagoti", "NIAT", "TakeoverHackathon2026", "TakeoverDJNight", "BRAVE", 
-    "MakersConclave", "CodeQuest", "GRITAwards", "Leadership", "EventManagement", 
-    "SocialMedia", "Videography", "Photography", "ContentCreation", "VisualStorytelling", 
-    "StudentLeadership", "ProfessionalGrowth"
-  ]
-};
+export const FEATURED_EVENTS = [
+  {
+    title: "3 Days. 5 Major Events. 2 Critical Responsibilities. One Incredible Learning Experience.",
+    subtitle: "NxtWave of Innovation in Advanced Technologies (NIAT)",
+    description: "Over the past three days, I had the opportunity to be part of one of the busiest and most rewarding event experiences at NxtWave of Innovation in Advanced Technologies. From Takeover Hackathon 2026, including the high-energy Takeover DJ Night, to BRAVE, Makers Conclave, Code Quest, and the GRIT Awards, every event had its own purpose, energy, and story.",
+    roles: [
+      {
+        title: "Social Media Handler & Videographer",
+        desc: "Documented the journey through photos and videos, capturing keynote sessions, project showcases, celebrations, behind-the-scenes moments, and the people who made these events memorable. My goal was to preserve the experience and communicate the impact of each event through visual storytelling."
+      },
+      {
+        title: "Guest Hospitality Team Lead",
+        desc: "Led the Guest Hospitality team, coordinating guest management and ensuring a smooth, welcoming experience for speakers, mentors, judges, and distinguished guests throughout the events."
+      }
+    ],
+    reflection: "Balancing creative execution with operational leadership demanded adaptability, time management, teamwork, and quick decision-making. Every challenge strengthened my ability to perform under pressure while delivering meaningful results.",
+    thanks: "Thanks for this opportunity Pavan Dharma sir, Divyansh Mathur sir, Sundar Jami sir, Vamsi Tallam sir, Saiteja Manchukanti sir, Pravalika Sabbavarapu ma'am, Shivika Shrivastava ma'am, Bogada Chandrakanth sir, Bhagya lakshmi Locharla ma'am, Komali Bangaru ma'am for trusting me 🤗",
+    images: [
+      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-16_at_6.49.39_PM_mozq5a.jpg",
+      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_kqgv03.jpg",
+      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_1_renyfm.jpg"
+    ],
+    tags: [
+      "KarthikNimmanagoti", "NIAT", "TakeoverHackathon2026", "TakeoverDJNight", "BRAVE", 
+      "MakersConclave", "CodeQuest", "GRITAwards", "Leadership", "EventManagement", 
+      "SocialMedia", "Videography", "Photography", "ContentCreation", "VisualStorytelling", 
+      "StudentLeadership", "ProfessionalGrowth"
+    ]
+  },
+  {
+    title: "Strategic POC for Teach AI for India",
+    subtitle: "A student-led knowledge movement by NIATIANS to bring technology awareness and practical digital skills to government school students.",
+    description: "Teach AI for India is a student-led knowledge movement by NIATIANS to bring technology awareness and practical digital skills to government school students. This is not about teaching theory. It’s about opening access where it doesn’t exist.",
+    category: "Strategic POC Role",
+    date: "July 2026",
+    customSections: [
+      {
+        title: "What I Own",
+        content: [
+          "Document the journey not as updates, but as stories people remember",
+          "Convert volunteer work into public proof of leadership",
+          "Guide NIATIANS to present their work like professionals, not participants",
+          "Build a strong digital presence for the initiative across LinkedIn",
+          "Position every session as a movement, not an event"
+        ]
+      },
+      {
+        title: "Purpose",
+        content: [
+          "Bridge the gap between students who have tech exposure and those who don’t",
+          "Introduce AI, digital tools, and real-world applications at an early stage",
+          "Shift students from learning → applying → creating",
+          "Build a generation of problem solvers, not just users"
+        ]
+      },
+      {
+        title: "What We Do",
+        content: [
+          "Conduct interactive sessions in government schools",
+          "Teach basics like computer usage, internet, and digital safety",
+          "Introduce AI through hands-on activities",
+          "Run small challenges to spark innovation thinking",
+          "Show real career paths in technology (Students don’t just listen, they experience technology)"
+        ]
+      },
+      {
+        title: "Who Is Driving This",
+        content: [
+          "Led by: NIAT Student General Council (NSGC) Club & NIAT Social Impact Club",
+          "Executed by: NIATIANS as Tech Mentors (Students stepping up to teach, guide, and inspire)"
+        ]
+      }
+    ],
+    reflection: "Because talent is everywhere. But exposure is not. This time, it’s different. Now it’s happening at NxtWave of Innovation in Advanced Technologies at scale, with vision, and with a movement behind it.",
+    thanks: "Grateful to Nikhil Dendeti and Kalidindi Krishna Sai Varma for stepping in and truly delivering value on ground — this impact starts with people who show up and teach with intent. A special thanks to My RP Pravalika Sabbavarapu ma’am for trusting me with this responsibility. This isn’t new to me — I’ve previously worked on similar initiatives, going into schools and teaching computer basics and social awareness. Grateful to my senior RP Pavan Dharma sir for constantly encouraging initiatives that create real impact. A sincere thanks to Naram Arun kumar sir and Shivika Shrivastava ma’am for their continuous support, and to Bogada Chandrakanth sir for the motivation that keeps this movement going forward. Special thanks to BILLA HEMANTH sir For helping the student's in the content(syllabus) part 😇 A big thank you to the entire NxtWave team for backing this initiative and believing in its vision: Rahul Attuluri, Anupam Pedarla, Sashank Gujjula, Girish Akash.",
+    images: [
+      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/4_uffbub.jpg",
+      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/2_vb5mqh.jpg",
+      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/5_ywm5ps.jpg",
+      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/1_nft1oe.jpg"
+    ],
+    tags: [
+      "TechaiForIndia", "NIAT", "Leadership", "StudentImpact", "BuildInPublic", "DigitalIdentity"
+    ]
+  }
+];
 
 export const GALLERY = [
   'https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378248/Screenshot_2025-12-22_100305_ay8p5z.png',

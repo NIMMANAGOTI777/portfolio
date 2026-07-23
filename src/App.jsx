@@ -5,7 +5,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import { 
   STATS, SERVICES, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
-  GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENT 
+  GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS 
 } from './lib/portfolioData';
 import { 
   Mail, ArrowRight, Layers, Award, 
@@ -314,10 +314,10 @@ function FeaturedEvent({ event }) {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[10px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
-                Featured Experience
+                {event.category || "Featured Experience"}
               </span>
               <span className="text-[10px] font-medium text-slate-500">
-                July 2026
+                {event.date || "July 2026"}
               </span>
             </div>
 
@@ -333,30 +333,61 @@ function FeaturedEvent({ event }) {
               {event.description}
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              {event.roles.map((role, rIdx) => (
-                <div key={rIdx} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition duration-300">
-                  <h4 className="text-xs font-bold text-indigo-300 mb-1.5 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-                    {role.title}
-                  </h4>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    {role.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
+            {event.customSections ? (
+              <div className="space-y-4 mb-6">
+                {event.customSections.map((sec, sIdx) => (
+                  <div key={sIdx} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition duration-300">
+                    <h4 className="text-xs font-bold text-indigo-300 mb-2 flex items-center gap-1.5 uppercase tracking-wider">
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                      {sec.title}
+                    </h4>
+                    {Array.isArray(sec.content) ? (
+                      <ul className="space-y-1.5">
+                        {sec.content.map((item, iIdx) => (
+                          <li key={iIdx} className="text-slate-400 text-[11px] leading-relaxed flex items-start gap-1.5">
+                            <span className="text-indigo-400/70 select-none mt-0.5">•</span>
+                            <span className="text-slate-300">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-slate-400 text-[11px] leading-relaxed">
+                        {sec.content}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                {event.roles.map((role, rIdx) => (
+                  <div key={rIdx} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition duration-300">
+                    <h4 className="text-xs font-bold text-indigo-300 mb-1.5 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                      {role.title}
+                    </h4>
+                    <p className="text-slate-400 text-[11px] leading-relaxed">
+                      {role.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
 
-            <p className="text-slate-300 text-xs italic leading-relaxed border-l-2 border-indigo-500/40 pl-3 mb-6">
-              "{event.reflection}"
-            </p>
-
-            <div className="p-4 rounded-xl bg-indigo-950/20 border border-indigo-500/10">
-              <h5 className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1.5">Acknowledgements & Trust</h5>
-              <p className="text-slate-400 text-[11px] leading-relaxed">
-                {event.thanks}
+            {event.reflection && (
+              <p className="text-slate-300 text-xs italic leading-relaxed border-l-2 border-indigo-500/40 pl-3 mb-6">
+                "{event.reflection}"
               </p>
-            </div>
+            )}
+
+            {event.thanks && (
+              <div className="p-4 rounded-xl bg-indigo-950/20 border border-indigo-500/10">
+                <h5 className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1.5">Acknowledgements & Trust</h5>
+                <p className="text-slate-400 text-[11px] leading-relaxed">
+                  {event.thanks}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/5">
@@ -659,7 +690,11 @@ function Home() {
         </div>
 
         {/* Featured Event Experience */}
-        <FeaturedEvent event={FEATURED_EVENT} />
+        <div className="space-y-12 mb-12">
+          {FEATURED_EVENTS.map((event, idx) => (
+            <FeaturedEvent key={idx} event={event} />
+          ))}
+        </div>
 
         {/* Other Gallery Moments */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
