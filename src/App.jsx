@@ -529,13 +529,6 @@ function Home() {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <button
-            onClick={() => openContactWithPurpose('Hire Me')}
-            className="flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition-all cursor-pointer"
-          >
-            <span>Let's Connect</span>
-            <ArrowRight size={14} />
-          </button>
           <a
             href="https://docs.google.com/document/d/1-krzGfTO1S0r_-o3d9VJGWPw3uuskL9JtvvCC1dPCek/edit?usp=sharing"
             target="_blank"
