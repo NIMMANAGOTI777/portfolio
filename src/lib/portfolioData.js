@@ -374,3 +374,10 @@ export const SKILLS_DATA = [
   { name: 'Public Speaking', value: 90 },
   { name: 'Networking', value: 88 }
 ];
+
+export const CURRENTLY_WORKING_ON = [
+  "Building AI Products",
+  "Learning Product Management",
+  "Running Teach AI",
+  "Working with NIAT"
+];

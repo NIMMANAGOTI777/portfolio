@@ -6,7 +6,7 @@ import KarthikAIChatbot from './components/KarthikAIChatbot';
 import { 
   STATS, SERVICES, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
   GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS,
-  SKILLS_DATA 
+  SKILLS_DATA, CURRENTLY_WORKING_ON 
 } from './lib/portfolioData';
 import { 
   Mail, ArrowRight, Layers, Award, 
@@ -636,6 +636,35 @@ function Home() {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, roleIndex]);
 
+  // Currently Working On Typewriter Effect
+  const [workingIndex, setWorkingIndex] = useState(0);
+  const [workingText, setWorkingText] = useState("");
+  const [workingDeleting, setWorkingDeleting] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    const currentFocus = CURRENTLY_WORKING_ON[workingIndex];
+    
+    if (workingDeleting) {
+      timer = setTimeout(() => {
+        setWorkingText(prev => prev.substring(0, prev.length - 1));
+      }, 45);
+    } else {
+      timer = setTimeout(() => {
+        setWorkingText(prev => currentFocus.substring(0, prev.length + 1));
+      }, 75);
+    }
+    
+    if (!workingDeleting && workingText === currentFocus) {
+      timer = setTimeout(() => setWorkingDeleting(true), 2200);
+    } else if (workingDeleting && workingText === "") {
+      setWorkingDeleting(false);
+      setWorkingIndex(prev => (prev + 1) % CURRENTLY_WORKING_ON.length);
+    }
+    
+    return () => clearTimeout(timer);
+  }, [workingText, workingDeleting, workingIndex]);
+
   const openContactWithPurpose = (purpose) => {
     setSelectedPurpose(purpose);
     setModalOpen(true);
@@ -690,13 +719,25 @@ function Home() {
           </span>
         </h1>
 
-        <div className="h-[40px] mb-8 flex justify-center items-center">
+        <div className="h-[40px] mb-6 flex justify-center items-center">
           <p className="text-lg md:text-xl text-slate-400 font-light">
             I am a{' '}
             <span className="cursor-blink font-bold text-slate-200 px-1">
               {currentText}
             </span>
           </p>
+        </div>
+
+        {/* Live Status Indicator */}
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/60 border border-white/5 backdrop-blur-md mb-8 text-[10px] text-slate-300 select-none shadow-sm">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span className="font-semibold text-slate-400 uppercase tracking-widest text-[8px] mr-1 border-r border-white/10 pr-2">Currently Working On</span>
+          <span className="font-bold text-indigo-400 tracking-wide">
+            {workingText}
+          </span>
         </div>
 
         {/* 3D Profile Frame */}
