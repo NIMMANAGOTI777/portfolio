@@ -74,7 +74,6 @@ export const COLLABORATIONS = [
     id: 'ishan',
     title: 'Ishan Sharma',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.22.34_AM_vm6hrl.jpg',
-    video: 'https://res.cloudinary.com/do4nuj2kh/video/upload/v1762839782/WhatsApp_Video_2025-04-15_at_10.16.30_775b5cbb_p2zaev.mp4',
     tag: 'Guest Session',
     date: 'Oct 2024',
     attendees: '450+ Attendees',
