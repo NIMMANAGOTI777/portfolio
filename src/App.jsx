@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ContactModal from './components/ContactModal';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
+import MyExpertise from './components/MyExpertise';
+import TechStack from './components/TechStack';
+import GrowthJourney from './components/GrowthJourney';
+import SpeakingWorkshops from './components/SpeakingWorkshops';
 import { 
   STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
   GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS,
@@ -428,187 +432,7 @@ function FeaturedEvent({ event, onImageClick }) {
   );
 }
 
-// 2.8. Skills Radar Chart Component
-function SkillsRadar({ skills }) {
-  const cx = 160;
-  const cy = 160;
-  const radius = 110;
-  const levels = [0.2, 0.4, 0.6, 0.8, 1.0];
-  const totalSkills = skills.length;
 
-  const getCoordinates = (index, level = 1.0) => {
-    const angle = (2 * Math.PI * index) / totalSkills - Math.PI / 2;
-    const r = radius * level;
-    return {
-      x: cx + r * Math.cos(angle),
-      y: cy + r * Math.sin(angle),
-      angle
-    };
-  };
-
-  const gridPolygons = levels.map((level) => {
-    const points = Array.from({ length: totalSkills }, (_, i) => {
-      const { x, y } = getCoordinates(i, level);
-      return `${x},${y}`;
-    }).join(' ');
-    return points;
-  });
-
-  const axesLines = Array.from({ length: totalSkills }, (_, i) => {
-    const { x, y } = getCoordinates(i, 1.0);
-    return { x1: cx, y1: cy, x2: x, y2: y };
-  });
-
-  const radarPoints = skills.map((skill, i) => {
-    const { x, y } = getCoordinates(i, skill.value / 100);
-    return `${x},${y}`;
-  }).join(' ');
-
-  const [hoveredSkill, setHoveredSkill] = useState(null);
-
-  return (
-    <div className="relative w-full max-w-[360px] mx-auto flex flex-col items-center select-none">
-      <svg viewBox="0 0 320 320" className="w-full h-auto overflow-visible">
-        <defs>
-          <radialGradient id="radarFill" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(99, 102, 241, 0.1)" />
-            <stop offset="85%" stopColor="rgba(99, 102, 241, 0.2)" />
-            <stop offset="100%" stopColor="rgba(147, 51, 234, 0.35)" />
-          </radialGradient>
-          
-          <linearGradient id="radarStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#818cf8" />
-            <stop offset="50%" stopColor="#a78bfa" />
-            <stop offset="100%" stopColor="#f472b6" />
-          </linearGradient>
-
-          <filter id="radarGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3.5" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
-        {gridPolygons.map((points, index) => (
-          <polygon
-            key={index}
-            points={points}
-            fill="none"
-            stroke="rgba(255, 255, 255, 0.06)"
-            strokeWidth="1"
-            strokeDasharray={index === levels.length - 1 ? "none" : "2,2"}
-          />
-        ))}
-
-        {axesLines.map((axis, index) => (
-          <line
-            key={index}
-            x1={axis.x1}
-            y1={axis.y1}
-            x2={axis.x2}
-            y2={axis.y2}
-            stroke="rgba(255, 255, 255, 0.08)"
-            strokeWidth="1"
-          />
-        ))}
-
-        {[25, 50, 75, 100].map((val) => {
-          const { x, y } = getCoordinates(0, val / 100);
-          return (
-            <text
-              key={val}
-              x={cx - 5}
-              y={y + 10}
-              className="text-[7px] fill-slate-600 font-semibold text-right select-none pointer-events-none"
-              textAnchor="end"
-            >
-              {val}%
-            </text>
-          );
-        })}
-
-        <polygon
-          points={radarPoints}
-          fill="url(#radarFill)"
-          stroke="url(#radarStrokeGrad)"
-          strokeWidth="2.5"
-          filter="url(#radarGlow)"
-          className="transition-all duration-300"
-        />
-
-        {skills.map((skill, i) => {
-          const { x, y } = getCoordinates(i, skill.value / 100);
-          const isHovered = hoveredSkill?.name === skill.name;
-          return (
-            <g 
-              key={i}
-              onMouseEnter={() => setHoveredSkill(skill)}
-              onMouseLeave={() => setHoveredSkill(null)}
-              className="cursor-pointer"
-            >
-              <circle
-                cx={x}
-                cy={y}
-                r={isHovered ? 6 : 4}
-                className="fill-indigo-400 stroke-indigo-100 stroke-1 transition-all duration-200"
-                style={{ filter: isHovered ? 'drop-shadow(0 0 4px #818cf8)' : 'none' }}
-              />
-            </g>
-          );
-        })}
-
-        {skills.map((skill, i) => {
-          const { x, y, angle } = getCoordinates(i, 1.14);
-          const textAnchor = Math.cos(angle) > 0.15 ? 'start' : Math.cos(angle) < -0.15 ? 'end' : 'middle';
-          const dy = Math.sin(angle) > 0.5 ? '0.6em' : Math.sin(angle) < -0.5 ? '-0.2em' : '0.3em';
-          const isHovered = hoveredSkill?.name === skill.name;
-          return (
-            <text
-              key={i}
-              x={x}
-              y={y}
-              dy={dy}
-              textAnchor={textAnchor}
-              className={`text-[9px] font-bold tracking-wider uppercase transition-colors duration-200 select-none cursor-pointer ${
-                isHovered ? 'fill-indigo-400 font-extrabold' : 'fill-slate-400 hover:fill-slate-200'
-              }`}
-              onMouseEnter={() => setHoveredSkill(skill)}
-              onMouseLeave={() => setHoveredSkill(null)}
-            >
-              {skill.name}
-            </text>
-          );
-        })}
-      </svg>
-
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-20 h-20 rounded-full bg-slate-950/80 border border-white/5 backdrop-blur-sm flex flex-col items-center justify-center shadow-lg transition-all duration-300">
-          {hoveredSkill ? (
-            <>
-              <span className="text-[8px] font-black text-indigo-400 uppercase tracking-widest leading-none mb-1">
-                {hoveredSkill.name.substring(0, 8)}
-              </span>
-              <span className="text-base font-extrabold text-white leading-none">
-                {hoveredSkill.value}%
-              </span>
-            </>
-          ) : (
-            <>
-              <span className="text-[7px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1">
-                EXPERT
-              </span>
-              <span className="text-xs font-bold text-slate-350 leading-none">
-                SKILLS
-              </span>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // 3. Home View Component
 function Home() {
@@ -706,9 +530,11 @@ function Home() {
           </div>
           <div className="flex items-center gap-6">
             <a href="#about" className="text-xs text-slate-400 hover:text-white transition font-medium">About</a>
-            <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium hidden md:inline">Work With Me</a>
-            <a href="#skills" className="text-xs text-slate-400 hover:text-white transition font-medium">Skills</a>
-            <a href="#achievements" className="text-xs text-slate-400 hover:text-white transition font-medium">Achievements</a>
+            <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium">Work With Me</a>
+            <a href="#expertise" className="text-xs text-slate-400 hover:text-white transition font-medium">Expertise</a>
+            <a href="#toolbox" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Toolbox</a>
+            <a href="#journey" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Journey</a>
+            <a href="#speaking" className="text-xs text-slate-400 hover:text-white transition font-medium">Speaking</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
             
             <button
@@ -892,75 +718,8 @@ function Home() {
         </div>
       </section>
 
-      {/* Skills & Expertise Section */}
-      <section id="skills" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
-            Skills & Core Competencies
-          </h2>
-          <p className="text-slate-400 text-sm mt-1">A visual representation of operational leadership, digital strategy, and creative capabilities.</p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left Column: Skill Descriptions */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 relative overflow-hidden">
-              <div className="absolute -top-10 -left-10 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl"></div>
-              <h3 className="text-xl font-bold text-white mb-3">Turning Talent into Professional Identity</h3>
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                From organizing large-scale student developer hackathons and managing guest summits to coordinating on-ground operational logistics and building public digital presence for tech movements — I leverage a diverse mix of administrative execution, technological awareness, and public relations.
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                  <h4 className="text-xs font-bold text-indigo-300 mb-1 flex items-center gap-1.5 uppercase">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-                    Leadership & Operations
-                  </h4>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    President of the Influencers Club NIAT, leading team governance, event planning, and guest hospitality management.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                  <h4 className="text-xs font-bold text-purple-300 mb-1 flex items-center gap-1.5 uppercase">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
-                    AI & Technology awareness
-                  </h4>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Driving digital literacy through the Teach AI for India movement, bridging gaps for underprivileged students.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                  <h4 className="text-xs font-bold text-pink-300 mb-1 flex items-center gap-1.5 uppercase">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
-                    Marketing & Personal Branding
-                  </h4>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Personal branding specialist, designing LinkedIn content pipelines and hosting prominent creators.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                  <h4 className="text-xs font-bold text-teal-300 mb-1 flex items-center gap-1.5 uppercase">
-                    <span className="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
-                    Public Speaking & Networking
-                  </h4>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Leading large crowds (500+ attendees), facilitating live panel discussions, and establishing creator networks.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Radar Chart */}
-          <div className="lg:col-span-5 flex justify-center items-center">
-            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 flex items-center justify-center w-full max-w-[420px] aspect-square relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition duration-500 rounded-3xl"></div>
-              <SkillsRadar skills={SKILLS_DATA} />
-            </div>
-          </div>
-        </div>
-      </section>
+      <MyExpertise />
+      <TechStack />
 
       {/* College Achievements Section */}
       <section id="achievements" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
@@ -977,6 +736,8 @@ function Home() {
           ))}
         </div>
       </section>
+
+      <GrowthJourney />
 
       {/* Collaborations & Highlights */}
       <section className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
@@ -1020,7 +781,11 @@ function Home() {
             </div>
           ))}
         </div>
-      </section>      {/* Projects Showcase */}
+      </section>
+
+      <SpeakingWorkshops onTriggerContact={openContactWithPurpose} />
+
+      {/* Projects Showcase */}
       <section id="projects" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">

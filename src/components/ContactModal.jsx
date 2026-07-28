@@ -391,6 +391,7 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
                     <option value="Photography & Videography">Photography & Videography</option>
                     <option value="Product Strategy & Consulting">Product Strategy & Consulting</option>
                     <option value="Event Collaboration">Event Collaboration</option>
+                    <option value="Speaking Opportunity">Speaking Opportunity</option>
                     <option value="Other">Other</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">

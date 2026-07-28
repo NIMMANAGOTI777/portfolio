@@ -45,6 +45,9 @@ const getPurposeColor = (purpose, hasBorder = true) => {
     case 'Freelance Project':
       colors = 'bg-violet-500/10 text-violet-400' + (hasBorder ? ' border border-violet-500/20' : '');
       break;
+    case 'Speaking Opportunity':
+      colors = 'bg-yellow-500/10 text-yellow-400' + (hasBorder ? ' border border-yellow-500/20' : '');
+      break;
   }
   return colors;
 };
@@ -160,7 +163,7 @@ export default function AdminLeads() {
         'Web Development', 'UI/UX & Figma Design', 'Event Management', 
         'Social Media Strategy', 'Content & Reels Script Writing', 
         'Creative Design & Branding', 'Photography & Videography', 
-        'Product Strategy & Consulting'
+        'Product Strategy & Consulting', 'Speaking Opportunity', 'Event Collaboration'
       ].includes(lead.purpose)
     ).length;
 

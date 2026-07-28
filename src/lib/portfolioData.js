@@ -504,3 +504,235 @@ export const CURRENTLY_WORKING_ON = [
   "Running Teach AI",
   "Working with NIAT"
 ];
+
+export const EXPERTISE_DATA = [
+  { id: 'leadership', name: 'Leadership', value: 95, icon: 'users', desc: 'Led student clubs, organized large-scale events, managed teams and operations.' },
+  { id: 'community', name: 'Community Building', value: 94, icon: 'sparkles', desc: 'Built and nurtured thriving student communities.' },
+  { id: 'events', name: 'Event Management', value: 92, icon: 'calendar', desc: 'Executed hackathons, summits and workshops with operational excellence.' },
+  { id: 'frontend', name: 'Frontend Development', value: 88, icon: 'code2', desc: 'React, Next.js, Tailwind CSS, Supabase and modern web technologies.' },
+  { id: 'design', name: 'UI/UX Design', value: 90, icon: 'palette', desc: 'Creating modern, conversion-focused digital experiences.' },
+  { id: 'content', name: 'Content Strategy', value: 94, icon: 'file-text', desc: 'Reels, campaigns, storytelling and brand positioning.' },
+  { id: 'speaking', name: 'Public Speaking', value: 86, icon: 'megaphone', desc: 'Hosting sessions, mentoring students and stage management.' },
+  { id: 'photography', name: 'Photography', value: 89, icon: 'camera', desc: 'Event photography and storytelling.' },
+  { id: 'product', name: 'Product Thinking', value: 84, icon: 'compass', desc: 'Planning features, user flows and solving real-world problems.' },
+  { id: 'project-mgmt', name: 'Project Management', value: 90, icon: 'briefcase', desc: 'Planning, execution and stakeholder coordination.' },
+  { id: 'marketing', name: 'Marketing', value: 88, icon: 'trending-up', desc: 'Social media campaigns and community engagement.' },
+  { id: 'problem-solving', name: 'Problem Solving', value: 92, icon: 'lightbulb', desc: 'Resolving complex operational and engineering challenges with structured logic.' }
+];
+
+export const TECH_STACK_DATA = [
+  {
+    category: 'Frontend',
+    tools: [
+      { name: 'React', projects: '15+', experience: '3 Years', proficiency: 90 },
+      { name: 'Next.js', projects: '8+', experience: '2 Years', proficiency: 85 },
+      { name: 'Tailwind CSS', projects: '20+', experience: '3 Years', proficiency: 95 },
+      { name: 'TypeScript', projects: '6+', experience: '1.5 Years', proficiency: 80 },
+      { name: 'JavaScript', projects: '20+', experience: '3 Years', proficiency: 90 },
+      { name: 'HTML5', projects: '25+', experience: '4 Years', proficiency: 95 },
+      { name: 'CSS3', projects: '25+', experience: '4 Years', proficiency: 90 },
+      { name: 'Framer Motion', projects: '5+', experience: '1 Year', proficiency: 82 }
+    ]
+  },
+  {
+    category: 'Backend',
+    tools: [
+      { name: 'Node.js', projects: '10+', experience: '2 Years', proficiency: 82 },
+      { name: 'Express.js', projects: '8+', experience: '2 Years', proficiency: 80 },
+      { name: 'Supabase', projects: '6+', experience: '1.5 Years', proficiency: 88 },
+      { name: 'Firebase', projects: '5+', experience: '1.5 Years', proficiency: 78 },
+      { name: 'MongoDB', projects: '4+', experience: '1 Year', proficiency: 75 },
+      { name: 'REST APIs', projects: '12+', experience: '2.5 Years', proficiency: 85 },
+      { name: 'SQL', projects: '8+', experience: '2 Years', proficiency: 80 }
+    ]
+  },
+  {
+    category: 'Design',
+    tools: [
+      { name: 'Figma', projects: '30+', experience: '3 Years', proficiency: 92 },
+      { name: 'Canva', projects: '50+', experience: '3 Years', proficiency: 95 },
+      { name: 'Photoshop', projects: '15+', experience: '2 Years', proficiency: 75 },
+      { name: 'Illustrator', projects: '10+', experience: '2 Years', proficiency: 70 },
+      { name: 'Spline', projects: '2+', experience: '0.5 Years', proficiency: 60 },
+      { name: 'Rive', projects: '2+', experience: '0.5 Years', proficiency: 65 }
+    ]
+  },
+  {
+    category: 'Content Creation',
+    tools: [
+      { name: 'VN Editor', projects: '40+', experience: '2.5 Years', proficiency: 92 },
+      { name: 'CapCut', projects: '30+', experience: '2 Years', proficiency: 90 },
+      { name: 'Premiere Pro', projects: '10+', experience: '1.5 Years', proficiency: 78 },
+      { name: 'After Effects', projects: '5+', experience: '1 Year', proficiency: 68 },
+      { name: 'Lightroom', projects: '25+', experience: '2 Years', proficiency: 85 }
+    ]
+  },
+  {
+    category: 'Marketing',
+    tools: [
+      { name: 'Meta Business', projects: '12+', experience: '2 Years', proficiency: 85 },
+      { name: 'LinkedIn SMM', projects: '25+', experience: '2 Years', proficiency: 92 },
+      { name: 'Google Analytics', projects: '6+', experience: '1.5 Years', proficiency: 78 },
+      { name: 'HubSpot', projects: '4+', experience: '1 Year', proficiency: 70 },
+      { name: 'SEO', projects: '10+', experience: '2 Years', proficiency: 82 },
+      { name: 'Email Marketing', projects: '8+', experience: '1.5 Years', proficiency: 80 }
+    ]
+  },
+  {
+    category: 'Productivity',
+    tools: [
+      { name: 'Notion', projects: 'Continuous', experience: '3 Years', proficiency: 95 },
+      { name: 'Slack', projects: 'Continuous', experience: '3 Years', proficiency: 90 },
+      { name: 'GitHub', projects: '25+', experience: '3 Years', proficiency: 88 },
+      { name: 'Trello', projects: '5+', experience: '2 Years', proficiency: 85 },
+      { name: 'Google Workspace', projects: 'Continuous', experience: '5 Years', proficiency: 95 },
+      { name: 'VS Code', projects: 'Continuous', experience: '3 Years', proficiency: 92 }
+    ]
+  }
+];
+
+export const TIMELINE_DATA = [
+  {
+    year: '2023',
+    title: 'Exploring Technology',
+    milestones: [
+      'Started exploring technology and computer systems',
+      'Learned programming fundamentals and syntax',
+      'Built first websites using HTML, CSS, and basic JavaScript',
+      'Joined college technology & student communities'
+    ],
+    stats: [
+      { label: 'Projects Built', value: 3 },
+      { label: 'Events Participated', value: 1 },
+      { label: 'Skills Acquired', value: 5 },
+      { label: 'Communities Joined', value: 2 }
+    ],
+    chartData: { Projects: 3, Leadership: 20, Community: 30, Experience: 15, Skills: 25 }
+  },
+  {
+    year: '2024',
+    title: 'Leadership & Events',
+    milestones: [
+      'Became President of the Influencers Club at NIAT',
+      'Started organizing events, hackathons, and workshops',
+      'Hosted creators and leaders (e.g. Ishan Sharma, Madhu Kiran)',
+      'Won college competitions & built a strong personal brand'
+    ],
+    stats: [
+      { label: 'Events Organized', value: 5 },
+      { label: 'Projects Driven', value: 4 },
+      { label: 'Creators Hosted', value: 4 },
+      { label: 'Awards Won', value: 2 }
+    ],
+    chartData: { Projects: 7, Leadership: 70, Community: 65, Experience: 45, Skills: 50 }
+  },
+  {
+    year: '2025',
+    title: 'AI Products & Expansion',
+    milestones: [
+      'Developed AI products like AI Profile Optimizer',
+      'Built multiple fullstack web applications',
+      'Expanded leadership role and community scale',
+      'Completed MSME & Industry Certifications'
+    ],
+    stats: [
+      { label: 'Web Apps Built', value: 5 },
+      { label: 'AI Products Built', value: 2 },
+      { label: 'Certifications Completed', value: 4 },
+      { label: 'Team Members Led', value: 10 }
+    ],
+    chartData: { Projects: 13, Leadership: 85, Community: 80, Experience: 75, Skills: 80 }
+  },
+  {
+    year: '2026',
+    title: 'Large-scale Impact',
+    milestones: [
+      'Built AidTrace (Cardano blockchain platform) at IndiaCodex\'26',
+      'Organized BASE44 Hackathon for 1,600+ registrants',
+      'Strategic POC for the Teach AI for India social impact movement',
+      'Growing towards Product Management & professional freelance consulting'
+    ],
+    stats: [
+      { label: 'Projects Formulated', value: 8 },
+      { label: 'Events Managed', value: 4 },
+      { label: 'Students Impacted', value: 2000 },
+      { label: 'Hours Volunteered', value: 120 }
+    ],
+    chartData: { Projects: 21, Leadership: 95, Community: 95, Experience: 95, Skills: 95 }
+  }
+];
+
+export const SPEAKING_DATA = [
+  {
+    id: 'community-building',
+    title: 'Community Building',
+    desc: 'How to build, engage, and scale student developer networks and user communities.',
+    icon: 'sparkles',
+    level: 'Intermediate',
+    duration: '60 min',
+    bestFor: 'Colleges & Communities'
+  },
+  {
+    id: 'content-strategy',
+    title: 'Content Strategy',
+    desc: 'Story-driven content creation, Reels, personal branding, and brand positioning.',
+    icon: 'file-text',
+    level: 'Beginner',
+    duration: '45 min',
+    bestFor: 'Creators & Startups'
+  },
+  {
+    id: 'ai-students',
+    title: 'AI for Students',
+    desc: 'Leveraging AI tools to increase productivity, code faster, and build projects.',
+    icon: 'lightbulb',
+    level: 'Beginner',
+    duration: '60 min',
+    bestFor: 'Educational Institutions'
+  },
+  {
+    id: 'leadership',
+    title: 'Leadership & Operations',
+    desc: 'Managing multi-person teams, organizing hackathons, and on-ground event execution.',
+    icon: 'users',
+    level: 'Advanced',
+    duration: '90 min',
+    bestFor: 'Student Communities'
+  },
+  {
+    id: 'personal-branding',
+    title: 'Personal Branding',
+    desc: 'Establishing an authority profile on LinkedIn and building in public.',
+    icon: 'trending-up',
+    level: 'Intermediate',
+    duration: '45 min',
+    bestFor: 'Students & Companies'
+  },
+  {
+    id: 'event-management',
+    title: 'Event Management',
+    desc: 'A complete framework for planning fests, summits, guest speaker operations, and crowd control.',
+    icon: 'calendar',
+    level: 'Advanced',
+    duration: '90 min',
+    bestFor: 'Colleges & Companies'
+  },
+  {
+    id: 'social-growth',
+    title: 'Social Media Growth',
+    desc: 'Algorithm optimization, organic reach strategies, and content planning calendars.',
+    icon: 'smartphone',
+    level: 'Intermediate',
+    duration: '30 min',
+    bestFor: 'Startups & Creators'
+  },
+  {
+    id: 'product-thinking',
+    title: 'Product Thinking',
+    desc: 'MVP planning, feature prioritization, user journey mapping, and turning ideas into products.',
+    icon: 'compass',
+    level: 'Intermediate',
+    duration: '60 min',
+    bestFor: 'Colleges & Startups'
+  }
+];
