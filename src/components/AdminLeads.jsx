@@ -7,6 +7,48 @@ import {
   Phone, Briefcase, Eye, Trash2, ArrowUpDown, X, LogOut
 } from 'lucide-react';
 
+const getPurposeColor = (purpose, hasBorder = true) => {
+  let colors = 'bg-slate-500/10 text-slate-400';
+  if (hasBorder) colors += ' border border-slate-500/20';
+
+  switch (purpose) {
+    case 'Hire Me':
+      colors = 'bg-indigo-500/10 text-indigo-400' + (hasBorder ? ' border border-indigo-500/20' : '');
+      break;
+    case 'Web Development':
+      colors = 'bg-blue-500/10 text-blue-400' + (hasBorder ? ' border border-blue-500/20' : '');
+      break;
+    case 'UI/UX & Figma Design':
+      colors = 'bg-purple-500/10 text-purple-400' + (hasBorder ? ' border border-purple-500/20' : '');
+      break;
+    case 'Event Management':
+      colors = 'bg-rose-500/10 text-rose-400' + (hasBorder ? ' border border-rose-500/20' : '');
+      break;
+    case 'Social Media Strategy':
+      colors = 'bg-sky-500/10 text-sky-400' + (hasBorder ? ' border border-sky-500/20' : '');
+      break;
+    case 'Content & Reels Script Writing':
+      colors = 'bg-amber-500/10 text-amber-400' + (hasBorder ? ' border border-amber-500/20' : '');
+      break;
+    case 'Creative Design & Branding':
+      colors = 'bg-teal-500/10 text-teal-400' + (hasBorder ? ' border border-teal-500/20' : '');
+      break;
+    case 'Photography & Videography':
+      colors = 'bg-cyan-500/10 text-cyan-400' + (hasBorder ? ' border border-cyan-500/20' : '');
+      break;
+    case 'Product Strategy & Consulting':
+      colors = 'bg-emerald-500/10 text-emerald-400' + (hasBorder ? ' border border-emerald-500/20' : '');
+      break;
+    case 'Event Collaboration':
+      colors = 'bg-pink-500/10 text-pink-400' + (hasBorder ? ' border border-pink-500/20' : '');
+      break;
+    case 'Freelance Project':
+      colors = 'bg-violet-500/10 text-violet-400' + (hasBorder ? ' border border-violet-500/20' : '');
+      break;
+  }
+  return colors;
+};
+
 export default function AdminLeads() {
   const [session, setSession] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -111,9 +153,15 @@ export default function AdminLeads() {
       return leadDate >= today;
     }).length;
 
-    // High Intent leads (Hire Me, Freelance, Partnership)
+    // High Intent leads (Hire Me, Freelance, Partnership, and specific service categories)
     const highIntentCount = leads.filter(lead => 
-      ['Hire Me', 'Freelance Project', 'Partnership'].includes(lead.purpose)
+      [
+        'Hire Me', 'Freelance Project', 'Partnership', 
+        'Web Development', 'UI/UX & Figma Design', 'Event Management', 
+        'Social Media Strategy', 'Content & Reels Script Writing', 
+        'Creative Design & Branding', 'Photography & Videography', 
+        'Product Strategy & Consulting'
+      ].includes(lead.purpose)
     ).length;
 
     return { total, todayCount, highIntentCount };
@@ -342,13 +390,7 @@ export default function AdminLeads() {
                         <td className="py-4 px-6 font-medium text-slate-200">{lead.full_name}</td>
                         <td className="py-4 px-6 text-slate-300">{lead.email}</td>
                         <td className="py-4 px-6">
-                          <span className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full ${
-                            lead.purpose === 'Hire Me' 
-                              ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' 
-                              : lead.purpose === 'Freelance Project' 
-                              ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' 
-                              : 'bg-slate-500/10 text-slate-400 border border-slate-500/20'
-                          }`}>
+                          <span className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full ${getPurposeColor(lead.purpose, true)}`}>
                             {lead.purpose}
                           </span>
                         </td>
@@ -413,13 +455,7 @@ export default function AdminLeads() {
                         <span className="truncate">{lead.email}</span>
                       </div>
                       <div className="mt-1">
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${
-                          lead.purpose === 'Hire Me' 
-                            ? 'bg-indigo-500/10 text-indigo-400' 
-                            : lead.purpose === 'Freelance Project' 
-                            ? 'bg-purple-500/10 text-purple-400' 
-                            : 'bg-slate-500/10 text-slate-400'
-                        }`}>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${getPurposeColor(lead.purpose, false)}`}>
                           {lead.purpose}
                         </span>
                       </div>

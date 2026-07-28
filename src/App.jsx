@@ -4,7 +4,7 @@ import ContactModal from './components/ContactModal';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import { 
-  STATS, SERVICES, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
+  STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
   GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS,
   SKILLS_DATA, CURRENTLY_WORKING_ON 
 } from './lib/portfolioData';
@@ -12,11 +12,26 @@ import {
   Mail, ArrowRight, Layers, Award, 
   Users, Calendar, FileText, 
   ChevronDown, ChevronLeft, ChevronRight, Download, 
-  ArrowUpRight, X
+  ArrowUpRight, X, Globe, Palette, TrendingUp, PenTool, Video, Check
 } from 'lucide-react';
 
 // Typewriter Roles List
 const ROLES = ["Student Leader", "Event Manager", "Creative Strategist", "Community Builder"];
+
+// Service Icon Mapper Component
+function ServiceIcon({ iconName, size = 22 }) {
+  switch (iconName) {
+    case 'globe': return <Globe size={size} />;
+    case 'palette': return <Palette size={size} />;
+    case 'calendar': return <Calendar size={size} />;
+    case 'trending-up': return <TrendingUp size={size} />;
+    case 'pen-tool': return <PenTool size={size} />;
+    case 'award': return <Award size={size} />;
+    case 'video': return <Video size={size} />;
+    case 'layers': return <Layers size={size} />;
+    default: return <Award size={size} />;
+  }
+}
 
 // 1. Stats Counter Component
 function AnimatedCounter({ target, label, suffix }) {
@@ -691,7 +706,7 @@ function Home() {
           </div>
           <div className="flex items-center gap-6">
             <a href="#about" className="text-xs text-slate-400 hover:text-white transition font-medium">About</a>
-            <a href="#services" className="text-xs text-slate-400 hover:text-white transition font-medium hidden md:inline">Services</a>
+            <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium hidden md:inline">Work With Me</a>
             <a href="#skills" className="text-xs text-slate-400 hover:text-white transition font-medium">Skills</a>
             <a href="#achievements" className="text-xs text-slate-400 hover:text-white transition font-medium">Achievements</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
@@ -783,29 +798,97 @@ function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
+      {/* Work With Me Section */}
+      <section id="work-with-me" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
-            Operational Excellence & Services
+            Work With Me
           </h2>
-          <p className="text-slate-400 text-sm mt-1">How I can add valuable solutions to your enterprise or events.</p>
+          <p className="text-slate-400 text-sm mt-2 max-w-2xl mx-auto leading-relaxed">
+            "I help startups, creators, businesses, and student communities build impactful digital experiences, events, and brands."
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {SERVICES.map((srv, idx) => (
-            <div key={idx} className={`p-6 rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between ${srv.colorClass}`}>
-              <div>
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${srv.iconBgClass}`}>
-                  {srv.icon === 'bullhorn' && <Award size={22} />}
-                  {srv.icon === 'calendar-check' && <Layers size={22} />}
-                  {srv.icon === 'users' && <Users size={22} />}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+          {WORK_WITH_ME_SERVICES.map((srv) => (
+            <div key={srv.id} className={`p-6 rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between h-full border border-white/5 transition-all duration-300 ${srv.colorClass}`}>
+              <div className="flex-1 flex flex-col">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 shrink-0 ${srv.iconBgClass}`}>
+                  <ServiceIcon iconName={srv.icon} size={22} />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{srv.title}</h3>
-                <p className="text-slate-400 text-xs leading-relaxed mb-4">{srv.description}</p>
+                <h3 className="text-base font-extrabold text-white mb-2">{srv.title}</h3>
+                <p className="text-slate-450 text-[11px] leading-relaxed mb-4">{srv.description}</p>
+                
+                {/* Specific Services List */}
+                <div className="mb-4">
+                  <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Services</h4>
+                  <ul className="space-y-1.5 text-xs text-slate-300">
+                    {srv.services.map((service, sIdx) => (
+                      <li key={sIdx} className="flex items-start gap-1.5 leading-relaxed">
+                        <span className="text-indigo-400 font-bold select-none mt-0.5">•</span>
+                        <span>{service}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-auto pt-4 border-t border-white/5">
+                {/* Tech Stack */}
+                {srv.techStack && (
+                  <div className="flex flex-wrap gap-1 mb-4">
+                    {srv.techStack.map((tech, tIdx) => (
+                      <span key={tIdx} className="text-[9px] text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
+                <button
+                  onClick={() => openContactWithPurpose(srv.title)}
+                  className="w-full py-2 bg-indigo-650/10 hover:bg-indigo-650/20 border border-indigo-500/20 hover:border-indigo-500/40 text-indigo-300 hover:text-white text-[11px] font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  <span>Inquire for Service</span>
+                  <ArrowRight size={12} />
+                </button>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Why Work With Me */}
+        <div className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-100 transition duration-500"></div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            {/* Left Column */}
+            <div className="lg:col-span-5">
+              <span className="text-[10px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
+                Core Value
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-4 mb-4 bg-gradient-to-r from-white to-slate-350 bg-clip-text text-transparent">
+                Why Work With Me?
+              </h3>
+              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                I combine strong design principles with modern frontend expertise and leadership experience. This multidisciplinary profile ensures seamless execution from initial concept wireframes to fully shipped production systems.
+              </p>
+            </div>
+            
+            {/* Right Column Checklist */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {WHY_WORK_WITH_ME.map((item, idx) => (
+                <div key={idx} className="p-4 rounded-2xl bg-slate-900/20 border border-white/5 hover:border-indigo-500/20 hover:bg-slate-900/40 transition duration-300 flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5 text-emerald-400">
+                    <Check size={14} className="stroke-[3]" />
+                  </div>
+                  <p className="text-slate-300 text-xs font-semibold leading-relaxed">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

@@ -4,29 +4,152 @@ export const STATS = [
   { id: 'events', label: 'Events Led', target: 10, suffix: '+' },
 ];
 
-export const SERVICES = [
+export const WORK_WITH_ME_SERVICES = [
   {
-    icon: 'bullhorn',
+    id: 'web-dev',
+    title: 'Web Development',
+    description: 'Modern, responsive websites built for performance and growth.',
+    icon: 'globe',
+    services: [
+      'Portfolio Websites',
+      'Business Websites',
+      'Startup Landing Pages',
+      'Event Websites',
+      'Admin Dashboards',
+      'Custom Web Applications'
+    ],
+    techStack: ['React', 'Next.js', 'Supabase', 'Tailwind CSS', 'Node.js'],
+    colorClass: 'hover:border-indigo-500/50',
+    iconBgClass: 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400',
+  },
+  {
+    id: 'ui-ux',
+    title: 'UI/UX & Figma Design',
+    description: 'Designs focused on clarity, usability, and conversion.',
+    icon: 'palette',
+    services: [
+      'Website UI Design',
+      'Mobile App UI',
+      'Dashboard Design',
+      'Landing Pages',
+      'Wireframes',
+      'Interactive Prototypes',
+      'Design Systems'
+    ],
+    colorClass: 'hover:border-purple-500/50',
+    iconBgClass: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400',
+  },
+  {
+    id: 'event-mgmt',
+    title: 'Event Management',
+    description: 'Professional planning and execution for memorable events.',
+    icon: 'calendar',
+    services: [
+      'College Fests',
+      'Hackathons',
+      'Workshops',
+      'Tech Conferences',
+      'Guest Management',
+      'Registration Operations',
+      'Event Branding',
+      'On-ground Coordination'
+    ],
+    colorClass: 'hover:border-rose-500/50',
+    iconBgClass: 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400',
+  },
+  {
+    id: 'smm',
     title: 'Social Media Strategy',
-    description: 'Managing brand presence, content scheduling (Linkedify), and engagement strategies to boost organic growth.',
+    description: 'Helping brands and creators build a strong online presence.',
+    icon: 'trending-up',
+    services: [
+      'Instagram Growth Strategy',
+      'LinkedIn Personal Branding',
+      'Content Planning',
+      'Profile Optimization',
+      'Campaign Strategy',
+      'Content Calendar'
+    ],
     colorClass: 'hover:border-blue-500/50',
     iconBgClass: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
   },
   {
-    icon: 'calendar-check',
-    title: 'Event Architecture',
-    description: 'End-to-end event planning, from logistics and security to guest management and on-ground execution.',
-    colorClass: 'hover:border-orange-500/50',
-    iconBgClass: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400',
+    id: 'script-writing',
+    title: 'Content & Reels Script Writing',
+    description: 'Story-driven content designed to engage audiences.',
+    icon: 'pen-tool',
+    services: [
+      'Instagram Reels Scripts',
+      'YouTube Shorts Scripts',
+      'Promotional Videos',
+      'Product Launch Scripts',
+      'Event Promotions',
+      'Founder Storytelling',
+      'LinkedIn Posts'
+    ],
+    colorClass: 'hover:border-amber-500/50',
+    iconBgClass: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400',
   },
   {
-    icon: 'users',
-    title: 'Community Building',
-    description: 'Fostering student communities, organizing hackathons, and bridging the gap between students and industry.',
-    colorClass: 'hover:border-green-500/50',
-    iconBgClass: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400',
+    id: 'creative-design',
+    title: 'Creative Design & Branding',
+    description: 'High-quality marketing assets that stand out.',
+    icon: 'award',
+    services: [
+      'Event Posters',
+      'Social Media Creatives',
+      'Certificate Design',
+      'Presentation Decks',
+      'Banner Design',
+      'Brand Identity Assets',
+      'Marketing Graphics'
+    ],
+    colorClass: 'hover:border-teal-500/50',
+    iconBgClass: 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400',
   },
+  {
+    id: 'photography',
+    title: 'Photography & Videography',
+    description: 'Capturing events with a professional storytelling approach.',
+    icon: 'video',
+    services: [
+      'Event Photography',
+      'Event Videography',
+      'After Movies',
+      'Highlight Reels',
+      'Behind-the-Scenes Coverage',
+      'Content Editing'
+    ],
+    colorClass: 'hover:border-cyan-500/50',
+    iconBgClass: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400',
+  },
+  {
+    id: 'product-strategy',
+    title: 'Product Strategy & Consulting',
+    description: 'Helping turn ideas into structured digital products.',
+    icon: 'layers',
+    services: [
+      'MVP Planning',
+      'Feature Prioritization',
+      'Product Roadmaps',
+      'User Journey Mapping',
+      'Market Research',
+      'Product Documentation'
+    ],
+    colorClass: 'hover:border-emerald-500/50',
+    iconBgClass: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
+  }
 ];
+
+export const WHY_WORK_WITH_ME = [
+  'End-to-end execution, from planning to delivery',
+  'Leadership experience managing large-scale events',
+  'Strong design and development skills',
+  'Content-first marketing approach',
+  'Fast communication and timely delivery',
+  'Solutions tailored for startups, creators, and student communities'
+];
+
 
 export const ACHIEVEMENTS = [
   {

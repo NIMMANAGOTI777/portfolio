@@ -382,11 +382,15 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
                     className="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm appearance-none cursor-pointer"
                   >
                     <option value="Hire Me">Hire Me (Full-Time)</option>
-                    <option value="Freelance Project">Freelance / Contract Project</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="UI/UX & Figma Design">UI/UX & Figma Design</option>
+                    <option value="Event Management">Event Management</option>
+                    <option value="Social Media Strategy">Social Media Strategy</option>
+                    <option value="Content & Reels Script Writing">Content & Reels Script Writing</option>
+                    <option value="Creative Design & Branding">Creative Design & Branding</option>
+                    <option value="Photography & Videography">Photography & Videography</option>
+                    <option value="Product Strategy & Consulting">Product Strategy & Consulting</option>
                     <option value="Event Collaboration">Event Collaboration</option>
-                    <option value="Speaking Opportunity">Speaking Opportunity</option>
-                    <option value="Mentorship">Mentorship</option>
-                    <option value="Partnership">Partnership</option>
                     <option value="Other">Other</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
