@@ -520,8 +520,12 @@ function Home() {
       <nav className="border-b border-white/5 backdrop-blur-md bg-slate-950/70 sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
-              KN
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20 overflow-hidden">
+              <img 
+                src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179045/WhatsApp_Image_2025-11-15_at_9.26.15_AM_wv5y16.jpg" 
+                alt="KN Logo" 
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="font-semibold text-lg tracking-wider bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent hidden sm:inline">
               Karthik Nimmanagoti
