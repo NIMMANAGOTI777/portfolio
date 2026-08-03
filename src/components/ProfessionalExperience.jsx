@@ -209,6 +209,7 @@ const EXPERIENCES = [
     employmentType: 'Volunteering',
     location: 'India',
     logoText: 'TAI',
+    logoUrl: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1785759871/WhatsApp_Image_2026-08-03_at_5.52.31_PM_r9lnro.jpg',
     logoColor: 'from-emerald-500 via-teal-500 to-cyan-500',
     category: ['Community', 'Leadership'],
     icon: 'compass',
@@ -471,8 +472,12 @@ export default function ProfessionalExperience() {
                         <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-4 border-b border-white/5">
                           <div className="flex items-center gap-3">
                             {/* Animated Logo Container */}
-                            <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${exp.logoColor} flex items-center justify-center text-white font-extrabold text-xs shadow-md select-none`}>
-                              {exp.logoText}
+                            <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${exp.logoColor || ''} flex items-center justify-center text-white font-extrabold text-xs shadow-md select-none overflow-hidden shrink-0`}>
+                              {exp.logoUrl ? (
+                                <img src={exp.logoUrl} alt={`${exp.company} Logo`} className="w-full h-full object-cover" />
+                              ) : (
+                                exp.logoText
+                              )}
                             </div>
                             <div>
                               <h3 className="text-lg font-black text-white leading-tight flex items-center gap-2">
