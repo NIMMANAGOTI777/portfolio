@@ -29,18 +29,7 @@ function TimelineStatCounter({ target, label, suffix = '', duration = 1500 }) {
   useEffect(() => {
     if (!hasStarted) return;
     
-    // Parse target to extract number (e.g. "400" from "400K" or "1665" from "1665+")
-    let targetNum = target;
-    let targetSuffix = suffix;
-    
-    if (typeof target === 'string') {
-      const match = target.match(/^([\d.,]+)(.*)$/);
-      if (match) {
-        targetNum = parseFloat(match[1].replace(/,/g, ''));
-        targetSuffix = match[2] + suffix;
-      }
-    }
-
+    const targetNum = parseFloat(target);
     let start = 0;
     const frameRate = 1000 / 60; // 60fps
     const totalFrames = duration / frameRate;
@@ -52,15 +41,18 @@ function TimelineStatCounter({ target, label, suffix = '', duration = 1500 }) {
         setCount(targetNum);
         clearInterval(timer);
       } else {
-        setCount(Math.ceil(start));
+        setCount(start);
       }
     }, frameRate);
 
     return () => clearInterval(timer);
-  }, [hasStarted, target, suffix, duration]);
+  }, [hasStarted, target, duration]);
 
-  // Format number for readability (e.g. 1665 -> 1,665)
-  const formattedCount = count.toLocaleString();
+  // Format number for readability (e.g. 1665 -> 1,665, 2.5 -> 2.5)
+  const isFloat = target.toString().includes('.');
+  const formattedCount = isFloat 
+    ? count.toFixed(1) 
+    : Math.floor(count).toLocaleString();
 
   return (
     <div ref={ref} className="glass-panel p-4 rounded-xl text-center relative overflow-hidden group border border-white/5 hover:border-indigo-500/20 transition-all duration-300">
@@ -370,14 +362,12 @@ export default function ProfessionalExperience() {
       </div>
 
       {/* 1. Timeline Statistics Counters Dashboard */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 mb-16">
-        <TimelineStatCounter target="4" suffix="+ Years" label="Experience" />
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
+        <TimelineStatCounter target="2.5" suffix=" Years" label="Experience" />
         <TimelineStatCounter target="10" suffix="+" label="Organizations" />
         <TimelineStatCounter target="25" suffix="+" label="Events Managed" />
         <TimelineStatCounter target="2000" suffix="+" label="Students Impacted" />
-        <TimelineStatCounter target="400000" suffix="+" label="Campaign Reach" />
-        <TimelineStatCounter target="15" suffix="+" label="Leadership Roles" />
-        <TimelineStatCounter target="20" suffix="+" label="Projects Delivered" />
+        <TimelineStatCounter target="10" suffix="+" label="Leadership Roles" />
       </div>
 
       {/* 2. Search & Filters Panel */}
