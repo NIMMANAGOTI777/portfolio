@@ -174,11 +174,6 @@ const EXPERIENCES = [
     metrics: [
       { label: 'Participants', value: '1665+' }
     ],
-    gallery: [
-      'https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-16_at_6.49.39_PM_mozq5a.jpg',
-      'https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_kqgv03.jpg',
-      'https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_1_renyfm.jpg'
-    ],
     outcomes: 'Maintained 100% platform uptime and checked in all participants smoothly with custom QR codes.'
   },
   {
