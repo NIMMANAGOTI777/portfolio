@@ -5,6 +5,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import MyExpertise from './components/MyExpertise';
 import GrowthJourney from './components/GrowthJourney';
+import ProfessionalExperience from './components/ProfessionalExperience';
 import { 
   STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
   GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS,
@@ -528,6 +529,7 @@ function Home() {
           </div>
           <div className="flex items-center gap-6">
             <a href="#about" className="text-xs text-slate-400 hover:text-white transition font-medium">About</a>
+            <a href="#experience" className="text-xs text-slate-400 hover:text-white transition font-medium">Experience</a>
             <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium">Work With Me</a>
             <a href="#expertise" className="text-xs text-slate-400 hover:text-white transition font-medium">Expertise</a>
             <a href="#journey" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Journey</a>
@@ -619,6 +621,8 @@ function Home() {
 
         </div>
       </section>
+
+      <ProfessionalExperience />
 
       {/* Work With Me Section */}
       <section id="work-with-me" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
