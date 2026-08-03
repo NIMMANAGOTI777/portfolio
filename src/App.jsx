@@ -6,7 +6,6 @@ import KarthikAIChatbot from './components/KarthikAIChatbot';
 import MyExpertise from './components/MyExpertise';
 import TechStack from './components/TechStack';
 import GrowthJourney from './components/GrowthJourney';
-import SpeakingWorkshops from './components/SpeakingWorkshops';
 import { 
   STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
   GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS,
@@ -534,7 +533,6 @@ function Home() {
             <a href="#expertise" className="text-xs text-slate-400 hover:text-white transition font-medium">Expertise</a>
             <a href="#toolbox" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Toolbox</a>
             <a href="#journey" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Journey</a>
-            <a href="#speaking" className="text-xs text-slate-400 hover:text-white transition font-medium">Speaking</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
             
             <button
@@ -782,8 +780,6 @@ function Home() {
           ))}
         </div>
       </section>
-
-      <SpeakingWorkshops onTriggerContact={openContactWithPurpose} />
 
       {/* Projects Showcase */}
       <section id="projects" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
