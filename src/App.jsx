@@ -4,7 +4,6 @@ import ContactModal from './components/ContactModal';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import MyExpertise from './components/MyExpertise';
-import TechStack from './components/TechStack';
 import GrowthJourney from './components/GrowthJourney';
 import { 
   STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
@@ -531,7 +530,6 @@ function Home() {
             <a href="#about" className="text-xs text-slate-400 hover:text-white transition font-medium">About</a>
             <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium">Work With Me</a>
             <a href="#expertise" className="text-xs text-slate-400 hover:text-white transition font-medium">Expertise</a>
-            <a href="#toolbox" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Toolbox</a>
             <a href="#journey" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Journey</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
             
@@ -717,7 +715,6 @@ function Home() {
       </section>
 
       <MyExpertise />
-      <TechStack />
 
       {/* College Achievements Section */}
       <section id="achievements" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
