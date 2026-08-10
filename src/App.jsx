@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ContactModal from './components/ContactModal';
+import BehindTheLens from './components/BehindTheLens';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import MyExpertise from './components/MyExpertise';
