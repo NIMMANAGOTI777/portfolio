@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ContactModal from './components/ContactModal';
 import BehindTheLens from './components/BehindTheLens';
+import AdminLeads from './components/AdminLeads';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import MyExpertise from './components/MyExpertise';
@@ -1278,6 +1279,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/behind-the-lens" element={<BehindTheLens />} />
+        <Route path="/admin" element={<AdminLeads />} />
       </Routes>
     </Router>
   );

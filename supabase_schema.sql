@@ -28,3 +28,34 @@ create policy "Allow authenticated delete" on public.contact_leads
 -- Create policy to allow authenticated update
 create policy "Allow authenticated update" on public.contact_leads
     for update using (auth.role() = 'authenticated');
+
+-- Create portfolio_photos table
+create table if not exists public.portfolio_photos (
+    id uuid default gen_random_uuid() primary key,
+    title text not null,
+    category text not null,
+    image text not null,
+    location text not null,
+    shot_on text not null,
+    story text not null,
+    editing_style text not null,
+    aspect text not null,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS
+alter table public.portfolio_photos enable row level security;
+
+-- Create policy to allow public select (anyone can view photos)
+create policy "Allow public select" on public.portfolio_photos
+    for select using (true);
+
+-- Create policy to allow authenticated insert/update/delete (only admin can manage)
+create policy "Allow authenticated insert" on public.portfolio_photos
+    for insert with check (auth.role() = 'authenticated');
+
+create policy "Allow authenticated update" on public.portfolio_photos
+    for update using (auth.role() = 'authenticated');
+
+create policy "Allow authenticated delete" on public.portfolio_photos
+    for delete using (auth.role() = 'authenticated');

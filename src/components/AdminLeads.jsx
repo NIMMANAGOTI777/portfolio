@@ -4,7 +4,8 @@ import { supabase } from '../lib/supabaseClient';
 import AdminLogin from './AdminLogin';
 import { 
   Search, Filter, Download, Calendar, Mail, 
-  Phone, Briefcase, Eye, Trash2, ArrowUpDown, X, LogOut
+  Phone, Briefcase, Eye, Trash2, ArrowUpDown, X, LogOut,
+  MapPin, Camera
 } from 'lucide-react';
 
 const getPurposeColor = (purpose, hasBorder = true) => {
@@ -64,6 +65,23 @@ export default function AdminLeads() {
   const [selectedPurpose, setSelectedPurpose] = useState('All');
   const [sortOrder, setSortOrder] = useState('desc'); // desc = newest first, asc = oldest first
   const [deletingId, setDeletingId] = useState(null);
+
+  // Behind the Lens Photography manager tab states
+  const [activeTab, setActiveTab] = useState('leads'); // 'leads' or 'photos'
+  const [photos, setPhotos] = useState([]);
+  const [loadingPhotos, setLoadingPhotos] = useState(false);
+  const [photoModalOpen, setPhotoModalOpen] = useState(false);
+  const [newPhoto, setNewPhoto] = useState({
+    title: '',
+    category: 'Streets',
+    image: '',
+    location: 'Hyderabad, India',
+    shot_on: 'iPhone 15 Pro Max',
+    story: '',
+    editing_style: '',
+    aspect: 'aspect-[3/4]'
+  });
+  const [addingPhoto, setAddingPhoto] = useState(false);
 
   // Check auth session on load
   useEffect(() => {
@@ -141,6 +159,76 @@ export default function AdminLeads() {
       alert('Failed to delete lead. Please try again.');
     } finally {
       setDeletingId(null);
+    }
+  };
+
+  // Photography Handlers
+  useEffect(() => {
+    if (session && activeTab === 'photos') {
+      fetchPhotos();
+    }
+  }, [session, activeTab]);
+
+  const fetchPhotos = async () => {
+    setLoadingPhotos(true);
+    try {
+      const { data, error } = await supabase
+        .from('portfolio_photos')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      setPhotos(data || []);
+    } catch (err) {
+      console.error('Error fetching photos:', err);
+    } finally {
+      setLoadingPhotos(false);
+    }
+  };
+
+  const handleAddPhoto = async (e) => {
+    e.preventDefault();
+    if (!newPhoto.title || !newPhoto.image || !newPhoto.story) {
+      alert('Please fill out all required fields (Title, Image URL, Backstory).');
+      return;
+    }
+    setAddingPhoto(true);
+    try {
+      const { data, error } = await supabase
+        .from('portfolio_photos')
+        .insert([newPhoto]);
+      if (error) throw error;
+      setPhotoModalOpen(false);
+      setNewPhoto({
+        title: '',
+        category: 'Streets',
+        image: '',
+        location: 'Hyderabad, India',
+        shot_on: 'iPhone 15 Pro Max',
+        story: '',
+        editing_style: '',
+        aspect: 'aspect-[3/4]'
+      });
+      fetchPhotos();
+    } catch (err) {
+      console.error('Error adding photo:', err);
+      alert('Failed to add photo. Please try again.');
+    } finally {
+      setAddingPhoto(false);
+    }
+  };
+
+  const handleDeletePhoto = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this photo? This will remove it from Behind the Lens.')) return;
+    try {
+      const { error } = await supabase
+        .from('portfolio_photos')
+        .delete()
+        .eq('id', id);
+      if (error) throw error;
+      setPhotos(prev => prev.filter(p => p.id !== id));
+    } catch (err) {
+      console.error('Error deleting photo:', err);
+      alert('Failed to delete photo. Please try again.');
     }
   };
 
@@ -256,24 +344,37 @@ export default function AdminLeads() {
       <div className="max-w-7xl mx-auto relative z-10">
         
         {/* Header Section */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
+        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-6">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              Lead Control Room
+              {activeTab === 'leads' ? 'Lead Control Room' : 'Behind the Lens Manager'}
             </h1>
             <p className="text-slate-400 text-sm mt-1">
-              Review, analyze, and manage portfolio leads in real time.
+              {activeTab === 'leads' 
+                ? 'Review, analyze, and manage portfolio leads in real time.' 
+                : 'Upload, curate, and delete your mobile photography gallery items.'}
             </p>
           </div>
           
           <div className="flex items-center gap-3">
-            <button
-              onClick={handleExportCSV}
-              className="flex items-center gap-2 px-4 py-2 text-sm bg-indigo-600/20 hover:bg-indigo-600/35 border border-indigo-500/30 text-indigo-300 font-semibold rounded-xl transition duration-200 cursor-pointer"
-            >
-              <Download size={16} />
-              <span>Export CSV</span>
-            </button>
+            {activeTab === 'photos' && (
+              <button
+                onClick={() => setPhotoModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-2 text-sm bg-indigo-600 hover:bg-indigo-500 border border-indigo-500/20 text-white font-semibold rounded-xl transition duration-200 cursor-pointer"
+              >
+                <Camera size={16} />
+                <span>Add Photograph</span>
+              </button>
+            )}
+            {activeTab === 'leads' && (
+              <button
+                onClick={handleExportCSV}
+                className="flex items-center gap-2 px-4 py-2 text-sm bg-indigo-650/20 hover:bg-indigo-650/35 border border-indigo-500/30 text-indigo-300 font-semibold rounded-xl transition duration-200 cursor-pointer"
+              >
+                <Download size={16} />
+                <span>Export CSV</span>
+              </button>
+            )}
             <button
               onClick={handleLogout}
               className="flex items-center gap-2 px-4 py-2 text-sm bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 font-semibold rounded-xl transition duration-200 cursor-pointer"
@@ -284,8 +385,31 @@ export default function AdminLeads() {
           </div>
         </header>
 
-        {/* 3 Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        {/* Tab Toggle Navigation */}
+        <div className="flex gap-2 mb-8 p-1 bg-white/5 border border-white/10 rounded-xl w-fit">
+          <button
+            onClick={() => setActiveTab('leads')}
+            className={`px-4 py-2 text-xs font-bold rounded-lg transition duration-200 cursor-pointer ${
+              activeTab === 'leads' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            Leads Inbox
+          </button>
+          <button
+            onClick={() => setActiveTab('photos')}
+            className={`px-4 py-2 text-xs font-bold rounded-lg transition duration-200 cursor-pointer ${
+              activeTab === 'photos' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            Behind the Lens
+          </button>
+        </div>
+
+        {/* Tab Splitting Content */}
+        {activeTab === 'leads' ? (
+          <>
+            {/* 3 Metric Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
           {/* Total Leads */}
           <div className="p-6 rounded-2xl glass-panel relative overflow-hidden">
             <div className="absolute right-4 top-4 text-slate-700 font-bold text-4xl select-none">#</div>
@@ -491,6 +615,78 @@ export default function AdminLeads() {
             </>
           )}
         </div>
+      </>
+    ) : (
+        /* Behind the Lens photos manager tab content */
+        <div className="animate-fade-in mb-12">
+          {loadingPhotos ? (
+            <div className="flex flex-col items-center justify-center py-20 text-slate-400">
+              <svg className="animate-spin h-8 w-8 text-indigo-400 mb-4" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              <p className="text-sm font-semibold text-slate-300">Loading gallery photographs...</p>
+            </div>
+          ) : photos.length === 0 ? (
+            <div className="text-center py-16 glass-panel rounded-2xl border border-white/5 max-w-xl mx-auto">
+              <Camera className="mx-auto text-slate-500 mb-4 animate-pulse" size={40} />
+              <h3 className="text-lg font-bold text-white mb-1">No Photos Found</h3>
+              <p className="text-slate-400 text-xs mb-6 max-w-xs mx-auto">
+                Your "Behind the Lens" gallery is empty. Click "Add Photograph" to curate your first visual story.
+              </p>
+              <button
+                onClick={() => setPhotoModalOpen(true)}
+                className="px-6 py-2.5 bg-indigo-650 hover:bg-indigo-550 text-white font-bold text-xs rounded-xl shadow-lg transition cursor-pointer"
+              >
+                Add Photograph
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {photos.map((photo) => (
+                <div key={photo.id} className="glass-panel p-3.5 rounded-2xl border border-white/5 flex flex-col justify-between group">
+                  <div>
+                    {/* Photo Thumbnail */}
+                    <div className="h-44 rounded-xl overflow-hidden relative mb-3 bg-slate-950 border border-white/5">
+                      <img 
+                        src={photo.image} 
+                        alt={photo.title} 
+                        className="w-full h-full object-cover select-none"
+                        onError={(e) => {
+                          e.target.src = 'https://placehold.co/600x400/1e293b/ffffff?text=Image+Load+Error';
+                        }}
+                      />
+                      <span className="absolute top-2.5 left-2.5 bg-indigo-650/90 backdrop-blur-md text-white text-[8px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                        {photo.category}
+                      </span>
+                    </div>
+                    
+                    <h4 className="font-bold text-white text-sm truncate mb-0.5">{photo.title}</h4>
+                    <p className="text-[10px] text-slate-400 flex items-center gap-1 mb-2">
+                      <MapPin size={10} className="text-slate-500" />
+                      <span className="truncate">{photo.location}</span>
+                    </p>
+                    
+                    <p className="text-[10px] text-slate-405 line-clamp-3 leading-relaxed mb-4 italic">
+                      "{photo.story}"
+                    </p>
+                  </div>
+
+                  <div className="flex gap-2 pt-3 border-t border-white/5 mt-auto">
+                    <button
+                      onClick={() => handleDeletePhoto(photo.id)}
+                      className="w-full py-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 text-rose-450 text-[10px] font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
+                    >
+                      <Trash2 size={12} />
+                      <span>Delete Photograph</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
         {/* Lead Detail View Modal */}
         {selectedLead && (
@@ -610,6 +806,197 @@ export default function AdminLeads() {
           </div>
         )}
 
+      {/* Add Photograph Form Modal */}
+      {photoModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto">
+          <div className="relative w-full max-w-xl rounded-2xl glass-panel animate-scale-in my-8 overflow-hidden">
+            <div className="glow-indigo -top-20 -left-20"></div>
+            
+            <button
+              onClick={() => setPhotoModalOpen(false)}
+              className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white rounded-full bg-black/40 hover:bg-black/60 transition backdrop-blur-sm z-10 cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="p-6 md:p-8">
+              <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-6">
+                Add New Photograph
+              </h3>
+
+              <form onSubmit={handleAddPhoto} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Title */}
+                  <div>
+                    <label htmlFor="p-title" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                      Title *
+                    </label>
+                    <input
+                      type="text"
+                      id="p-title"
+                      required
+                      value={newPhoto.title}
+                      onChange={(e) => setNewPhoto(prev => ({ ...prev, title: e.target.value }))}
+                      placeholder="e.g. Charminar Chords"
+                      className="w-full px-4 py-2.5 rounded-xl glass-input text-xs"
+                    />
+                  </div>
+                  {/* Category */}
+                  <div>
+                    <label htmlFor="p-category" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                      Category *
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="p-category"
+                        value={newPhoto.category}
+                        onChange={(e) => setNewPhoto(prev => ({ ...prev, category: e.target.value }))}
+                        className="w-full px-4 py-2.5 rounded-xl glass-input text-xs appearance-none cursor-pointer"
+                      >
+                        <option value="Photography">Photography</option>
+                        <option value="Reels">Reels</option>
+                        <option value="Streets">Streets</option>
+                        <option value="Portraits">Portraits</option>
+                        <option value="Nature">Nature</option>
+                        <option value="Creative Edits">Creative Edits</option>
+                      </select>
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Image URL */}
+                <div>
+                  <label htmlFor="p-image" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                    Image URL *
+                  </label>
+                  <input
+                    type="url"
+                    id="p-image"
+                    required
+                    value={newPhoto.image}
+                    onChange={(e) => setNewPhoto(prev => ({ ...prev, image: e.target.value }))}
+                    placeholder="https://images.unsplash.com/... or Cloudinary URL"
+                    className="w-full px-4 py-2.5 rounded-xl glass-input text-xs"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {/* Location */}
+                  <div>
+                    <label htmlFor="p-location" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                      Location *
+                    </label>
+                    <input
+                      type="text"
+                      id="p-location"
+                      required
+                      value={newPhoto.location}
+                      onChange={(e) => setNewPhoto(prev => ({ ...prev, location: e.target.value }))}
+                      placeholder="e.g. Hyderabad, India"
+                      className="w-full px-4 py-2.5 rounded-xl glass-input text-xs"
+                    />
+                  </div>
+                  {/* Shot on */}
+                  <div>
+                    <label htmlFor="p-shot" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                      Shot on Mobile *
+                    </label>
+                    <input
+                      type="text"
+                      id="p-shot"
+                      required
+                      value={newPhoto.shot_on}
+                      onChange={(e) => setNewPhoto(prev => ({ ...prev, shot_on: e.target.value }))}
+                      placeholder="e.g. iPhone 15 Pro Max"
+                      className="w-full px-4 py-2.5 rounded-xl glass-input text-xs"
+                    />
+                  </div>
+                  {/* Aspect Ratio */}
+                  <div>
+                    <label htmlFor="p-aspect" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                      Aspect Ratio *
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="p-aspect"
+                        value={newPhoto.aspect}
+                        onChange={(e) => setNewPhoto(prev => ({ ...prev, aspect: e.target.value }))}
+                        className="w-full px-4 py-2.5 rounded-xl glass-input text-xs appearance-none cursor-pointer"
+                      >
+                        <option value="aspect-[3/4]">3:4 (Portrait)</option>
+                        <option value="aspect-[4/5]">4:5 (Standard)</option>
+                        <option value="aspect-[9/16]">9:16 (Tall)</option>
+                        <option value="aspect-[1/1]">1:1 (Square)</option>
+                        <option value="aspect-[4/3]">4:3 (Landscape)</option>
+                        <option value="aspect-[16/9]">16:9 (Wide)</option>
+                      </select>
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400">
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Editing style */}
+                <div>
+                  <label htmlFor="p-style" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                    Editing Recipe / Style *
+                  </label>
+                  <input
+                    type="text"
+                    id="p-style"
+                    required
+                    value={newPhoto.editing_style}
+                    onChange={(e) => setNewPhoto(prev => ({ ...prev, editing_style: e.target.value }))}
+                    placeholder="e.g. Warm amber highlights, 12% grain"
+                    className="w-full px-4 py-2.5 rounded-xl glass-input text-xs"
+                  />
+                </div>
+
+                {/* Story */}
+                <div>
+                  <label htmlFor="p-story" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                    Backstory *
+                  </label>
+                  <textarea
+                    id="p-story"
+                    required
+                    rows="3"
+                    value={newPhoto.story}
+                    onChange={(e) => setNewPhoto(prev => ({ ...prev, story: e.target.value }))}
+                    placeholder="Describe how, where, or why you captured this moment..."
+                    className="w-full px-4 py-2.5 rounded-xl glass-input text-xs"
+                  ></textarea>
+                </div>
+
+                <div className="flex justify-end gap-3 pt-4 border-t border-white/5">
+                  <button
+                    type="button"
+                    onClick={() => setPhotoModalOpen(false)}
+                    className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold border border-white/10 transition cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={addingPhoto}
+                    className="px-6 py-2 rounded-xl bg-indigo-650 hover:bg-indigo-550 disabled:bg-indigo-800 disabled:cursor-not-allowed text-white text-xs font-bold transition cursor-pointer"
+                  >
+                    {addingPhoto ? 'Adding...' : 'Add Photograph'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );

@@ -7,9 +7,10 @@ import {
   Eye, Users, BookOpen, MapPin, Sparkles, Calendar, Check
 } from 'lucide-react';
 import { 
-  PHOTOGRAPHY_STATS, PHOTOGRAPHY_CATEGORIES, GALLERY_ITEMS, 
+  PHOTOGRAPHY_STATS, PHOTOGRAPHY_CATEGORIES, 
   CREATIVE_SETUP, PHOTOGRAPHY_TIMELINE 
 } from '../lib/photographyData';
+import { supabase } from '../lib/supabaseClient';
 
 // Map icon string names to Lucide icons for the Setup section
 const SetupIconMapper = ({ name, className }) => {
@@ -25,6 +26,8 @@ const SetupIconMapper = ({ name, className }) => {
 };
 
 export default function BehindTheLens() {
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [activeLightboxItem, setActiveLightboxItem] = useState(null);
   const [copiedId, setCopiedId] = useState(false);
@@ -34,10 +37,44 @@ export default function BehindTheLens() {
   // Before/After Slider Container Ref
   const sliderContainerRef = useRef(null);
 
+  // Fetch photos from database on load
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('portfolio_photos')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        // Map database columns to camelCase expected by component state
+        const mapped = (data || []).map(item => ({
+          id: item.id,
+          title: item.title,
+          category: item.category,
+          image: item.image,
+          location: item.location,
+          shotOn: item.shot_on,
+          story: item.story,
+          editingStyle: item.editing_style,
+          aspect: item.aspect
+        }));
+
+        setGalleryItems(mapped);
+      } catch (err) {
+        console.error('Error fetching photos:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPhotos();
+  }, []);
+
   // Filter gallery items
   const filteredItems = selectedCategory === 'all' 
-    ? GALLERY_ITEMS 
-    : GALLERY_ITEMS.filter(item => item.category.toLowerCase() === selectedCategory.toLowerCase());
+    ? galleryItems 
+    : galleryItems.filter(item => item.category.toLowerCase() === selectedCategory.toLowerCase());
 
   // Handle Before/After Dragging
   const handleMove = (clientX) => {
@@ -260,47 +297,66 @@ export default function BehindTheLens() {
         </div>
 
         {/* Masonry Grid with Columns */}
-        <motion.div 
-          layout 
-          className="columns-1 sm:columns-2 lg:columns-3 gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
-                key={item.id}
-                onClick={() => setActiveLightboxItem(item)}
-                className={`break-inside-avoid mb-6 rounded-2xl glass-panel p-2 border border-white/5 hover:border-white/10 overflow-hidden cursor-zoom-in group hover:scale-[1.01] transition-all duration-300`}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div 
+                key={i} 
+                className="h-64 sm:h-80 rounded-2xl bg-white/5 border border-white/5 animate-pulse flex flex-col justify-end p-6"
               >
-                <div className="relative overflow-hidden rounded-xl bg-slate-950">
-                  {/* Subtle hover zoom effect */}
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
-                    className="w-full h-auto object-cover rounded-xl group-hover:scale-102 transition-transform duration-700 ease-out"
-                    loading="lazy"
-                  />
-                  
-                  {/* Glassmorphic hover overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                    <span className="text-[8px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20 w-fit mb-2">
-                      {item.category}
-                    </span>
-                    <h4 className="text-base font-bold text-white mb-1">{item.title}</h4>
-                    <p className="text-[10px] text-slate-400 flex items-center gap-1">
-                      <MapPin size={10} className="text-slate-500" />
-                      <span>{item.location}</span>
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+                <div className="h-3 w-1/4 bg-white/10 rounded mb-2"></div>
+                <div className="h-4 w-3/4 bg-white/10 rounded"></div>
+              </div>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </div>
+        ) : filteredItems.length === 0 ? (
+          <div className="text-center py-16 glass-panel rounded-2xl border border-white/5">
+            <Camera className="mx-auto text-slate-500 mb-4 animate-pulse" size={32} />
+            <p className="text-slate-450 text-sm">No photos found in this category.</p>
+          </div>
+        ) : (
+          <motion.div 
+            layout 
+            className="columns-1 sm:columns-2 lg:columns-3 gap-6"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredItems.map((item) => (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  key={item.id}
+                  onClick={() => setActiveLightboxItem(item)}
+                  className={`break-inside-avoid mb-6 rounded-2xl glass-panel p-2 border border-white/5 hover:border-white/10 overflow-hidden cursor-zoom-in group hover:scale-[1.01] transition-all duration-300`}
+                >
+                  <div className="relative overflow-hidden rounded-xl bg-slate-950">
+                    {/* Subtle hover zoom effect */}
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-full h-auto object-cover rounded-xl group-hover:scale-102 transition-transform duration-700 ease-out"
+                      loading="lazy"
+                    />
+                    
+                    {/* Glassmorphic hover overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                      <span className="text-[8px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20 w-fit mb-2">
+                        {item.category}
+                      </span>
+                      <h4 className="text-base font-bold text-white mb-1">{item.title}</h4>
+                      <p className="text-[10px] text-slate-400 flex items-center gap-1">
+                        <MapPin size={10} className="text-slate-500" />
+                        <span>{item.location}</span>
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </section>
 
       {/* Cinematic Setup Section */}

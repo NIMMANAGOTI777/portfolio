@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { GALLERY_ITEMS } from './photographyData';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -17,6 +18,30 @@ if (isMock) {
   const getMockLeads = () => {
     const data = localStorage.getItem('mock_contact_leads');
     return data ? JSON.parse(data) : [];
+  };
+
+  const getMockPhotos = () => {
+    const data = localStorage.getItem('mock_portfolio_photos');
+    if (data) return JSON.parse(data);
+    // Pre-populate with initial gallery items
+    const defaultPhotos = GALLERY_ITEMS.map(item => ({
+      id: item.id.toString(),
+      title: item.title,
+      category: item.category,
+      image: item.image,
+      location: item.location,
+      shot_on: item.shotOn,
+      story: item.story,
+      editing_style: item.editingStyle,
+      aspect: item.aspect,
+      created_at: new Date().toISOString()
+    }));
+    localStorage.setItem('mock_portfolio_photos', JSON.stringify(defaultPhotos));
+    return defaultPhotos;
+  };
+
+  const setMockPhotos = (photos) => {
+    localStorage.setItem('mock_portfolio_photos', JSON.stringify(photos));
   };
 
   const setMockLeads = (leads) => {
@@ -60,6 +85,57 @@ if (isMock) {
       }
     },
     from: (tableName) => {
+      if (tableName === 'portfolio_photos') {
+        return {
+          insert: async (records) => {
+            try {
+              const current = getMockPhotos();
+              const newRecords = records.map(r => ({
+                id: r.id || Math.random().toString(36).substring(2, 9),
+                created_at: new Date().toISOString(),
+                ...r
+              }));
+              const updated = [...newRecords, ...current];
+              setMockPhotos(updated);
+              return { data: newRecords, error: null };
+            } catch (err) {
+              return { data: null, error: err };
+            }
+          },
+          select: (_columns = '*') => {
+            return {
+              order: async (column, { ascending } = {}) => {
+                try {
+                  const data = getMockPhotos();
+                  data.sort((a, b) => {
+                    const dateA = new Date(a[column]);
+                    const dateB = new Date(b[column]);
+                    return ascending ? dateA - dateB : dateB - dateA;
+                  });
+                  return { data, error: null };
+                } catch (err) {
+                  return { data: null, error: err };
+                }
+              }
+            };
+          },
+          delete: () => {
+            return {
+              eq: async (column, value) => {
+                try {
+                  const current = getMockPhotos();
+                  const filtered = current.filter(r => r[column] !== value);
+                  setMockPhotos(filtered);
+                  return { error: null };
+                } catch (err) {
+                  return { error: err };
+                }
+              }
+            };
+          }
+        };
+      }
+
       if (tableName !== 'contact_leads') {
         return {
           insert: async () => ({ data: null, error: new Error(`Table ${tableName} not mocked`) }),
