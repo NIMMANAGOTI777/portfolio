@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import ContactModal from './components/ContactModal';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
@@ -538,6 +538,13 @@ function Home() {
             <a href="#expertise" className="text-xs text-slate-400 hover:text-white transition font-medium">Expertise</a>
             <a href="#journey" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Journey</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
+            <Link 
+              to="/behind-the-lens" 
+              className="text-xs text-indigo-400 hover:text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/5 animate-pulse"
+            >
+              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+              Behind the Lens
+            </Link>
             
             <button
               onClick={() => openContactWithPurpose('Hire Me')}
@@ -828,6 +835,76 @@ function Home() {
               </a>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Behind the Lens Teaser Section */}
+      <section className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
+        <div className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
+          {/* Subtle backgrounds */}
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-purple-500/5 opacity-100 transition duration-500"></div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            {/* Left Content */}
+            <div className="lg:col-span-6 space-y-4">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                New Section
+              </span>
+              
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight uppercase font-display">
+                Behind the <br />
+                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  Lens
+                </span>
+              </h2>
+              
+              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                Step into an immersive, cinematic visual experience. Witness the world through the perspective of a mobile storyteller, featuring raw vs. edited photograph sliders, interactive filtered grids, and the stories behind the shots.
+              </p>
+              
+              <div className="pt-2">
+                <Link
+                  to="/behind-the-lens"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black hover:bg-slate-100 font-bold text-xs rounded-full transition shadow-lg cursor-pointer group/btn"
+                >
+                  <span>Enter Cinematic Gallery</span>
+                  <ArrowRight size={12} className="group-hover/btn:translate-x-0.5 transition-transform" />
+                </Link>
+              </div>
+            </div>
+            
+            {/* Right Graphic Preview */}
+            <div className="lg:col-span-6 grid grid-cols-3 gap-3">
+              <div className="space-y-3">
+                <div className="h-28 sm:h-36 rounded-2xl overflow-hidden border border-white/10 relative group/img">
+                  <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Teaser 1" />
+                </div>
+                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Teaser 2" />
+                </div>
+              </div>
+              <div className="space-y-3 pt-6">
+                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img">
+                  <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Teaser 3" />
+                </div>
+                <div className="h-28 sm:h-36 rounded-2xl overflow-hidden border border-white/10 relative group/img">
+                  <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Teaser 4" />
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="h-28 sm:h-36 rounded-2xl overflow-hidden border border-white/10 relative group/img">
+                  <img src="/photography/after_slider.png" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Teaser 5" />
+                </div>
+                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img">
+                  <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Teaser 6" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1199,6 +1276,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/behind-the-lens" element={<BehindTheLens />} />
       </Routes>
     </Router>
   );
