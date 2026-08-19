@@ -17,7 +17,7 @@ import {
   Mail, ArrowRight, Layers, Award, 
   Users, Calendar, FileText, 
   ChevronDown, ChevronLeft, ChevronRight, Download, 
-  ArrowUpRight, X, Globe, Palette, TrendingUp, PenTool, Video, Check
+  ArrowUpRight, X, Globe, Palette, TrendingUp, PenTool, Video, Check, CheckCircle2
 } from 'lucide-react';
 
 // Typewriter Roles List
@@ -440,6 +440,7 @@ function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPurpose, setSelectedPurpose] = useState('Hire Me');
   const [lightboxImage, setLightboxImage] = useState(null);
+  const [selectedCert, setSelectedCert] = useState(null);
   
   // Custom Typewriter Effect
   const [roleIndex, setRoleIndex] = useState(0);
@@ -451,6 +452,17 @@ function Home() {
 
   // Detail Modal Event Selection
   const [selectedCollab, setSelectedCollab] = useState(null);
+
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedCert(null);
+        setLightboxImage(null);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
 
   useEffect(() => {
     let timer;
@@ -1007,34 +1019,67 @@ function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CERTIFICATIONS.map((cert, idx) => (
-            <a 
-              key={idx} 
-              href={cert.link} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="glass-panel p-5 rounded-2xl block hover:border-indigo-500/30 transition group"
-            >
-              <div className="h-40 overflow-hidden rounded-xl relative mb-4">
-                <img 
-                  src={cert.img} 
-                  alt={cert.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                  loading="lazy"
-                />
+          {CERTIFICATIONS.map((cert, idx) => {
+            const isModal = cert.link === '#';
+            return (
+              <div 
+                key={idx} 
+                onClick={() => isModal ? setSelectedCert(cert) : window.open(cert.link, '_blank')}
+                className="glass-panel p-5 rounded-2xl block hover:border-indigo-500/30 transition group cursor-pointer flex flex-col justify-between"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if(e.key === 'Enter') isModal ? setSelectedCert(cert) : window.open(cert.link, '_blank'); }}
+                aria-label={`View ${cert.title} certificate`}
+              >
+                <div>
+                  <div className="h-40 overflow-hidden rounded-xl relative mb-4">
+                    <img 
+                      src={cert.img} 
+                      alt={isModal ? `${cert.issuer} ${cert.title} certificate awarded to Karthik Nimmanagoti` : cert.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                      loading="lazy"
+                    />
+                    {cert.verified && (
+                      <div className="absolute top-2 left-2 bg-indigo-600/90 backdrop-blur text-white text-[9px] font-black uppercase px-2 py-0.5 rounded flex items-center gap-1 shadow-lg">
+                        <CheckCircle2 size={10} /> Verified Certification
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-start mb-1 gap-2">
+                    <h3 className="font-bold text-white text-sm leading-snug group-hover:text-indigo-400 transition">
+                      {cert.title}
+                    </h3>
+                    <span className="text-[9px] font-bold bg-white/5 border border-white/10 px-2 py-0.5 rounded shrink-0">
+                      {cert.date}
+                    </span>
+                  </div>
+                  <p className="text-indigo-400 font-semibold text-[10px] mb-2">{cert.issuer}</p>
+                  <p className="text-slate-400 text-xs leading-relaxed line-clamp-2">{cert.desc}</p>
+                  
+                  {cert.skills && (
+                    <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/5">
+                      {cert.skills.slice(0, 3).map((skill, sIdx) => (
+                        <span key={sIdx} className="text-[9px] text-slate-400 font-medium bg-white/5 border border-white/10 px-2 py-0.5 rounded">
+                          {skill}
+                        </span>
+                      ))}
+                      {cert.skills.length > 3 && (
+                        <span className="text-[9px] text-slate-500 font-medium px-1 py-0.5">
+                          +{cert.skills.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                <div className="mt-4 pt-3 border-t border-white/5 flex justify-end">
+                  <span className="text-xs font-semibold text-indigo-400 group-hover:text-indigo-300 transition flex items-center gap-1">
+                    View Certificate <ChevronRight size={14} />
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between items-start mb-1 gap-2">
-                <h3 className="font-bold text-white text-sm leading-snug group-hover:text-indigo-400 transition">
-                  {cert.title}
-                </h3>
-                <span className="text-[9px] font-bold bg-white/5 border border-white/10 px-2 py-0.5 rounded shrink-0">
-                  {cert.date}
-                </span>
-              </div>
-              <p className="text-indigo-400 font-semibold text-[10px] mb-2">{cert.issuer}</p>
-              <p className="text-slate-400 text-xs leading-relaxed line-clamp-2">{cert.desc}</p>
-            </a>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -1248,6 +1293,64 @@ function Home() {
         onClose={() => setModalOpen(false)} 
         initialPurpose={selectedPurpose}
       />
+
+      {/* Certificate Modal */}
+      {selectedCert && (
+        <div 
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md animate-fade-in"
+          onClick={() => setSelectedCert(null)}
+        >
+          <div 
+            className="relative max-w-4xl w-full max-h-[90vh] overflow-y-auto glass-panel border border-white/10 rounded-2xl shadow-2xl animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-slate-900/90 backdrop-blur border-b border-white/5 p-4 flex justify-between items-center z-10">
+              <div>
+                <h3 className="text-lg font-bold text-white leading-tight">{selectedCert.title}</h3>
+                <p className="text-indigo-400 text-xs font-semibold">{selectedCert.issuer}</p>
+              </div>
+              <button
+                onClick={() => setSelectedCert(null)}
+                className="p-2 text-white/70 hover:text-white rounded-full bg-white/5 hover:bg-white/10 transition border border-white/5"
+                aria-label="Close certificate viewer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="p-6 md:p-8 flex flex-col items-center">
+              <div className="w-full max-w-3xl mb-8 rounded-xl overflow-hidden border border-white/5 shadow-2xl bg-black/50 p-2">
+                <img 
+                  src={selectedCert.img} 
+                  alt={`${selectedCert.issuer} ${selectedCert.title} certificate awarded to Karthik Nimmanagoti`} 
+                  className="w-full h-auto max-h-[60vh] object-contain rounded-lg select-none"
+                />
+              </div>
+              
+              <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+                <div className="glass-panel p-4 rounded-xl">
+                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-1">Issue Date</p>
+                  <p className="text-slate-200 text-sm font-semibold">{selectedCert.date}</p>
+                </div>
+                
+                {selectedCert.validUntil && (
+                  <div className="glass-panel p-4 rounded-xl">
+                    <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-1">Valid Until</p>
+                    <p className="text-slate-200 text-sm font-semibold">{selectedCert.validUntil}</p>
+                  </div>
+                )}
+                
+                {selectedCert.code && (
+                  <div className="glass-panel p-4 rounded-xl sm:col-span-1">
+                    <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-1">Credential ID</p>
+                    <p className="text-slate-300 text-xs font-mono break-all">{selectedCert.code}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Lightbox Modal */}
       {lightboxImage && (

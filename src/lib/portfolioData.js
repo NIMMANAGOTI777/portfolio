@@ -414,6 +414,18 @@ export const VIDEOS = [
 
 export const CERTIFICATIONS = [
   {
+    title: 'Social Media Certified',
+    issuer: 'HubSpot Academy',
+    date: 'Aug 2026',
+    validUntil: 'Sep 2028',
+    code: 'd600498e876f4d439b1d0c5976700c6c',
+    img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1787172644/d600498e876f4d439b1d0c5796700c6c_jpseg4.png',
+    link: '#', // Handled by modal
+    desc: 'The bearer of this certificate is hereby deemed fully capable and skilled in applying inbound social media strategy. They have been tested on best practices and are ready to take an inbound approach to social media including: social monitoring, content strategy, social engagement, creating social media policies, and demonstrating social ROI to stakeholders.',
+    skills: ['Social Media Strategy', 'Content Strategy', 'Social Engagement', 'Social Monitoring', 'Social Media Marketing', 'Social ROI'],
+    verified: true,
+  },
+  {
     title: 'TCS iON Career Edge',
     issuer: 'Tata Consultancy Services',
     date: 'Dec 2025',
