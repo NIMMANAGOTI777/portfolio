@@ -278,15 +278,6 @@ export const PROJECTS = [
     skills: ['Next.js 16', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'GSAP', 'Zod', 'Prisma', 'Local JSON DB']
   },
   {
-    title: 'AI Profile Optimizer',
-    tag: 'Instagram',
-    icon: 'robot',
-    sub: 'Instagram Growth Tool',
-    desc: 'Students get instant Instagram profile audits and actionable suggestions to maximize reach and organic engagement using advanced AI algorithms.',
-    link: 'https://aiprofile.niat.tech',
-    skills: ['Instagram', 'AI Audit', 'Social Media SMM']
-  },
-  {
     title: 'BASE44 Hackathon',
     tag: 'Web App',
     icon: 'server',
