@@ -269,6 +269,15 @@ export const COLLABORATIONS = [
 
 export const PROJECTS = [
   {
+    title: 'Frame by DB',
+    tag: 'Freelance',
+    icon: 'camera',
+    sub: 'Premium Photography & Cinematography Portfolio',
+    desc: 'Premium photography and cinematography platform built for Director of Photography Dasari Bharadwaj (Hyderabad, India). Built to deliver a high-end luxury, modern agency aesthetic with rich kinetic transitions, custom galleries, live pricing tools, client space, and a fully functional CMS.',
+    link: 'https://frame-by-db.vercel.app/',
+    skills: ['Next.js 16', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'GSAP', 'Zod', 'Prisma', 'Local JSON DB']
+  },
+  {
     title: 'AI Profile Optimizer',
     tag: 'Instagram',
     icon: 'robot',
