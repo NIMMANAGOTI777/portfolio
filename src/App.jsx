@@ -540,13 +540,13 @@ function Home() {
             <a href="#expertise" className="text-xs text-slate-400 hover:text-white transition font-medium">Expertise</a>
             <a href="#journey" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Journey</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
-            <Link 
-              to="/behind-the-lens" 
+            <a 
+              href="https://kar-thikexe.vercel.app/" 
               className="text-xs text-indigo-400 hover:text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/5 animate-pulse"
             >
               <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
               Behind the Lens
-            </Link>
+            </a>
             
             <button
               onClick={() => openContactWithPurpose('Hire Me')}
@@ -684,13 +684,25 @@ function Home() {
                   </div>
                 )}
                 
-                <button
-                  onClick={() => openContactWithPurpose(srv.title)}
-                  className="w-full py-2 bg-indigo-650/10 hover:bg-indigo-650/20 border border-indigo-500/20 hover:border-indigo-500/40 text-indigo-300 hover:text-white text-[11px] font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
-                >
-                  <span>Inquire for Service</span>
-                  <ArrowRight size={12} />
-                </button>
+                {srv.id === 'photography' ? (
+                  <a
+                    href="https://kar-thikexe.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2 bg-indigo-650/10 hover:bg-indigo-650/20 border border-indigo-500/20 hover:border-indigo-500/40 text-indigo-300 hover:text-white text-[11px] font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <span>View Photography Work</span>
+                    <ArrowUpRight size={12} />
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => openContactWithPurpose(srv.title)}
+                    className="w-full py-2 bg-indigo-650/10 hover:bg-indigo-650/20 border border-indigo-500/20 hover:border-indigo-500/40 text-indigo-300 hover:text-white text-[11px] font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <span>Inquire for Service</span>
+                    <ArrowRight size={12} />
+                  </button>
+                )}
               </div>
             </div>
           ))}
@@ -869,13 +881,13 @@ function Home() {
               </p>
               
               <div className="pt-2">
-                <Link
-                  to="/behind-the-lens"
+                <a
+                  href="https://kar-thikexe.vercel.app/"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black hover:bg-slate-100 font-bold text-xs rounded-full transition shadow-lg cursor-pointer group/btn"
                 >
                   <span>Enter Cinematic Gallery</span>
                   <ArrowRight size={12} className="group-hover/btn:translate-x-0.5 transition-transform" />
-                </Link>
+                </a>
               </div>
             </div>
             

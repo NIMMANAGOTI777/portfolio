@@ -163,9 +163,17 @@ export default function BehindTheLens() {
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             <span>Return to Portfolio</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse"></div>
-            <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">Behind the Lens</span>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://kar-thikexe.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-indigo-400 hover:text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 shadow-sm shadow-indigo-500/5"
+            >
+              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span>
+              <span>Visit Photography Website</span>
+              <ArrowLeft size={12} className="rotate-180" />
+            </a>
           </div>
         </div>
       </nav>
@@ -428,26 +436,36 @@ export default function BehindTheLens() {
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
           
           <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-2 uppercase tracking-wide">
-            See more of my work
+            Explore Full Photography Portfolio
           </h2>
           <p className="text-slate-400 text-xs mb-6">
-            @Karthik | Mobile Photographer
+            kar.thikexe • Visual Storytelling, Mobile Photography & Collaborations
           </p>
           
-          <a
-            href="https://www.instagram.com/nimmanagoti.karthik"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-black hover:bg-slate-100 font-bold text-xs rounded-full transition shadow-lg cursor-pointer mx-auto group/btn"
-          >
-            <svg className="w-3.5 h-3.5 stroke-current fill-none" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-            </svg>
-            <span>View Instagram</span>
-            <ChevronRight size={12} className="group-hover/btn:translate-x-0.5 transition-transform" />
-          </a>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="https://kar-thikexe.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-black hover:bg-slate-100 font-bold text-xs rounded-full transition shadow-lg cursor-pointer group/btn"
+            >
+              <span>Visit Photography Website</span>
+              <ChevronRight size={12} className="group-hover/btn:translate-x-0.5 transition-transform" />
+            </a>
+            <a
+              href="https://www.instagram.com/nimmanagoti.karthik"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-white/5 hover:bg-white/10 text-white font-bold text-xs rounded-full border border-white/10 transition cursor-pointer"
+            >
+              <svg className="w-3.5 h-3.5 stroke-current fill-none" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -585,17 +603,15 @@ export default function BehindTheLens() {
                       </>
                     )}
                   </button>
-                  <button
-                    onClick={() => {
-                      setActiveLightboxItem(null);
-                      // Scroll to instagram block
-                      const instagramBtn = document.querySelector('a[href="https://www.instagram.com/nimmanagoti.karthik"]');
-                      if (instagramBtn) instagramBtn.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="px-5 py-2.5 bg-indigo-650 hover:bg-indigo-550 text-white font-bold text-xs rounded-xl shadow-lg transition cursor-pointer"
+                  <a
+                    href="https://kar-thikexe.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 bg-indigo-650 hover:bg-indigo-550 text-white font-bold text-xs rounded-xl shadow-lg transition cursor-pointer flex items-center gap-1"
                   >
-                    Follow on Instagram
-                  </button>
+                    <span>View More Work</span>
+                    <ChevronRight size={12} />
+                  </a>
                 </div>
               </div>
             </motion.div>
