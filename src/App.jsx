@@ -17,7 +17,7 @@ import {
   Mail, ArrowRight, Layers, Award, 
   Users, Calendar, FileText, 
   ChevronDown, ChevronLeft, ChevronRight, Download, 
-  ArrowUpRight, X, Globe, Palette, TrendingUp, PenTool, Video, Check, CheckCircle2
+  ArrowUpRight, X, Globe, Palette, TrendingUp, PenTool, Video, Check, CheckCircle2, Menu
 } from 'lucide-react';
 
 // Typewriter Roles List
@@ -441,6 +441,7 @@ function Home() {
   const [selectedPurpose, setSelectedPurpose] = useState('Hire Me');
   const [lightboxImage, setLightboxImage] = useState(null);
   const [selectedCert, setSelectedCert] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Custom Typewriter Effect
   const [roleIndex, setRoleIndex] = useState(0);
@@ -538,7 +539,9 @@ function Home() {
               Karthik Nimmanagoti
             </span>
           </div>
-          <div className="flex items-center gap-6">
+          
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-6">
             <a href="#about" className="text-xs text-slate-400 hover:text-white transition font-medium">About</a>
             <a href="#experience" className="text-xs text-slate-400 hover:text-white transition font-medium">Experience</a>
             <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium">Work With Me</a>
@@ -560,7 +563,46 @@ function Home() {
               Let's Talk
             </button>
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <div className="lg:hidden flex items-center">
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-slate-300 hover:text-white focus:outline-none"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Nav */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden px-4 py-4 bg-slate-950/95 border-b border-white/5 absolute w-full left-0 top-full flex flex-col gap-4 shadow-2xl">
+            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">About</a>
+            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Experience</a>
+            <a href="#work-with-me" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Work With Me</a>
+            <a href="#expertise" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Expertise</a>
+            <a href="#journey" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Journey</a>
+            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Projects</a>
+            <a 
+              href="https://kar-thikexe.vercel.app/" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm text-indigo-400 font-bold transition flex items-center gap-2"
+            >
+              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span>
+              Behind the Lens
+            </a>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                openContactWithPurpose('Hire Me');
+              }}
+              className="mt-2 w-full px-4 py-2 text-sm bg-indigo-650 hover:bg-indigo-550 border border-indigo-500/20 font-bold text-white rounded-xl shadow-md transition cursor-pointer"
+            >
+              Let's Talk
+            </button>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
