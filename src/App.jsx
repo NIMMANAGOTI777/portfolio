@@ -7,9 +7,9 @@ import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import GrowthJourney from './components/GrowthJourney';
 import ProfessionalExperience from './components/ProfessionalExperience';
-import AnnadataAchievement from './components/AnnadataAchievement';
+import AchievementsSection from './components/AchievementsSection';
 import { 
-  STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
+  STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, COLLABORATIONS, PROJECTS, 
   GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS,
   SKILLS_DATA, CURRENTLY_WORKING_ON 
 } from './lib/portfolioData';
@@ -122,140 +122,7 @@ function FAQItem({ faq }) {
   );
 }
 
-// 2.5. AchievementCard Component (with Image Slider)
-function AchievementCard({ achievement }) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const images = achievement.images || [];
 
-  const handlePrev = (e) => {
-    e.stopPropagation();
-    setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
-  const handleNext = (e) => {
-    e.stopPropagation();
-    setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
-
-  useEffect(() => {
-    if (images.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  return (
-    <div className="p-6 rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between relative overflow-hidden group">
-      <div>
-        {/* Image Slider / Carousel */}
-        <div className="relative h-48 rounded-xl overflow-hidden mb-6 bg-slate-900 border border-white/5 flex items-center justify-center">
-          {images.length > 0 ? (
-            <>
-              {/* Fallback pattern or actual image */}
-              <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-                <img 
-                  src={images[currentSlide].path} 
-                  alt={images[currentSlide].label}
-                  className="w-full h-full object-cover select-none transition-opacity duration-300"
-                  onError={(e) => {
-                    // Hide the broken image and show the fallback gradient card
-                    e.target.style.display = 'none';
-                    if (e.target.nextSibling) {
-                      e.target.nextSibling.style.display = 'flex';
-                    }
-                  }}
-                />
-                
-                {/* Fallback Glassmorphic Card (hidden by default, shown if image fails to load) */}
-                <div 
-                  className="absolute inset-0 w-full h-full hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950/80 to-purple-950/80 backdrop-blur-sm"
-                >
-                  <Award size={32} className="text-indigo-400 mb-2 animate-pulse" />
-                  <span className="text-xs font-semibold text-slate-300 uppercase tracking-widest px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg">
-                    {images[currentSlide].label}
-                  </span>
-                  <span className="text-[10px] text-slate-500 mt-2">Award Image Asset Placeholder</span>
-                </div>
-              </div>
-
-              {/* Slider Controls */}
-              {images.length > 1 && (
-                <>
-                  <button 
-                    onClick={handlePrev}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-black/40 text-slate-400 hover:text-white hover:bg-black/60 transition cursor-pointer z-10"
-                  >
-                    <ChevronLeft size={16} />
-                  </button>
-                  <button 
-                    onClick={handleNext}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-lg bg-black/40 text-slate-400 hover:text-white hover:bg-black/60 transition cursor-pointer z-10"
-                  >
-                    <ChevronRight size={16} />
-                  </button>
-
-                  {/* Dot Indicators */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 bg-black/30 px-2.5 py-1 rounded-full">
-                    {images.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setCurrentSlide(idx);
-                        }}
-                        className={`w-1.5 h-1.5 rounded-full transition-all ${
-                          currentSlide === idx ? 'bg-indigo-400 w-3' : 'bg-slate-500'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </>
-          ) : (
-            <div className="flex flex-col items-center justify-center p-6 text-center">
-              <Award size={36} className="text-indigo-400 mb-2" />
-              <span className="text-sm font-bold text-white">{achievement.title}</span>
-            </div>
-          )}
-        </div>
-
-        {/* Issuer and Title */}
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-[10px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
-            {achievement.issuer}
-          </span>
-        </div>
-        <h3 className="text-lg font-bold text-white mb-3 group-hover:text-indigo-300 transition duration-200">
-          {achievement.title}
-        </h3>
-        
-        {/* Description */}
-        <p className="text-slate-400 text-xs leading-relaxed mb-4">
-          {achievement.description}
-        </p>
-
-        {/* Quote Block */}
-        {achievement.quote && (
-          <div className="relative p-3.5 rounded-xl bg-slate-905/30 border border-white/5 mb-4 text-slate-300 text-xs italic leading-relaxed">
-            <span className="absolute -top-1.5 left-2 text-indigo-500/40 text-2xl font-serif">“</span>
-            <p className="pl-2">{achievement.quote}</p>
-          </div>
-        )}
-      </div>
-
-      {/* Hash Tags */}
-      <div className="flex flex-wrap gap-1.5 mt-auto pt-2 border-t border-white/5">
-        {achievement.tags.map((tag, tIdx) => (
-          <span key={tIdx} className="text-[10px] text-slate-500 font-medium">
-            #{tag}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 // 2.75. FeaturedEvent Component (For Moments in Action)
 function FeaturedEvent({ event, onImageClick }) {
@@ -799,15 +666,8 @@ function Home() {
           <p className="text-slate-400 text-sm mt-1">Milestones, recognitions, and creative wins.</p>
         </div>
 
-        {/* Featured Case Study Achievement */}
-        <AnnadataAchievement />
-
-        {/* Existing Achievements */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {ACHIEVEMENTS.map((achievement, idx) => (
-            <AchievementCard key={achievement.id || idx} achievement={achievement} />
-          ))}
-        </div>
+        {/* All College Achievements with Unified Master Design */}
+        <AchievementsSection />
       </section>
 
       <GrowthJourney />
