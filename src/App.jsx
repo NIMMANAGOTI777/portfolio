@@ -5,7 +5,6 @@ import BehindTheLens from './components/BehindTheLens';
 import AdminLeads from './components/AdminLeads';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
-import MyExpertise from './components/MyExpertise';
 import GrowthJourney from './components/GrowthJourney';
 import ProfessionalExperience from './components/ProfessionalExperience';
 import AnnadataAchievement from './components/AnnadataAchievement';
@@ -546,7 +545,7 @@ function Home() {
             <a href="#about" className="text-xs text-slate-400 hover:text-white transition font-medium">About</a>
             <a href="#experience" className="text-xs text-slate-400 hover:text-white transition font-medium">Experience</a>
             <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium">Work With Me</a>
-            <a href="#expertise" className="text-xs text-slate-400 hover:text-white transition font-medium">Expertise</a>
+            <a href="#achievements" className="text-xs text-slate-400 hover:text-white transition font-medium">Achievements</a>
             <a href="#journey" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Journey</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
             <a 
@@ -582,7 +581,7 @@ function Home() {
             <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">About</a>
             <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Experience</a>
             <a href="#work-with-me" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Work With Me</a>
-            <a href="#expertise" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Expertise</a>
+            <a href="#achievements" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Achievements</a>
             <a href="#journey" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Journey</a>
             <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Projects</a>
             <a 
@@ -790,8 +789,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      <MyExpertise />
 
       {/* College Achievements Section */}
       <section id="achievements" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
