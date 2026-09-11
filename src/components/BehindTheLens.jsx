@@ -37,6 +37,16 @@ export default function BehindTheLens() {
   // Before/After Slider Container Ref
   const sliderContainerRef = useRef(null);
 
+  // Set page title for route
+  useEffect(() => {
+    const originalTitle = document.title;
+    document.title = "Behind the Lens | Photography & Visual Storytelling - Karthik Nimmanagoti";
+    window.scrollTo(0, 0);
+    return () => {
+      document.title = originalTitle;
+    };
+  }, []);
+
   // Fetch photos from database on load
   useEffect(() => {
     const fetchPhotos = async () => {

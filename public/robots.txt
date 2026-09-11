@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://karthik-portfolio-rust.vercel.app/sitemap.xml
