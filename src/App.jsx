@@ -8,6 +8,7 @@ import KarthikAIChatbot from './components/KarthikAIChatbot';
 import MyExpertise from './components/MyExpertise';
 import GrowthJourney from './components/GrowthJourney';
 import ProfessionalExperience from './components/ProfessionalExperience';
+import AnnadataAchievement from './components/AnnadataAchievement';
 import { 
   STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, ACHIEVEMENTS, COLLABORATIONS, PROJECTS, 
   GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS,
@@ -801,6 +802,10 @@ function Home() {
           <p className="text-slate-400 text-sm mt-1">Milestones, recognitions, and creative wins.</p>
         </div>
 
+        {/* Featured Case Study Achievement */}
+        <AnnadataAchievement />
+
+        {/* Existing Achievements */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {ACHIEVEMENTS.map((achievement, idx) => (
             <AchievementCard key={achievement.id || idx} achievement={achievement} />
