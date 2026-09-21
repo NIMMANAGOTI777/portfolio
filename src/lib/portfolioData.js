@@ -153,24 +153,26 @@ export const WHY_WORK_WITH_ME = [
 
 export const ACHIEVEMENTS = [
   {
-    id: 'reel-contest',
-    title: 'Festive Reel Contest Winner',
+    id: 'outstanding-leadership',
+    priority: 1,
+    title: 'Outstanding Leadership Award',
     issuer: 'NxtWave (NIAT)',
-    description: 'Honored to receive a Certificate of Appreciation and a trophy for my performance in the Festive Reel Making Contest during the Diwali celebrations.',
-    quote: 'This recognition reminds me how creativity, consistency, and passion can turn small ideas into something meaningful.',
-    tags: ['ContentCreation', 'Storytelling'],
+    description: 'Honored to receive this award for serving as President of the Influencers Club NIAT for the academic year 2024–2026.',
+    quote: 'This recognition reflects the collective effort, dedication, and support of everyone who contributed to our journey.',
+    tags: ['Leadership', 'StudentLeadership', 'Community', 'EventManagement'],
     images: [
-      { label: 'Reel Contest 1', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122425_ub5wyz.png' },
-      { label: 'Reel Contest 2', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122412_bnwpvh.png' }
+      { label: 'Leadership Award 1', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1778312568/Screenshot_2026-05-09_131109_h0satx.png' },
+      { label: 'Leadership Award 2', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1778312568/Screenshot_2026-05-09_131157_ztgn2z.png' }
     ]
   },
   {
     id: 'best-student',
+    priority: 2,
     title: 'Best Student Awardee',
     issuer: 'NxtWave (NIAT)',
     description: 'Stood on stage at the Parents’ Success Meet – Worth It Awards. The real highlight wasn’t the award, it was seeing my father in the audience — proud, silent, and fulfilled.',
     quote: 'A man who taught me discipline not through words, but through consistency. That moment redefined success for me.',
-    tags: ['Leadership', 'FamilyFirst', 'Growth'],
+    tags: ['Leadership', 'FamilyFirst', 'Growth', 'Discipline'],
     images: [
       { label: 'Best Student 1', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122112_mj2ygi.png' },
       { label: 'Best Student 2', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122124_pj7rab.png' },
@@ -178,16 +180,43 @@ export const ACHIEVEMENTS = [
     ]
   },
   {
-    id: 'outstanding-leadership',
-    title: 'Outstanding Leadership Award',
+    id: 'reel-contest',
+    priority: 3,
+    title: 'Festive Reel Contest Winner',
     issuer: 'NxtWave (NIAT)',
-    description: 'Honored to receive this award for serving as President of the Influencers Club NIAT for the academic year 2024–2026.',
-    quote: 'This recognition reflects the collective effort, dedication, and support of everyone who contributed to our journey.',
-    tags: ['Leadership', 'StudentLeadership'],
+    description: 'Honored to receive a Certificate of Appreciation and a trophy for my performance in the Festive Reel Making Contest during the Diwali celebrations.',
+    quote: 'This recognition reminds me how creativity, consistency, and passion can turn small ideas into something meaningful.',
+    tags: ['ContentCreation', 'Storytelling', 'VideoEditing'],
     images: [
-      { label: 'Leadership Award 1', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1778312568/Screenshot_2026-05-09_131109_h0satx.png' },
-      { label: 'Leadership Award 2', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1778312568/Screenshot_2026-05-09_131157_ztgn2z.png' }
+      { label: 'Reel Contest 1', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122425_ub5wyz.png' },
+      { label: 'Reel Contest 2', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774508113/Screenshot_2026-03-26_122412_bnwpvh.png' }
     ]
+  },
+  {
+    id: 'annadata-policy-2047',
+    priority: 4,
+    title: 'ANNADATA POLICY 2047 — 1st Prize',
+    issuer: 'Youth Leadership & Governance Forum 2026',
+    description: 'Presented ANNADATA POLICY 2047, “One Farmer, One Resolution”, a farmer-centric policy proposal focused on agricultural grievance coordination and accountable governance.',
+    quote: 'A farmer should report the problem once. The system should take responsibility for coordinating the solution.',
+    tags: ['YouthLeadership', 'Governance', 'Agriculture', 'PolicyInnovation', 'SocialImpact'],
+    images: [
+      { label: 'Stage Pitch', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1789101010/WhatsApp_Image_2026-09-11_at_9.58.10_AM_cwpojm.jpg' },
+      { label: '1st Prize Certificate', path: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1789101131/20260910_182648.jpg_fg4o9x.jpg' }
+    ]
+  },
+  {
+    id: 'bappa-through-your-lens',
+    priority: 5,
+    title: 'BAPPA THROUGH YOUR LENS – Reel Contest',
+    result: 'RUNNER-UP',
+    creator: 'Karthik.exe',
+    issuer: 'NIAT Media Club',
+    description: 'My reel, created under the name Karthik.exe, was selected as the Runner-Up in the BAPPA THROUGH YOUR LENS – Reel Contest organized by the NIAT Media Club.',
+    quote: 'This experience was about finding a story in the celebration, translating an idea into visuals, and paying attention to every frame, transition, and detail.',
+    tags: ['ReelContest', 'ContentCreation', 'VideoEditing', 'VisualStorytelling', 'NIATMediaClub'],
+    winnerAcknowledgement: { winner: 'Gurram Mohita', team: 'Turbo' },
+    images: []
   }
 ];
 
