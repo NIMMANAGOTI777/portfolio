@@ -551,15 +551,15 @@ function Home() {
       <ProfessionalExperience />
 
       {/* 04 — COLLEGE ACHIEVEMENTS */}
-      <section id="achievements" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
-        <div className="text-center mb-12">
-          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full inline-block mb-3">
+      <section id="achievements" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20 w-full relative z-10">
+        <div className="text-center mb-8 sm:mb-10">
+          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full inline-block mb-2.5">
             04 — RECOGNITION
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
             College Achievements
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mt-2.5 font-light">
+          <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mt-2 font-light">
             Milestones, presidential honors, governance policy wins, and creative recognitions.
           </p>
         </div>
