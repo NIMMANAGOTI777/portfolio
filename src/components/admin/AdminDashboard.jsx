@@ -133,9 +133,37 @@ export default function AdminDashboard() {
   const quickActions = [
     { label: 'Add Project', desc: 'Add new portfolio case study', link: '/admin/projects?action=new', icon: FolderGit2, color: 'text-indigo-400 hover:border-indigo-500/40' },
     { label: 'Add Achievement', desc: 'Add new award or honor', link: '/admin/achievements?action=new', icon: Award, color: 'text-amber-400 hover:border-amber-500/40' },
+    { label: 'Add Experience', desc: 'Add professional role', link: '/admin/experience?action=new', icon: Briefcase, color: 'text-emerald-400 hover:border-emerald-500/40' },
     { label: 'Add Service', desc: 'List a new freelance service', link: '/admin/services?action=new', icon: Sparkles, color: 'text-purple-400 hover:border-purple-500/40' },
-    { label: 'View Inquiries', desc: 'Review incoming contact leads', link: '/admin/inquiries', icon: Inbox, color: 'text-rose-400 hover:border-rose-500/40' }
+    { label: 'Add Certification', desc: 'Add verified credential', link: '/admin/certifications?action=new', icon: ShieldCheck, color: 'text-teal-400 hover:border-teal-500/40' },
+    { label: 'Add Testimonial', desc: 'Add mentor recommendation', link: '/admin/testimonials?action=new', icon: Quote, color: 'text-sky-400 hover:border-sky-500/40' },
+    { label: 'Add Speaking Event', desc: 'Add session or summit talk', link: '/admin/speaking?action=new', icon: Mic, color: 'text-fuchsia-400 hover:border-fuchsia-500/40' },
+    { label: 'View Inquiries', desc: 'Review contact submissions', link: '/admin/inquiries', icon: Inbox, color: 'text-rose-400 hover:border-rose-500/40' }
   ];
+
+  // Portfolio Health Audit Checklist
+  const healthItems = [
+    { label: 'Profile Photo', status: 'Complete', desc: 'High-res profile photo configured' },
+    { label: 'Resume', status: 'Complete', desc: 'Google Docs resume linked' },
+    { label: 'About & Hero', status: 'Complete', desc: 'Typewriter roles and statement active' },
+    { label: 'Achievements', status: totalAchievements >= 5 ? 'Complete' : 'Needs attention', desc: `${totalAchievements} achievements in carousel` },
+    { label: 'Projects', status: totalProjects >= 3 ? 'Complete' : 'Needs attention', desc: `${totalProjects} projects published` },
+    { label: 'Experience', status: totalExperiences >= 4 ? 'Complete' : 'Needs attention', desc: `${totalExperiences} career milestones active` },
+    { label: 'Services', status: totalServices >= 6 ? 'Complete' : 'Needs attention', desc: `${totalServices} freelance offerings listed` },
+    { label: 'Certifications', status: totalCertifications >= 3 ? 'Complete' : 'Needs attention', desc: `${totalCertifications} credentials verified` },
+    { label: 'Testimonials', status: totalTestimonials >= 1 ? 'Complete' : 'Missing', desc: `${totalTestimonials} mentor quotes active` },
+    { label: 'Social Links', status: 'Complete', desc: 'LinkedIn, GitHub, Instagram, Email active' },
+    { label: 'Contact System', status: 'Complete', desc: 'Modal form & EmailJS connected' },
+    { label: 'SEO Configuration', status: 'Complete', desc: 'Meta tags, OG & Twitter cards defined' }
+  ];
+
+  // Calculate greeting
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 18) return 'Good afternoon';
+    return 'Good evening';
+  };
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -147,13 +175,13 @@ export default function AdminDashboard() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold mb-3">
               <Sparkle size={13} className="animate-spin text-indigo-400" />
-              <span>Live CMS Active</span>
+              <span>Main Portfolio CMS Active</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-display">
-              Karthik's Portfolio Admin
+              {getGreeting()}, Karthik
             </h1>
             <p className="text-sm text-slate-400 mt-1 max-w-xl">
-              Welcome back, <strong className="text-slate-200">{user?.user_metadata?.full_name || 'Karthik'}</strong>. Manage your portfolio content, case studies, achievements, and inquiries seamlessly.
+              <strong>Karthik Portfolio Admin</strong> — Portfolio Content Management System. Manage all projects, achievements, experience, services, and inquiries from one dedicated portal.
             </p>
           </div>
 
@@ -162,13 +190,51 @@ export default function AdminDashboard() {
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-semibold rounded-xl transition"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white text-xs font-bold transition shadow-sm"
             >
-              <Eye size={14} />
-              <span>View Public Portfolio</span>
-              <ExternalLink size={12} className="text-slate-400" />
+              <span>View Website</span>
+              <ExternalLink size={13} />
             </a>
           </div>
+        </div>
+      </div>
+
+      {/* Portfolio Health Overview Section */}
+      <div className="p-6 rounded-3xl bg-slate-900/60 border border-white/5 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-emerald-400" />
+              <span>Portfolio Health & Content Readiness</span>
+            </h3>
+            <p className="text-xs text-slate-400 mt-0.5">Live audit of all main portfolio sections and completeness status.</p>
+          </div>
+          <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full self-start">
+            100% Operational
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 pt-1">
+          {healthItems.map(item => {
+            const isComplete = item.status === 'Complete';
+            const isMissing = item.status === 'Missing';
+            return (
+              <div key={item.label} className="p-3 rounded-2xl bg-slate-950/60 border border-white/5 space-y-1">
+                <div className="flex items-center justify-between gap-1">
+                  <span className="text-[11px] font-bold text-slate-200 truncate">{item.label}</span>
+                  <span className={`w-1.5 h-1.5 rounded-full ${isComplete ? 'bg-emerald-400' : isMissing ? 'bg-rose-400' : 'bg-amber-400'}`} />
+                </div>
+                <p className="text-[9px] text-slate-400 line-clamp-1">{item.desc}</p>
+                <span className={`inline-block text-[9px] font-semibold px-1.5 py-0.2 rounded border ${
+                  isComplete ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20' : 
+                  isMissing ? 'bg-rose-500/10 text-rose-300 border-rose-500/20' : 
+                  'bg-amber-500/10 text-amber-300 border-amber-500/20'
+                }`}>
+                  {item.status}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 

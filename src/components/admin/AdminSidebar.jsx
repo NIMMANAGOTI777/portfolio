@@ -18,7 +18,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
 
   const navSections = [
     {
-      title: 'OVERVIEW',
+      title: 'DASHBOARD',
       items: [
         { label: 'Dashboard', path: '/admin', icon: LayoutDashboard, end: true }
       ]
@@ -32,7 +32,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
         { label: 'Freelance Services', path: '/admin/services', icon: Sparkles, count: services.length },
         { label: 'Testimonials', path: '/admin/testimonials', icon: Quote },
         { label: 'Certifications', path: '/admin/certifications', icon: ShieldCheck },
-        { label: 'Speaking & Events', path: '/admin/speaking', icon: Mic }
+        { label: 'Speaking', path: '/admin/speaking', icon: Mic }
       ]
     },
     {
@@ -42,25 +42,25 @@ export default function AdminSidebar({ isOpen, onClose }) {
       ]
     },
     {
-      title: 'INQUIRIES',
+      title: 'COMMUNICATION',
       items: [
         { label: 'Contact Inquiries', path: '/admin/inquiries', icon: Inbox, badge: newInquiriesCount > 0 ? newInquiriesCount : null, badgeColor: 'bg-indigo-500' },
-        { label: 'Lead Management', path: '/admin/leads', icon: Users }
+        { label: 'Leads', path: '/admin/leads', icon: Users }
       ]
     },
     {
       title: 'WEBSITE',
       items: [
-        { label: 'Homepage Content', path: '/admin/homepage', icon: Home },
-        { label: 'SEO Settings', path: '/admin/seo', icon: SearchCode },
+        { label: 'Homepage', path: '/admin/homepage', icon: Home },
+        { label: 'SEO', path: '/admin/seo', icon: SearchCode },
         { label: 'Social Links', path: '/admin/social', icon: Share2 }
       ]
     },
     {
       title: 'SYSTEM',
       items: [
-        { label: 'Admin Profile', path: '/admin/profile', icon: User },
-        { label: 'Site Settings', path: '/admin/settings', icon: Settings }
+        { label: 'Profile', path: '/admin/profile', icon: User },
+        { label: 'Settings', path: '/admin/settings', icon: Settings }
       ]
     }
   ];
@@ -92,7 +92,7 @@ export default function AdminSidebar({ isOpen, onClose }) {
                 <span>Karthik Admin</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               </div>
-              <p className="text-[10px] text-slate-400 font-medium">Portfolio Management</p>
+              <p className="text-[10px] text-slate-400 font-medium">Portfolio Management System</p>
             </div>
           </Link>
 
