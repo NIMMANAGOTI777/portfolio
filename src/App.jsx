@@ -738,7 +738,7 @@ function Home() {
 
                 {/* Tech Stack Chips */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {proj.tech.map((t, tIdx) => (
+                  {(proj.tech || proj.technologies || proj.tags || []).map((t, tIdx) => (
                     <span key={tIdx} className="text-[10px] text-slate-300 font-medium bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-md">
                       {t}
                     </span>

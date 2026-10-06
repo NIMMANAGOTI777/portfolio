@@ -810,7 +810,7 @@ export default function AchievementsSection() {
 
                       {/* Compact Tags */}
                       <div className="flex flex-wrap gap-1 pt-1">
-                        {achievement.tags.slice(0, 3).map((tag, tIdx) => (
+                        {(achievement.tags || []).slice(0, 3).map((tag, tIdx) => (
                           <span 
                             key={tIdx}
                             className="text-[9px] font-medium text-slate-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md"

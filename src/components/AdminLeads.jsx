@@ -288,15 +288,15 @@ export default function AdminLeads() {
 
     const headers = ['ID', 'Full Name', 'Email Address', 'Phone Number', 'Company', 'Purpose', 'Message', 'Created At'];
     
-    const rows = filteredLeads.map(lead => [
+    const rows = (filteredLeads || []).map(lead => [
       lead.id,
-      lead.full_name,
-      lead.email,
+      lead.full_name || '',
+      lead.email || '',
       lead.phone || '',
       lead.company || '',
-      lead.purpose,
-      lead.message.replace(/"/g, '""'), // escape quotes
-      lead.created_at,
+      lead.purpose || '',
+      (lead.message || '').replace(/"/g, '""'), // escape quotes
+      lead.created_at || '',
     ]);
 
     // CSV format assembly
@@ -315,7 +315,7 @@ export default function AdminLeads() {
 
   // Retrieve unique purposes for the filter dropdown
   const uniquePurposes = useMemo(() => {
-    const list = new Set(leads.map(l => l.purpose));
+    const list = new Set((leads || []).map(l => l.purpose).filter(Boolean));
     return ['All', ...Array.from(list)];
   }, [leads]);
 

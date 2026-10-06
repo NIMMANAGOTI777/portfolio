@@ -580,7 +580,7 @@ export default function ProfessionalExperience() {
   const filteredExperiences = useMemo(() => {
     if (selectedFilter === 'ALL') return activeExperiences;
     return activeExperiences.filter(exp => 
-      exp.category.some(cat => cat.toUpperCase() === selectedFilter)
+      Array.isArray(exp.category) && exp.category.some(cat => cat.toUpperCase() === selectedFilter)
     );
   }, [selectedFilter, activeExperiences]);
 
@@ -814,7 +814,7 @@ export default function ProfessionalExperience() {
                                   <span>What I Did & Responsibilities</span>
                                 </h4>
                                 <ul className="space-y-1.5">
-                                  {(exp.isCaseStudy ? exp.caseStudy.responsibilities : exp.responsibilities).map((resp, rIdx) => (
+                                  {((exp.isCaseStudy ? exp.caseStudy?.responsibilities : exp.responsibilities) || []).map((resp, rIdx) => (
                                     <li key={rIdx} className="flex items-start gap-2 text-xs text-slate-300 leading-relaxed">
                                       <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0"></span>
                                       <span>{resp}</span>
@@ -844,7 +844,7 @@ export default function ProfessionalExperience() {
                                   Relevant Skills
                                 </h4>
                                 <div className="flex flex-wrap gap-1.5">
-                                  {(exp.isCaseStudy ? exp.caseStudy.techUsed : exp.skills).map((skill) => (
+                                  {((exp.isCaseStudy ? exp.caseStudy?.techUsed : exp.skills) || []).map((skill) => (
                                     <span 
                                       key={skill} 
                                       className="text-[10px] font-medium text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-md"
@@ -856,7 +856,7 @@ export default function ProfessionalExperience() {
                               </div>
 
                               {/* Work & Event Gallery Thumbnails (if available) */}
-                              {exp.gallery && (
+                              {Array.isArray(exp.gallery) && exp.gallery.length > 0 && (
                                 <div>
                                   <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
                                     <Camera size={12} className="text-indigo-400" />

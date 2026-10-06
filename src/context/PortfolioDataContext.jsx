@@ -425,14 +425,111 @@ export function PortfolioDataProvider({ children }) {
     await refreshData();
   };
 
-  // Public Access Data (Only published items, with safe fallbacks)
-  const publicProjects = projects.filter(p => p.published !== false);
-  const publicAchievements = achievements.filter(a => a.published !== false);
+  // Public Access Data (Only published items, with safe fallbacks and normalized field names)
+  const publicProjects = (projects.length > 0 ? projects : STATIC_PROJECTS)
+    .filter(p => p.published !== false)
+    .map(p => ({
+      ...p,
+      id: p.id,
+      title: p.title || '',
+      sub: p.sub || p.subtitle || '',
+      subtitle: p.subtitle || p.sub || '',
+      desc: p.desc || p.short_description || p.full_description || '',
+      short_description: p.short_description || p.desc || '',
+      tag: p.tag || p.category || '',
+      category: p.category || p.tag || '',
+      tech: p.tech || p.technologies || p.tags || [],
+      tags: p.tags || p.technologies || p.tech || [],
+      technologies: p.technologies || p.tech || p.tags || [],
+      image: p.image || p.cover_image || '',
+      cover_image: p.cover_image || p.image || '',
+      link: p.link || p.project_url || '#',
+      project_url: p.project_url || p.link || '#',
+      caseStudy: p.caseStudy || p.case_study || null,
+      case_study: p.case_study || p.caseStudy || null,
+      eyebrow: p.eyebrow || 'FEATURED PROJECT',
+      badgeSecondary: p.badgeSecondary || p.badge_secondary || '',
+      badge_secondary: p.badge_secondary || p.badgeSecondary || '',
+      result: p.result || '',
+      actionLabel: p.actionLabel || p.action_label || 'VIEW CASE STUDY →',
+      action_label: p.action_label || p.actionLabel || 'VIEW CASE STUDY →',
+      secondaryActionLabel: p.secondaryActionLabel || p.secondary_action_label || '',
+      secondary_action_label: p.secondary_action_label || p.secondaryActionLabel || '',
+      featured: !!p.featured
+    }));
+
+  const publicAchievements = (achievements.length > 0 ? achievements : STATIC_ACHIEVEMENTS)
+    .filter(a => a.published !== false);
+
   const publicExperiences = experiences.filter(e => e.published !== false);
-  const publicServices = services.filter(s => s.published !== false);
-  const publicTestimonials = testimonials.filter(t => t.published !== false);
-  const publicCertifications = certifications.filter(c => c.published !== false);
-  const publicSpeakingEvents = speakingEvents.filter(s => s.published !== false);
+
+  const publicServices = (services.length > 0 ? services : STATIC_SERVICES)
+    .filter(s => s.published !== false)
+    .map(s => ({
+      ...s,
+      id: s.id,
+      title: s.title || '',
+      description: s.description || s.short_description || '',
+      services: s.services || s.features || s.skills || [],
+      techStack: s.techStack || s.tech_stack || [],
+      tech_stack: s.tech_stack || s.techStack || [],
+      icon: s.icon || 'sparkles',
+      iconBgClass: s.iconBgClass || s.icon_bg_class || 'bg-indigo-500/10 text-indigo-400'
+    }));
+
+  const publicTestimonials = (testimonials.length > 0 ? testimonials : [STATIC_TESTIMONIAL])
+    .filter(t => t.published !== false)
+    .map(t => ({
+      ...t,
+      id: t.id,
+      name: t.name || '',
+      role: t.role || '',
+      company: t.company || '',
+      quote: t.quote || t.testimonial || '',
+      testimonial: t.testimonial || t.quote || '',
+      img: t.img || t.avatar_url || t.image || '',
+      image: t.image || t.avatar_url || t.img || '',
+      avatar_url: t.avatar_url || t.img || t.image || '',
+      linkedin: t.linkedin || t.linkedin_url || '',
+      linkedin_url: t.linkedin_url || t.linkedin || ''
+    }));
+
+  const publicCertifications = (certifications.length > 0 ? certifications : STATIC_CERTIFICATIONS)
+    .filter(c => c.published !== false)
+    .map(c => ({
+      ...c,
+      id: c.id,
+      title: c.title || '',
+      issuer: c.issuer || '',
+      date: c.date || c.issue_date || '2026',
+      desc: c.desc || c.description || '',
+      description: c.description || c.desc || '',
+      img: c.img || c.certificate_image || '',
+      certificate_image: c.certificate_image || c.img || '',
+      link: c.link || c.credential_url || '#',
+      credential_url: c.credential_url || c.link || '#',
+      code: c.code || c.credential_id || '',
+      credential_id: c.credential_id || c.code || ''
+    }));
+
+  const publicSpeakingEvents = (speakingEvents.length > 0 ? speakingEvents : STATIC_COLLABORATIONS)
+    .filter(s => s.published !== false)
+    .map(s => ({
+      ...s,
+      id: s.id,
+      title: s.title || '',
+      category: s.category || s.tag || s.event_name || 'Collaboration',
+      tag: s.tag || s.category || s.event_name || 'Collaboration',
+      date: s.date || '2026',
+      attendees: s.attendees || (s.audience_size ? `${s.audience_size} Attendees` : ''),
+      desc: s.desc || s.description || '',
+      description: s.description || s.desc || '',
+      img: s.img || s.image_url || s.image || '',
+      image_url: s.image_url || s.img || s.image || '',
+      roles: s.roles || (s.key_topics ? s.key_topics : []),
+      links: s.links || { linkedin: s.recording_url || '', youtube: '', instagram: '' }
+    }));
+
   const publicSocialLinks = socialLinks.filter(s => s.enabled !== false);
 
   const value = {

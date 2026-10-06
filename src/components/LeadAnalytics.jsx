@@ -16,12 +16,12 @@ export default function LeadAnalytics({ leads }) {
   // 1. Purpose Breakdown Stats
   const purposeStats = useMemo(() => {
     const counts = {};
-    leads.forEach(lead => {
+    (leads || []).forEach(lead => {
       const p = lead.purpose || 'Other';
       counts[p] = (counts[p] || 0) + 1;
     });
 
-    const total = leads.length || 1;
+    const total = (leads || []).length || 1;
     return Object.keys(counts).map(purpose => ({
       name: purpose,
       value: counts[purpose],
@@ -45,7 +45,7 @@ export default function LeadAnalytics({ leads }) {
       });
     }
 
-    leads.forEach(lead => {
+    (leads || []).forEach(lead => {
       const leadDate = new Date(lead.created_at);
       const leadKey = `${leadDate.getFullYear()}-${String(leadDate.getMonth() + 1).padStart(2, '0')}`;
       const found = months.find(m => m.key === leadKey);
