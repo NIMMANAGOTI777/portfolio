@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 import { 
   Briefcase, Calendar, MapPin, Award, CheckCircle2, 
   ChevronDown, ChevronUp, Users, ShieldAlert, 
@@ -500,9 +501,55 @@ const ExpIcon = ({ name, className }) => {
 };
 
 export default function ProfessionalExperience() {
+  const { publicExperiences } = usePortfolioData();
   const [selectedFilter, setSelectedFilter] = useState('ALL');
   const [expandedId, setExpandedId] = useState(null); // Single expansion accordion
   const [lightboxImg, setLightboxImg] = useState(null);
+
+  // Active experiences from database/mock or fallback to rich static data
+  const activeExperiences = useMemo(() => {
+    if (publicExperiences && publicExperiences.length > 0) {
+      return publicExperiences.map(item => {
+        const existing = EXPERIENCES.find(e => e.id === item.id);
+        if (existing) {
+          return {
+            ...existing,
+            role: item.role || existing.role,
+            company: item.company || existing.company,
+            duration: item.duration || existing.duration,
+            summary: item.summary || existing.summary,
+            responsibilities: item.responsibilities || existing.responsibilities,
+            skills: item.skills || existing.skills,
+            outcomes: item.outcomes || existing.outcomes,
+            location: item.location || existing.location
+          };
+        }
+        return {
+          id: item.id,
+          company: item.company,
+          role: item.role,
+          duration: item.duration || '2026',
+          year: item.year || '2026',
+          employmentType: item.employment_type || 'Professional',
+          isCurrent: !!item.is_current,
+          isFeatured: !!item.featured,
+          featuredBadge: item.is_current ? 'Current Role' : '',
+          location: item.location || 'India',
+          logoText: item.logo_text || item.company.substring(0, 2).toUpperCase(),
+          logoColor: item.logo_color || 'from-indigo-600 to-purple-600',
+          category: Array.isArray(item.category) ? item.category : ['Leadership'],
+          icon: item.icon || 'briefcase',
+          summary: item.summary,
+          highlightTag: item.highlight_tag || item.role,
+          keyMetric: item.key_metric || 'Active',
+          responsibilities: item.responsibilities || [],
+          skills: item.skills || [],
+          outcomes: item.outcomes || ''
+        };
+      });
+    }
+    return EXPERIENCES;
+  }, [publicExperiences]);
 
   // Exact minimal category filters as required
   const filterCategories = [
@@ -531,11 +578,11 @@ export default function ProfessionalExperience() {
 
   // Filter experiences by category
   const filteredExperiences = useMemo(() => {
-    if (selectedFilter === 'ALL') return EXPERIENCES;
-    return EXPERIENCES.filter(exp => 
+    if (selectedFilter === 'ALL') return activeExperiences;
+    return activeExperiences.filter(exp => 
       exp.category.some(cat => cat.toUpperCase() === selectedFilter)
     );
-  }, [selectedFilter]);
+  }, [selectedFilter, activeExperiences]);
 
   return (
     <section id="experience" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">

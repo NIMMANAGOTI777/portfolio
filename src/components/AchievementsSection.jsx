@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePortfolioData } from '../context/PortfolioDataContext';
 import { 
   Users, Play, X, ChevronLeft, ChevronRight, 
   Sparkles, Lightbulb, CheckCircle2, ShieldCheck, 
@@ -438,6 +439,7 @@ const ACHIEVEMENTS_DATA = [
 ];
 
 export default function AchievementsSection() {
+  const { publicAchievements } = usePortfolioData();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isInteracting, setIsInteracting] = useState(false);
@@ -446,6 +448,45 @@ export default function AchievementsSection() {
   const [isZoomed, setIsZoomed] = useState(false);
   const lightboxVideoRef = useRef(null);
   const modalVideoRef = useRef(null);
+
+  // Merge live achievements order from Supabase/admin with rich styling template
+  const displayedAchievements = useMemo(() => {
+    if (!publicAchievements || publicAchievements.length === 0) return ACHIEVEMENTS_DATA;
+    return publicAchievements.map(liveItem => {
+      const existing = ACHIEVEMENTS_DATA.find(d => d.id === liveItem.id);
+      if (existing) {
+        return {
+          ...existing,
+          title: liveItem.title || existing.title,
+          issuer: liveItem.issuer || existing.issuer,
+          description: liveItem.description || existing.description,
+          quote: liveItem.quote || existing.quote,
+          priority: liveItem.display_order || existing.priority
+        };
+      }
+      return {
+        id: liveItem.id,
+        priority: liveItem.display_order || 99,
+        awardBadgeText: liveItem.result || 'Award Winner',
+        badgePrimary: 'AWARD',
+        badgeSecondary: liveItem.issuer || 'RECOGNITION',
+        metricPill: 'Achievement',
+        metricPillIcon: 'users',
+        issuer: liveItem.issuer || 'Organization',
+        title: liveItem.title,
+        subtitle: liveItem.result || '',
+        shortDesc: (liveItem.description || '').substring(0, 100) + '...',
+        featuredRank: `#${liveItem.display_order || 1}`,
+        tags: liveItem.tags || ['Recognition', 'Leadership'],
+        accent: ACHIEVEMENTS_DATA[0].accent,
+        metrics: [{ value: 'Award', label: 'Milestone' }],
+        prominentStatement: liveItem.quote || `“${liveItem.description}”`,
+        descriptionLabel: 'Description',
+        description: liveItem.description,
+        media: liveItem.image ? [{ type: 'image', label: liveItem.title, url: liveItem.image }] : []
+      };
+    });
+  }, [publicAchievements]);
 
   // Responsive cards visible calculation
   const [cardsVisible, setCardsVisible] = useState(3);
@@ -467,7 +508,7 @@ export default function AchievementsSection() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const totalCards = ACHIEVEMENTS_DATA.length;
+  const totalCards = displayedAchievements.length;
   const maxIndex = Math.max(0, totalCards - cardsVisible);
 
   // Touch / Drag handling state
@@ -661,7 +702,7 @@ export default function AchievementsSection() {
             gap: '0px'
           }}
         >
-          {ACHIEVEMENTS_DATA.map((achievement, idx) => {
+          {displayedAchievements.map((achievement, idx) => {
             const accent = achievement.accent;
             const isTopFeatured = achievement.priority <= 2;
             const previewMedia = achievement.media?.[0];
@@ -800,7 +841,7 @@ export default function AchievementsSection() {
 
       {/* PROGRESS INDICATOR DOTS */}
       <div className="flex items-center justify-center gap-2 mt-6">
-        {ACHIEVEMENTS_DATA.map((item, dotIdx) => {
+        {displayedAchievements.map((item, dotIdx) => {
           const isActive = dotIdx === activeDotIndex;
           return (
             <button

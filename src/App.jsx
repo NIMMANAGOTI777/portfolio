@@ -1,13 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import ContactModal from './components/ContactModal';
 import BehindTheLens from './components/BehindTheLens';
-import AdminLeads from './components/AdminLeads';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
 import ProfessionalExperience from './components/ProfessionalExperience';
 import AchievementsSection from './components/AchievementsSection';
 import ProjectCaseStudyModal from './components/ProjectCaseStudyModal';
+import { AuthProvider } from './context/AuthContext';
+import { PortfolioDataProvider, usePortfolioData } from './context/PortfolioDataContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import AdminLayout from './components/admin/AdminLayout';
+import AdminLogin from './components/AdminLogin';
+import AdminDashboard from './components/admin/AdminDashboard';
+import AdminProjects from './components/admin/AdminProjects';
+import AdminAchievements from './components/admin/AdminAchievements';
+import AdminExperience from './components/admin/AdminExperience';
+import AdminServices from './components/admin/AdminServices';
+import AdminTestimonials from './components/admin/AdminTestimonials';
+import AdminCertifications from './components/admin/AdminCertifications';
+import AdminSpeaking from './components/admin/AdminSpeaking';
+import AdminMediaLibrary from './components/admin/AdminMediaLibrary';
+import AdminInquiries from './components/admin/AdminInquiries';
+import AdminLeadsWrapper from './components/admin/AdminLeadsWrapper';
+import AdminHomepage from './components/admin/AdminHomepage';
+import AdminSEO from './components/admin/AdminSEO';
+import AdminSocialLinks from './components/admin/AdminSocialLinks';
+import AdminSettings from './components/admin/AdminSettings';
+import AdminProfile from './components/admin/AdminProfile';
 import { 
   STATS, SERVICE_CATEGORIES, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, 
   COLLABORATIONS, PROJECTS, TEACH_AI_DATA, CERTIFICATIONS, 
@@ -130,6 +150,21 @@ function FAQItem({ faq }) {
 
 // 3. Home View Component
 function Home() {
+  const { 
+    publicProjects, 
+    publicServices, 
+    publicSpeakingEvents, 
+    publicCertifications, 
+    publicTestimonials,
+    siteSettings 
+  } = usePortfolioData();
+
+  const displayedProjects = publicProjects?.length > 0 ? publicProjects : PROJECTS;
+  const displayedServices = publicServices?.length > 0 ? publicServices : WORK_WITH_ME_SERVICES;
+  const displayedCollaborations = publicSpeakingEvents?.length > 0 ? publicSpeakingEvents : COLLABORATIONS;
+  const displayedCertifications = publicCertifications?.length > 0 ? publicCertifications : CERTIFICATIONS;
+  const displayedTestimonial = publicTestimonials?.[0] || TESTIMONIAL;
+
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPurpose, setSelectedPurpose] = useState('Hire Me');
   const [lightboxImage, setLightboxImage] = useState(null);
@@ -583,7 +618,7 @@ function Home() {
         </div>
 
         {/* Featured Project Showcase Card */}
-        {PROJECTS.filter(p => p.featured).map((proj, fIdx) => (
+        {displayedProjects.filter(p => p.featured).map((proj, fIdx) => (
           <div 
             key={`featured-${fIdx}`}
             className="glass-panel p-6 sm:p-8 md:p-9 rounded-[2rem] border border-indigo-500/25 hover:border-indigo-500/40 transition-all duration-500 shadow-2xl relative overflow-hidden group mb-8"
@@ -688,7 +723,7 @@ function Home() {
 
         {/* Regular Projects 2-column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-          {PROJECTS.filter(p => !p.featured).map((proj, idx) => (
+          {displayedProjects.filter(p => !p.featured).map((proj, idx) => (
             <div key={idx} className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/5 hover:border-indigo-500/30 transition-all duration-300 flex flex-col justify-between group">
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -749,7 +784,7 @@ function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {COLLABORATIONS.map((collab) => (
+          {displayedCollaborations.map((collab) => (
             <div 
               key={collab.id} 
               onClick={() => setSelectedCollab(collab)}
@@ -981,30 +1016,32 @@ function Home() {
 
         <div className="glass-panel p-6 sm:p-8 rounded-3xl relative overflow-hidden border border-white/5">
           <p className="text-slate-300 text-xs sm:text-sm italic leading-relaxed mb-6 font-normal">
-            {TESTIMONIAL.quote}
+            {displayedTestimonial.quote || displayedTestimonial.testimonial}
           </p>
           
           <div className="flex items-center gap-3.5 border-t border-white/5 pt-4">
             <img 
-              src={TESTIMONIAL.img} 
-              alt={TESTIMONIAL.name} 
+              src={displayedTestimonial.img || displayedTestimonial.image} 
+              alt={displayedTestimonial.name} 
               className="w-11 h-11 rounded-full object-cover border border-white/10 shrink-0"
               loading="lazy"
             />
             <div>
               <h4 className="font-bold text-white flex items-center gap-1.5 text-sm">
-                <span>{TESTIMONIAL.name}</span>
-                <a 
-                  href={TESTIMONIAL.linkedin} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-indigo-400 hover:text-indigo-300 transition"
-                  title="LinkedIn Profile"
-                >
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
+                <span>{displayedTestimonial.name}</span>
+                {displayedTestimonial.linkedin || displayedTestimonial.linkedin_url ? (
+                  <a 
+                    href={displayedTestimonial.linkedin || displayedTestimonial.linkedin_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-indigo-400 hover:text-indigo-300 transition"
+                    title="LinkedIn Profile"
+                  >
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                ) : null}
               </h4>
-              <p className="text-slate-500 text-[10px] uppercase font-bold">{TESTIMONIAL.role}</p>
+              <p className="text-slate-500 text-[10px] uppercase font-bold">{displayedTestimonial.role}</p>
             </div>
           </div>
         </div>
@@ -1023,16 +1060,18 @@ function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {CERTIFICATIONS.map((cert, idx) => {
-            const isModal = cert.link === '#';
+          {displayedCertifications.map((cert, idx) => {
+            const isModal = (cert.link === '#' || cert.credential_url === '#');
+            const certLink = cert.credential_url || cert.link || '#';
+            const certImg = cert.certificate_image || cert.img;
             return (
               <div 
                 key={idx} 
-                onClick={() => isModal ? setSelectedCert(cert) : window.open(cert.link, '_blank')}
+                onClick={() => isModal ? setSelectedCert(cert) : window.open(certLink, '_blank')}
                 className="glass-panel p-4 rounded-2xl hover:border-indigo-500/30 transition group cursor-pointer flex flex-col justify-between border border-white/5"
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => { if(e.key === 'Enter') isModal ? setSelectedCert(cert) : window.open(cert.link, '_blank'); }}
+                onKeyDown={(e) => { if(e.key === 'Enter') isModal ? setSelectedCert(cert) : window.open(certLink, '_blank'); }}
                 aria-label={`View ${cert.title} certificate`}
               >
                 <div>
@@ -1351,14 +1390,50 @@ function NotFound() {
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/behind-the-lens" element={<BehindTheLens />} />
-        <Route path="/admin" element={<AdminLeads />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <PortfolioDataProvider>
+        <Router>
+          <Routes>
+            {/* Public Portfolio Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/behind-the-lens" element={<BehindTheLens />} />
+
+            {/* Admin Authentication */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+
+            {/* Protected Admin App Shell & Subroutes */}
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<AdminDashboard />} />
+              <Route path="projects" element={<AdminProjects />} />
+              <Route path="achievements" element={<AdminAchievements />} />
+              <Route path="experience" element={<AdminExperience />} />
+              <Route path="services" element={<AdminServices />} />
+              <Route path="testimonials" element={<AdminTestimonials />} />
+              <Route path="certifications" element={<AdminCertifications />} />
+              <Route path="speaking" element={<AdminSpeaking />} />
+              <Route path="media" element={<AdminMediaLibrary />} />
+              <Route path="inquiries" element={<AdminInquiries />} />
+              <Route path="leads" element={<AdminLeadsWrapper />} />
+              <Route path="homepage" element={<AdminHomepage />} />
+              <Route path="seo" element={<AdminSEO />} />
+              <Route path="social" element={<AdminSocialLinks />} />
+              <Route path="settings" element={<AdminSettings />} />
+              <Route path="profile" element={<AdminProfile />} />
+            </Route>
+
+            {/* 404 Catch-All */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </PortfolioDataProvider>
+    </AuthProvider>
   );
 }
 
