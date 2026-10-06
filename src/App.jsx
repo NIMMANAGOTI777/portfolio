@@ -8,23 +8,29 @@ import KarthikAIChatbot from './components/KarthikAIChatbot';
 import GrowthJourney from './components/GrowthJourney';
 import ProfessionalExperience from './components/ProfessionalExperience';
 import AchievementsSection from './components/AchievementsSection';
+import ProjectCaseStudyModal from './components/ProjectCaseStudyModal';
 import { 
-  STATS, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, COLLABORATIONS, PROJECTS, 
-  GALLERY, CERTIFICATIONS, TESTIMONIAL, FAQS, FEATURED_EVENTS,
-  SKILLS_DATA, CURRENTLY_WORKING_ON 
+  STATS, SERVICE_CATEGORIES, WORK_WITH_ME_SERVICES, WHY_WORK_WITH_ME, 
+  COLLABORATIONS, PROJECTS, TEACH_AI_DATA, CERTIFICATIONS, 
+  TESTIMONIAL, FAQS, CURRENTLY_WORKING_ON 
 } from './lib/portfolioData';
 import { 
   Mail, ArrowRight, Layers, Award, 
   Users, Calendar, FileText, 
-  ChevronDown, ChevronLeft, ChevronRight, Download, 
-  ArrowUpRight, X, Globe, Palette, TrendingUp, PenTool, Video, Check, CheckCircle2, Menu
+  ChevronDown, ChevronUp, ChevronRight, 
+  ArrowUpRight, X, Globe, Palette, TrendingUp, PenTool, Video, Check, CheckCircle2, Menu, Sparkles, ExternalLink, Camera
 } from 'lucide-react';
 
-// Typewriter Roles List
-const ROLES = ["Student Leader", "Event Manager", "Creative Strategist", "Community Builder"];
+// Roles list for typewriter animation
+const ROLES = [
+  "Creative Strategist",
+  "Community Builder",
+  "Web Developer",
+  "Event Architect"
+];
 
 // Service Icon Mapper Component
-function ServiceIcon({ iconName, size = 22 }) {
+function ServiceIcon({ iconName, size = 20 }) {
   switch (iconName) {
     case 'globe': return <Globe size={size} />;
     case 'palette': return <Palette size={size} />;
@@ -34,11 +40,11 @@ function ServiceIcon({ iconName, size = 22 }) {
     case 'award': return <Award size={size} />;
     case 'video': return <Video size={size} />;
     case 'layers': return <Layers size={size} />;
-    default: return <Award size={size} />;
+    default: return <Sparkles size={size} />;
   }
 }
 
-// 1. Stats Counter Component
+// 1. Animated Number Counter Component
 function AnimatedCounter({ target, label, suffix }) {
   const [count, setCount] = useState(0);
   const elementRef = useRef(null);
@@ -51,7 +57,7 @@ function AnimatedCounter({ target, label, suffix }) {
           setHasStarted(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     if (elementRef.current) {
@@ -65,8 +71,8 @@ function AnimatedCounter({ target, label, suffix }) {
     if (!hasStarted) return;
     
     let start = 0;
-    const duration = 1500; // ms
-    const frameRate = 1000 / 60; // 60fps
+    const duration = 1400; // ms
+    const frameRate = 1000 / 60;
     const totalFrames = duration / frameRate;
     const increment = target / totalFrames;
 
@@ -84,12 +90,12 @@ function AnimatedCounter({ target, label, suffix }) {
   }, [hasStarted, target]);
 
   return (
-    <div ref={elementRef} className="glass-panel p-6 rounded-2xl glass-panel-hover text-center relative overflow-hidden group">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      <h3 className="text-4xl md:text-5xl font-extrabold text-white mb-2 font-display bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+    <div ref={elementRef} className="glass-panel p-5 sm:p-6 rounded-2xl text-center relative overflow-hidden group border border-white/5 hover:border-indigo-500/20 transition-all duration-300">
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+      <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-1.5 font-display bg-gradient-to-r from-indigo-400 via-white to-purple-300 bg-clip-text text-transparent">
         {count}{suffix}
       </h3>
-      <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">{label}</p>
+      <p className="text-[11px] sm:text-xs font-semibold text-slate-400 uppercase tracking-widest">{label}</p>
     </div>
   );
 }
@@ -102,205 +108,26 @@ function FAQItem({ faq }) {
     <div className="glass-panel rounded-2xl overflow-hidden border border-white/5 transition-all">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-5 flex justify-between items-center text-left focus:outline-none bg-slate-900/10 hover:bg-slate-900/30 transition cursor-pointer"
+        className="w-full px-5 sm:px-6 py-4 sm:py-5 flex justify-between items-center text-left focus:outline-none bg-slate-900/20 hover:bg-slate-900/40 transition cursor-pointer"
+        aria-expanded={isOpen}
       >
-        <span className="font-semibold text-slate-200 text-sm md:text-base">{faq.question}</span>
+        <span className="font-semibold text-slate-200 text-sm sm:text-base">{faq.question}</span>
         <ChevronDown 
           size={18} 
-          className={`text-slate-400 transition-transform duration-300 ${isOpen ? 'transform rotate-180 text-indigo-400' : ''}`} 
+          className={`text-slate-400 transition-transform duration-300 shrink-0 ml-3 ${isOpen ? 'transform rotate-180 text-indigo-400' : ''}`} 
         />
       </button>
       <div 
         className="transition-all duration-300 ease-in-out overflow-hidden"
-        style={{ maxHeight: isOpen ? '200px' : '0px' }}
+        style={{ maxHeight: isOpen ? '240px' : '0px' }}
       >
-        <div className="px-6 pb-5 text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-3 bg-slate-950/20">
+        <div className="px-5 sm:px-6 pb-5 text-slate-350 text-xs sm:text-sm leading-relaxed border-t border-white/5 pt-3 bg-slate-950/30">
           {faq.answer}
         </div>
       </div>
     </div>
   );
 }
-
-
-
-// 2.75. FeaturedEvent Component (For Moments in Action)
-function FeaturedEvent({ event, onImageClick }) {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const images = event.images || [];
-
-  useEffect(() => {
-    if (images.length <= 1) return;
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  const handlePrev = (e) => {
-    e.stopPropagation();
-    setActiveSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
-
-  const handleNext = (e) => {
-    e.stopPropagation();
-    setActiveSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
-
-  return (
-    <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 relative overflow-hidden group mb-12">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-100 transition duration-500"></div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
-        
-        {/* Left Column: Image Carousel */}
-        <div className="lg:col-span-5 flex flex-col justify-between">
-          <div className="relative h-64 sm:h-80 lg:h-full min-h-[280px] rounded-2xl overflow-hidden bg-slate-900 border border-white/5 flex items-center justify-center shadow-inner group/carousel">
-            {/* Blurred background reflection */}
-            <div 
-              className="absolute inset-0 w-full h-full bg-cover bg-center blur-md opacity-30 select-none scale-105"
-              style={{ backgroundImage: `url(${images[activeSlide]})` }}
-            ></div>
-            
-            <img 
-              src={images[activeSlide]} 
-              alt={`Event moment ${activeSlide + 1}`}
-              onClick={() => onImageClick && onImageClick(images[activeSlide])}
-              className="relative w-full h-full object-contain select-none transition-all duration-500 transform scale-100 hover:scale-102 z-10 cursor-zoom-in"
-            />
-            
-            {images.length > 1 && (
-              <>
-                <button 
-                  onClick={handlePrev}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-slate-950/60 text-slate-300 hover:text-white hover:bg-slate-950/90 transition cursor-pointer z-10 border border-white/5 opacity-0 group-hover/carousel:opacity-100"
-                >
-                  <ChevronLeft size={18} />
-                </button>
-                <button 
-                  onClick={handleNext}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-slate-950/60 text-slate-300 hover:text-white hover:bg-slate-950/90 transition cursor-pointer z-10 border border-white/5 opacity-0 group-hover/carousel:opacity-100"
-                >
-                  <ChevronRight size={18} />
-                </button>
-
-                {/* Dot Indicators */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10 bg-slate-950/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/5">
-                  {images.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveSlide(idx);
-                      }}
-                      className={`w-1.5 h-1.5 rounded-full transition-all ${
-                        activeSlide === idx ? 'bg-indigo-400 w-3.5' : 'bg-slate-600 hover:bg-slate-400'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Right Column: Story Content */}
-        <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-[10px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
-                {event.category || "Featured Experience"}
-              </span>
-              <span className="text-[10px] font-medium text-slate-500">
-                {event.date || "July 2026"}
-              </span>
-            </div>
-
-            <h3 className="text-xl sm:text-2xl font-extrabold text-white leading-tight mb-2 bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
-              {event.title}
-            </h3>
-            
-            <p className="text-xs font-semibold text-slate-400 mb-4 tracking-wide uppercase">
-              {event.subtitle}
-            </p>
-
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">
-              {event.description}
-            </p>
-
-            {event.customSections ? (
-              <div className="space-y-4 mb-6">
-                {event.customSections.map((sec, sIdx) => (
-                  <div key={sIdx} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition duration-300">
-                    <h4 className="text-xs font-bold text-indigo-300 mb-2 flex items-center gap-1.5 uppercase tracking-wider">
-                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-                      {sec.title}
-                    </h4>
-                    {Array.isArray(sec.content) ? (
-                      <ul className="space-y-1.5">
-                        {sec.content.map((item, iIdx) => (
-                          <li key={iIdx} className="text-slate-400 text-[11px] leading-relaxed flex items-start gap-1.5">
-                            <span className="text-indigo-400/70 select-none mt-0.5">•</span>
-                            <span className="text-slate-300">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-slate-400 text-[11px] leading-relaxed">
-                        {sec.content}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                {event.roles.map((role, rIdx) => (
-                  <div key={rIdx} className="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition duration-300">
-                    <h4 className="text-xs font-bold text-indigo-300 mb-1.5 flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-                      {role.title}
-                    </h4>
-                    <p className="text-slate-400 text-[11px] leading-relaxed">
-                      {role.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {event.reflection && (
-              <p className="text-slate-300 text-xs italic leading-relaxed border-l-2 border-indigo-500/40 pl-3 mb-6">
-                "{event.reflection}"
-              </p>
-            )}
-
-            {event.thanks && (
-              <div className="p-4 rounded-xl bg-indigo-950/20 border border-indigo-500/10">
-                <h5 className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1.5">Acknowledgements & Trust</h5>
-                <p className="text-slate-400 text-[11px] leading-relaxed">
-                  {event.thanks}
-                </p>
-              </div>
-            )}
-          </div>
-
-          <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/5">
-            {event.tags.map((tag, tIdx) => (
-              <span key={tIdx} className="text-[10px] text-slate-500 font-medium hover:text-indigo-400 transition cursor-pointer">
-                #{tag}
-              </span>
-            ))}
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-  );
-}
-
-
 
 // 3. Home View Component
 function Home() {
@@ -309,8 +136,10 @@ function Home() {
   const [lightboxImage, setLightboxImage] = useState(null);
   const [selectedCert, setSelectedCert] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  // Custom Typewriter Effect
+  const [expandedCategory, setExpandedCategory] = useState(null); // Accordion category expansion for Work With Me
+  const [teachAIExpanded, setTeachAIExpanded] = useState(false); // Read full story toggle
+
+  // Typewriter Effect
   const [roleIndex, setRoleIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -321,11 +150,18 @@ function Home() {
   // Detail Modal Event Selection
   const [selectedCollab, setSelectedCollab] = useState(null);
 
+  // Featured Project Case Study Modal
+  const [selectedCaseStudy, setSelectedCaseStudy] = useState(null);
+  const [caseStudyInitialView, setCaseStudyInitialView] = useState('study');
+
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') {
         setSelectedCert(null);
         setLightboxImage(null);
+        setSelectedCollab(null);
+        setSelectedCaseStudy(null);
+        setResumeOpen(false);
       }
     };
     window.addEventListener('keydown', handleEsc);
@@ -339,15 +175,15 @@ function Home() {
     if (isDeleting) {
       timer = setTimeout(() => {
         setCurrentText(prev => prev.substring(0, prev.length - 1));
-      }, 55);
+      }, 50);
     } else {
       timer = setTimeout(() => {
         setCurrentText(prev => currentRole.substring(0, prev.length + 1));
-      }, 95);
+      }, 85);
     }
     
     if (!isDeleting && currentText === currentRole) {
-      timer = setTimeout(() => setIsDeleting(true), 2000);
+      timer = setTimeout(() => setIsDeleting(true), 2200);
     } else if (isDeleting && currentText === "") {
       setIsDeleting(false);
       setRoleIndex(prev => (prev + 1) % ROLES.length);
@@ -356,7 +192,7 @@ function Home() {
     return () => clearTimeout(timer);
   }, [currentText, isDeleting, roleIndex]);
 
-  // Currently Working On Typewriter Effect
+  // Currently Working On Typewriter
   const [workingIndex, setWorkingIndex] = useState(0);
   const [workingText, setWorkingText] = useState("");
   const [workingDeleting, setWorkingDeleting] = useState(false);
@@ -368,15 +204,15 @@ function Home() {
     if (workingDeleting) {
       timer = setTimeout(() => {
         setWorkingText(prev => prev.substring(0, prev.length - 1));
-      }, 45);
+      }, 40);
     } else {
       timer = setTimeout(() => {
         setWorkingText(prev => currentFocus.substring(0, prev.length + 1));
-      }, 75);
+      }, 70);
     }
     
     if (!workingDeleting && workingText === currentFocus) {
-      timer = setTimeout(() => setWorkingDeleting(true), 2200);
+      timer = setTimeout(() => setWorkingDeleting(true), 2400);
     } else if (workingDeleting && workingText === "") {
       setWorkingDeleting(false);
       setWorkingIndex(prev => (prev + 1) % CURRENTLY_WORKING_ON.length);
@@ -390,42 +226,46 @@ function Home() {
     setModalOpen(true);
   };
 
+  const toggleCategory = (catId) => {
+    setExpandedCategory(prev => (prev === catId ? null : catId));
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col relative selection:bg-indigo-500 selection:text-white">
       
-      {/* Background gradients */}
-      <div className="glow-indigo -top-20 -left-20"></div>
-      <div className="glow-purple top-[40%] right-10"></div>
-      <div className="glow-indigo bottom-20 left-10"></div>
+      {/* Background ambient glows */}
+      <div className="glow-indigo -top-20 -left-20 pointer-events-none"></div>
+      <div className="glow-purple top-[35%] right-10 pointer-events-none"></div>
+      <div className="glow-indigo bottom-20 left-10 pointer-events-none"></div>
 
       {/* Navigation Header */}
-      <nav className="border-b border-white/5 backdrop-blur-md bg-slate-950/70 sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <nav className="border-b border-white/5 backdrop-blur-md bg-slate-950/75 sticky top-0 z-40">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center">
-            <span className="font-bold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white to-slate-200 bg-clip-text text-transparent">
+            <a href="#about" className="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
               Karthik Nimmanagoti
-            </span>
+            </a>
           </div>
           
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-6">
             <a href="#about" className="text-xs text-slate-400 hover:text-white transition font-medium">About</a>
+            <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium">Services</a>
             <a href="#experience" className="text-xs text-slate-400 hover:text-white transition font-medium">Experience</a>
-            <a href="#work-with-me" className="text-xs text-slate-400 hover:text-white transition font-medium">Work With Me</a>
             <a href="#achievements" className="text-xs text-slate-400 hover:text-white transition font-medium">Achievements</a>
-            <a href="#journey" className="text-xs text-slate-400 hover:text-white transition font-medium hidden lg:inline">Journey</a>
             <a href="#projects" className="text-xs text-slate-400 hover:text-white transition font-medium">Projects</a>
+            <a href="#collaborations" className="text-xs text-slate-400 hover:text-white transition font-medium">Collaborations</a>
             <a 
               href="https://kar-thikexe.vercel.app/" 
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-xl transition flex items-center gap-1 shadow-sm shadow-indigo-500/5 animate-pulse"
+              className="text-xs text-indigo-400 hover:text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/20 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 shadow-sm shadow-indigo-500/5"
             >
-              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span>
+              <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span>
               Behind the Lens
             </a>
             
             <button
               onClick={() => openContactWithPurpose('Hire Me')}
-              className="px-4 py-2 text-xs bg-indigo-650 hover:bg-indigo-550 border border-indigo-500/20 font-bold text-white rounded-xl shadow-md transition cursor-pointer ml-4"
+              className="px-4 py-2 text-xs bg-indigo-600 hover:bg-indigo-500 border border-indigo-500/30 font-bold text-white rounded-xl shadow-md shadow-indigo-500/20 transition cursor-pointer ml-2"
             >
               Let's Talk
             </button>
@@ -435,27 +275,27 @@ function Home() {
           <div className="lg:hidden flex items-center">
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-slate-300 hover:text-white focus:outline-none"
+              className="text-slate-300 hover:text-white focus:outline-none p-1"
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Mobile Nav Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden px-4 py-4 bg-slate-950/95 border-b border-white/5 absolute w-full left-0 top-full flex flex-col gap-4 shadow-2xl">
-            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">About</a>
-            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Experience</a>
-            <a href="#work-with-me" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Work With Me</a>
-            <a href="#achievements" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Achievements</a>
-            <a href="#journey" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Journey</a>
-            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="text-sm text-slate-400 hover:text-white transition font-medium">Projects</a>
+          <div className="lg:hidden px-4 py-4 bg-slate-950/98 border-b border-white/5 absolute w-full left-0 top-full flex flex-col gap-3.5 shadow-2xl backdrop-blur-xl">
+            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="text-xs text-slate-300 hover:text-white transition font-semibold py-1">About</a>
+            <a href="#work-with-me" onClick={() => setMobileMenuOpen(false)} className="text-xs text-slate-300 hover:text-white transition font-semibold py-1">Services</a>
+            <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="text-xs text-slate-300 hover:text-white transition font-semibold py-1">Experience</a>
+            <a href="#achievements" onClick={() => setMobileMenuOpen(false)} className="text-xs text-slate-300 hover:text-white transition font-semibold py-1">Achievements</a>
+            <a href="#projects" onClick={() => setMobileMenuOpen(false)} className="text-xs text-slate-300 hover:text-white transition font-semibold py-1">Projects</a>
+            <a href="#collaborations" onClick={() => setMobileMenuOpen(false)} className="text-xs text-slate-300 hover:text-white transition font-semibold py-1">Collaborations</a>
             <a 
               href="https://kar-thikexe.vercel.app/" 
               onClick={() => setMobileMenuOpen(false)}
-              className="text-sm text-indigo-400 font-bold transition flex items-center gap-2"
+              className="text-xs text-indigo-400 font-bold transition flex items-center gap-2 py-1"
             >
               <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span>
               Behind the Lens
@@ -465,7 +305,7 @@ function Home() {
                 setMobileMenuOpen(false);
                 openContactWithPurpose('Hire Me');
               }}
-              className="mt-2 w-full px-4 py-2 text-sm bg-indigo-650 hover:bg-indigo-550 border border-indigo-500/20 font-bold text-white rounded-xl shadow-md transition cursor-pointer"
+              className="mt-1 w-full py-2.5 text-xs bg-indigo-600 hover:bg-indigo-500 font-bold text-white rounded-xl shadow-md transition cursor-pointer text-center"
             >
               Let's Talk
             </button>
@@ -474,30 +314,36 @@ function Home() {
       </nav>
 
       {/* Hero Section */}
-      <header id="about" className="max-w-5xl mx-auto text-center px-4 pt-16 pb-12 relative z-10">
-        <span className="inline-block px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-6">
+      <header id="about" className="max-w-4xl mx-auto text-center px-4 sm:px-6 pt-16 pb-12 relative z-10">
+        <span className="inline-block px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[11px] font-bold uppercase tracking-widest mb-6">
           PORTFOLIO 2026
         </span>
         
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 leading-tight text-white">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-3 leading-tight text-white font-display">
           KARTHIK <br />
-          <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
             NIMMANAGOTI
           </span>
         </h1>
 
-        <div className="h-[40px] mb-6 flex justify-center items-center">
-          <p className="text-lg md:text-xl text-slate-400 font-light">
-            I am a{' '}
-            <span className="cursor-blink font-bold text-slate-200 px-1">
+        {/* Strong Positioning Typewriter */}
+        <div className="h-[36px] mb-4 flex justify-center items-center">
+          <p className="text-base sm:text-lg lg:text-xl text-slate-300 font-light">
+            <span className="font-semibold text-white">
               {currentText}
             </span>
+            <span className="cursor-blink ml-0.5"></span>
           </p>
         </div>
 
+        {/* Supporting statement */}
+        <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mb-6 font-light">
+          "I build communities, digital experiences, events, and content that turn ideas into impact."
+        </p>
+
         {/* Live Status Indicator */}
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/60 border border-white/5 backdrop-blur-md text-[10px] text-slate-300 select-none shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/70 border border-white/5 backdrop-blur-md text-[10px] text-slate-300 select-none shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -510,9 +356,9 @@ function Home() {
         </div>
 
         {/* 3D Profile Frame */}
-        <div className="mb-10 relative inline-block group">
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition duration-500 animate-pulse"></div>
-          <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full p-2 bg-white/5 border border-white/10 shadow-2xl overflow-hidden">
+        <div className="mb-8 relative inline-block group">
+          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full blur-3xl opacity-20 group-hover:opacity-35 transition duration-500"></div>
+          <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full p-2 bg-white/5 border border-white/10 shadow-2xl overflow-hidden">
             <img 
               src="https://res.cloudinary.com/do4nuj2kh/image/upload/v1783330744/WhatsApp_Image_2026-07-01_at_7.32.30_PM_vbhtly.jpg"
               alt="Karthik Nimmanagoti" 
@@ -522,22 +368,30 @@ function Home() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        {/* CTA Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <a
             href="https://docs.google.com/document/d/1-krzGfTO1S0r_-o3d9VJGWPw3uuskL9JtvvCC1dPCek/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-6 py-3 bg-slate-900 hover:bg-slate-800 border border-white/10 text-slate-300 text-sm font-semibold rounded-xl transition cursor-pointer"
+            className="flex items-center gap-1.5 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 border border-white/10 text-slate-300 text-xs font-semibold rounded-xl transition cursor-pointer"
           >
-            <FileText size={14} />
+            <FileText size={13} />
             <span>View Resume</span>
           </a>
+          <button
+            onClick={() => openContactWithPurpose('Hire Me')}
+            className="flex items-center gap-1.5 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition shadow-md shadow-indigo-500/20 cursor-pointer"
+          >
+            <span>Let's Connect</span>
+            <ArrowRight size={13} />
+          </button>
         </div>
       </header>
 
-      {/* Impact Statistics */}
-      <section className="max-w-5xl mx-auto px-4 py-8 w-full relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Impact Statistics Row */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 py-6 w-full relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
           {STATS.map(stat => (
             <AnimatedCounter 
               key={stat.id} 
@@ -546,168 +400,389 @@ function Home() {
               suffix={stat.suffix} 
             />
           ))}
-
         </div>
       </section>
 
-      <ProfessionalExperience />
-
-      {/* Work With Me Section */}
-      <section id="work-with-me" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
+      {/* 01 — WORK WITH ME (Categorized & Streamlined) */}
+      <section id="work-with-me" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full inline-block mb-3">
+            01 — SERVICES
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
             Work With Me
           </h2>
-          <p className="text-slate-400 text-sm mt-2 max-w-2xl mx-auto leading-relaxed">
-            "I help startups, creators, businesses, and student communities build impactful digital experiences, events, and brands."
+          <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mt-2.5 font-light">
+            I help startups, creators, businesses, and student communities build impactful digital products, brand growth, and events.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {WORK_WITH_ME_SERVICES.map((srv) => (
-            <div key={srv.id} className={`p-6 rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between h-full border border-white/5 transition-all duration-300 ${srv.colorClass}`}>
-              <div className="flex-1 flex flex-col">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 shrink-0 ${srv.iconBgClass}`}>
-                  <ServiceIcon iconName={srv.icon} size={22} />
-                </div>
-                <h3 className="text-base font-extrabold text-white mb-2">{srv.title}</h3>
-                <p className="text-slate-450 text-[11px] leading-relaxed mb-4">{srv.description}</p>
-                
-                {/* Specific Services List */}
-                <div className="mb-4">
-                  <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Services</h4>
-                  <ul className="space-y-1.5 text-xs text-slate-300">
-                    {srv.services.map((service, sIdx) => (
-                      <li key={sIdx} className="flex items-start gap-1.5 leading-relaxed">
-                        <span className="text-indigo-400 font-bold select-none mt-0.5">•</span>
-                        <span>{service}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+        {/* 3 Core Service Categories */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-14">
+          {SERVICE_CATEGORIES.map((category) => {
+            const isCategoryExpanded = expandedCategory === category.id;
+            const categoryServices = WORK_WITH_ME_SERVICES.filter(s => category.serviceIds.includes(s.id));
 
-              <div className="mt-auto pt-4 border-t border-white/5">
-                {/* Tech Stack */}
-                {srv.techStack && (
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {srv.techStack.map((tech, tIdx) => (
-                      <span key={tIdx} className="text-[9px] text-indigo-300 font-bold bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded">
-                        {tech}
+            return (
+              <div 
+                key={category.id} 
+                className={`glass-panel rounded-3xl p-6 transition-all duration-300 border flex flex-col justify-between relative overflow-hidden ${category.border} ${
+                  isCategoryExpanded ? 'bg-slate-900/90 shadow-xl shadow-indigo-500/5' : 'bg-slate-950/60 hover:bg-slate-900/50'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
+                      CATEGORY {category.categoryNum}
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-500">{categoryServices.length} Services</span>
+                  </div>
+
+                  <h3 className="text-lg font-extrabold text-white mb-1.5 font-display">{category.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-4">{category.description}</p>
+
+                  {/* Included Services Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-6">
+                    {category.servicesIncluded.map((sName) => (
+                      <span key={sName} className="text-[10px] font-medium text-slate-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg">
+                        {sName}
                       </span>
                     ))}
                   </div>
-                )}
-                
-                {srv.id === 'photography' ? (
-                  <a
-                    href="https://kar-thikexe.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2 bg-indigo-650/10 hover:bg-indigo-650/20 border border-indigo-500/20 hover:border-indigo-500/40 text-indigo-300 hover:text-white text-[11px] font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
-                  >
-                    <span>View Photography Work</span>
-                    <ArrowUpRight size={12} />
-                  </a>
-                ) : (
-                  <button
-                    onClick={() => openContactWithPurpose(srv.title)}
-                    className="w-full py-2 bg-indigo-650/10 hover:bg-indigo-650/20 border border-indigo-500/20 hover:border-indigo-500/40 text-indigo-300 hover:text-white text-[11px] font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
-                  >
-                    <span>Inquire for Service</span>
-                    <ArrowRight size={12} />
-                  </button>
+                </div>
+
+                {/* Explore / View Services Trigger */}
+                <button
+                  onClick={() => toggleCategory(category.id)}
+                  aria-expanded={isCategoryExpanded}
+                  className="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-indigo-600/20 border border-white/10 hover:border-indigo-500/30 text-xs font-bold text-slate-200 hover:text-white transition flex items-center justify-between cursor-pointer"
+                >
+                  <span>{isCategoryExpanded ? 'Collapse Services' : 'Explore Services'}</span>
+                  {isCategoryExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} className="text-indigo-400" />}
+                </button>
+
+                {/* Expanded Individual Services Modal / Drawer */}
+                {isCategoryExpanded && (
+                  <div className="pt-6 mt-4 border-t border-white/10 space-y-5">
+                    {categoryServices.map((srv) => (
+                      <div key={srv.id} className="p-4 rounded-2xl bg-slate-900/80 border border-white/5">
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${srv.iconBgClass}`}>
+                            <ServiceIcon iconName={srv.icon} size={15} />
+                          </div>
+                          <h4 className="text-xs font-bold text-white">{srv.title}</h4>
+                        </div>
+                        <p className="text-[11px] text-slate-400 leading-relaxed mb-3">{srv.description}</p>
+
+                        <div className="space-y-1 mb-3">
+                          {srv.services.map((item, idx) => (
+                            <div key={idx} className="text-[10px] text-slate-300 flex items-start gap-1.5">
+                              <span className="text-indigo-400 select-none">•</span>
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {srv.techStack && (
+                          <div className="flex flex-wrap gap-1 mb-3 pt-2 border-t border-white/5">
+                            {srv.techStack.map(t => (
+                              <span key={t} className="text-[9px] text-indigo-300 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20 font-medium">
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        {srv.id === 'photography' ? (
+                          <a
+                            href="https://kar-thikexe.vercel.app/"
+                            className="w-full py-1.5 bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/30 text-indigo-300 hover:text-white text-[10px] font-bold rounded-lg transition flex items-center justify-center gap-1"
+                          >
+                            <span>View Photography Work</span>
+                            <ArrowUpRight size={11} />
+                          </a>
+                        ) : (
+                          <button
+                            onClick={() => openContactWithPurpose(srv.title)}
+                            className="w-full py-1.5 bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/30 text-indigo-300 hover:text-white text-[10px] font-bold rounded-lg transition flex items-center justify-center gap-1 cursor-pointer"
+                          >
+                            <span>Inquire for {srv.title}</span>
+                            <ArrowRight size={11} />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Why Work With Me */}
-        <div className="glass-panel p-8 md:p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-100 transition duration-500"></div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-            {/* Left Column */}
-            <div className="lg:col-span-5">
-              <span className="text-[10px] font-bold text-indigo-400 tracking-wider uppercase bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
-                Core Value
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-4 mb-4 bg-gradient-to-r from-white to-slate-350 bg-clip-text text-transparent">
-                Why Work With Me?
-              </h3>
-              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                I combine strong design principles with modern frontend expertise and leadership experience. This multidisciplinary profile ensures seamless execution from initial concept wireframes to fully shipped production systems.
-              </p>
-            </div>
-            
-            {/* Right Column Checklist */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {WHY_WORK_WITH_ME.map((item, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-slate-900/20 border border-white/5 hover:border-indigo-500/20 hover:bg-slate-900/40 transition duration-300 flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5 text-emerald-400">
-                    <Check size={14} className="stroke-[3]" />
-                  </div>
-                  <p className="text-slate-300 text-xs font-semibold leading-relaxed">
-                    {item}
-                  </p>
+        {/* 02 — WHY WORK WITH ME (Compact Feature Row) */}
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/5 relative overflow-hidden">
+          <div className="max-w-3xl mb-6">
+            <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
+              02 — VALUE PROPOSITION
+            </span>
+            <h3 className="text-xl sm:text-2xl font-extrabold text-white mt-2 mb-2 font-display">
+              Why Work With Me?
+            </h3>
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed font-light">
+              "I combine design, development, content, community, and event leadership to take ideas from planning to execution."
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {WHY_WORK_WITH_ME.map((strength, idx) => (
+              <div key={idx} className="p-3.5 rounded-2xl bg-slate-900/40 border border-white/5 flex items-start gap-2.5">
+                <div className="w-5 h-5 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0 mt-0.5 text-emerald-400">
+                  <Check size={12} className="stroke-[3]" />
                 </div>
-              ))}
-            </div>
+                <p className="text-slate-300 text-xs font-medium leading-snug">
+                  {strength}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* College Achievements Section */}
-      <section id="achievements" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
+      {/* 03 — PROFESSIONAL EXPERIENCE (Clean Career Timeline) */}
+      <ProfessionalExperience />
+
+      {/* 04 — COLLEGE ACHIEVEMENTS */}
+      <section id="achievements" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full inline-block mb-3">
+            04 — RECOGNITION
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
             College Achievements
           </h2>
-          <p className="text-slate-400 text-sm mt-1">Milestones, recognitions, and creative wins.</p>
+          <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mt-2.5 font-light">
+            Milestones, presidential honors, governance policy wins, and creative recognitions.
+          </p>
         </div>
 
-        {/* All College Achievements with Unified Master Design */}
+        {/* Master Case Study Achievement Cards */}
         <AchievementsSection />
       </section>
 
+      {/* 05 — MY GROWTH JOURNEY (Chronological Timeline) */}
       <GrowthJourney />
 
-      {/* Collaborations & Highlights */}
-      <section className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
+      {/* 06 — SELECTED WORK / TECHNICAL SHOWCASES */}
+      <section id="projects" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
-            Impact & Creator Collaborations
+          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full inline-block mb-3">
+            06 — SELECTED WORK
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
+            Technical Showcases & Freelance Work
           </h2>
-          <p className="text-slate-400 text-sm mt-1">Guest summits, summits, and workshops delivered to developers.</p>
+          <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mt-2.5 font-light">
+            Government event visual identities, production platforms, and scalable digital systems built for real impact.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Featured Project Showcase Card */}
+        {PROJECTS.filter(p => p.featured).map((proj, fIdx) => (
+          <div 
+            key={`featured-${fIdx}`}
+            className="glass-panel p-6 sm:p-8 md:p-9 rounded-[2rem] border border-indigo-500/25 hover:border-indigo-500/40 transition-all duration-500 shadow-2xl relative overflow-hidden group mb-8"
+          >
+            <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20"></div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center relative z-10">
+              {/* Left Details Column */}
+              <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-indigo-300 bg-indigo-500/15 border border-indigo-500/30 px-3 py-1 rounded-full">
+                      {proj.eyebrow || 'FEATURED PROJECT'}
+                    </span>
+                    {proj.badgeSecondary && (
+                      <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 rounded-full">
+                        {proj.badgeSecondary}
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white group-hover:text-indigo-200 transition-colors mb-1 font-display">
+                    {proj.title}
+                  </h3>
+                  <p className="text-indigo-300 text-xs sm:text-sm font-semibold mb-3">
+                    {proj.sub}
+                  </p>
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5 font-light">
+                    {proj.desc}
+                  </p>
+
+                  {/* Tags Chips */}
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {proj.tags?.map((tag, tIdx) => (
+                      <span key={tIdx} className="text-[10px] sm:text-[11px] text-slate-200 font-medium bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Result & Impact Callout */}
+                  <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-white/5 mb-6 flex items-start gap-2.5">
+                    <Check size={14} className="text-emerald-400 stroke-[3] mt-0.5 shrink-0" />
+                    <p className="text-xs text-slate-300 font-medium leading-relaxed">
+                      <span className="text-slate-500 font-bold uppercase text-[9px] block">Result & Execution</span>
+                      {proj.result}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Primary & Secondary Action CTAs */}
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <button 
+                    onClick={() => {
+                      setSelectedCaseStudy(proj);
+                      setCaseStudyInitialView('study');
+                    }}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-lg shadow-indigo-500/25 cursor-pointer"
+                  >
+                    <span>{proj.actionLabel || 'VIEW CASE STUDY →'}</span>
+                  </button>
+
+                  <button 
+                    onClick={() => {
+                      setSelectedCaseStudy(proj);
+                      setCaseStudyInitialView('gallery');
+                    }}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-indigo-500/30 text-slate-300 hover:text-white font-bold text-xs sm:text-sm rounded-xl transition cursor-pointer"
+                  >
+                    <span>{proj.secondaryActionLabel || 'VIEW GALLERY →'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Preview Image Column */}
+              <div 
+                onClick={() => {
+                  setSelectedCaseStudy(proj);
+                  setCaseStudyInitialView('study');
+                }}
+                className="lg:col-span-5 h-64 sm:h-80 rounded-2xl overflow-hidden border border-white/10 relative group/img cursor-pointer bg-slate-900 shadow-xl"
+              >
+                <img 
+                  src={proj.image} 
+                  alt={`${proj.title} preview`} 
+                  className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700 ease-out"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between glass-panel p-2.5 rounded-xl border border-white/10">
+                  <span className="text-[10px] font-bold text-slate-200 truncate">On-Ground Event Documentation</span>
+                  <span className="text-[10px] font-bold text-indigo-400 flex items-center gap-1 shrink-0">
+                    <span>Explore</span>
+                    <ArrowUpRight size={11} />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        {/* Regular Projects 2-column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+          {PROJECTS.filter(p => !p.featured).map((proj, idx) => (
+            <div key={idx} className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/5 hover:border-indigo-500/30 transition-all duration-300 flex flex-col justify-between group">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className="text-[9px] font-extrabold uppercase text-indigo-400 tracking-wider bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
+                    {proj.tag}
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-white group-hover:text-indigo-200 transition-colors mb-1">{proj.title}</h3>
+                <p className="text-slate-400 text-[11px] font-semibold mb-3">{proj.sub}</p>
+                <p className="text-slate-350 text-xs leading-relaxed mb-4">{proj.desc}</p>
+
+                {/* Tech Stack Chips */}
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {proj.tech.map((t, tIdx) => (
+                    <span key={tIdx} className="text-[10px] text-slate-300 font-medium bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-md">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Impact / Result Callout */}
+                <div className="p-3 rounded-xl bg-slate-900/50 border border-white/5 mb-5 flex items-start gap-2">
+                  <Check size={13} className="text-emerald-400 stroke-[3] mt-0.5 shrink-0" />
+                  <p className="text-[11px] text-slate-300 font-medium leading-relaxed">
+                    <span className="text-slate-500 font-bold uppercase text-[9px] block">Result & Impact</span>
+                    {proj.result}
+                  </p>
+                </div>
+              </div>
+
+              <a 
+                href={proj.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 bg-indigo-600/15 hover:bg-indigo-600/30 border border-indigo-500/30 text-indigo-300 hover:text-white text-xs font-bold rounded-xl transition"
+              >
+                <span>{proj.actionLabel || 'View Project'}</span>
+                <ArrowUpRight size={13} />
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 07 — PEOPLE, EVENTS & CONVERSATIONS (Consolidated & Clean) */}
+      <section id="collaborations" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
+        <div className="text-center mb-12">
+          <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full inline-block mb-3">
+            07 — COLLABORATIONS
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
+            People, Events & Conversations
+          </h2>
+          <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mt-2.5 font-light">
+            People I've hosted, collaborated with, and experiences I've helped bring to life.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {COLLABORATIONS.map((collab) => (
             <div 
               key={collab.id} 
               onClick={() => setSelectedCollab(collab)}
-              className="glass-panel rounded-2xl overflow-hidden hover:scale-[1.01] transition-all duration-300 border border-white/5 cursor-pointer group"
+              className="glass-panel rounded-2xl overflow-hidden hover:border-indigo-500/30 transition-all duration-300 border border-white/5 cursor-pointer group flex flex-col justify-between"
             >
-              <div className="h-48 overflow-hidden relative">
-                <img 
-                  src={collab.img} 
-                  alt={collab.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-                <span className="absolute top-4 left-4 bg-indigo-650/80 backdrop-blur-md text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
-                  {collab.tag}
-                </span>
+              <div>
+                <div className="h-44 overflow-hidden relative bg-slate-900">
+                  <img 
+                    src={collab.img} 
+                    alt={collab.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                  <span className="absolute top-3 left-3 bg-indigo-650/90 backdrop-blur-md text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                    {collab.category || collab.tag}
+                  </span>
+                </div>
+                <div className="p-4 sm:p-5">
+                  <h3 className="text-base font-bold text-white group-hover:text-indigo-300 transition-colors">
+                    {collab.title}
+                  </h3>
+                  <p className="text-slate-500 text-[10px] font-semibold mb-2">{collab.date}</p>
+                  <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed">{collab.desc}</p>
+                </div>
               </div>
-              <div className="p-5">
-                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-indigo-400 transition">
-                  {collab.title}
-                </h3>
-                <p className="text-slate-500 text-[10px] mb-2">{collab.date}</p>
-                <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed mb-4">{collab.desc}</p>
-                <span className="text-xs text-indigo-400 font-semibold group-hover:underline flex items-center gap-1">
+              <div className="px-4 sm:px-5 pb-4 pt-1 border-t border-white/5 flex items-center justify-between">
+                <span className="text-[10px] font-semibold text-slate-500">{collab.attendees}</span>
+                <span className="text-xs text-indigo-400 font-bold group-hover:underline flex items-center gap-1">
                   <span>View Details</span>
                   <ArrowUpRight size={12} />
                 </span>
@@ -717,114 +792,179 @@ function Home() {
         </div>
       </section>
 
-      {/* Projects Showcase */}
-      <section id="projects" className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
-            Technical Showcases
+      {/* 08 — TEACH AI FOR INDIA (Impact Case Study) */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
+        <div className="glass-panel p-6 sm:p-9 rounded-3xl border border-white/5 relative overflow-hidden">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <span className="text-[10px] font-extrabold uppercase text-indigo-400 tracking-wider bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
+              08 — SOCIAL IMPACT
+            </span>
+            <span className="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+              Grassroots Movement
+            </span>
+          </div>
+
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 font-display">
+            Teach AI for India
           </h2>
-          <p className="text-slate-400 text-sm mt-1">Tools and platforms developed to scale operations and audits.</p>
-        </div>
+          <p className="text-slate-350 text-xs sm:text-sm max-w-2xl leading-relaxed mb-6 font-light">
+            "{TEACH_AI_DATA.headline}"
+          </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {PROJECTS.map((proj, idx) => (
-            <div key={idx} className="p-6 rounded-2xl glass-panel glass-panel-hover flex flex-col justify-between">
-              <div>
-                <span className="text-[9px] font-black uppercase text-indigo-400 tracking-wider bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
-                  {proj.tag}
-                </span>
-                <h3 className="text-xl font-bold text-white mt-3 mb-1">{proj.title}</h3>
-                <p className="text-slate-400 text-[10px] font-semibold mb-3">{proj.sub}</p>
-                <p className="text-slate-400 text-xs leading-relaxed mb-6">{proj.desc}</p>
-                
-                {proj.skills && (
-                  <div className="flex flex-wrap gap-1.5 mb-6 pt-3 border-t border-white/5">
-                    {proj.skills.map((skill, sIdx) => (
-                      <span key={sIdx} className="text-[10px] text-slate-400 font-medium bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-md">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                )}
+          {/* Impact Stats Row */}
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-8">
+            {TEACH_AI_DATA.metrics.map((m, idx) => (
+              <div key={idx} className="p-3 sm:p-4 rounded-2xl bg-slate-900/50 border border-white/5 text-center">
+                <div className="text-xl sm:text-2xl font-extrabold text-white bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent font-display">
+                  {m.value}
+                </div>
+                <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">
+                  {m.label}
+                </div>
               </div>
+            ))}
+          </div>
 
-              <a 
-                href={proj.link} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 w-full py-2 bg-indigo-650/10 hover:bg-indigo-650/20 border border-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-lg transition"
-              >
-                <span>{proj.link.includes('docs.google.com') ? 'View Spreadsheet' : 'Launch App'}</span>
-                <ArrowUpRight size={12} />
-              </a>
+          {/* Two-Column Structure: Responsibilities vs Impact */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="p-5 rounded-2xl bg-slate-900/30 border border-white/5">
+              <h4 className="text-xs font-bold text-indigo-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>My Role & What I Own (Strategic POC)</span>
+              </h4>
+              <ul className="space-y-2">
+                {TEACH_AI_DATA.ownership.map((item, idx) => (
+                  <li key={idx} className="text-xs text-slate-300 leading-relaxed flex items-start gap-2">
+                    <span className="text-indigo-400 select-none">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
+
+            <div className="p-5 rounded-2xl bg-slate-900/30 border border-white/5">
+              <h4 className="text-xs font-bold text-emerald-300 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>The Community Impact</span>
+              </h4>
+              <ul className="space-y-2">
+                {TEACH_AI_DATA.impact.map((item, idx) => (
+                  <li key={idx} className="text-xs text-slate-300 leading-relaxed flex items-start gap-2">
+                    <span className="text-emerald-400 select-none">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Gallery Thumbnails */}
+          <div className="mb-6">
+            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+              <Camera size={12} className="text-indigo-400" />
+              <span>School Outreach Moments ({TEACH_AI_DATA.images.length} Photos)</span>
+            </h4>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {TEACH_AI_DATA.images.map((imgUrl, imgIdx) => (
+                <div 
+                  key={imgIdx} 
+                  onClick={() => setLightboxImage(imgUrl)}
+                  className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img cursor-pointer bg-slate-900"
+                >
+                  <img 
+                    src={imgUrl} 
+                    alt={`Teach AI for India moment ${imgIdx + 1}`}
+                    className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Expandable Full Story */}
+          <div className="pt-2 flex justify-between items-center">
+            <button
+              onClick={() => setTeachAIExpanded(!teachAIExpanded)}
+              className="text-xs font-bold text-indigo-400 hover:text-indigo-300 transition flex items-center gap-1 cursor-pointer"
+            >
+              <span>{teachAIExpanded ? 'Hide Detailed Story' : 'Read the Full Story →'}</span>
+              {teachAIExpanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+            </button>
+          </div>
+
+          {teachAIExpanded && (
+            <div className="mt-6 pt-5 border-t border-white/10 space-y-4 text-left">
+              <p className="text-xs text-slate-300 leading-relaxed">
+                {TEACH_AI_DATA.fullStory.description}
+              </p>
+              <p className="text-xs text-slate-400 italic border-l-2 border-indigo-500/40 pl-3">
+                "{TEACH_AI_DATA.fullStory.reflection}"
+              </p>
+              <div className="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-[11px] text-slate-400 leading-relaxed">
+                <span className="font-bold text-indigo-300 uppercase text-[9px] block mb-0.5">Acknowledgements</span>
+                {TEACH_AI_DATA.fullStory.thanks}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Behind the Lens Teaser Section */}
-      <section className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
-        <div className="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
-          {/* Subtle backgrounds */}
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-purple-500/5 opacity-100 transition duration-500"></div>
+      {/* 09 — BEHIND THE LENS */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
+        <div className="glass-panel p-6 sm:p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-purple-500/5 opacity-100 transition duration-500 pointer-events-none"></div>
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             {/* Left Content */}
             <div className="lg:col-span-6 space-y-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                </span>
-                New Section
+              <span className="text-[10px] font-extrabold uppercase text-indigo-400 tracking-wider bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block">
+                09 — VISUAL ARTS
               </span>
               
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight uppercase font-display">
-                Behind the <br />
-                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  Lens
-                </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight font-display">
+                Behind the Lens
               </h2>
               
               <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                Step into an immersive, cinematic visual experience. Witness the world through the perspective of a mobile storyteller, featuring raw vs. edited photograph sliders, interactive filtered grids, and the stories behind the shots.
+                "A visual side of my work — photography, storytelling and moments captured through my lens."
               </p>
               
               <div className="pt-2">
                 <a
                   href="https://kar-thikexe.vercel.app/"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black hover:bg-slate-100 font-bold text-xs rounded-full transition shadow-lg cursor-pointer group/btn"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 hover:bg-slate-100 font-bold text-xs rounded-full transition shadow-lg cursor-pointer"
                 >
                   <span>Enter Cinematic Gallery</span>
-                  <ArrowRight size={12} className="group-hover/btn:translate-x-0.5 transition-transform" />
+                  <ArrowRight size={13} />
                 </a>
               </div>
             </div>
             
             {/* Right Graphic Preview */}
-            <div className="lg:col-span-6 grid grid-cols-3 gap-3">
-              <div className="space-y-3">
-                <div className="h-28 sm:h-36 rounded-2xl overflow-hidden border border-white/10 relative group/img">
-                  <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Night city lights and creative long-exposure photography" loading="lazy" />
+            <div className="lg:col-span-6 grid grid-cols-3 gap-2.5">
+              <div className="space-y-2.5">
+                <div className="h-28 sm:h-32 rounded-2xl overflow-hidden border border-white/10 relative group/img bg-slate-900">
+                  <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Night city lights" loading="lazy" />
                 </div>
-                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Candid portrait photography captured by Karthik Nimmanagoti" loading="lazy" />
-                </div>
-              </div>
-              <div className="space-y-3 pt-6">
-                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img">
-                  <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Atmospheric landscape and nature storytelling photography" loading="lazy" />
-                </div>
-                <div className="h-28 sm:h-36 rounded-2xl overflow-hidden border border-white/10 relative group/img">
-                  <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="High-energy tech event and esports gaming coverage" loading="lazy" />
+                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img bg-slate-900">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Portrait photography" loading="lazy" />
                 </div>
               </div>
-              <div className="space-y-3">
-                <div className="h-28 sm:h-36 rounded-2xl overflow-hidden border border-white/10 relative group/img">
-                  <img src="/photography/after_slider.png" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Cinematic color-graded photo edit by Karthik Nimmanagoti" loading="lazy" />
+              <div className="space-y-2.5 pt-4">
+                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img bg-slate-900">
+                  <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Landscape photography" loading="lazy" />
                 </div>
-                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img">
-                  <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Professional camera equipment and behind-the-scenes gear" loading="lazy" />
+                <div className="h-28 sm:h-32 rounded-2xl overflow-hidden border border-white/10 relative group/img bg-slate-900">
+                  <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Event coverage" loading="lazy" />
+                </div>
+              </div>
+              <div className="space-y-2.5">
+                <div className="h-28 sm:h-32 rounded-2xl overflow-hidden border border-white/10 relative group/img bg-slate-900">
+                  <img src="/photography/after_slider.png" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Color grading" loading="lazy" />
+                </div>
+                <div className="h-20 sm:h-24 rounded-2xl overflow-hidden border border-white/10 relative group/img bg-slate-900">
+                  <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=300" className="w-full h-full object-cover grayscale group-hover/img:grayscale-0 transition duration-500" alt="Camera equipment" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -832,78 +972,38 @@ function Home() {
         </div>
       </section>
 
-      {/* Action Moments Gallery */}
-      <section className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
-            Moments in Action
-          </h2>
-          <p className="text-slate-400 text-sm mt-1">Glimpses of operational logistics and community events.</p>
-        </div>
-
-        {/* Featured Event Experience */}
-        <div className="space-y-12 mb-12">
-          {FEATURED_EVENTS.map((event, idx) => (
-            <FeaturedEvent key={idx} event={event} onImageClick={setLightboxImage} />
-          ))}
-        </div>
-
-        {/* Other Gallery Moments */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {GALLERY.map((imgUrl, idx) => (
-            <div 
-              key={idx} 
-              onClick={() => setLightboxImage(imgUrl)}
-              className="glass-panel p-2 rounded-2xl border border-white/5 hover:scale-[1.01] transition duration-300 cursor-zoom-in"
-            >
-              <div className="relative h-52 rounded-xl overflow-hidden bg-slate-900 border border-white/5 flex items-center justify-center">
-                <div 
-                  className="absolute inset-0 w-full h-full bg-cover bg-center blur-md opacity-30 select-none scale-105"
-                  style={{ backgroundImage: `url(${imgUrl})` }}
-                ></div>
-                <img 
-                  src={imgUrl} 
-                  className="relative w-full h-full object-contain rounded-xl z-10" 
-                  alt={`Gallery detail ${idx + 1}`} 
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="max-w-4xl mx-auto px-4 py-16 w-full relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+      {/* 10 — MENTORS & TRUST */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16 w-full relative z-10">
+        <div className="text-center mb-8">
+          <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-2">
+            10 — TRUST
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
             Mentors & Trust
           </h2>
         </div>
 
-        <div className="glass-panel p-6 md:p-8 rounded-3xl relative overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-24 h-24 bg-indigo-500/15 rounded-full blur-2xl"></div>
-          
-          <p className="text-slate-300 text-xs md:text-sm italic leading-relaxed mb-6">
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl relative overflow-hidden border border-white/5">
+          <p className="text-slate-300 text-xs sm:text-sm italic leading-relaxed mb-6 font-normal">
             {TESTIMONIAL.quote}
           </p>
           
-          <div className="flex items-center gap-4 border-t border-white/5 pt-4">
+          <div className="flex items-center gap-3.5 border-t border-white/5 pt-4">
             <img 
               src={TESTIMONIAL.img} 
               alt={TESTIMONIAL.name} 
-              className="w-12 h-12 rounded-full object-cover border border-white/10"
+              className="w-11 h-11 rounded-full object-cover border border-white/10 shrink-0"
               loading="lazy"
             />
             <div>
-              <h4 className="font-bold text-white flex items-center gap-1.5 text-sm md:text-base">
+              <h4 className="font-bold text-white flex items-center gap-1.5 text-sm">
                 <span>{TESTIMONIAL.name}</span>
                 <a 
                   href={TESTIMONIAL.linkedin} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-indigo-400 hover:text-indigo-300 transition"
-                  title="LinkedIn"
+                  title="LinkedIn Profile"
                 >
                   <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </a>
@@ -914,72 +1014,47 @@ function Home() {
         </div>
       </section>
 
-      {/* Licenses & Certifications */}
-      <section className="max-w-6xl mx-auto px-4 py-16 w-full relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+      {/* 11 — LICENSES & CERTIFICATIONS (Compact Footer Credentials) */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-16 w-full relative z-10">
+        <div className="text-center mb-10">
+          <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-2">
+            11 — CREDENTIALS
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
             Licenses & Certifications
           </h2>
-          <p className="text-slate-400 text-sm mt-1">Industry certifications validating technical skillsets.</p>
+          <p className="text-slate-400 text-xs mt-1">Verified industry certifications validating marketing and technical skills.</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {CERTIFICATIONS.map((cert, idx) => {
             const isModal = cert.link === '#';
             return (
               <div 
                 key={idx} 
                 onClick={() => isModal ? setSelectedCert(cert) : window.open(cert.link, '_blank')}
-                className="glass-panel p-5 rounded-2xl block hover:border-indigo-500/30 transition group cursor-pointer flex flex-col justify-between"
+                className="glass-panel p-4 rounded-2xl hover:border-indigo-500/30 transition group cursor-pointer flex flex-col justify-between border border-white/5"
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => { if(e.key === 'Enter') isModal ? setSelectedCert(cert) : window.open(cert.link, '_blank'); }}
                 aria-label={`View ${cert.title} certificate`}
               >
                 <div>
-                  <div className="h-40 overflow-hidden rounded-xl relative mb-4">
-                    <img 
-                      src={cert.img} 
-                      alt={isModal ? `${cert.issuer} ${cert.title} certificate awarded to Karthik Nimmanagoti` : cert.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                      loading="lazy"
-                    />
-                    {cert.verified && (
-                      <div className="absolute top-2 left-2 bg-indigo-600/90 backdrop-blur text-white text-[9px] font-black uppercase px-2 py-0.5 rounded flex items-center gap-1 shadow-lg">
-                        <CheckCircle2 size={10} /> Verified Certification
-                      </div>
-                    )}
-                  </div>
                   <div className="flex justify-between items-start mb-1 gap-2">
-                    <h3 className="font-bold text-white text-sm leading-snug group-hover:text-indigo-400 transition">
+                    <h3 className="font-bold text-white text-xs leading-snug group-hover:text-indigo-300 transition">
                       {cert.title}
                     </h3>
                     <span className="text-[9px] font-bold bg-white/5 border border-white/10 px-2 py-0.5 rounded shrink-0">
                       {cert.date}
                     </span>
                   </div>
-                  <p className="text-indigo-400 font-semibold text-[10px] mb-2">{cert.issuer}</p>
-                  <p className="text-slate-400 text-xs leading-relaxed line-clamp-2">{cert.desc}</p>
-                  
-                  {cert.skills && (
-                    <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/5">
-                      {cert.skills.slice(0, 3).map((skill, sIdx) => (
-                        <span key={sIdx} className="text-[9px] text-slate-400 font-medium bg-white/5 border border-white/10 px-2 py-0.5 rounded">
-                          {skill}
-                        </span>
-                      ))}
-                      {cert.skills.length > 3 && (
-                        <span className="text-[9px] text-slate-500 font-medium px-1 py-0.5">
-                          +{cert.skills.length - 3} more
-                        </span>
-                      )}
-                    </div>
-                  )}
+                  <p className="text-indigo-400 font-semibold text-[10px] mb-1.5">{cert.issuer}</p>
+                  <p className="text-slate-400 text-[11px] leading-relaxed line-clamp-2">{cert.desc}</p>
                 </div>
                 
-                <div className="mt-4 pt-3 border-t border-white/5 flex justify-end">
-                  <span className="text-xs font-semibold text-indigo-400 group-hover:text-indigo-300 transition flex items-center gap-1">
-                    View Certificate <ChevronRight size={14} />
+                <div className="mt-3 pt-2 border-t border-white/5 flex justify-end">
+                  <span className="text-[10px] font-semibold text-indigo-400 group-hover:text-indigo-300 transition flex items-center gap-1">
+                    View Certificate <ChevronRight size={12} />
                   </span>
                 </div>
               </div>
@@ -988,37 +1063,40 @@ function Home() {
         </div>
       </section>
 
-      {/* Frequently Asked Questions */}
-      <section className="max-w-4xl mx-auto px-4 py-16 w-full relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+      {/* 12 — FREQUENTLY ASKED QUESTIONS */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16 w-full relative z-10">
+        <div className="text-center mb-10">
+          <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-2">
+            12 — FAQ
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
             Frequently Asked Questions
           </h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3.5">
           {FAQS.map((faq, idx) => (
             <FAQItem key={idx} faq={faq} />
           ))}
         </div>
       </section>
 
-      {/* Bottom CTA block */}
-      <section className="max-w-4xl mx-auto px-4 py-16 w-full text-center relative z-10">
-        <div className="glass-panel p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+      {/* 13 — FINAL CALL TO ACTION */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16 w-full text-center relative z-10">
+        <div className="glass-panel p-8 sm:p-12 rounded-[2.5rem] relative overflow-hidden group border border-white/5">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-100 transition duration-500 pointer-events-none"></div>
           
-          <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white mb-3 font-display">
             Ready to Create Impact?
           </h2>
-          <p className="text-slate-450 text-xs md:text-sm max-w-lg mx-auto mb-6 leading-relaxed">
-            Whether it's scaling your brand presence, automating LinkedIn content, or organizing a massive summit, let's connect and build it.
+          <p className="text-slate-350 text-xs sm:text-sm max-w-lg mx-auto mb-6 leading-relaxed font-light">
+            Whether you're building a digital product, growing a community, launching an event, or strengthening your brand — let's build it.
           </p>
           <button
-            onClick={() => openContactWithPurpose('Other')}
-            className="flex items-center gap-2 px-8 py-3 bg-white text-slate-950 hover:bg-slate-100 font-bold text-sm rounded-full transition shadow-lg cursor-pointer mx-auto"
+            onClick={() => openContactWithPurpose('Project Inquiry')}
+            className="flex items-center gap-2 px-8 py-3 bg-white text-slate-950 hover:bg-slate-100 font-extrabold text-xs sm:text-sm rounded-full transition shadow-lg cursor-pointer mx-auto"
           >
-            <span>Start a Conversation</span>
+            <span>LET'S BUILD SOMETHING</span>
             <ArrowRight size={14} />
           </button>
         </div>
@@ -1045,70 +1123,10 @@ function Home() {
         <p className="mt-1">Designed with React + Supabase + EmailJS.</p>
       </footer>
 
-      {/* RESUME SIDEBAR OVERLAY */}
-      <div 
-        className={`fixed top-0 right-0 h-full w-full sm:w-[460px] bg-slate-950/95 backdrop-blur-xl border-l border-white/10 shadow-2xl z-50 p-6 flex flex-col justify-between transition-transform duration-500 ${
-          resumeOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex justify-between items-center pb-4 border-b border-white/10">
-          <h2 className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-            Resume Overview
-          </h2>
-          <button 
-            onClick={() => setResumeOpen(false)}
-            className="p-1 hover:bg-white/10 rounded-full transition cursor-pointer text-slate-400 hover:text-white"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        {/* Abstract mock resume representation */}
-        <div className="flex-1 bg-slate-900/50 border border-white/5 rounded-2xl flex flex-col items-center justify-center p-6 my-6 relative overflow-hidden">
-          <div className="w-40 h-56 bg-slate-950 border border-white/10 rounded-lg shadow-2xl p-4 space-y-3 transform rotate-2 hover:rotate-0 transition duration-300">
-            <div className="h-3 w-10 bg-indigo-500/20 rounded"></div>
-            <div className="h-1.5 w-full bg-slate-800 rounded"></div>
-            <div className="h-1.5 w-3/4 bg-slate-800 rounded"></div>
-            <div className="h-12 w-full bg-slate-900/50 border border-white/5 rounded"></div>
-            <div className="space-y-1.5 pt-2">
-              <div className="h-1.5 w-full bg-slate-800 rounded"></div>
-              <div className="h-1.5 w-5/6 bg-slate-800 rounded"></div>
-            </div>
-          </div>
-          <div className="text-center mt-6">
-            <p className="text-sm font-semibold text-slate-200">Karthik's Professional Resume</p>
-            <p className="text-[10px] text-slate-500 mt-1">PDF Format • 2026 Edition</p>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <a
-            href="https://docs.google.com/document/d/1-krzGfTO1S0r_-o3d9VJGWPw3uuskL9JtvvCC1dPCek/edit?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-650 hover:bg-indigo-550 text-white text-xs font-bold rounded-xl transition shadow-lg cursor-pointer"
-          >
-            <FileText size={14} />
-            <span>Open Google Doc</span>
-          </a>
-          <button
-            onClick={() => {
-              setResumeOpen(false);
-              openContactWithPurpose('Hire Me');
-            }}
-            className="w-full py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-xs font-semibold rounded-xl transition cursor-pointer"
-          >
-            Request Custom Formats
-          </button>
-        </div>
-      </div>
-
       {/* COLLABORATIONS DETAIL MODAL */}
       {selectedCollab && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto">
-          <div className="relative w-full max-w-2xl rounded-2xl glass-panel animate-scale-in my-8 overflow-hidden">
-            <div className="glow-indigo -top-20 -left-20"></div>
-            
+          <div className="relative w-full max-w-xl rounded-2xl glass-panel animate-scale-in my-8 overflow-hidden border border-white/10 shadow-2xl">
             <button
               onClick={() => setSelectedCollab(null)}
               className="absolute top-4 right-4 p-2 text-white/70 hover:text-white rounded-full bg-black/40 hover:bg-black/60 transition backdrop-blur-sm z-10 cursor-pointer"
@@ -1116,41 +1134,53 @@ function Home() {
               <X size={18} />
             </button>
 
-            <div className="h-64 sm:h-72 overflow-hidden relative">
+            <div className="h-56 overflow-hidden relative">
               <img 
                 src={selectedCollab.img} 
                 alt={selectedCollab.title} 
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
-              <div className="absolute bottom-6 left-6">
-                <span className="px-3 py-1 bg-indigo-650 text-white text-[9px] font-black uppercase rounded-full tracking-wider mb-2 inline-block">
-                  {selectedCollab.tag}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+              <div className="absolute bottom-4 left-5">
+                <span className="px-2.5 py-0.5 bg-indigo-650 text-white text-[9px] font-black uppercase rounded-full tracking-wider mb-1.5 inline-block">
+                  {collabTag(selectedCollab)}
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                <h3 className="text-xl sm:text-2xl font-extrabold text-white">
                   {selectedCollab.title}
                 </h3>
               </div>
             </div>
 
-            <div className="p-6 md:p-8">
-              <div className="flex flex-wrap gap-4 text-xs text-slate-400 border-b border-white/5 pb-4 mb-5 font-medium">
+            <div className="p-5 sm:p-6">
+              <div className="flex flex-wrap gap-4 text-xs text-slate-400 border-b border-white/5 pb-3 mb-4 font-medium">
                 <div className="flex items-center gap-1.5">
-                  <Calendar size={14} className="text-indigo-400" />
+                  <Calendar size={13} className="text-indigo-400" />
                   <span>{selectedCollab.date}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Users size={14} className="text-purple-400" />
+                  <Users size={13} className="text-purple-400" />
                   <span>{selectedCollab.attendees}</span>
                 </div>
               </div>
 
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
                 {selectedCollab.desc}
               </p>
 
-              <div className="flex justify-between items-center">
-                <div className="flex gap-3">
+              {selectedCollab.roles && (
+                <div className="mb-5 space-y-1.5 p-3 rounded-xl bg-slate-900/50 border border-white/5">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Key Ownership</span>
+                  {selectedCollab.roles.map((r, idx) => (
+                    <div key={idx} className="text-xs text-slate-300 flex items-start gap-1.5">
+                      <span className="text-indigo-400 select-none">•</span>
+                      <span>{r}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div className="flex justify-between items-center pt-2">
+                <div className="flex gap-2">
                   {selectedCollab.links?.linkedin && (
                     <a href={selectedCollab.links.linkedin} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg bg-slate-900 border border-white/10 hover:border-indigo-500/30 flex items-center justify-center text-slate-400 hover:text-indigo-400 transition" title="LinkedIn">
                       <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -1173,9 +1203,9 @@ function Home() {
                     setSelectedCollab(null);
                     openContactWithPurpose('Event Collaboration');
                   }}
-                  className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-xl shadow-lg transition cursor-pointer"
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs rounded-xl shadow-lg transition cursor-pointer"
                 >
-                  Propose Similar Event
+                  Propose Collaboration
                 </button>
               </div>
             </div>
@@ -1206,48 +1236,41 @@ function Home() {
           onClick={() => setSelectedCert(null)}
         >
           <div 
-            className="relative max-w-4xl w-full max-h-[90vh] overflow-y-auto glass-panel border border-white/10 rounded-2xl shadow-2xl animate-scale-in"
+            className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto glass-panel border border-white/10 rounded-2xl shadow-2xl animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="sticky top-0 bg-slate-900/90 backdrop-blur border-b border-white/5 p-4 flex justify-between items-center z-10">
               <div>
-                <h3 className="text-lg font-bold text-white leading-tight">{selectedCert.title}</h3>
+                <h3 className="text-base font-bold text-white leading-tight">{selectedCert.title}</h3>
                 <p className="text-indigo-400 text-xs font-semibold">{selectedCert.issuer}</p>
               </div>
               <button
                 onClick={() => setSelectedCert(null)}
-                className="p-2 text-white/70 hover:text-white rounded-full bg-white/5 hover:bg-white/10 transition border border-white/5"
+                className="p-1.5 text-white/70 hover:text-white rounded-full bg-white/5 hover:bg-white/10 transition border border-white/5"
                 aria-label="Close certificate viewer"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
             
-            <div className="p-6 md:p-8 flex flex-col items-center">
-              <div className="w-full max-w-3xl mb-8 rounded-xl overflow-hidden border border-white/5 shadow-2xl bg-black/50 p-2">
+            <div className="p-5 sm:p-6 flex flex-col items-center">
+              <div className="w-full max-w-xl mb-6 rounded-xl overflow-hidden border border-white/5 shadow-2xl bg-black/50 p-2">
                 <img 
                   src={selectedCert.img} 
-                  alt={`${selectedCert.issuer} ${selectedCert.title} certificate awarded to Karthik Nimmanagoti`} 
-                  className="w-full h-auto max-h-[60vh] object-contain rounded-lg select-none"
+                  alt={`${selectedCert.issuer} ${selectedCert.title} certificate`} 
+                  className="w-full h-auto max-h-[55vh] object-contain rounded-lg select-none"
                 />
               </div>
               
-              <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-                <div className="glass-panel p-4 rounded-xl">
-                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-1">Issue Date</p>
-                  <p className="text-slate-200 text-sm font-semibold">{selectedCert.date}</p>
+              <div className="w-full max-w-xl grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+                <div className="glass-panel p-3.5 rounded-xl border border-white/5">
+                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-0.5">Issue Year</p>
+                  <p className="text-slate-200 text-xs font-semibold">{selectedCert.date}</p>
                 </div>
                 
-                {selectedCert.validUntil && (
-                  <div className="glass-panel p-4 rounded-xl">
-                    <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-1">Valid Until</p>
-                    <p className="text-slate-200 text-sm font-semibold">{selectedCert.validUntil}</p>
-                  </div>
-                )}
-                
                 {selectedCert.code && (
-                  <div className="glass-panel p-4 rounded-xl sm:col-span-1">
-                    <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-1">Credential ID</p>
+                  <div className="glass-panel p-3.5 rounded-xl border border-white/5">
+                    <p className="text-slate-500 text-[10px] font-bold uppercase tracking-wider mb-0.5">Credential ID</p>
                     <p className="text-slate-300 text-xs font-mono break-all">{selectedCert.code}</p>
                   </div>
                 )}
@@ -1265,25 +1288,39 @@ function Home() {
         >
           <button
             onClick={() => setLightboxImage(null)}
-            className="absolute top-6 right-6 p-2.5 text-white/70 hover:text-white rounded-full bg-slate-900/50 hover:bg-slate-900/80 transition z-50 border border-white/10"
+            className="absolute top-6 right-6 p-2 text-white/70 hover:text-white rounded-full bg-slate-900/50 hover:bg-slate-900/80 transition z-50 border border-white/10"
+            aria-label="Close image preview"
           >
-            <X size={24} />
+            <X size={20} />
           </button>
           
           <div 
-            className="relative max-w-5xl max-h-[85vh] overflow-hidden rounded-2xl border border-white/10 shadow-2xl flex items-center justify-center animate-scale-in"
+            className="relative max-w-4xl max-h-[85vh] overflow-hidden rounded-2xl border border-white/10 shadow-2xl flex items-center justify-center animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
             <img 
               src={lightboxImage} 
-              alt="Enlarged view" 
+              alt="Enlarged moment" 
               className="max-w-full max-h-[80vh] object-contain rounded-xl select-none"
             />
           </div>
         </div>
       )}
+
+      {/* Featured Case Study Modal */}
+      <ProjectCaseStudyModal 
+        project={selectedCaseStudy} 
+        isOpen={!!selectedCaseStudy} 
+        onClose={() => setSelectedCaseStudy(null)} 
+        initialView={caseStudyInitialView}
+      />
     </div>
   );
+}
+
+// Helper for collab tag
+function collabTag(c) {
+  return c.category || c.tag;
 }
 
 function NotFound() {
@@ -1300,9 +1337,9 @@ function NotFound() {
         <span className="inline-block px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold uppercase tracking-wider mb-4">
           Error 404
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">Page Not Found</h1>
-        <p className="text-slate-400 text-sm mb-8 leading-relaxed">
-          The page you are looking for doesn't exist or has moved. Explore the portfolio to discover projects, achievements, and experiences.
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3 font-display">Page Not Found</h1>
+        <p className="text-slate-400 text-sm mb-8 leading-relaxed font-light">
+          The page you are looking for doesn't exist or has moved.
         </p>
         <Link 
           to="/" 

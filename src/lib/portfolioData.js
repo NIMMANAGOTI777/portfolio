@@ -4,11 +4,48 @@ export const STATS = [
   { id: 'events', label: 'Events Led', target: 10, suffix: '+' },
 ];
 
+export const SERVICE_CATEGORIES = [
+  {
+    id: 'digital',
+    categoryNum: '01',
+    title: 'DIGITAL',
+    subtitle: 'Web Platforms & Digital Products',
+    description: 'Modern, high-performance web applications, intuitive UI/UX design systems, and structured digital product consulting.',
+    servicesIncluded: ['Web Development', 'UI/UX & Figma Design', 'Product Strategy & Consulting'],
+    serviceIds: ['web-dev', 'ui-ux', 'product-strategy'],
+    accent: 'from-indigo-500/20 via-blue-500/10 to-transparent',
+    border: 'border-indigo-500/20 hover:border-indigo-500/40'
+  },
+  {
+    id: 'growth-content',
+    categoryNum: '02',
+    title: 'GROWTH & CONTENT',
+    subtitle: 'Brand Strategy & Storytelling',
+    description: 'Audience-first social media growth frameworks, high-retention video scripting, and distinct brand identity systems.',
+    servicesIncluded: ['Social Media Strategy', 'Content & Reels Script Writing', 'Creative Design & Branding'],
+    serviceIds: ['smm', 'script-writing', 'creative-design'],
+    accent: 'from-purple-500/20 via-pink-500/10 to-transparent',
+    border: 'border-purple-500/20 hover:border-purple-500/40'
+  },
+  {
+    id: 'experiences',
+    categoryNum: '03',
+    title: 'EXPERIENCES',
+    subtitle: 'Events & Cinematic Media',
+    description: 'End-to-end hackathon operations, campus fest logistics, and cinematic visual storytelling through photography.',
+    servicesIncluded: ['Event Management', 'Photography & Videography'],
+    serviceIds: ['event-mgmt', 'photography'],
+    accent: 'from-amber-500/20 via-rose-500/10 to-transparent',
+    border: 'border-amber-500/20 hover:border-amber-500/40'
+  }
+];
+
 export const WORK_WITH_ME_SERVICES = [
   {
     id: 'web-dev',
+    categoryId: 'digital',
     title: 'Web Development',
-    description: 'Modern, responsive websites built for performance and growth.',
+    description: 'Modern, responsive websites built for performance, conversion, and growth.',
     icon: 'globe',
     services: [
       'Portfolio Websites',
@@ -24,8 +61,9 @@ export const WORK_WITH_ME_SERVICES = [
   },
   {
     id: 'ui-ux',
+    categoryId: 'digital',
     title: 'UI/UX & Figma Design',
-    description: 'Designs focused on clarity, usability, and conversion.',
+    description: 'Designs focused on clarity, usability, visual aesthetics, and user conversion.',
     icon: 'palette',
     services: [
       'Website UI Design',
@@ -40,27 +78,27 @@ export const WORK_WITH_ME_SERVICES = [
     iconBgClass: 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400',
   },
   {
-    id: 'event-mgmt',
-    title: 'Event Management',
-    description: 'Professional planning and execution for memorable events.',
-    icon: 'calendar',
+    id: 'product-strategy',
+    categoryId: 'digital',
+    title: 'Product Strategy & Consulting',
+    description: 'Helping turn raw ideas into structured, scalable digital products and workflows.',
+    icon: 'layers',
     services: [
-      'College Fests',
-      'Hackathons',
-      'Workshops',
-      'Tech Conferences',
-      'Guest Management',
-      'Registration Operations',
-      'Event Branding',
-      'On-ground Coordination'
+      'MVP Planning',
+      'Feature Prioritization',
+      'Product Roadmaps',
+      'User Journey Mapping',
+      'Market Research',
+      'Product Documentation'
     ],
-    colorClass: 'hover:border-rose-500/50',
-    iconBgClass: 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400',
+    colorClass: 'hover:border-emerald-500/50',
+    iconBgClass: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
   },
   {
     id: 'smm',
+    categoryId: 'growth-content',
     title: 'Social Media Strategy',
-    description: 'Helping brands and creators build a strong online presence.',
+    description: 'Helping brands and creators build an organic, highly engaged digital presence.',
     icon: 'trending-up',
     services: [
       'Instagram Growth Strategy',
@@ -75,8 +113,9 @@ export const WORK_WITH_ME_SERVICES = [
   },
   {
     id: 'script-writing',
+    categoryId: 'growth-content',
     title: 'Content & Reels Script Writing',
-    description: 'Story-driven content designed to engage audiences.',
+    description: 'Story-driven short-form video scripts designed to educate and convert audiences.',
     icon: 'pen-tool',
     services: [
       'Instagram Reels Scripts',
@@ -92,8 +131,9 @@ export const WORK_WITH_ME_SERVICES = [
   },
   {
     id: 'creative-design',
+    categoryId: 'growth-content',
     title: 'Creative Design & Branding',
-    description: 'High-quality marketing assets that stand out.',
+    description: 'High-quality marketing assets and brand identities that stand out.',
     icon: 'award',
     services: [
       'Event Posters',
@@ -108,9 +148,29 @@ export const WORK_WITH_ME_SERVICES = [
     iconBgClass: 'bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400',
   },
   {
+    id: 'event-mgmt',
+    categoryId: 'experiences',
+    title: 'Event Management',
+    description: 'Professional planning, operational infrastructure, and execution for high-density events.',
+    icon: 'calendar',
+    services: [
+      'College Fests',
+      'Hackathons',
+      'Workshops',
+      'Tech Conferences',
+      'Guest Management',
+      'Registration Operations',
+      'Event Branding',
+      'On-ground Coordination'
+    ],
+    colorClass: 'hover:border-rose-500/50',
+    iconBgClass: 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400',
+  },
+  {
     id: 'photography',
+    categoryId: 'experiences',
     title: 'Photography & Videography',
-    description: 'Capturing events with a professional storytelling approach.',
+    description: 'Capturing events and moments with a cinematic visual storytelling approach.',
     icon: 'video',
     services: [
       'Event Photography',
@@ -122,22 +182,6 @@ export const WORK_WITH_ME_SERVICES = [
     ],
     colorClass: 'hover:border-cyan-500/50',
     iconBgClass: 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400',
-  },
-  {
-    id: 'product-strategy',
-    title: 'Product Strategy & Consulting',
-    description: 'Helping turn ideas into structured digital products.',
-    icon: 'layers',
-    services: [
-      'MVP Planning',
-      'Feature Prioritization',
-      'Product Roadmaps',
-      'User Journey Mapping',
-      'Market Research',
-      'Product Documentation'
-    ],
-    colorClass: 'hover:border-emerald-500/50',
-    iconBgClass: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
   }
 ];
 
@@ -147,9 +191,8 @@ export const WHY_WORK_WITH_ME = [
   'Strong design and development skills',
   'Content-first marketing approach',
   'Fast communication and timely delivery',
-  'Solutions tailored for startups, creators, and student communities'
+  'Tailored solutions for startups, creators, and communities'
 ];
-
 
 export const ACHIEVEMENTS = [
   {
@@ -170,7 +213,7 @@ export const ACHIEVEMENTS = [
     priority: 2,
     title: 'Best Student Awardee',
     issuer: 'NxtWave (NIAT)',
-    description: 'Stood on stage at the Parents’ Success Meet – Worth It Awards. The real highlight wasn’t the award, it was seeing my father in the audience — proud, silent, and fulfilled.',
+    description: 'Stood on stage at the Parents’ Success Meet – Worth It Awards. The real highlight was sharing this proud milestone with my father in the audience.',
     quote: 'A man who taught me discipline not through words, but through consistency. That moment redefined success for me.',
     tags: ['Leadership', 'FamilyFirst', 'Growth', 'Discipline'],
     images: [
@@ -184,7 +227,7 @@ export const ACHIEVEMENTS = [
     priority: 3,
     title: 'Festive Reel Contest Winner',
     issuer: 'NxtWave (NIAT)',
-    description: 'Honored to receive a Certificate of Appreciation and a trophy for my performance in the Festive Reel Making Contest during the Diwali celebrations.',
+    description: 'Honored with a Certificate of Appreciation and trophy in the Festive Reel Making Contest during Diwali celebrations.',
     quote: 'This recognition reminds me how creativity, consistency, and passion can turn small ideas into something meaningful.',
     tags: ['ContentCreation', 'Storytelling', 'VideoEditing'],
     images: [
@@ -220,207 +263,372 @@ export const ACHIEVEMENTS = [
   }
 ];
 
-
 export const COLLABORATIONS = [
+  {
+    id: 'takeover',
+    title: 'NIAT Takeover 2026',
+    img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-16_at_6.49.39_PM_mozq5a.jpg',
+    tag: 'Flagship Summit',
+    category: 'Event Operations',
+    date: 'July 2026',
+    attendees: '1000+ Participants',
+    desc: 'Led Guest Hospitality and social media documentation across 3 days of 5 major events (Takeover Hackathon, DJ Night, BRAVE, Makers Conclave, GRIT Awards).',
+    roles: [
+      'Guest Hospitality Lead: Coordinated VIP speakers, judges, and dignitaries',
+      'Media Handler: Captured live keynote sessions, aftermovies, and story moments'
+    ],
+    links: {}
+  },
   {
     id: 'ishan',
     title: 'Ishan Sharma',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.22.34_AM_vm6hrl.jpg',
     tag: 'Guest Session',
+    category: 'Creator Summit',
     date: 'Oct 2024',
     attendees: '450+ Attendees',
-    desc: 'Hosted renowned creator Ishan Sharma for an electrifying session inspiring hundreds of students. Managed crowd control, scheduling, and live Q&A.',
+    desc: 'Hosted renowned creator Ishan Sharma for an electrifying session inspiring hundreds of students. Managed crowd flow, scheduling, and live Q&A.',
+    roles: [
+      'Event Host: Stage introduction and speaker moderation',
+      'Operations: Crowd coordination and stage timing'
+    ],
     links: {
       linkedin: 'https://www.linkedin.com/in/ishansharma7390/',
-      instagram: 'https://www.instagram.com/ishansharma7390/',
-    },
+      instagram: 'https://www.instagram.com/ishansharma7390/'
+    }
   },
   {
     id: 'madhu',
     title: 'Madhu Kiran',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179680/WhatsApp_Image_2025-11-15_at_9.29.46_AM_ornq12.jpg',
     tag: 'Content Strategy',
+    category: 'Creator Workshop',
     date: 'Sep 2024',
     attendees: '300+ Attendees',
-    desc: 'Curated "Learn. Create. Influence." workshop featuring top creator Madhu Kiran. Focused on content strategy, branding, and career opportunities.',
+    desc: 'Curated "Learn. Create. Influence." workshop featuring top creator Madhu Kiran. Focused on content strategy, personal branding, and career opportunities.',
+    roles: [
+      'Event Curator: Workshop agenda and student engagement',
+      'Media Lead: Live social media coverage'
+    ],
     links: {
       linkedin: 'https://www.linkedin.com/in/madhu-kiran-guntur-54036226b/',
-      instagram: 'https://www.instagram.com/thelazylearning/',
-    },
+      instagram: 'https://www.instagram.com/thelazylearning/'
+    }
   },
   {
     id: 'sid',
     title: "Sid's Farm CEO",
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.24.22_AM_njlqzg.jpg',
     tag: 'Podcast',
+    category: 'AgriTech Conversation',
     date: 'Aug 2024',
     attendees: 'Online Audience',
-    desc: 'Hosted an impactful podcast with Kishore Indukuri, founder & CEO of Sid\'s Farm, spotlighting AgriTech innovation, startup scaling, and operational challenges.',
+    desc: 'Hosted an impactful podcast with Kishore Indukuri, founder & CEO of Sid\'s Farm, spotlighting AgriTech innovation, startup scaling, and bootstrapped growth.',
+    roles: [
+      'Podcast Host: In-depth founder interview',
+      'Post-Production: Snippet editing and social distribution'
+    ],
     links: {
-      instagram: 'https://www.instagram.com/sidsfarmpure/',
-    },
+      instagram: 'https://www.instagram.com/sidsfarmpure/'
+    }
   },
   {
     id: 'tharun',
     title: 'Tharun Speaks',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763179044/WhatsApp_Image_2025-11-15_at_9.21.22_AM_zywwfg.jpg',
     tag: 'Branding',
+    category: 'Creator Dialogue',
     date: 'July 2024',
     attendees: '500+ Attendees',
-    desc: 'Inspiring dialogue on personal branding, content creation, and professional storytelling with Tharun Naik (IITian). Handled logistics and hospitality.',
+    desc: 'Inspiring dialogue on personal branding, content creation, and professional storytelling with Tharun Naik (IITian). Handled logistics and speaker hospitality.',
+    roles: [
+      'Hospitality Lead: Speaker onboarding and green room coordination',
+      'Student Engagement: Moderated audience interaction'
+    ],
     links: {
       youtube: 'https://www.youtube.com/@TharunSpeaks',
       linkedin: 'https://www.linkedin.com/in/tharunnaik/',
-      instagram: 'https://www.instagram.com/tharunnaik.0/',
-    },
+      instagram: 'https://www.instagram.com/tharunnaik.0/'
+    }
   },
   {
     id: 'hack',
     title: 'Ethical Hacking 101',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061209/Screenshot_2025-11-25_142832_gv8kdz.png',
     tag: 'Workshop',
+    category: 'Technical Workshop',
     date: 'Nov 2024',
     attendees: '150+ Attendees',
     desc: 'High-impact cybersecurity workshop featuring Sai Krishna Kothapalli (Hackrew CEO). Bridged the gap between developer creativity and ethical cyber responsibility.',
-    links: {},
+    roles: [
+      'Event Manager: Venue coordination and kit management',
+      'Registration Operations: Attendee credential verification'
+    ],
+    links: {}
   },
   {
     id: 'drone',
     title: 'Drone Club Showcase',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1764061567/Screenshot_2025-11-25_143521_fuc1bn.png',
     tag: 'Tech Showcase',
+    category: 'Hardware Showcase',
     date: 'Dec 2024',
     attendees: '200+ Attendees',
-    desc: 'Collaborated with the drone club for a flying tech showcase. Managed registrations and provided professional-grade media coverage.',
-    links: {},
-  },
+    desc: 'Collaborated with the drone club for a live flight showcase. Managed participant flow and provided professional-grade event media coverage.',
+    roles: [
+      'Media Head: Live drone flight footage capture',
+      'Logistics: Crowd safety zones and flight perimeter'
+    ],
+    links: {}
+  }
 ];
 
 export const PROJECTS = [
   {
+    id: 'paniit-summit-2026',
+    featured: true,
+    eyebrow: 'FEATURED PROJECT',
+    badgeSecondary: 'GOVERNMENT / PUBLIC EVENT',
+    tag: 'Featured Project',
+    icon: 'award',
+    title: 'PanIIT Andhra Pradesh Summit 2026',
+    sub: 'Impact Designer | Student Organizer',
+    desc: 'My first government project, where I contributed to the visual communication, event branding, and on-ground design requirements for the PanIIT Andhra Pradesh Summit 2026 in Vijayawada.',
+    tech: ['Event Design', 'Visual Communication', 'Figma', 'Signage', 'Pavilion Branding', 'On-Ground Execution'],
+    tags: ['Event Design', 'Visual Communication', 'Figma', 'Signage', 'Pavilion Branding', 'On-Ground Execution'],
+    result: 'Designed and executed physical signage, pavilion branding, and official event communication across a state-level government-backed summit.',
+    actionLabel: 'VIEW CASE STUDY →',
+    secondaryActionLabel: 'VIEW GALLERY →',
+    image: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791260290/WhatsApp_Image_2026-10-06_at_9.46.08_AM_pyg8pk.jpg',
+    caseStudy: {
+      title: 'PanIIT Andhra Pradesh Summit 2026',
+      subtitle: 'Impact Designer | Student Organizer',
+      heroIntros: [
+        'PanIIT Andhra Pradesh Summit 2026 was my first government project and one of the most meaningful design experiences in my journey.',
+        'I had the opportunity to work as an Impact Designer for the PanIIT Andhra Pradesh Summit 2026 in Vijayawada, contributing to the visual communication and on-ground design requirements of a state-level summit.'
+      ],
+      date: '3 October 2026',
+      venue: 'Dr. B. R. Ambedkar Kala Vedika, Vijayawada',
+      theme: '“Catalyzing Innovation for Swarna Andhra Vision 2047”',
+      metadata: [
+        { label: 'Project', value: 'PanIIT Andhra Pradesh Summit 2026' },
+        { label: 'Role', value: 'Impact Designer' },
+        { label: 'Additional Role', value: 'Student Organizer' },
+        { label: 'Location', value: 'Vijayawada, Andhra Pradesh' },
+        { label: 'Venue', value: 'Dr. B. R. Ambedkar Kala Vedika' },
+        { label: 'Date', value: '3 October 2026' },
+        { label: 'Project Type', value: 'Government / Public Event / Event Branding' },
+        { label: 'Focus', value: 'Event Design, Visual Communication, Signage, Pavilion Branding, On-Ground Design' }
+      ],
+      myRole: {
+        heading: 'MY ROLE',
+        content: "As an Impact Designer, I worked on multiple visual assets required for the event and helped translate the summit's visual identity into physical event experiences.",
+        responsibilities: [
+          'Event branding and visual assets',
+          'Guest of Honour posters',
+          'Directional signages',
+          'Exhibition signage',
+          'Pavilion branding',
+          'Amaravati Stall signage',
+          'PanIIT Pavilion signage',
+          'Delegate Reception branding',
+          'Event directory and information graphics',
+          'Partner and welcome boards',
+          'Reception desk branding',
+          'Lanyard and badge design',
+          'Other on-ground event communication materials'
+        ]
+      },
+      figmaToVenue: {
+        heading: 'FROM FIGMA TO THE VENUE',
+        paragraphs: [
+          'One of the most rewarding parts of the project was seeing my designs move beyond the screen.',
+          'The designs I created were finalized, printed, and implemented across the summit venue.',
+          'Seeing the same designs I worked on appear as large-format physical signages, pavilion branding, exhibition boards, and event assets was a memorable moment for me as a designer.',
+          'It showed me the difference between designing something digitally and designing something that has to work in a real event environment.'
+        ]
+      },
+      stateLevelPlatform: {
+        heading: 'A STATE-LEVEL PLATFORM',
+        paragraphs: [
+          'The work was used across the PanIIT Andhra Pradesh Summit 2026 and appeared across the event environment.',
+          'Some of the event creatives were also published through official Andhra Pradesh government channels and the official PanIIT platform.',
+          'Seeing my design work move from Figma screens to official event communication and physical installations was a proud milestone in my design journey.',
+          'Being able to contribute to a large-scale public event gave me valuable experience in designing for real-world environments, scale, readability, consistency, and execution.'
+        ]
+      },
+      eventExperience: {
+        heading: 'THE EVENT EXPERIENCE',
+        paragraphs: [
+          'The project was more than designing posters.',
+          'I experienced the event from the ground, met different teams and participants, connected with juniors and peers, and saw how a large-scale summit operates behind the scenes.',
+          'These interactions gave me a broader understanding of how design, communication, coordination, and execution come together in a large public event.'
+        ]
+      },
+      peopleBehind: {
+        heading: 'THE PEOPLE BEHIND THE EXPERIENCE',
+        paragraphs: [
+          'Working on the summit also gave me the opportunity to meet people I had previously worked with and connect with new teams.',
+          'Meeting my juniors at the venue was especially memorable. Seeing everyone contribute to the same event created a strong sense of community and made the experience more personal.'
+        ]
+      },
+      learnings: [
+        { num: '01', text: 'Designing for real-world implementation requires more attention to scale and readability.' },
+        { num: '02', text: 'Event design needs consistency across multiple formats and locations.' },
+        { num: '03', text: 'Last-minute changes are part of large-scale event execution.' },
+        { num: '04', text: 'A design needs to work from a distance, not only on a laptop screen.' },
+        { num: '05', text: 'Collaboration and communication are as important as design skills.' },
+        { num: '06', text: "Good event design has to support the visitor's experience and movement." }
+      ],
+      milestone: {
+        heading: 'A MEANINGFUL MILESTONE',
+        paragraphs: [
+          'This project started with screens, layouts, revisions, and countless small design decisions.',
+          'It ended with those designs standing across a state-level summit.',
+          'For me, PanIIT Andhra Pradesh Summit 2026 represents more than a project in my portfolio. It represents a step from creating designs digitally to seeing my work implemented at a real government-backed event.'
+        ],
+        prominentStatements: [
+          'My first government project.',
+          'My first experience contributing to a state-level summit.',
+          'And a milestone I’ll always remember.'
+        ]
+      },
+      recognition: {
+        heading: 'RECOGNITION',
+        paragraphs: [
+          "My work was officially featured and shared through PanIIT's official platforms, giving me the opportunity to see my contribution recognized beyond the event venue.",
+          "This project strengthened my confidence as a designer and gave me the experience of working on a large-scale, high-visibility event."
+        ]
+      },
+      gallery: [
+        {
+          id: 'paniit-1',
+          url: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791260290/WhatsApp_Image_2026-10-06_at_9.46.08_AM_pyg8pk.jpg',
+          title: 'Featured On-Ground Pavilion & Stage Branding',
+          caption: 'PanIIT Andhra Pradesh Summit 2026 event design by Karthik Nimmanagoti',
+          alt: 'PanIIT Andhra Pradesh Summit 2026 event design by Karthik Nimmanagoti',
+          role: 'large-featured'
+        },
+        {
+          id: 'paniit-2',
+          url: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791260288/WhatsApp_Image_2026-10-06_at_9.46.08_AM_2_gnw8o9.jpg',
+          title: 'Event Visual Communication & Main Stage Assets',
+          caption: 'Karthik Nimmanagoti event branding work at PanIIT Andhra Pradesh Summit 2026',
+          alt: 'Karthik Nimmanagoti event branding work at PanIIT Andhra Pradesh Summit 2026',
+          role: 'medium'
+        },
+        {
+          id: 'paniit-3',
+          url: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791260288/WhatsApp_Image_2026-10-06_at_9.46.09_AM_ezogdq.jpg',
+          title: 'Exhibition Signage & Information Boards',
+          caption: "Karthik's PanIIT Andhra Pradesh Summit 2026 visual communication work",
+          alt: "Karthik's PanIIT Andhra Pradesh Summit 2026 visual communication work",
+          role: 'medium'
+        },
+        {
+          id: 'paniit-4',
+          url: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791260286/WhatsApp_Image_2026-10-06_at_9.46.07_AM_rcabls.jpg',
+          title: 'Pavilion Signage & Venue Wayfinding',
+          caption: 'PanIIT Andhra Pradesh Summit 2026 pavilion and signage execution in Vijayawada',
+          alt: 'PanIIT Andhra Pradesh Summit 2026 pavilion and signage execution in Vijayawada',
+          role: 'supporting'
+        },
+        {
+          id: 'paniit-5',
+          url: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791260287/WhatsApp_Image_2026-10-06_at_9.46.08_AM_3_ncfflx.jpg',
+          title: 'On-Ground Venue Execution & Collaborations',
+          caption: 'Dr. B. R. Ambedkar Kala Vedika summit on-ground installations by Karthik Nimmanagoti',
+          alt: 'Dr. B. R. Ambedkar Kala Vedika summit on-ground installations by Karthik Nimmanagoti',
+          role: 'supporting'
+        },
+        {
+          id: 'paniit-6',
+          url: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791260287/WhatsApp_Image_2026-10-06_at_9.46.08_AM_1_yg5rfk.jpg',
+          title: 'Community, Delegate Reception & Event Atmosphere',
+          caption: 'PanIIT Andhra Pradesh Summit 2026 community and event design moments',
+          alt: 'PanIIT Andhra Pradesh Summit 2026 community and event design moments',
+          role: 'supporting'
+        }
+      ]
+    }
+  },
+  {
     title: 'Frame by DB',
-    tag: 'Freelance',
+    tag: 'Freelance Platform',
     icon: 'camera',
-    sub: 'Premium Photography & Cinematography Portfolio',
-    desc: 'Premium photography and cinematography platform built for Director of Photography Dasari Bharadwaj (Hyderabad, India). Built to deliver a high-end luxury, modern agency aesthetic with rich kinetic transitions, custom galleries, live pricing tools, client space, and a fully functional CMS.',
+    sub: 'Cinematography & Photography Agency Portfolio',
+    desc: 'Modern cinematography agency platform built for Director of Photography Dasari Bharadwaj (Hyderabad, India). Built to deliver a high-end luxury aesthetic with fluid transitions, custom galleries, live pricing calculators, and client CMS.',
+    tech: ['Next.js 16', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'GSAP', 'Zod', 'Prisma'],
+    result: 'Delivered a luxury modern agency aesthetic with fluid kinetic animations and client booking workflows.',
     link: 'https://frame-by-db.vercel.app/',
-    skills: ['Next.js 16', 'TypeScript', 'Tailwind CSS v4', 'Framer Motion', 'GSAP', 'Zod', 'Prisma', 'Local JSON DB']
+    actionLabel: 'Launch Platform'
   },
   {
     title: 'BASE44 Hackathon',
-    tag: 'Web App',
+    tag: 'Web Platform & Infrastructure',
     icon: 'server',
-    sub: 'Lead Organizer & Architect',
-    desc: 'Built the official portal (base44.niat.tech) for 1,665+ participants. Programmed user check-ins, registration queries, and tech operations workflow.',
+    sub: 'Lead Organizer & Web Platform Architect',
+    desc: 'Official platform (base44.niat.tech) built for 1,665+ participants. Architected registration workflows, high-concurrency database queries, and an on-ground QR verification dashboard.',
+    tech: ['React', 'Supabase', 'Tailwind CSS', 'Vite', 'REST APIs', 'QR Scanning'],
+    result: 'Maintained 100% platform uptime and checked in 1,665+ participants seamlessly during on-ground rush.',
     link: 'https://base44results.niat.tech/',
-    skills: ['Web Operations', 'System Design', 'User Check-In']
+    actionLabel: 'View Results Portal'
   },
   {
     title: 'AidTrace',
     tag: 'Blockchain Platform',
     icon: 'link-2',
-    sub: 'Donation Transparency Platform',
-    desc: 'A Cardano-powered donation transparency platform built during IndiaCodex’26. Tracks the complete journey from donation to verified impact, including fundraising campaigns, fund allocations, and expense proofs on the blockchain.',
+    sub: 'Cardano Donation Transparency Platform',
+    desc: 'Cardano-powered donation transparency platform built during IndiaCodex’26. Tracks donation journeys from fundraising campaigns to transparent fund allocations and verifiable expense proofs on-chain.',
+    tech: ['Cardano Blockchain', 'Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS'],
+    result: 'Built verifiable on-chain audit transparency for disaster relief and non-profit allocation tracking.',
     link: 'https://aidtrace-cardano-dapp.vercel.app/',
-    skills: ['Blockchain', 'Cardano', 'Next.js', 'TypeScript', 'Supabase']
+    actionLabel: 'Launch DApp'
   },
   {
     title: 'Siemens Mobility Simulation',
     tag: 'Project Management',
     icon: 'bar-chart-2',
     sub: 'Urban Rail Expansion Simulation',
-    desc: 'Completed virtual project management simulation for the Metroville Urban Rail Expansion under Siemens Mobility. Designed and analyzed KPI dashboards tracking track installation, electrification progress, and budgets.',
+    desc: 'Virtual project management simulation for the Metroville Urban Rail Expansion under Siemens Mobility. Designed KPI dashboards tracking track installation, electrification progress, and budgets.',
+    tech: ['Project Management', 'Data Analysis', 'KPI Strategy', 'Dashboard Reporting'],
+    result: 'Formulated predictive milestone analytics models and resource allocation dashboards.',
     link: 'https://docs.google.com/spreadsheets/d/191AVtfduvH5h1rd8D4JnYJItELzTRJyOmFPs7IsppZM/edit?gid=0#gid=0',
-    skills: ['Project Management', 'Data Analysis', 'KPI Strategy', 'Dashboard Reporting']
+    actionLabel: 'View Spreadsheet'
   }
 ];
 
-export const FEATURED_EVENTS = [
-  {
-    title: "3 Days. 5 Major Events. 2 Critical Responsibilities. One Incredible Learning Experience.",
-    subtitle: "NxtWave of Innovation in Advanced Technologies (NIAT)",
-    description: "Over the past three days, I had the opportunity to be part of one of the busiest and most rewarding event experiences at NxtWave of Innovation in Advanced Technologies. From Takeover Hackathon 2026, including the high-energy Takeover DJ Night, to BRAVE, Makers Conclave, Code Quest, and the GRIT Awards, every event had its own purpose, energy, and story.",
-    roles: [
-      {
-        title: "Social Media Handler & Videographer",
-        desc: "Documented the journey through photos and videos, capturing keynote sessions, project showcases, celebrations, behind-the-scenes moments, and the people who made these events memorable. My goal was to preserve the experience and communicate the impact of each event through visual storytelling."
-      },
-      {
-        title: "Guest Hospitality Team Lead",
-        desc: "Led the Guest Hospitality team, coordinating guest management and ensuring a smooth, welcoming experience for speakers, mentors, judges, and distinguished guests throughout the events."
-      }
-    ],
-    reflection: "Balancing creative execution with operational leadership demanded adaptability, time management, teamwork, and quick decision-making. Every challenge strengthened my ability to perform under pressure while delivering meaningful results.",
-    thanks: "Thanks for this opportunity Pavan Dharma sir, Divyansh Mathur sir, Sundar Jami sir, Vamsi Tallam sir, Saiteja Manchukanti sir, Pravalika Sabbavarapu ma'am, Shivika Shrivastava ma'am, Bogada Chandrakanth sir, Bhagya lakshmi Locharla ma'am, Komali Bangaru ma'am for trusting me 🤗",
-    images: [
-      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-16_at_6.49.39_PM_mozq5a.jpg",
-      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_kqgv03.jpg",
-      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1784811619/WhatsApp_Image_2026-07-23_at_6.23.51_PM_1_renyfm.jpg"
-    ],
-    tags: [
-      "KarthikNimmanagoti", "NIAT", "TakeoverHackathon2026", "TakeoverDJNight", "BRAVE", 
-      "MakersConclave", "CodeQuest", "GRITAwards", "Leadership", "EventManagement", 
-      "SocialMedia", "Videography", "Photography", "ContentCreation", "VisualStorytelling", 
-      "StudentLeadership", "ProfessionalGrowth"
-    ]
-  },
-  {
-    title: "Strategic POC for Teach AI for India",
-    subtitle: "A student-led knowledge movement by NIATIANS to bring technology awareness and practical digital skills to government school students.",
-    description: "Teach AI for India is a student-led knowledge movement by NIATIANS to bring technology awareness and practical digital skills to government school students. This is not about teaching theory. It’s about opening access where it doesn’t exist.",
-    category: "Strategic POC Role",
-    date: "July 2026",
-    customSections: [
-      {
-        title: "What I Own",
-        content: [
-          "Document the journey not as updates, but as stories people remember",
-          "Convert volunteer work into public proof of leadership",
-          "Guide NIATIANS to present their work like professionals, not participants",
-          "Build a strong digital presence for the initiative across LinkedIn",
-          "Position every session as a movement, not an event"
-        ]
-      },
-      {
-        title: "Purpose",
-        content: [
-          "Bridge the gap between students who have tech exposure and those who don’t",
-          "Introduce AI, digital tools, and real-world applications at an early stage",
-          "Shift students from learning → applying → creating",
-          "Build a generation of problem solvers, not just users"
-        ]
-      },
-      {
-        title: "What We Do",
-        content: [
-          "Conduct interactive sessions in government schools",
-          "Teach basics like computer usage, internet, and digital safety",
-          "Introduce AI through hands-on activities",
-          "Run small challenges to spark innovation thinking",
-          "Show real career paths in technology (Students don’t just listen, they experience technology)"
-        ]
-      },
-      {
-        title: "Who Is Driving This",
-        content: [
-          "Led by: NIAT Student General Council (NSGC) Club & NIAT Social Impact Club",
-          "Executed by: NIATIANS as Tech Mentors (Students stepping up to teach, guide, and inspire)"
-        ]
-      }
-    ],
-    reflection: "Because talent is everywhere. But exposure is not. This time, it’s different. Now it’s happening at NxtWave of Innovation in Advanced Technologies at scale, with vision, and with a movement behind it.",
-    thanks: "Grateful to Nikhil Dendeti and Kalidindi Krishna Sai Varma for stepping in and truly delivering value on ground — this impact starts with people who show up and teach with intent. A special thanks to My RP Pravalika Sabbavarapu ma’am for trusting me with this responsibility. This isn’t new to me — I’ve previously worked on similar initiatives, going into schools and teaching computer basics and social awareness. Grateful to my senior RP Pavan Dharma sir for constantly encouraging initiatives that create real impact. A sincere thanks to Naram Arun kumar sir and Shivika Shrivastava ma’am for their continuous support, and to Bogada Chandrakanth sir for the motivation that keeps this movement going forward. Special thanks to BILLA HEMANTH sir For helping the student's in the content(syllabus) part 😇 A big thank you to the entire NxtWave team for backing this initiative and believing in its vision: Rahul Attuluri, Anupam Pedarla, Sashank Gujjula, Girish Akash.",
-    images: [
-      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/4_uffbub.jpg",
-      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/2_vb5mqh.jpg",
-      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/5_ywm5ps.jpg",
-      "https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/1_nft1oe.jpg"
-    ],
-    tags: [
-      "TechaiForIndia", "NIAT", "Leadership", "StudentImpact", "BuildInPublic", "DigitalIdentity"
-    ]
+export const TEACH_AI_DATA = {
+  headline: "Technology exposure shouldn't depend on where a student grows up.",
+  metrics: [
+    { value: '1,820+', label: 'Students Impacted' },
+    { value: '18+', label: 'Schools Reached' },
+    { value: '31+', label: 'Volunteer Mentors' }
+  ],
+  role: 'Strategic POC',
+  ownership: [
+    'Documenting the journey not as routine updates, but as stories people remember',
+    'Converting volunteer student efforts into public proof of leadership on LinkedIn',
+    'Guiding student tech mentors to structure and present their workshops professionally',
+    'Positioning every government school session as a sustainable grassroots movement'
+  ],
+  impact: [
+    'Bridged digital divide by introducing AI tools and computer fundamentals in government schools',
+    'Shifted students from passive users to creative problem solvers with practical tech challenges',
+    'Built a sustainable, student-led tech mentorship model powered by NIAT volunteers'
+  ],
+  images: [
+    'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/4_uffbub.jpg',
+    'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/2_vb5mqh.jpg',
+    'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/5_ywm5ps.jpg',
+    'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/1_nft1oe.jpg'
+  ],
+  fullStory: {
+    description: 'Teach AI for India is a student-led knowledge movement by NIATIANS to bring technology awareness and practical digital skills to government school students. This is not about teaching abstract theory — it is about opening real access where it does not exist.',
+    reflection: 'Because talent is everywhere, but exposure is not. Scaling this movement with student tech mentors proved that young engineers can drive grassroots digital empowerment at state scale.',
+    thanks: "Grateful to Nikhil Dendeti, Kalidindi Krishna Sai Varma, Pravalika Sabbavarapu ma'am, Pavan Dharma sir, Shivika Shrivastava ma'am, and Bogada Chandrakanth sir for backing this vision."
   }
-];
+};
 
 export const GALLERY = [
   'https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378248/Screenshot_2025-12-22_100305_ay8p5z.png',
@@ -428,80 +636,59 @@ export const GALLERY = [
   'https://res.cloudinary.com/do4nuj2kh/image/upload/v1766378338/Screenshot_2025-12-22_100847_vrhlpy.png',
 ];
 
-export const VIDEOS = [
-  {
-    title: 'HexaVerse 2025',
-    tag: 'Aftermovie',
-    img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763181948/IMG-20250527-WA0031_dvjfhr.jpg',
-  },
-  {
-    title: 'HES Summit 2025',
-    tag: 'Official Recap',
-    img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1763180175/WhatsApp_Image_2025-11-15_at_9.45.07_AM_uwaqkr.jpg',
-  },
-];
-
 export const CERTIFICATIONS = [
   {
     title: 'Social Media Certified',
     issuer: 'HubSpot Academy',
-    date: 'Aug 2026',
+    date: '2026',
     validUntil: 'Sep 2028',
     code: 'd600498e876f4d439b1d0c5976700c6c',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1787172644/d600498e876f4d439b1d0c5796700c6c_jpseg4.png',
-    link: '#', // Handled by modal
-    desc: 'The bearer of this certificate is hereby deemed fully capable and skilled in applying inbound social media strategy. They have been tested on best practices and are ready to take an inbound approach to social media including: social monitoring, content strategy, social engagement, creating social media policies, and demonstrating social ROI to stakeholders.',
-    skills: ['Social Media Strategy', 'Content Strategy', 'Social Engagement', 'Social Monitoring', 'Social Media Marketing', 'Social ROI'],
-    verified: true,
+    link: '#',
+    desc: 'Tested on best practices in inbound social strategy: social monitoring, content strategy, engagement, and demonstrating social ROI to stakeholders.',
+    skills: ['Social Media Strategy', 'Content Strategy', 'Social Engagement', 'Social ROI'],
+    verified: true
   },
   {
     title: 'TCS iON Career Edge',
     issuer: 'Tata Consultancy Services',
-    date: 'Dec 2025',
+    date: '2025',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1764673068/Screenshot_2025-12-02_162733_h53itk.png',
     link: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1764673068/Screenshot_2025-12-02_162733_h53itk.png',
-    desc: 'IT Service Management, team building, and operational tools primer.',
-  },
-  {
-    title: 'AWS Certified ML',
-    issuer: 'Amazon Web Services',
-    date: 'Oct 2025',
-    img: 'https://placehold.co/600x400/fbbf24/000000?text=AWS+ML',
-    link: 'https://placehold.co/600x400/fbbf24/000000?text=AWS+ML',
-    desc: 'Specialty in cloud-based Artificial Intelligence (AI) & Machine Learning.',
-  },
-  {
-    title: 'Generative AI',
-    issuer: 'Simplilearn',
-    date: 'Jan 2025',
-    img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1735811083/Screenshot_2025-01-02_150942_dlzbyf.png',
-    link: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1735811083/Screenshot_2025-01-02_150942_dlzbyf.png',
-    desc: 'Comprehensive training in generative models, prompting, and application structures.',
+    desc: 'IT Service Management, business communication, and operational tools primer.'
   },
   {
     title: 'MSME & Startup India',
     issuer: 'Govt. of India',
-    date: 'Jan 2025',
+    date: '2025',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1736232194/Picsart_25-01-06_23-20-36-401_b0ceud.jpg',
     link: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1736232194/Picsart_25-01-06_23-20-36-401_b0ceud.jpg',
-    desc: 'Entrepreneurship, product innovation, and national startup ecosystem guidelines.',
+    desc: 'Entrepreneurship, product innovation, and national startup ecosystem guidelines.'
   },
   {
     title: 'Digital Marketing',
     issuer: 'HubSpot Academy',
-    date: 'Dec 2024',
+    date: '2024',
     img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1735620143/2809d81dd69242fbab985eacccec3c47_ebzz3k.png',
     link: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1735620143/2809d81dd69242fbab985eacccec3c47_ebzz3k.png',
-    desc: 'Inbound marketing funnels, SEO strategy, and content campaign analytics.',
+    desc: 'Inbound marketing funnels, SEO strategy, and content campaign analytics.'
   },
   {
-    title: 'Skill Certificate',
+    title: 'Problem Solving (Basic)',
     issuer: 'HackerRank',
-    date: 'Nov 2024',
+    date: '2024',
     img: 'https://placehold.co/600x400/22c55e/ffffff?text=HackerRank',
     link: 'https://placehold.co/600x400/22c55e/ffffff?text=HackerRank',
-    desc: 'Verified software problem solving and analytical skill proficiency.',
+    desc: 'Verified software problem solving, data structures, and algorithmic logic.'
   },
+  {
+    title: 'Generative AI',
+    issuer: 'Simplilearn',
+    date: '2025',
+    img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1735811083/Screenshot_2025-01-02_150942_dlzbyf.png',
+    link: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1735811083/Screenshot_2025-01-02_150942_dlzbyf.png',
+    desc: 'Training in generative models, prompt engineering, and modern application structures.'
+  }
 ];
 
 export const TESTIMONIAL = {
@@ -514,122 +701,22 @@ export const TESTIMONIAL = {
 
 export const FAQS = [
   {
-    question: 'Are you open to freelance SMM projects?',
-    answer: 'Yes! I actively take on projects involving LinkedIn growth, content strategy, personal branding, and social media management.',
+    question: 'Are you open to freelance projects?',
+    answer: 'Yes! I actively take on projects involving web development, social media strategy, personal branding, and end-to-end event management.',
   },
   {
     question: 'What kind of events do you organize?',
-    answer: 'I specialize in large-scale tech summits, student hackathons (like Blend AI & OpenAI Hackathon), and practical coding workshops. I manage all technical operations, logistics, crowd control, and coordination.',
+    answer: 'I specialize in large-scale tech summits, student hackathons (like BASE44 and Blend AI), and hands-on coding workshops. I manage technical platforms, on-ground logistics, crowd operations, and guest coordination.',
   },
   {
-    question: 'How can I contact you?',
-    answer: 'You can reach out using the "Let\'s Talk" buttons to trigger my connection form modal, or message me directly via the WhatsApp widget or at aktechintelligence@gmail.com.',
+    question: 'How can I contact or collaborate with you?',
+    answer: 'You can reach out using the "Let\'s Talk" button to send an inquiry, connect directly via WhatsApp, or email me at aktechintelligence@gmail.com.',
   },
-];
-
-export const SKILLS_DATA = [
-  { name: 'Leadership', value: 95 },
-  { name: 'Community', value: 90 },
-  { name: 'Marketing', value: 85 },
-  { name: 'AI', value: 92 },
-  { name: 'Photography', value: 80 },
-  { name: 'Management', value: 92 },
-  { name: 'Design', value: 85 },
-  { name: 'Public Speaking', value: 90 },
-  { name: 'Networking', value: 88 }
 ];
 
 export const CURRENTLY_WORKING_ON = [
   "Building AI Products",
-  "Learning Product Management",
-  "Running Teach AI",
-  "Working with NIAT"
+  "Leading Innfill Community",
+  "Running Teach AI for India",
+  "Web Platform Architecture"
 ];
-
-export const EXPERTISE_DATA = [
-  { id: 'leadership', name: 'Leadership', value: 95, icon: 'users', desc: 'Led student clubs, organized large-scale events, managed teams and operations.' },
-  { id: 'community', name: 'Community Building', value: 94, icon: 'sparkles', desc: 'Built and nurtured thriving student communities.' },
-  { id: 'events', name: 'Event Management', value: 92, icon: 'calendar', desc: 'Executed hackathons, summits and workshops with operational excellence.' },
-  { id: 'frontend', name: 'Frontend Development', value: 88, icon: 'code2', desc: 'React, Next.js, Tailwind CSS, Supabase and modern web technologies.' },
-  { id: 'design', name: 'UI/UX Design', value: 90, icon: 'palette', desc: 'Creating modern, conversion-focused digital experiences.' },
-  { id: 'content', name: 'Content Strategy', value: 94, icon: 'file-text', desc: 'Reels, campaigns, storytelling and brand positioning.' },
-  { id: 'speaking', name: 'Public Speaking', value: 86, icon: 'megaphone', desc: 'Hosting sessions, mentoring students and stage management.' },
-  { id: 'photography', name: 'Photography', value: 89, icon: 'camera', desc: 'Event photography and storytelling.' },
-  { id: 'product', name: 'Product Thinking', value: 84, icon: 'compass', desc: 'Planning features, user flows and solving real-world problems.' },
-  { id: 'project-mgmt', name: 'Project Management', value: 90, icon: 'briefcase', desc: 'Planning, execution and stakeholder coordination.' },
-  { id: 'marketing', name: 'Marketing', value: 88, icon: 'trending-up', desc: 'Social media campaigns and community engagement.' },
-  { id: 'problem-solving', name: 'Problem Solving', value: 92, icon: 'lightbulb', desc: 'Resolving complex operational and engineering challenges with structured logic.' }
-];
-
-
-export const TIMELINE_DATA = [
-  {
-    year: '2023',
-    title: 'Exploring Technology',
-    milestones: [
-      'Started exploring technology and computer systems',
-      'Learned programming fundamentals and syntax',
-      'Built first websites using HTML, CSS, and basic JavaScript',
-      'Joined college technology & student communities'
-    ],
-    stats: [
-      { label: 'Projects Built', value: 3 },
-      { label: 'Events Participated', value: 1 },
-      { label: 'Skills Acquired', value: 5 },
-      { label: 'Communities Joined', value: 2 }
-    ],
-    chartData: { Projects: 3, Leadership: 20, Community: 30, Experience: 15, Skills: 25 }
-  },
-  {
-    year: '2024',
-    title: 'Leadership & Events',
-    milestones: [
-      'Became President of the Influencers Club at NIAT',
-      'Started organizing events, hackathons, and workshops',
-      'Hosted creators and leaders (e.g. Ishan Sharma, Madhu Kiran)',
-      'Won college competitions & built a strong personal brand'
-    ],
-    stats: [
-      { label: 'Events Organized', value: 5 },
-      { label: 'Projects Driven', value: 4 },
-      { label: 'Creators Hosted', value: 4 },
-      { label: 'Awards Won', value: 2 }
-    ],
-    chartData: { Projects: 7, Leadership: 70, Community: 65, Experience: 45, Skills: 50 }
-  },
-  {
-    year: '2025',
-    title: 'AI Products & Expansion',
-    milestones: [
-      'Developed AI products like AI Profile Optimizer',
-      'Built multiple fullstack web applications',
-      'Expanded leadership role and community scale',
-      'Completed MSME & Industry Certifications'
-    ],
-    stats: [
-      { label: 'Web Apps Built', value: 5 },
-      { label: 'AI Products Built', value: 2 },
-      { label: 'Certifications Completed', value: 4 },
-      { label: 'Team Members Led', value: 10 }
-    ],
-    chartData: { Projects: 13, Leadership: 85, Community: 80, Experience: 75, Skills: 80 }
-  },
-  {
-    year: '2026',
-    title: 'Large-scale Impact',
-    milestones: [
-      'Built AidTrace (Cardano blockchain platform) at IndiaCodex\'26',
-      'Organized BASE44 Hackathon for 1,600+ registrants',
-      'Strategic POC for the Teach AI for India social impact movement',
-      'Growing towards Product Management & professional freelance consulting'
-    ],
-    stats: [
-      { label: 'Projects Formulated', value: 8 },
-      { label: 'Events Managed', value: 4 },
-      { label: 'Students Impacted', value: 2000 },
-      { label: 'Hours Volunteered', value: 120 }
-    ],
-    chartData: { Projects: 21, Leadership: 95, Community: 95, Experience: 95, Skills: 95 }
-  }
-];
-

@@ -6,8 +6,7 @@ import {
   CheckCircle2, ShieldCheck, Maximize2, Award, Heart, Video, Film, Trophy, Medal
 } from 'lucide-react';
 
-// TODO: Replace with the exact BAPPA THROUGH YOUR LENS reel video URL when available (e.g. Cloudinary MP4 URL)
-const BAPPA_REEL_VIDEO_URL = ''; 
+const BAPPA_REEL_VIDEO_URL = 'https://res.cloudinary.com/do4nuj2kh/video/upload/v1789962558/WhatsApp_Video_2026-09-21_at_9.17.52_AM_ifitl1.mp4'; 
 
 const ACHIEVEMENTS_DATA = [
   {
