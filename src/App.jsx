@@ -5,7 +5,6 @@ import BehindTheLens from './components/BehindTheLens';
 import AdminLeads from './components/AdminLeads';
 import WhatsAppButton from './components/WhatsAppButton';
 import KarthikAIChatbot from './components/KarthikAIChatbot';
-import GrowthJourney from './components/GrowthJourney';
 import ProfessionalExperience from './components/ProfessionalExperience';
 import AchievementsSection from './components/AchievementsSection';
 import ProjectCaseStudyModal from './components/ProjectCaseStudyModal';
@@ -569,14 +568,11 @@ function Home() {
         <AchievementsSection />
       </section>
 
-      {/* 05 — MY GROWTH JOURNEY (Chronological Timeline) */}
-      <GrowthJourney />
-
-      {/* 06 — SELECTED WORK / TECHNICAL SHOWCASES */}
+      {/* 05 — SELECTED WORK / TECHNICAL SHOWCASES */}
       <section id="projects" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
         <div className="text-center mb-12">
           <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full inline-block mb-3">
-            06 — SELECTED WORK
+            05 — SELECTED WORK
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
             Technical Showcases & Freelance Work
@@ -738,11 +734,11 @@ function Home() {
         </div>
       </section>
 
-      {/* 07 — PEOPLE, EVENTS & CONVERSATIONS (Consolidated & Clean) */}
+      {/* 06 — PEOPLE, EVENTS & CONVERSATIONS (Consolidated & Clean) */}
       <section id="collaborations" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
         <div className="text-center mb-12">
           <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-widest px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full inline-block mb-3">
-            07 — COLLABORATIONS
+            06 — COLLABORATIONS
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-display bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
             People, Events & Conversations
@@ -792,12 +788,12 @@ function Home() {
         </div>
       </section>
 
-      {/* 08 — TEACH AI FOR INDIA (Impact Case Study) */}
+      {/* 07 — TEACH AI FOR INDIA (Impact Case Study) */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
         <div className="glass-panel p-6 sm:p-9 rounded-3xl border border-white/5 relative overflow-hidden">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <span className="text-[10px] font-extrabold uppercase text-indigo-400 tracking-wider bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
-              08 — SOCIAL IMPACT
+              07 — SOCIAL IMPACT
             </span>
             <span className="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
               Grassroots Movement
@@ -910,7 +906,7 @@ function Home() {
         </div>
       </section>
 
-      {/* 09 — BEHIND THE LENS */}
+      {/* 08 — BEHIND THE LENS */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
         <div className="glass-panel p-6 sm:p-10 rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-transparent to-purple-500/5 opacity-100 transition duration-500 pointer-events-none"></div>
@@ -919,7 +915,7 @@ function Home() {
             {/* Left Content */}
             <div className="lg:col-span-6 space-y-4">
               <span className="text-[10px] font-extrabold uppercase text-indigo-400 tracking-wider bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block">
-                09 — VISUAL ARTS
+                08 — VISUAL ARTS
               </span>
               
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight font-display">
@@ -972,11 +968,11 @@ function Home() {
         </div>
       </section>
 
-      {/* 10 — MENTORS & TRUST */}
+      {/* 09 — MENTORS & TRUST */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16 w-full relative z-10">
         <div className="text-center mb-8">
           <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-2">
-            10 — TRUST
+            09 — TRUST
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
             Mentors & Trust
@@ -1014,11 +1010,11 @@ function Home() {
         </div>
       </section>
 
-      {/* 11 — LICENSES & CERTIFICATIONS (Compact Footer Credentials) */}
+      {/* 10 — LICENSES & CERTIFICATIONS (Compact Footer Credentials) */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-16 w-full relative z-10">
         <div className="text-center mb-10">
           <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-2">
-            11 — CREDENTIALS
+            10 — CREDENTIALS
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
             Licenses & Certifications
@@ -1063,11 +1059,11 @@ function Home() {
         </div>
       </section>
 
-      {/* 12 — FREQUENTLY ASKED QUESTIONS */}
+      {/* 11 — FREQUENTLY ASKED QUESTIONS */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 py-16 w-full relative z-10">
         <div className="text-center mb-10">
           <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-2">
-            12 — FAQ
+            11 — FAQ
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
             Frequently Asked Questions
