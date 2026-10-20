@@ -638,6 +638,17 @@ export const GALLERY = [
 
 export const CERTIFICATIONS = [
   {
+    title: 'NxtWave Internship Certificate',
+    issuer: 'NxtWave',
+    date: '2026',
+    validUntil: 'Lifetime',
+    img: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791868158/Screenshot_2026-10-13_103829_hthyev.png',
+    link: '#',
+    desc: 'Official internship certificate for my Design & Content Internship at NxtWave, February 2026 to July 2026.',
+    skills: ['Design & Content', 'Content Strategy', 'Campaign Execution', 'Digital Initiatives'],
+    verified: true
+  },
+  {
     title: 'Social Media Certified',
     issuer: 'HubSpot Academy',
     date: '2026',

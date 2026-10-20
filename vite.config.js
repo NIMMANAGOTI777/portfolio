@@ -10,7 +10,7 @@ function securityHeaders() {
         res.setHeader('X-Frame-Options', 'SAMEORIGIN');
         res.setHeader('X-Content-Type-Options', 'nosniff');
         res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-        res.setHeader('Permissions-Policy', 'fullscreen=()');
+        res.setHeader('Permissions-Policy', 'fullscreen=(), camera=(), microphone=(), geolocation=()');
         next();
       });
     },
@@ -19,7 +19,7 @@ function securityHeaders() {
         res.setHeader('X-Frame-Options', 'SAMEORIGIN');
         res.setHeader('X-Content-Type-Options', 'nosniff');
         res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-        res.setHeader('Permissions-Policy', 'fullscreen=()');
+        res.setHeader('Permissions-Policy', 'fullscreen=(), camera=(), microphone=(), geolocation=()');
         next();
       });
     },
@@ -28,4 +28,10 @@ function securityHeaders() {
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), securityHeaders()],
+  build: {
+    sourcemap: false, // Disables production source maps
+    minify: true, // Minifies production bundles
+    cssMinify: true,
+    chunkSizeWarningLimit: 1000,
+  }
 });

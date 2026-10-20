@@ -10,8 +10,17 @@ A professional, high-fidelity Contact & Lead Capture System built with **React**
 2. Go to the **SQL Editor** in the left sidebar and click **New Query**.
 3. Paste the contents of `supabase_schema.sql` into the editor and click **Run**:
    - This creates the `contact_leads` table.
+   - This creates the `portfolio_photos` table used by the Behind the Lens gallery.
    - It enables **Row Level Security (RLS)**.
    - It configures public insert access (allowing website visitors to submit contact forms) but restricts select/delete privileges to authenticated accounts.
+
+New auth users are intentionally created as `viewer` profiles. After creating the intended administrator in Supabase Auth, promote that specific profile manually from the SQL editor:
+
+```sql
+UPDATE public.admin_profiles
+SET role = 'admin'
+WHERE id = '<authenticated-user-uuid>';
+```
 
 ---
 

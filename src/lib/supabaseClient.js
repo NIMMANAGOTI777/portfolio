@@ -13,7 +13,8 @@ import { GALLERY_ITEMS } from './photographyData';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const isMock = !supabaseUrl || !supabaseAnonKey;
+const isMock = import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCK_DATA === 'true';
+const isConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
 let supabaseInstance;
 
@@ -28,7 +29,18 @@ if (isMock) {
   const getTableData = (key, defaultInitFn) => {
     try {
       const data = localStorage.getItem(`sb_mock_${key}`);
-      if (data) return JSON.parse(data);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (key === 'certifications' && !parsed.some(c => c.title?.includes('NxtWave'))) {
+          const initial = defaultInitFn ? defaultInitFn() : [];
+          const nxtWaveCert = initial.find(c => c.title?.includes('NxtWave'));
+          if (nxtWaveCert) {
+            parsed.unshift(nxtWaveCert);
+            localStorage.setItem(`sb_mock_${key}`, JSON.stringify(parsed));
+          }
+        }
+        return parsed;
+      }
       const initial = defaultInitFn ? defaultInitFn() : [];
       localStorage.setItem(`sb_mock_${key}`, JSON.stringify(initial));
       return initial;
@@ -182,6 +194,50 @@ if (isMock) {
         updated_at: new Date().toISOString()
       },
       {
+        id: 'exp-nxtwave-intern',
+        company: 'NxtWave',
+        role: 'Content Strategist',
+        employment_type: 'Internship',
+        duration: 'Feb 2026 – Jul 2026 · 6 mos',
+        year: '2026',
+        is_current: false,
+        location: 'Hyderabad, Telangana, India · On-site',
+        summary: 'Worked across content strategy, campaign execution, stakeholder coordination, and digital initiatives within the NIAT ecosystem.',
+        full_description: 'Worked across content strategy, campaign execution, stakeholder coordination, and digital initiatives within the NIAT ecosystem.',
+        responsibilities: [
+          'Identified audience needs and translated them into structured content and campaign strategies',
+          'Managed initiatives from idea generation and planning to execution, publishing, and performance analysis',
+          'Coordinated across student teams, clubs, creative teams, and internal stakeholders',
+          'Used engagement data and audience response to improve content direction and execution',
+          'Contributed to campaigns generating 400K+ reach across digital channels',
+          'Built structured workflows for content planning, approvals, execution, and cross-team coordination',
+          'Supported digital products and event platforms designed for large-scale student participation'
+        ],
+        skills: [
+          'Stakeholder Management',
+          'Prioritization',
+          'User Understanding',
+          'Cross-functional Execution',
+          'Data-informed Decision Making',
+          'Content Strategy',
+          'Campaign Execution',
+          'Digital Initiatives'
+        ],
+        outcomes: 'This experience strengthened my skills in stakeholder management, prioritization, user understanding, cross-functional execution, and data-informed decision making.',
+        highlight_tag: '400K+ Reach • NIAT Ecosystem',
+        key_metric: '400K+ Reach',
+        category: ['Content', 'Marketing', 'Strategy', 'Leadership'],
+        icon: 'sparkles',
+        logo_text: 'NW',
+        logo_color: 'from-cyan-500 via-blue-500 to-indigo-600',
+        gallery: [],
+        featured: true,
+        published: true,
+        display_order: 3,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      },
+      {
         id: 'exp-niat-president',
         company: 'Influencers Club NIAT',
         role: 'President',
@@ -208,7 +264,7 @@ if (isMock) {
         gallery: [],
         featured: true,
         published: true,
-        display_order: 3,
+        display_order: 4,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       }
@@ -647,22 +703,26 @@ if (isMock) {
         return { data: { subscription: { unsubscribe: () => window.removeEventListener('storage', handleStorageChange) } } };
       },
       signInWithPassword: async ({ email, password }) => {
-        // Accept admin login
-        if (
-          (email.trim().toLowerCase() === 'admin@karthik.dev' && password === 'admin123') ||
-          (email.trim().toLowerCase() === 'karthik@portfolio.com' && password === 'admin123') ||
-          (email.trim().toLowerCase() === 'aktechintelligence@gmail.com' && password === 'admin123')
-        ) {
-          const mockUser = { 
-            id: 'mock-admin-karthik', 
-            email: email.trim(), 
-            user_metadata: { full_name: 'Karthik Nimmanagoti', role: 'Administrator' } 
+        const mockEmail = import.meta.env.VITE_MOCK_ADMIN_EMAIL;
+        const mockPassword = import.meta.env.VITE_MOCK_ADMIN_PASSWORD;
+        if (mockEmail && mockPassword && email.trim().toLowerCase() === mockEmail.trim().toLowerCase() && password === mockPassword) {
+          const mockUser = {
+            id: 'local-mock-admin',
+            email: mockEmail,
+            user_metadata: { full_name: 'Local Administrator', role: 'Administrator' }
           };
-          const mockSession = { user: mockUser, access_token: 'mock-access-token-karthik-admin' };
+          const mockSession = { user: mockUser, access_token: 'local-development-session' };
           localStorage.setItem('mock_session', JSON.stringify(mockSession));
           return { data: mockSession, error: null };
         }
-        return { data: null, error: new Error('Invalid email or password. Use admin@karthik.dev / admin123') };
+        return {
+          data: null,
+          error: new Error(
+            mockEmail && mockPassword
+              ? 'Invalid local mock credentials.'
+              : 'Mock authentication requires VITE_MOCK_ADMIN_EMAIL and VITE_MOCK_ADMIN_PASSWORD in a local-only environment.'
+          )
+        };
       },
       signOut: async () => {
         localStorage.removeItem('mock_session');
@@ -719,7 +779,45 @@ if (isMock) {
     }
   };
 } else {
-  supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+  if (isConfigured) {
+    supabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+  } else {
+    const configurationError = new Error(
+      'Supabase is not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY before using authenticated or database-backed features.'
+    );
+    const unavailableBuilder = () => {
+      const builder = {
+        select: () => builder,
+        insert: () => builder,
+        update: () => builder,
+        delete: () => builder,
+        eq: () => builder,
+        order: () => builder,
+        limit: () => builder,
+        single: async () => ({ data: null, error: configurationError }),
+        then: (onfulfilled, onrejected) =>
+          Promise.resolve({ data: null, error: configurationError }).then(onfulfilled, onrejected)
+      };
+      return builder;
+    };
+
+    supabaseInstance = {
+      isMock: false,
+      auth: {
+        getSession: async () => ({ data: { session: null }, error: configurationError }),
+        onAuthStateChange: () => ({
+          data: { subscription: { unsubscribe: () => {} } },
+          error: configurationError
+        }),
+        signInWithPassword: async () => ({ data: null, error: configurationError }),
+        signOut: async () => ({ error: configurationError }),
+        resetPasswordForEmail: async () => ({ data: null, error: configurationError }),
+        updateUser: async () => ({ data: null, error: configurationError })
+      },
+      from: unavailableBuilder
+    };
+  }
 }
 
 export const supabase = supabaseInstance;
+export { isConfigured };

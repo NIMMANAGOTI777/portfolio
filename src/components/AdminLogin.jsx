@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Lock, Mail, ArrowRight, ShieldCheck, Sparkles, KeyRound, X, CheckCircle2 } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ShieldCheck, KeyRound, X, CheckCircle2 } from 'lucide-react';
 
 export default function AdminLogin({ onLoginSuccess }) {
   const [email, setEmail] = useState('');
@@ -53,11 +53,6 @@ export default function AdminLogin({ onLoginSuccess }) {
     } catch (err) {
       alert('Error sending reset email: ' + err.message);
     }
-  };
-
-  const handleFillDemo = () => {
-    setEmail('admin@karthik.dev');
-    setPassword('admin123');
   };
 
   return (
@@ -152,18 +147,6 @@ export default function AdminLogin({ onLoginSuccess }) {
             )}
           </button>
         </form>
-
-        {/* Demo login shortcut */}
-        <div className="mt-6 pt-6 border-t border-white/5 text-center">
-          <button
-            type="button"
-            onClick={handleFillDemo}
-            className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-400 hover:text-indigo-300 transition cursor-pointer"
-          >
-            <Sparkles size={13} className="text-indigo-400" />
-            <span>Fill Demo Credentials (admin@karthik.dev)</span>
-          </button>
-        </div>
 
         {/* Return to website */}
         <div className="mt-4 text-center">

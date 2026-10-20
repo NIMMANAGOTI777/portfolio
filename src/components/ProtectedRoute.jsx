@@ -8,7 +8,7 @@ import { useAuth } from '../context/AuthContext';
  * It also optionally checks for a required role (e.g., "admin").
  */
 export default function ProtectedRoute({ children, requiredRole }) {
-  const { user, loading } = useAuth();
+  const { user, role, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -26,7 +26,7 @@ export default function ProtectedRoute({ children, requiredRole }) {
   }
 
   // Role based check – if requiredRole is provided, ensure the user has it
-  if (requiredRole && user.role !== requiredRole) {
+  if (requiredRole && role !== requiredRole) {
     return <Navigate to="/admin/403" replace />;
   }
 

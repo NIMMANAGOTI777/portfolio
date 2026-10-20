@@ -1061,17 +1061,21 @@ function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {displayedCertifications.map((cert, idx) => {
-            const isModal = (cert.link === '#' || cert.credential_url === '#');
-            const certLink = cert.credential_url || cert.link || '#';
             const certImg = cert.certificate_image || cert.img;
+            const certDesc = cert.description || cert.desc;
+            const certDate = cert.issue_date || cert.date;
+            const isModal = (cert.link === '#' || cert.credential_url === '#' || !cert.link || cert.link === certImg);
+            const certLink = cert.credential_url || cert.link || '#';
+            const normalizedCert = { ...cert, img: certImg, desc: certDesc, date: certDate };
+
             return (
               <div 
                 key={idx} 
-                onClick={() => isModal ? setSelectedCert(cert) : window.open(certLink, '_blank')}
+                onClick={() => isModal ? setSelectedCert(normalizedCert) : window.open(certLink, '_blank')}
                 className="glass-panel p-4 rounded-2xl hover:border-indigo-500/30 transition group cursor-pointer flex flex-col justify-between border border-white/5"
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => { if(e.key === 'Enter') isModal ? setSelectedCert(cert) : window.open(certLink, '_blank'); }}
+                onKeyDown={(e) => { if(e.key === 'Enter') isModal ? setSelectedCert(normalizedCert) : window.open(certLink, '_blank'); }}
                 aria-label={`View ${cert.title} certificate`}
               >
                 <div>
@@ -1080,11 +1084,11 @@ function Home() {
                       {cert.title}
                     </h3>
                     <span className="text-[9px] font-bold bg-white/5 border border-white/10 px-2 py-0.5 rounded shrink-0">
-                      {cert.date}
+                      {certDate}
                     </span>
                   </div>
                   <p className="text-indigo-400 font-semibold text-[10px] mb-1.5">{cert.issuer}</p>
-                  <p className="text-slate-400 text-[11px] leading-relaxed line-clamp-2">{cert.desc}</p>
+                  <p className="text-slate-400 text-[11px] leading-relaxed line-clamp-2">{certDesc}</p>
                 </div>
                 
                 <div className="mt-3 pt-2 border-t border-white/5 flex justify-end">
@@ -1290,8 +1294,8 @@ function Home() {
             
             <div className="p-5 sm:p-6 flex flex-col items-center">
               <div className="w-full max-w-xl mb-6 rounded-xl overflow-hidden border border-white/5 shadow-2xl bg-black/50 p-2">
-                <img 
-                  src={selectedCert.img} 
+                <img
+                  src={selectedCert.img || selectedCert.certificate_image}
                   alt={`${selectedCert.issuer} ${selectedCert.title} certificate`} 
                   className="w-full h-auto max-h-[55vh] object-contain rounded-lg select-none"
                 />
@@ -1405,7 +1409,7 @@ function App() {
             <Route
               path="/admin"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requiredRole="admin">
                   <AdminLayout />
                 </ProtectedRoute>
               }

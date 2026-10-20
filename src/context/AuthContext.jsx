@@ -15,6 +15,33 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState(null);
+
+  const loadUserRole = async (nextUser) => {
+    if (!nextUser) {
+      setRole(null);
+      return;
+    }
+
+    if (supabase.isMock && nextUser.user_metadata?.role === 'Administrator') {
+      setRole('admin');
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from('admin_profiles')
+      .select('role')
+      .eq('id', nextUser.id)
+      .single();
+
+    if (error) {
+      console.error('Admin role retrieval error:', error);
+      setRole(null);
+      return;
+    }
+
+    setRole(data?.role ?? null);
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -25,6 +52,7 @@ export const AuthProvider = ({ children }) => {
         if (mounted) {
           setSession(data.session ?? null);
           setUser(data.session?.user ?? null);
+          await loadUserRole(data.session?.user ?? null);
           setLoading(false);
         }
       } catch (err) {
@@ -35,10 +63,11 @@ export const AuthProvider = ({ children }) => {
 
     initAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, newSession) => {
       if (mounted) {
         setSession(newSession ?? null);
         setUser(newSession?.user ?? null);
+        await loadUserRole(newSession?.user ?? null);
         setLoading(false);
       }
     });
@@ -58,6 +87,7 @@ export const AuthProvider = ({ children }) => {
     if (data?.session) {
       setSession(data.session);
       setUser(data.session.user);
+      await loadUserRole(data.session.user);
     }
     return data;
   };
@@ -92,7 +122,8 @@ export const AuthProvider = ({ children }) => {
     signOut,
     resetPassword,
     updateProfile,
-    isAuthenticated: !!user
+    isAuthenticated: !!user,
+    role
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

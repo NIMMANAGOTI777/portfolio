@@ -14,7 +14,7 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
   });
 
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle, submitting, success, error
+  const [status, setStatus] = useState('idle'); // idle, submitting, success, partial, error
   const [errorMessage, setErrorMessage] = useState('');
 
   // Update purpose if initialPurpose prop changes when modal opens
@@ -177,31 +177,40 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
         timestamp: formattedTimestamp,
       };
 
+      const notificationFailures = [];
+
       // Send to Admin if credentials exist
       if (serviceId && adminTemplateId && publicKey) {
         try {
           await emailjs.send(serviceId, adminTemplateId, emailParams, publicKey);
-          console.log('Admin notification email sent successfully!');
         } catch (emailErr) {
-          console.error('EmailJS Admin Template Error:', emailErr);
+          notificationFailures.push('admin');
+          console.error('EmailJS admin notification failed:', emailErr?.message || 'unknown error');
         }
       } else {
-        console.warn('EmailJS environment variables for admin notification are not fully set.');
+        notificationFailures.push('admin');
+        console.error('EmailJS admin notification is not configured.');
       }
 
       // Send Auto-reply to Visitor if credentials exist
       if (serviceId && visitorTemplateId && publicKey) {
         try {
           await emailjs.send(serviceId, visitorTemplateId, emailParams, publicKey);
-          console.log('Visitor auto-reply email sent successfully!');
         } catch (emailErr) {
-          console.error('EmailJS Visitor Template Error:', emailErr);
+          notificationFailures.push('visitor');
+          console.error('EmailJS visitor auto-reply failed:', emailErr?.message || 'unknown error');
         }
       } else {
-        console.warn('EmailJS environment variables for visitor auto-reply are not fully set.');
+        notificationFailures.push('visitor');
+        console.error('EmailJS visitor auto-reply is not configured.');
       }
 
-      setStatus('success');
+      setStatus(notificationFailures.length > 0 ? 'partial' : 'success');
+      if (notificationFailures.length > 0) {
+        setErrorMessage(
+          'Your message was saved successfully, but one or more email notifications could not be delivered. Please also contact me directly if your request is time-sensitive.'
+        );
+      }
       setFormData({
         fullName: '',
         email: '',
@@ -237,7 +246,7 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
           <X size={20} />
         </button>
 
-        {status === 'success' ? (
+        {status === 'success' || status === 'partial' ? (
           /* SUCCESS SCREEN */
           <div className="p-8 md:p-12 text-center flex flex-col items-center justify-center min-h-[450px]">
             <div className="w-20 h-20 bg-indigo-500/20 border border-indigo-500/40 rounded-full flex items-center justify-center mb-6">
@@ -246,10 +255,12 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
               </svg>
             </div>
             <h3 className="text-3xl font-semibold mb-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              Message Sent!
+              {status === 'partial' ? 'Message Received' : 'Message Sent!'}
             </h3>
             <p className="text-slate-300 max-w-md mx-auto mb-8 text-base">
-              Thanks for reaching out! I've received your request and will get back to you shortly. A confirmation email is on its way.
+              {status === 'partial'
+                ? errorMessage
+                : "Thanks for reaching out! I've received your request and will get back to you shortly. A confirmation email is on its way."}
             </p>
             <button
               onClick={onClose}

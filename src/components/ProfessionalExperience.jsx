@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePortfolioData } from '../context/PortfolioDataContext';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, MapPin, ExternalLink, Award } from 'lucide-react';
 
 // Comprehensive, Authenticated Professional Experience Dataset
 // Preserving all underlying data records, schemas, and historical details
@@ -62,28 +62,43 @@ const EXPERIENCES = [
   {
     id: 'exp-nxtwave-intern',
     company: 'NxtWave',
-    role: 'Content Strategist Intern',
-    duration: 'February 2026 – July 2026',
+    role: 'Content Strategist',
+    duration: 'Feb 2026 – Jul 2026 · 6 mos',
     year: '2026',
     employmentType: 'Internship',
+    isCurrent: false,
     isFeatured: true,
-    location: 'Remote',
+    location: 'Hyderabad, Telangana, India · On-site',
+    certificateUrl: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1791868158/Screenshot_2026-10-13_103829_hthyev.png',
+    certificateTitle: 'NxtWave Internship Certificate',
+    linkedInUrl: 'https://www.linkedin.com/in/karthik-nimmanagoti-52a403324/',
     logoText: 'NW',
     logoColor: 'from-cyan-500 via-blue-500 to-indigo-600',
-    category: ['Content', 'Marketing', 'Leadership'],
+    category: ['Content', 'Marketing', 'Strategy', 'Leadership'],
     icon: 'sparkles',
-    summary: 'Worked on content strategy, digital campaigns, and cross-team execution, contributing to campaigns reaching 400K+.',
-    highlightTag: '400K+ Audience Reach',
+    summary: 'Worked across content strategy, campaign execution, stakeholder coordination, and digital initiatives within the NIAT ecosystem.',
+    highlightTag: '400K+ Reach • NIAT Ecosystem',
     keyMetric: '400K+ Reach',
     responsibilities: [
-      'Directed multi-channel content strategy targeting student, developer, and creator demographics',
-      'Planned and executed digital campaigns that generated over 400,000+ organic impressions',
-      'Engineered structured and automated content creation, review, and publishing pipelines',
-      'Collaborated with internal leadership to align digital storytelling with core acquisition objectives',
-      'Utilized data-driven feedback loops to optimize campaign retention and engagement rates'
+      'Identified audience needs and translated them into structured content and campaign strategies',
+      'Managed initiatives from idea generation and planning to execution, publishing, and performance analysis',
+      'Coordinated across student teams, clubs, creative teams, and internal stakeholders',
+      'Used engagement data and audience response to improve content direction and execution',
+      'Contributed to campaigns generating 400K+ reach across digital channels',
+      'Built structured workflows for content planning, approvals, execution, and cross-team coordination',
+      'Supported digital products and event platforms designed for large-scale student participation'
     ],
-    skills: ['Content Strategy', 'Campaign Architecture', 'Automation', 'Brand Growth', 'Stakeholder Management'],
-    outcomes: 'Delivered campaigns reaching 400K+ impressions with a 35% reduction in production turnaround via automated pipelines.'
+    skills: [
+      'Stakeholder Management',
+      'Prioritization',
+      'User Understanding',
+      'Cross-functional Execution',
+      'Data-informed Decision Making',
+      'Content Strategy',
+      'Campaign Execution',
+      'Digital Initiatives'
+    ],
+    outcomes: 'This experience strengthened my skills in stakeholder management, prioritization, user understanding, cross-functional execution, and data-informed decision making.'
   },
   {
     id: 'exp-starlit-25',
@@ -444,6 +459,7 @@ const INITIAL_VISIBLE_COUNT = 6;
 export default function ProfessionalExperience() {
   const { publicExperiences } = usePortfolioData();
   const [showAll, setShowAll] = useState(false);
+  const [expandedId, setExpandedId] = useState(null);
 
   // Active experiences from database/CMS with full fallback to curated dataset
   const activeExperiences = useMemo(() => {
@@ -468,6 +484,14 @@ export default function ProfessionalExperience() {
           role: cmsItem.role || exp.role,
           duration: cmsItem.duration || exp.duration,
           summary: cmsItem.summary || exp.summary,
+          employmentType: cmsItem.employment_type || cmsItem.employmentType || exp.employmentType,
+          location: cmsItem.location || exp.location,
+          certificateUrl: cmsItem.certificate_url || cmsItem.certificateUrl || exp.certificateUrl,
+          certificateTitle: cmsItem.certificate_title || cmsItem.certificateTitle || exp.certificateTitle,
+          linkedInUrl: cmsItem.linkedin_url || cmsItem.linkedInUrl || exp.linkedInUrl,
+          responsibilities: (cmsItem.responsibilities && cmsItem.responsibilities.length > 0) ? cmsItem.responsibilities : exp.responsibilities,
+          skills: (cmsItem.skills && cmsItem.skills.length > 0) ? cmsItem.skills : exp.skills,
+          outcomes: cmsItem.outcomes || exp.outcomes,
           published: cmsItem.published !== false
         };
       }
@@ -485,7 +509,12 @@ export default function ProfessionalExperience() {
           duration: item.duration || '2026',
           summary: item.summary || item.full_description || '',
           logoText: item.logo_text || item.company.substring(0, 2).toUpperCase(),
-          logoUrl: item.logo_url || null
+          logoUrl: item.logo_url || null,
+          employmentType: item.employment_type || 'Experience',
+          location: item.location || '',
+          responsibilities: item.responsibilities || [],
+          skills: item.skills || [],
+          outcomes: item.outcomes || ''
         });
       }
     });
@@ -516,55 +545,225 @@ export default function ProfessionalExperience() {
 
       {/* Clean Experience List */}
       <div className="space-y-3 sm:space-y-3.5">
-        {visibleExperiences.map((exp) => (
-          <div
-            key={exp.id}
-            className="p-4 sm:p-5 rounded-2xl bg-slate-900/40 hover:bg-slate-900/70 border border-white/[0.07] hover:border-white/15 transition-all duration-200"
-          >
-            <div className="flex items-start gap-3.5 sm:gap-4">
-              
-              {/* Minimal Organization Logo / Monogram */}
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-800/80 border border-white/10 flex items-center justify-center text-slate-200 font-semibold text-xs shrink-0 select-none overflow-hidden">
-                {exp.logoUrl ? (
-                  <img
-                    src={exp.logoUrl}
-                    alt={`${exp.company} logo`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <span className="tracking-wide">
-                    {exp.logoText || (exp.company ? exp.company.substring(0, 2).toUpperCase() : 'EX')}
-                  </span>
-                )}
-              </div>
+        {visibleExperiences.map((exp) => {
+          const isExpanded = expandedId === exp.id;
+          const hasDetails = (exp.responsibilities && exp.responsibilities.length > 0) || (exp.skills && exp.skills.length > 0) || exp.outcomes;
 
-              {/* Core Information Hierarchy */}
-              <div className="flex-1 min-w-0">
-                {/* Organization & Duration */}
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-0.5 sm:gap-3 mb-0.5">
-                  <span className="text-xs sm:text-sm font-medium text-slate-300">
-                    {exp.company}
-                  </span>
-                  <span className="text-xs text-slate-500 font-normal shrink-0">
-                    {exp.duration}
-                  </span>
+          return (
+            <div
+              key={exp.id}
+              className={`p-4 sm:p-5 rounded-2xl bg-slate-900/40 hover:bg-slate-900/70 border transition-all duration-200 ${
+                isExpanded ? 'border-indigo-500/30 bg-slate-900/60 shadow-lg shadow-indigo-500/5' : 'border-white/[0.07] hover:border-white/15'
+              }`}
+            >
+              <div className="flex items-start gap-3.5 sm:gap-4">
+
+                {/* Minimal Organization Logo / Monogram */}
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-800/80 border border-white/10 flex items-center justify-center text-slate-200 font-semibold text-xs shrink-0 select-none overflow-hidden mt-0.5">
+                  {exp.logoUrl ? (
+                    <img
+                      src={exp.logoUrl}
+                      alt={`${exp.company} logo`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span className="tracking-wide">
+                      {exp.logoText || (exp.company ? exp.company.substring(0, 2).toUpperCase() : 'EX')}
+                    </span>
+                  )}
                 </div>
 
-                {/* Role / Position: Prominent */}
-                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug mb-1">
-                  {exp.role}
-                </h3>
+                {/* Core Information Hierarchy */}
+                <div className="flex-1 min-w-0">
+                  {/* Organization & Duration */}
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-3 mb-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-xs sm:text-sm font-semibold text-slate-200">
+                        {exp.company}
+                      </span>
+                      {exp.employmentType && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-slate-400 font-medium">
+                          {exp.employmentType}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs text-slate-500 font-normal shrink-0">
+                      {exp.duration}
+                    </span>
+                  </div>
 
-                {/* One-Line Description: Max 2 lines */}
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed line-clamp-2">
-                  {exp.summary}
-                </p>
+                  {/* Role / Position: Prominent */}
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug mb-1">
+                    {exp.role}
+                  </h3>
+
+                  {/* Location if present */}
+                  {exp.location && (
+                    <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-2">
+                      <MapPin size={12} className="text-indigo-400/80 shrink-0" />
+                      <span>{exp.location}</span>
+                    </div>
+                  )}
+
+                  {/* Overview Description */}
+                  <p className={`text-xs sm:text-sm text-slate-300 leading-relaxed ${!isExpanded ? 'line-clamp-2' : ''}`}>
+                    {exp.summary}
+                  </p>
+
+                  {/* Expand / Details Toggle and External Link */}
+                  {hasDetails && (
+                    <div className="mt-3 pt-2 flex items-center justify-between border-t border-white/[0.04]">
+                      <button
+                        type="button"
+                        onClick={() => setExpandedId(prev => prev === exp.id ? null : exp.id)}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer select-none"
+                        aria-expanded={isExpanded}
+                      >
+                        <span>
+                          {isExpanded
+                            ? 'Hide contributions'
+                            : `View key contributions (${exp.responsibilities?.length || 0})`}
+                        </span>
+                        {isExpanded ? (
+                          <ChevronUp size={13} className="text-indigo-400" />
+                        ) : (
+                          <ChevronDown size={13} className="text-indigo-400" />
+                        )}
+                      </button>
+
+                      <div className="flex items-center gap-2">
+                        {exp.certificateUrl && (
+                          <a
+                            href={exp.certificateUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20"
+                            title="View Official Certificate"
+                          >
+                            <Award size={12} />
+                            <span>Certificate</span>
+                          </a>
+                        )}
+
+                        {exp.linkedInUrl && (
+                          <a
+                            href={exp.linkedInUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 hover:text-indigo-300 transition-colors"
+                            title="View on LinkedIn"
+                          >
+                            <span>LinkedIn</span>
+                            <ExternalLink size={11} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Expandable Key Contributions, Outcomes, and Skills */}
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                        className="overflow-hidden pt-3.5 space-y-3.5"
+                      >
+                        {/* Key Contributions List */}
+                        {exp.responsibilities && exp.responsibilities.length > 0 && (
+                          <div className="rounded-xl bg-slate-950/40 p-3 sm:p-4 border border-white/[0.05]">
+                            <h4 className="text-[11px] font-bold text-indigo-300 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                              <span>Key Contributions</span>
+                            </h4>
+                            <ul className="space-y-2">
+                              {exp.responsibilities.map((resp, idx) => (
+                                <li key={idx} className="text-xs text-slate-300 leading-relaxed flex items-start gap-2">
+                                  <span className="text-indigo-400 select-none leading-none mt-0.5">•</span>
+                                  <span>{resp}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Official Internship Certificate Preview */}
+                        {exp.certificateUrl && (
+                          <div className="rounded-xl bg-slate-950/50 p-3 sm:p-4 border border-white/[0.08]">
+                            <div className="flex items-center justify-between mb-2.5">
+                              <h4 className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <Award size={13} />
+                                <span>{exp.certificateTitle || 'Official Internship Certificate'}</span>
+                              </h4>
+                              <a
+                                href={exp.certificateUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[11px] font-medium text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition"
+                              >
+                                <span>Open Full Document</span>
+                                <ExternalLink size={11} />
+                              </a>
+                            </div>
+                            <a
+                              href={exp.certificateUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block relative rounded-lg overflow-hidden border border-white/10 group bg-black/60 max-h-72"
+                            >
+                              <img
+                                src={exp.certificateUrl}
+                                alt={exp.certificateTitle || `${exp.company} Certificate`}
+                                className="w-full h-auto object-contain mx-auto group-hover:scale-[1.01] transition-transform duration-300"
+                                loading="lazy"
+                              />
+                            </a>
+                          </div>
+                        )}
+
+                        {/* Outcomes & Reflection */}
+                        {exp.outcomes && (
+                          <div className="p-3 sm:p-3.5 rounded-xl bg-indigo-950/20 border border-indigo-500/15">
+                            <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider block mb-1">
+                              Impact & Key Takeaway
+                            </span>
+                            <p className="text-xs text-slate-300 leading-relaxed">
+                              {exp.outcomes}
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Skills */}
+                        {exp.skills && exp.skills.length > 0 && (
+                          <div>
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
+                              Skills & Competencies
+                            </span>
+                            <div className="flex flex-wrap gap-1.5">
+                              {exp.skills.map((skill, sIdx) => (
+                                <span
+                                  key={sIdx}
+                                  className="text-[11px] px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-white/10 text-slate-300 font-medium"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                </div>
+
               </div>
-
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Understated Show More / Show Less Toggle */}
