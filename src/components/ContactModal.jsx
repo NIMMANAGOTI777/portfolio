@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Mail, User, Phone, Briefcase, HelpCircle, Send } from 'lucide-react';
+import { X, Mail, User, Phone, Briefcase, HelpCircle, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import emailjs from '@emailjs/browser';
 
@@ -35,7 +35,6 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
     const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
     const now = Date.now();
     
-    // Filter submissions within the last 10 minutes
     const recentSubmissions = submissions.filter(time => now - time < 10 * 60 * 1000);
     
     if (recentSubmissions.length >= 3) {
@@ -84,7 +83,7 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
     if (phoneTrimmed) {
       const phoneRegex = /^[+]?[0-9\s()+-]{5,25}$/;
       if (!phoneRegex.test(phoneTrimmed)) {
-        tempErrors.phone = 'Please enter a valid phone number (digits, spaces, +, -, or parentheses)';
+        tempErrors.phone = 'Please enter a valid phone number';
       } else if (htmlInjectionRegex.test(phoneTrimmed)) {
         tempErrors.phone = 'Invalid phone character sequence detected';
       }
@@ -127,7 +126,6 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
     
     if (!validate()) return;
 
-    // Rate limiting check
     if (!checkRateLimit()) {
       setStatus('error');
       setErrorMessage('Rate limit exceeded. You can only send 3 inquiries every 10 minutes. Please try again later.');
@@ -189,7 +187,6 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
         }
       } else {
         notificationFailures.push('admin');
-        console.error('EmailJS admin notification is not configured.');
       }
 
       // Send Auto-reply to Visitor if credentials exist
@@ -202,13 +199,12 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
         }
       } else {
         notificationFailures.push('visitor');
-        console.error('EmailJS visitor auto-reply is not configured.');
       }
 
       setStatus(notificationFailures.length > 0 ? 'partial' : 'success');
       if (notificationFailures.length > 0) {
         setErrorMessage(
-          'Your message was saved successfully, but one or more email notifications could not be delivered. Please also contact me directly if your request is time-sensitive.'
+          'Your message was recorded successfully in our database! However, email delivery could not be completed at this moment. You can also reach out directly via WhatsApp.'
         );
       }
       setFormData({
@@ -222,68 +218,73 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
     } catch (err) {
       console.error('Submission error:', err);
       setStatus('error');
-      setErrorMessage(err.message || 'Something went wrong. Please try again.');
+      setErrorMessage(err.message || 'Something went wrong. Please try again or reach out on WhatsApp.');
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md overflow-y-auto animate-fade-in">
       <div 
-        className="relative w-full max-w-2xl overflow-hidden rounded-2xl glass-panel animate-scale-in my-8"
+        className="relative w-full max-w-2xl overflow-hidden rounded-3xl glass-panel bg-[#171717] border border-white/10 shadow-2xl animate-scale-in my-8 text-left"
         role="dialog" 
         aria-modal="true"
+        aria-labelledby="contact-modal-title"
       >
-        {/* Background glow effects */}
-        <div className="glow-indigo -top-20 -left-20"></div>
-        <div className="glow-purple -bottom-20 -right-20"></div>
+        {/* Glow */}
+        <div className="glow-orange -top-24 -left-24 pointer-events-none"></div>
 
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white transition-colors duration-200 rounded-full hover:bg-white/10 z-10"
+          className="absolute top-5 right-5 p-2 text-slate-400 hover:text-white transition-colors rounded-full bg-white/5 hover:bg-white/10 z-15 border border-white/5 cursor-pointer"
           aria-label="Close modal"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
         {status === 'success' || status === 'partial' ? (
-          /* SUCCESS SCREEN */
-          <div className="p-8 md:p-12 text-center flex flex-col items-center justify-center min-h-[450px]">
-            <div className="w-20 h-20 bg-indigo-500/20 border border-indigo-500/40 rounded-full flex items-center justify-center mb-6">
-              <svg className="w-10 h-10 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                <path className="animate-draw" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
+          /* SUCCESS / PARTIAL SCREEN */
+          <div className="p-8 sm:p-12 text-center flex flex-col items-center justify-center min-h-[420px]">
+            <div className="w-16 h-16 bg-[#FF5A1F]/20 border border-[#FF5A1F]/40 rounded-2xl flex items-center justify-center mb-5 text-[#FF7A18]">
+              <CheckCircle2 size={32} />
             </div>
-            <h3 className="text-3xl font-semibold mb-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              {status === 'partial' ? 'Message Received' : 'Message Sent!'}
+            
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 font-display">
+              {status === 'partial' ? 'Inquiry Recorded' : 'Message Sent Successfully!'}
             </h3>
-            <p className="text-slate-300 max-w-md mx-auto mb-8 text-base">
+            
+            <p className="text-slate-300 max-w-md mx-auto mb-6 text-xs sm:text-sm leading-relaxed">
               {status === 'partial'
                 ? errorMessage
-                : "Thanks for reaching out! I've received your request and will get back to you shortly. A confirmation email is on its way."}
+                : "Thank you for reaching out! I've received your request and will get back to you within 24 hours."}
             </p>
+            
             <button
               onClick={onClose}
-              className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-medium rounded-xl shadow-lg shadow-indigo-500/20 transition-all duration-200"
+              className="px-7 py-2.5 bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] hover:from-[#FF7A18] hover:to-[#D9361E] text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg shadow-[#FF5A1F]/20 transition-all cursor-pointer"
             >
-              Close Window
+              Done
             </button>
           </div>
         ) : (
           /* FORM SCREEN */
-          <div className="p-6 md:p-8">
+          <div className="p-6 sm:p-9 relative z-10">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                Let's Build Something Together
+              <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest px-2.5 py-0.5 bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 rounded-full inline-block mb-2">
+                LET'S CONNECT
+              </span>
+              <h2 id="contact-modal-title" className="text-2xl sm:text-3xl font-extrabold text-white font-display">
+                Start a Conversation
               </h2>
-              <p className="text-slate-400 text-sm mt-1">
-                Fill out the form below, and I'll get back to you within 24 hours.
+              <p className="text-slate-400 text-xs sm:text-sm mt-1 font-light">
+                Fill out the form below and I'll respond within 24 hours.
               </p>
             </div>
 
             {status === 'error' && (
-              <div className="mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm">
-                {errorMessage}
+              <div className="mb-5 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2">
+                <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                <span>{errorMessage}</span>
               </div>
             )}
 
@@ -291,49 +292,49 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Full Name */}
                 <div>
-                  <label htmlFor="fullName" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                    Full Name <span className="text-rose-400">*</span>
+                  <label htmlFor="fullName" className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                    Full Name <span className="text-[#FF5A1F]">*</span>
                   </label>
                   <div className="relative">
-                    <User size={16} className="absolute left-3.5 top-3.5 text-slate-500" />
+                    <User size={15} className="absolute left-3.5 top-3.5 text-slate-500" />
                     <input
                       type="text"
                       id="fullName"
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleChange}
-                      placeholder="John Doe"
-                      className={`w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm ${
-                        errors.fullName ? 'border-rose-500/50 focus:border-rose-500' : ''
+                      placeholder="Your name"
+                      className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#111111] border text-xs sm:text-sm text-white placeholder-slate-500 transition focus:outline-none focus:border-[#FF5A1F] ${
+                        errors.fullName ? 'border-rose-500/60' : 'border-white/10'
                       }`}
                     />
                   </div>
                   {errors.fullName && (
-                    <p className="text-rose-400 text-xs mt-1.5">{errors.fullName}</p>
+                    <p className="text-rose-400 text-[11px] mt-1">{errors.fullName}</p>
                   )}
                 </div>
 
                 {/* Email Address */}
                 <div>
-                  <label htmlFor="email" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                    Email Address <span className="text-rose-400">*</span>
+                  <label htmlFor="email" className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                    Email Address <span className="text-[#FF5A1F]">*</span>
                   </label>
                   <div className="relative">
-                    <Mail size={16} className="absolute left-3.5 top-3.5 text-slate-500" />
+                    <Mail size={15} className="absolute left-3.5 top-3.5 text-slate-500" />
                     <input
                       type="email"
                       id="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john@example.com"
-                      className={`w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm ${
-                        errors.email ? 'border-rose-500/50 focus:border-rose-500' : ''
+                      placeholder="you@domain.com"
+                      className={`w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#111111] border text-xs sm:text-sm text-white placeholder-slate-500 transition focus:outline-none focus:border-[#FF5A1F] ${
+                        errors.email ? 'border-rose-500/60' : 'border-white/10'
                       }`}
                     />
                   </div>
                   {errors.email && (
-                    <p className="text-rose-400 text-xs mt-1.5">{errors.email}</p>
+                    <p className="text-rose-400 text-[11px] mt-1">{errors.email}</p>
                   )}
                 </div>
               </div>
@@ -341,38 +342,38 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Phone Number */}
                 <div>
-                  <label htmlFor="phone" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                  <label htmlFor="phone" className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                     Phone Number <span className="text-slate-500 text-[10px]">(Optional)</span>
                   </label>
                   <div className="relative">
-                    <Phone size={16} className="absolute left-3.5 top-3.5 text-slate-500" />
+                    <Phone size={15} className="absolute left-3.5 top-3.5 text-slate-500" />
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="+1 (555) 000-0000"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm"
+                      placeholder="+91 98765 43210"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#111111] border border-white/10 text-xs sm:text-sm text-white placeholder-slate-500 transition focus:outline-none focus:border-[#FF5A1F]"
                     />
                   </div>
                 </div>
 
                 {/* Company / Org */}
                 <div>
-                  <label htmlFor="company" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                  <label htmlFor="company" className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                     Company / Organization <span className="text-slate-500 text-[10px]">(Optional)</span>
                   </label>
                   <div className="relative">
-                    <Briefcase size={16} className="absolute left-3.5 top-3.5 text-slate-500" />
+                    <Briefcase size={15} className="absolute left-3.5 top-3.5 text-slate-500" />
                     <input
                       type="text"
                       id="company"
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      placeholder="Acme Corp"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm"
+                      placeholder="Startup / Organization"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#111111] border border-white/10 text-xs sm:text-sm text-white placeholder-slate-500 transition focus:outline-none focus:border-[#FF5A1F]"
                     />
                   </div>
                 </div>
@@ -380,19 +381,19 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
 
               {/* Purpose Dropdown */}
               <div>
-                <label htmlFor="purpose" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                  Purpose of Contact <span className="text-rose-400">*</span>
+                <label htmlFor="purpose" className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                  Purpose of Contact <span className="text-[#FF5A1F]">*</span>
                 </label>
                 <div className="relative">
-                  <HelpCircle size={16} className="absolute left-3.5 top-3.5 text-slate-500" />
+                  <HelpCircle size={15} className="absolute left-3.5 top-3.5 text-slate-500" />
                   <select
                     id="purpose"
                     name="purpose"
                     value={formData.purpose}
                     onChange={handleChange}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl glass-input text-sm appearance-none cursor-pointer"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#111111] border border-white/10 text-xs sm:text-sm text-white appearance-none cursor-pointer focus:outline-none focus:border-[#FF5A1F]"
                   >
-                    <option value="Hire Me">Hire Me (Full-Time)</option>
+                    <option value="Hire Me">Hire Me (Full-Time / Roles)</option>
                     <option value="Web Development">Web Development</option>
                     <option value="UI/UX & Figma Design">UI/UX & Figma Design</option>
                     <option value="Event Management">Event Management</option>
@@ -415,8 +416,8 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
 
               {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                  Message <span className="text-rose-400">*</span>
+                <label htmlFor="message" className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                  Message <span className="text-[#FF5A1F]">*</span>
                 </label>
                 <textarea
                   id="message"
@@ -424,13 +425,13 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
                   value={formData.message}
                   onChange={handleChange}
                   rows="4"
-                  placeholder="Tell me about your project, timeline, or what you'd like to chat about..."
-                  className={`w-full px-4 py-3 rounded-xl glass-input text-sm ${
-                    errors.message ? 'border-rose-500/50 focus:border-rose-500' : ''
+                  placeholder="Tell me about your project, timeline, or what you'd like to collaborate on..."
+                  className={`w-full px-4 py-3 rounded-xl bg-[#111111] border text-xs sm:text-sm text-white placeholder-slate-500 transition focus:outline-none focus:border-[#FF5A1F] ${
+                    errors.message ? 'border-rose-500/60' : 'border-white/10'
                   }`}
                 ></textarea>
                 {errors.message && (
-                  <p className="text-rose-400 text-xs mt-1.5">{errors.message}</p>
+                  <p className="text-rose-400 text-[11px] mt-1">{errors.message}</p>
                 )}
               </div>
 
@@ -438,19 +439,19 @@ export default function ContactModal({ isOpen, onClose, initialPurpose = 'Hire M
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:from-indigo-800/50 disabled:to-purple-800/50 disabled:cursor-not-allowed disabled:text-slate-400 text-white font-medium rounded-xl transition-all duration-200 shadow-lg shadow-indigo-500/10 cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] hover:from-[#FF7A18] hover:to-[#D9361E] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-xs sm:text-sm rounded-xl transition shadow-lg shadow-[#FF5A1F]/20 cursor-pointer"
               >
                 {status === 'submitting' ? (
                   <>
-                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
-                    <span>Sending Message...</span>
+                    <span>Sending...</span>
                   </>
                 ) : (
                   <>
-                    <Send size={18} />
+                    <Send size={15} />
                     <span>Send Message</span>
                   </>
                 )}

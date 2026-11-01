@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { usePortfolioData } from '../context/PortfolioDataContext';
 import { ChevronDown, ChevronUp, MapPin, ExternalLink, Award } from 'lucide-react';
 
-// Comprehensive, Authenticated Professional Experience Dataset
-// Preserving all underlying data records, schemas, and historical details
 const EXPERIENCES = [
   {
     id: 'exp-innfill-head',
@@ -17,7 +15,6 @@ const EXPERIENCES = [
     isFeatured: true,
     location: 'Hyderabad, India (Hybrid)',
     logoText: 'IF',
-    logoColor: 'from-indigo-600 via-indigo-500 to-purple-600',
     category: ['Community', 'Leadership', 'Marketing', 'Events'],
     icon: 'users',
     summary: 'Leading community growth, campus initiatives, events, and partnerships.',
@@ -45,7 +42,6 @@ const EXPERIENCES = [
     isFeatured: true,
     location: 'Vijayawada, Andhra Pradesh',
     logoText: 'PI',
-    logoColor: 'from-amber-500 via-rose-500 to-indigo-600',
     category: ['Design', 'Events', 'Visual Branding'],
     icon: 'award',
     summary: 'Designed event branding, physical signage, pavilion visuals, and on-ground communication assets.',
@@ -73,7 +69,6 @@ const EXPERIENCES = [
     certificateTitle: 'NxtWave Internship Certificate',
     linkedInUrl: 'https://www.linkedin.com/in/karthik-nimmanagoti-52a403324/',
     logoText: 'NW',
-    logoColor: 'from-cyan-500 via-blue-500 to-indigo-600',
     category: ['Content', 'Marketing', 'Strategy', 'Leadership'],
     icon: 'sparkles',
     summary: 'Worked across content strategy, campaign execution, stakeholder coordination, and digital initiatives within the NIAT ecosystem.',
@@ -109,7 +104,6 @@ const EXPERIENCES = [
     employmentType: 'Organizing Committee',
     location: 'NIAT Campus',
     logoText: 'S25',
-    logoColor: 'from-amber-500 via-yellow-500 to-orange-500',
     category: ['Events', 'Leadership', 'Community'],
     icon: 'award',
     summary: 'Coordinated flagship annual festival operations, VIP hospitality, stage timelines, and volunteer divisions.',
@@ -134,7 +128,6 @@ const EXPERIENCES = [
     isFeatured: true,
     location: 'NIAT Campus',
     logoText: 'B44',
-    logoColor: 'from-purple-600 via-pink-500 to-rose-600',
     category: ['Development', 'Events', 'Leadership'],
     icon: 'code2',
     isCaseStudy: true,
@@ -164,7 +157,6 @@ const EXPERIENCES = [
     isFeatured: true,
     location: 'NIAT Campus',
     logoText: 'IC',
-    logoColor: 'from-amber-500 via-orange-500 to-rose-500',
     category: ['Leadership', 'Community', 'Content', 'Events'],
     icon: 'award',
     summary: 'Led student creator initiatives, workshops, guest sessions, and campus media activities.',
@@ -195,7 +187,6 @@ const EXPERIENCES = [
     employmentType: 'Internship',
     location: 'Hyderabad, India',
     logoText: 'IF',
-    logoColor: 'from-blue-500 via-sky-400 to-indigo-500',
     category: ['Marketing', 'Content'],
     icon: 'flame',
     summary: 'Engineered growth-focused social strategies, scripted short-form video content, and optimized organic discovery.',
@@ -220,7 +211,6 @@ const EXPERIENCES = [
     employmentType: 'Leadership / Operations',
     location: 'NIAT Campus',
     logoText: 'TO',
-    logoColor: 'from-violet-600 via-indigo-600 to-blue-600',
     category: ['Events', 'Leadership', 'Community'],
     icon: 'briefcase',
     summary: 'Orchestrated 3 days of 5 major flagship events including Takeover Hackathon, DJ Night, BRAVE, and GRIT Awards.',
@@ -244,7 +234,6 @@ const EXPERIENCES = [
     employmentType: 'Leadership',
     location: 'Hyderabad, India',
     logoText: 'HV',
-    logoColor: 'from-red-500 via-rose-500 to-amber-500',
     category: ['Events', 'Leadership', 'Marketing'],
     icon: 'shield-alert',
     summary: 'Designed event security protocols, commanded a 10-member security crew, and drove campus promotional campaigns.',
@@ -270,7 +259,6 @@ const EXPERIENCES = [
     location: 'India',
     logoText: 'TAI',
     logoUrl: 'https://res.cloudinary.com/do4nuj2kh/image/upload/v1785759871/WhatsApp_Image_2026-08-03_at_5.52.31_PM_r9lnro.jpg',
-    logoColor: 'from-emerald-500 via-teal-500 to-cyan-500',
     category: ['Community', 'Leadership', 'Content'],
     icon: 'globe',
     summary: 'Pioneered student-led AI literacy initiative delivering digital tools awareness to government school students.',
@@ -283,12 +271,6 @@ const EXPERIENCES = [
       'Mentored collegiate tech trainers to deliver highly accessible, practical hands-on classroom sessions'
     ],
     skills: ['Social Impact', 'Curriculum Design', 'Public Speaking', 'Community Outreach', 'Mentorship'],
-    gallery: [
-      'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/4_uffbub.jpg',
-      'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/2_vb5mqh.jpg',
-      'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/5_ywm5ps.jpg',
-      'https://res.cloudinary.com/do4nuj2kh/image/upload/v1774507254/1_nft1oe.jpg'
-    ],
     outcomes: 'Introduced hundreds of underprivileged students to practical AI tools, empowering them with future-ready skills.'
   },
   {
@@ -300,7 +282,6 @@ const EXPERIENCES = [
     employmentType: 'Hackathon Organizing Committee',
     location: 'NIAT Campus',
     logoText: 'BAI',
-    logoColor: 'from-blue-600 via-indigo-600 to-cyan-500',
     category: ['Events', 'Development', 'Community'],
     icon: 'code2',
     summary: 'Organized AI-focused hackathon fostering student AI solutions for social impact and sustainable development.',
@@ -323,7 +304,6 @@ const EXPERIENCES = [
     employmentType: 'Organizing Lead',
     location: 'NIAT Campus',
     logoText: 'BN',
-    logoColor: 'from-emerald-600 via-green-500 to-lime-600',
     category: ['Events', 'Content', 'Marketing'],
     icon: 'camera',
     summary: 'Spearheaded media branding and operational management for agricultural innovation hackathon.',
@@ -346,7 +326,6 @@ const EXPERIENCES = [
     employmentType: 'Event Security Lead',
     location: 'NIAT Campus',
     logoText: 'S24',
-    logoColor: 'from-slate-600 via-slate-700 to-slate-800',
     category: ['Events', 'Leadership'],
     icon: 'shield-alert',
     summary: 'Formulated entry checkpoints, crowd flow barriers, and perimeter safety protocols for 1,000+ attendees.',
@@ -359,109 +338,16 @@ const EXPERIENCES = [
     ],
     skills: ['Crowd Safety', 'Gate Logistics', 'Incident Management', 'Perimeter Control'],
     outcomes: 'Delivered an incident-free event experience for over 1,000 student attendees with structured queue management.'
-  },
-  {
-    id: 'exp-naitra',
-    company: 'NAITRA 2.0',
-    role: 'Head of Security & Social Media Manager',
-    duration: '2024',
-    year: '2024',
-    employmentType: 'Dual Lead Role',
-    location: 'NIAT Campus',
-    logoText: 'N2',
-    logoColor: 'from-teal-500 via-emerald-500 to-cyan-500',
-    category: ['Events', 'Marketing', 'Content'],
-    icon: 'camera',
-    summary: 'Bridged on-ground event security architecture with high-engagement live social media broadcasting.',
-    highlightTag: 'Security & Live Media Coverage',
-    keyMetric: 'Dual-Lead Role',
-    responsibilities: [
-      'Commanded physical venue security protocols, crowd barricades, and stage protection cordons',
-      'Directed real-time social media publishing, capturing high-energy reels, photos, and live story updates',
-      'Managed volunteer teams across both physical safety checkpoints and digital media recording points'
-    ],
-    skills: ['Event Security', 'Live SMM', 'Event Photography', 'Visual Documentation'],
-    outcomes: 'Combined zero security incidents with a record spike in real-time festival social media impressions.'
-  },
-  {
-    id: 'exp-iot-workshop',
-    company: 'IoT & Hardware Summit',
-    role: 'IoT Workshop Organizer & Media Lead',
-    duration: '2024',
-    year: '2024',
-    employmentType: 'Workshop Organizer',
-    location: 'NIAT Campus',
-    logoText: 'IOT',
-    logoColor: 'from-indigo-600 via-blue-600 to-teal-500',
-    category: ['Events', 'Development', 'Content'],
-    icon: 'cpu',
-    summary: 'Conducted hands-on embedded systems workshop and managed full-scale media documentation.',
-    highlightTag: '100+ Hardware Makers',
-    keyMetric: 'Hardware Workshop',
-    responsibilities: [
-      'Coordinated microcontroller and sensor hardware kit distribution for over 100 student makers',
-      'Assisted technical instructors during hands-on coding and circuit assembly debugging',
-      'Produced cinematic recap videos and technical documentation of student embedded projects'
-    ],
-    skills: ['Hardware Logistics', 'IoT Workshops', 'Technical Media', 'Mentorship Support'],
-    outcomes: 'Enabled 100+ students to successfully build their first working embedded sensor prototypes.'
-  },
-  {
-    id: 'exp-agritech-podcast',
-    company: 'AgriTech & Entrepreneurship Podcast',
-    role: 'Podcast Organizer & Host',
-    duration: '2024',
-    year: '2024',
-    employmentType: 'Creator / Host',
-    location: 'Hyderabad, India',
-    logoText: 'POD',
-    logoColor: 'from-amber-600 via-orange-600 to-red-600',
-    category: ['Content', 'Community', 'Marketing'],
-    icon: 'mic',
-    summary: "Produced and hosted in-depth podcast with Kishore Indukuri (CEO of Sid's Farm) on AgriTech startup scaling.",
-    highlightTag: 'Founder Spotlight Podcast',
-    keyMetric: 'Founder Podcast',
-    responsibilities: [
-      'Formulated in-depth conversational outline on dairy tech, supply chain scaling, and bootstrapped growth',
-      'Hosted live discussion spotlighting actionable startup lessons for student entrepreneurs',
-      'Engineered audio-visual post-production and published high-engagement micro-clips across social platforms'
-    ],
-    skills: ['Podcast Hosting', 'Founder Interviewing', 'Audio/Video Editing', 'Content Distribution'],
-    outcomes: 'Generated high student engagement and positive reception from Hyderabad startup ecosystem leaders.'
-  },
-  {
-    id: 'exp-industry-expert',
-    company: 'Industry Expert Series',
-    role: 'Series Curator & Host — Featuring Meera Kannan',
-    duration: '2024',
-    year: '2024',
-    employmentType: 'Curator & Host',
-    location: 'NIAT Campus',
-    logoText: 'IX',
-    logoColor: 'from-pink-600 via-purple-600 to-indigo-600',
-    category: ['Community', 'Leadership', 'Content'],
-    icon: 'radio',
-    summary: 'Curated interactive fireside masterclass with industry leader Meera Kannan on professional career growth.',
-    highlightTag: 'Executive Leadership Fireside',
-    keyMetric: 'Executive Session',
-    responsibilities: [
-      'Spearheaded guest speaker outreach, briefing, and thematic agenda alignment',
-      'Moderated interactive Q&A session bridging corporate leadership insights with student ambitions',
-      'Documented core takeaways into actionable career frameworks shared across the campus community'
-    ],
-    skills: ['Executive Moderation', 'Speaker Hospitality', 'Agenda Curation', 'Audience Engagement'],
-    outcomes: 'Connected 200+ aspiring student technologists directly with high-level corporate leadership insights.'
   }
 ];
 
-const INITIAL_VISIBLE_COUNT = 6;
+const INITIAL_VISIBLE_COUNT = 5;
 
 export default function ProfessionalExperience() {
   const { publicExperiences } = usePortfolioData();
   const [showAll, setShowAll] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
 
-  // Active experiences from database/CMS with full fallback to curated dataset
   const activeExperiences = useMemo(() => {
     if (!publicExperiences || publicExperiences.length === 0) {
       return EXPERIENCES;
@@ -498,7 +384,6 @@ export default function ProfessionalExperience() {
       return exp;
     }).filter(e => e.published !== false);
 
-    // Append any newly added CMS items not in static dataset
     publicExperiences.forEach(item => {
       const alreadyIn = EXPERIENCES.some(e => e.id === item.id) || (item.id === 'exp-niat-president');
       if (!alreadyIn && item.published !== false) {
@@ -522,7 +407,6 @@ export default function ProfessionalExperience() {
     return merged;
   }, [publicExperiences]);
 
-  // Determine items to display based on concise list toggle
   const visibleExperiences = showAll
     ? activeExperiences
     : activeExperiences.slice(0, INITIAL_VISIBLE_COUNT);
@@ -531,35 +415,47 @@ export default function ProfessionalExperience() {
   const remainingCount = activeExperiences.length - INITIAL_VISIBLE_COUNT;
 
   return (
-    <section id="experience" className="max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20 w-full relative z-10">
+    <section id="experience" className="max-w-5xl mx-auto px-4 sm:px-6 py-20 w-full relative z-10">
       
-      {/* Section Header: Compact & Subtle */}
-      <div className="text-center mb-10 sm:mb-12">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display tracking-tight uppercase">
-          Professional Experience
+      {/* Section Header */}
+      <div className="text-center mb-12 sm:mb-16">
+        <span className="text-[11px] font-bold text-[#FF7A18] uppercase tracking-widest px-3 py-1 bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 rounded-full inline-block mb-3">
+          03 — PROFESSIONAL PATH
+        </span>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white font-display tracking-tight">
+          Work Experience
         </h2>
-        <p className="text-slate-400 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed mt-2 font-light">
-          Organizations, roles, and projects I've contributed to.
+        <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed mt-2.5 font-light">
+          Leadership roles, community scaling initiatives, state event executions, and digital strategy.
         </p>
       </div>
 
-      {/* Clean Experience List */}
-      <div className="space-y-3 sm:space-y-3.5">
-        {visibleExperiences.map((exp) => {
+      {/* Editorial Timeline Container */}
+      <div className="space-y-4">
+        {visibleExperiences.map((exp, idx) => {
           const isExpanded = expandedId === exp.id;
-          const hasDetails = (exp.responsibilities && exp.responsibilities.length > 0) || (exp.skills && exp.skills.length > 0) || exp.outcomes;
+          const hasDetails = (exp.responsibilities && exp.responsibilities.length > 0) || (exp.skills && exp.skills.length > 0) || exp.outcomes || exp.certificateUrl;
 
           return (
             <div
               key={exp.id}
-              className={`p-4 sm:p-5 rounded-2xl bg-slate-900/40 hover:bg-slate-900/70 border transition-all duration-200 ${
-                isExpanded ? 'border-indigo-500/30 bg-slate-900/60 shadow-lg shadow-indigo-500/5' : 'border-white/[0.07] hover:border-white/15'
+              className={`p-5 sm:p-7 rounded-3xl bg-[#171717] border transition-all duration-300 relative group overflow-hidden ${
+                isExpanded 
+                  ? 'border-[#FF5A1F]/50 shadow-xl shadow-[#FF5A1F]/5 bg-[#1C1C1C]' 
+                  : 'border-white/10 hover:border-white/20 hover:bg-[#1A1A1A]'
               }`}
             >
-              <div className="flex items-start gap-3.5 sm:gap-4">
+              {/* Subtle Warm Accent Bar on Hover/Active */}
+              <div 
+                className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FF5A1F] to-[#D9361E] transition-opacity duration-300 ${
+                  isExpanded ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                }`}
+              />
 
-                {/* Minimal Organization Logo / Monogram */}
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-800/80 border border-white/10 flex items-center justify-center text-slate-200 font-semibold text-xs shrink-0 select-none overflow-hidden mt-0.5">
+              <div className="flex items-start gap-4 sm:gap-5">
+                
+                {/* Organization Logo / Monogram */}
+                <div className="w-12 h-12 rounded-2xl bg-[#222222] border border-white/10 flex items-center justify-center text-white font-extrabold text-xs shrink-0 select-none overflow-hidden mt-0.5 shadow-md">
                   {exp.logoUrl ? (
                     <img
                       src={exp.logoUrl}
@@ -568,67 +464,74 @@ export default function ProfessionalExperience() {
                       loading="lazy"
                     />
                   ) : (
-                    <span className="tracking-wide">
+                    <span className="tracking-wider text-[#FF7A18]">
                       {exp.logoText || (exp.company ? exp.company.substring(0, 2).toUpperCase() : 'EX')}
                     </span>
                   )}
                 </div>
 
-                {/* Core Information Hierarchy */}
+                {/* Content Body */}
                 <div className="flex-1 min-w-0">
-                  {/* Organization & Duration */}
-                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-3 mb-1">
+                  
+                  {/* Company & Duration Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 mb-1.5">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs sm:text-sm font-semibold text-slate-200">
+                      <span className="text-sm sm:text-base font-bold text-white tracking-tight">
                         {exp.company}
                       </span>
                       {exp.employmentType && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-slate-400 font-medium">
+                        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300 font-medium">
                           {exp.employmentType}
                         </span>
                       )}
+                      {exp.isCurrent && (
+                        <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#FF5A1F]/15 border border-[#FF5A1F]/30 text-[#FF7A18] font-bold uppercase tracking-wider">
+                          Current
+                        </span>
+                      )}
                     </div>
-                    <span className="text-xs text-slate-500 font-normal shrink-0">
+
+                    <span className="text-xs text-slate-400 font-mono shrink-0">
                       {exp.duration}
                     </span>
                   </div>
 
-                  {/* Role / Position: Prominent */}
-                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug mb-1">
+                  {/* Role Title */}
+                  <h3 className="text-lg sm:text-xl font-extrabold text-white group-hover:text-[#FFA87D] transition-colors leading-snug mb-1 font-display">
                     {exp.role}
                   </h3>
 
                   {/* Location if present */}
                   {exp.location && (
-                    <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-2">
-                      <MapPin size={12} className="text-indigo-400/80 shrink-0" />
+                    <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-2.5 font-light">
+                      <MapPin size={12} className="text-[#FF5A1F] shrink-0" />
                       <span>{exp.location}</span>
                     </div>
                   )}
 
-                  {/* Overview Description */}
-                  <p className={`text-xs sm:text-sm text-slate-300 leading-relaxed ${!isExpanded ? 'line-clamp-2' : ''}`}>
+                  {/* Summary */}
+                  <p className={`text-xs sm:text-sm text-slate-300 leading-relaxed font-light ${!isExpanded ? 'line-clamp-2' : ''}`}>
                     {exp.summary}
                   </p>
 
-                  {/* Expand / Details Toggle and External Link */}
+                  {/* Actions Strip */}
                   {hasDetails && (
-                    <div className="mt-3 pt-2 flex items-center justify-between border-t border-white/[0.04]">
+                    <div className="mt-4 pt-3 flex items-center justify-between border-t border-white/5 flex-wrap gap-2">
                       <button
                         type="button"
                         onClick={() => setExpandedId(prev => prev === exp.id ? null : exp.id)}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer select-none"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FF7A18] hover:text-[#FFA87D] transition-colors cursor-pointer select-none"
                         aria-expanded={isExpanded}
                       >
                         <span>
                           {isExpanded
                             ? 'Hide contributions'
-                            : `View key contributions (${exp.responsibilities?.length || 0})`}
+                            : `View contributions (${exp.responsibilities?.length || 0})`}
                         </span>
                         {isExpanded ? (
-                          <ChevronUp size={13} className="text-indigo-400" />
+                          <ChevronUp size={14} className="text-[#FF5A1F]" />
                         ) : (
-                          <ChevronDown size={13} className="text-indigo-400" />
+                          <ChevronDown size={14} className="text-[#FF5A1F]" />
                         )}
                       </button>
 
@@ -638,7 +541,7 @@ export default function ProfessionalExperience() {
                             href={exp.certificateUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20"
+                            className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/25"
                             title="View Official Certificate"
                           >
                             <Award size={12} />
@@ -651,7 +554,7 @@ export default function ProfessionalExperience() {
                             href={exp.linkedInUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 hover:text-indigo-300 transition-colors"
+                            className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 hover:text-white transition-colors"
                             title="View on LinkedIn"
                           >
                             <span>LinkedIn</span>
@@ -662,27 +565,27 @@ export default function ProfessionalExperience() {
                     </div>
                   )}
 
-                  {/* Expandable Key Contributions, Outcomes, and Skills */}
+                  {/* Expandable Key Contributions & Outcomes */}
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2, ease: 'easeOut' }}
-                        className="overflow-hidden pt-3.5 space-y-3.5"
+                        transition={{ duration: 0.22, ease: 'easeOut' }}
+                        className="overflow-hidden pt-4 space-y-4"
                       >
-                        {/* Key Contributions List */}
+                        {/* Contributions List */}
                         {exp.responsibilities && exp.responsibilities.length > 0 && (
-                          <div className="rounded-xl bg-slate-950/40 p-3 sm:p-4 border border-white/[0.05]">
-                            <h4 className="text-[11px] font-bold text-indigo-300 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
-                              <span>Key Contributions</span>
+                          <div className="rounded-2xl bg-[#111111] p-4 sm:p-5 border border-white/5">
+                            <h4 className="text-[11px] font-bold text-[#FF7A18] uppercase tracking-wider mb-3 flex items-center gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]"></span>
+                              <span>Key Contributions & Initiatives</span>
                             </h4>
-                            <ul className="space-y-2">
+                            <ul className="space-y-2.5">
                               {exp.responsibilities.map((resp, idx) => (
-                                <li key={idx} className="text-xs text-slate-300 leading-relaxed flex items-start gap-2">
-                                  <span className="text-indigo-400 select-none leading-none mt-0.5">•</span>
+                                <li key={idx} className="text-xs text-slate-300 leading-relaxed flex items-start gap-2.5">
+                                  <span className="text-[#FF5A1F] select-none leading-none mt-1 shrink-0">•</span>
                                   <span>{resp}</span>
                                 </li>
                               ))}
@@ -690,10 +593,10 @@ export default function ProfessionalExperience() {
                           </div>
                         )}
 
-                        {/* Official Internship Certificate Preview */}
+                        {/* Certificate Image Box */}
                         {exp.certificateUrl && (
-                          <div className="rounded-xl bg-slate-950/50 p-3 sm:p-4 border border-white/[0.08]">
-                            <div className="flex items-center justify-between mb-2.5">
+                          <div className="rounded-2xl bg-[#111111] p-4 border border-white/10">
+                            <div className="flex items-center justify-between mb-3">
                               <h4 className="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                                 <Award size={13} />
                                 <span>{exp.certificateTitle || 'Official Internship Certificate'}</span>
@@ -702,7 +605,7 @@ export default function ProfessionalExperience() {
                                 href={exp.certificateUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[11px] font-medium text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition"
+                                className="text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition"
                               >
                                 <span>Open Full Document</span>
                                 <ExternalLink size={11} />
@@ -712,7 +615,7 @@ export default function ProfessionalExperience() {
                               href={exp.certificateUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="block relative rounded-lg overflow-hidden border border-white/10 group bg-black/60 max-h-72"
+                              className="block relative rounded-xl overflow-hidden border border-white/10 group bg-black max-h-72"
                             >
                               <img
                                 src={exp.certificateUrl}
@@ -726,11 +629,11 @@ export default function ProfessionalExperience() {
 
                         {/* Outcomes & Reflection */}
                         {exp.outcomes && (
-                          <div className="p-3 sm:p-3.5 rounded-xl bg-indigo-950/20 border border-indigo-500/15">
-                            <span className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider block mb-1">
+                          <div className="p-4 rounded-2xl bg-[#1F1714] border border-[#FF5A1F]/20">
+                            <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-wider block mb-1">
                               Impact & Key Takeaway
                             </span>
-                            <p className="text-xs text-slate-300 leading-relaxed">
+                            <p className="text-xs text-slate-300 leading-relaxed font-light">
                               {exp.outcomes}
                             </p>
                           </div>
@@ -739,14 +642,14 @@ export default function ProfessionalExperience() {
                         {/* Skills */}
                         {exp.skills && exp.skills.length > 0 && (
                           <div>
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
                               Skills & Competencies
                             </span>
                             <div className="flex flex-wrap gap-1.5">
                               {exp.skills.map((skill, sIdx) => (
                                 <span
                                   key={sIdx}
-                                  className="text-[11px] px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-white/10 text-slate-300 font-medium"
+                                  className="text-[10px] sm:text-[11px] px-2.5 py-1 rounded-lg bg-[#222222] border border-white/10 text-slate-300 font-medium"
                                 >
                                   {skill}
                                 </span>
@@ -766,21 +669,21 @@ export default function ProfessionalExperience() {
         })}
       </div>
 
-      {/* Understated Show More / Show Less Toggle */}
+      {/* Show More / Show Less Toggle */}
       {hasMore && (
-        <div className="text-center pt-6 sm:pt-8">
+        <div className="text-center pt-8">
           <button
             onClick={() => setShowAll(prev => !prev)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-[#171717] hover:bg-[#202020] border border-white/10 hover:border-[#FF5A1F]/40 transition-all cursor-pointer shadow-md"
             aria-expanded={showAll}
           >
             <span>
               {showAll ? 'Show Less' : `Show More Experiences (${remainingCount})`}
             </span>
             {showAll ? (
-              <ChevronUp size={14} className="text-slate-400" />
+              <ChevronUp size={14} className="text-[#FF5A1F]" />
             ) : (
-              <ChevronDown size={14} className="text-slate-400" />
+              <ChevronDown size={14} className="text-[#FF5A1F]" />
             )}
           </button>
         </div>

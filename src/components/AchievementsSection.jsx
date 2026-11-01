@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { usePortfolioData } from '../context/PortfolioDataContext';
 import { 
-  Users, Play, X, ChevronLeft, ChevronRight, 
-  Sparkles, Lightbulb, CheckCircle2, ShieldCheck, 
-  Maximize2, Award, Heart, Video, Film, Trophy, Medal,
-  ArrowRight, Pause, PlayCircle, Eye
+  Play, X, ChevronLeft, ChevronRight, 
+  Film, Trophy, ArrowRight, Pause, Eye
 } from 'lucide-react';
 
 const BAPPA_REEL_VIDEO_URL = 'https://res.cloudinary.com/do4nuj2kh/video/upload/v1789962558/WhatsApp_Video_2026-09-21_at_9.17.52_AM_ifitl1.mp4'; 
@@ -32,24 +29,13 @@ const ACHIEVEMENTS_DATA = [
       'Policy Innovation'
     ],
     accent: {
-      bar: 'from-transparent via-amber-400 to-transparent',
-      glowTop: 'from-amber-500/10 via-purple-500/5 to-transparent',
-      glowBottom: 'from-indigo-500/10 via-purple-500/5 to-transparent',
-      border: 'border-amber-500/30 hover:border-amber-500/50',
-      shadow: 'shadow-[0_0_35px_rgba(245,158,11,0.12)]',
-      awardText: 'text-amber-300 drop-shadow-[0_0_12px_rgba(245,158,11,0.3)]',
-      badge1: 'bg-amber-500/20 text-amber-300 border-amber-500/35',
-      badge2: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/25',
-      issuerText: 'text-amber-400/90',
-      button: 'bg-gradient-to-r from-amber-500/20 via-indigo-600/25 to-purple-600/25 hover:from-amber-500/35 hover:via-indigo-600/40 hover:to-purple-600/40 border-amber-500/35 hover:border-amber-500/60 shadow-amber-500/10 text-amber-200',
-      chevron: 'text-amber-400',
-      metric1Box: 'bg-gradient-to-b from-amber-500/10 to-amber-500/5 border-amber-500/25 text-amber-300',
-      metric1Label: 'text-amber-200/70',
-      statementBox: 'from-amber-500/10 via-indigo-600/10 to-purple-600/10 border-amber-500/30 shadow-amber-500/5',
-      statementText: 'from-amber-300 via-white to-indigo-300',
-      headingAccent: 'text-amber-400',
-      dot: 'bg-amber-400',
-      hoverMediaBorder: 'hover:border-amber-500/40'
+      bar: 'from-[#FF5A1F] via-[#FF7A18] to-transparent',
+      border: 'border-[#FF5A1F]/30 hover:border-[#FF5A1F]/60',
+      shadow: 'shadow-[0_0_35px_rgba(255,90,31,0.12)]',
+      awardText: 'text-[#FF7A18]',
+      badge1: 'bg-[#FF5A1F]/20 text-[#FFA87D] border-[#FF5A1F]/35',
+      badge2: 'bg-white/10 text-white border-white/15',
+      button: 'bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] hover:from-[#FF7A18] hover:to-[#D9361E] text-white',
     },
     metrics: [
       { value: '1st', label: 'Prize' },
@@ -122,24 +108,13 @@ const ACHIEVEMENTS_DATA = [
       'Creative Direction'
     ],
     accent: {
-      bar: 'from-transparent via-sky-400 to-transparent',
-      glowTop: 'from-sky-500/10 via-cyan-500/5 to-transparent',
-      glowBottom: 'from-slate-500/10 via-sky-500/5 to-transparent',
-      border: 'border-sky-500/30 hover:border-sky-500/50',
-      shadow: 'shadow-[0_0_35px_rgba(56,189,248,0.12)]',
-      awardText: 'text-sky-300 drop-shadow-[0_0_12px_rgba(56,189,248,0.3)]',
-      badge1: 'bg-slate-400/20 text-slate-200 border-slate-400/35',
-      badge2: 'bg-sky-500/15 text-sky-300 border-sky-500/25',
-      issuerText: 'text-sky-400/90',
-      button: 'bg-gradient-to-r from-sky-500/20 via-slate-600/25 to-cyan-600/25 hover:from-sky-500/35 hover:via-slate-600/40 hover:to-cyan-600/40 border-sky-500/35 hover:border-sky-500/60 shadow-sky-500/10 text-sky-200',
-      chevron: 'text-sky-400',
-      metric1Box: 'bg-gradient-to-b from-sky-500/10 to-sky-500/5 border-sky-500/25 text-sky-300',
-      metric1Label: 'text-sky-200/70',
-      statementBox: 'from-sky-500/10 via-slate-600/10 to-cyan-600/10 border-sky-500/30 shadow-sky-500/5',
-      statementText: 'from-slate-200 via-sky-200 to-cyan-200',
-      headingAccent: 'text-sky-400',
-      dot: 'bg-sky-400',
-      hoverMediaBorder: 'hover:border-sky-500/40'
+      bar: 'from-[#FF7A18] via-amber-400 to-transparent',
+      border: 'border-white/15 hover:border-[#FF5A1F]/50',
+      shadow: 'shadow-[0_0_35px_rgba(255,122,24,0.1)]',
+      awardText: 'text-[#FFA87D]',
+      badge1: 'bg-white/10 text-slate-200 border-white/20',
+      badge2: 'bg-[#FF5A1F]/15 text-[#FFA87D] border-[#FF5A1F]/30',
+      button: 'bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] hover:from-[#FF7A18] hover:to-[#D9361E] text-white',
     },
     metrics: [
       { value: '2nd', label: 'Runner-Up Result' },
@@ -202,24 +177,13 @@ const ACHIEVEMENTS_DATA = [
       'Event Management'
     ],
     accent: {
-      bar: 'from-transparent via-cyan-400 to-transparent',
-      glowTop: 'from-cyan-500/10 via-blue-500/5 to-transparent',
-      glowBottom: 'from-indigo-500/10 via-violet-500/5 to-transparent',
-      border: 'border-cyan-500/25 hover:border-cyan-500/40',
-      shadow: 'shadow-[0_0_35px_rgba(6,182,212,0.08)]',
-      awardText: 'text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.3)]',
-      badge1: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/35',
-      badge2: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/25',
-      issuerText: 'text-cyan-400/90',
-      button: 'bg-gradient-to-r from-cyan-500/15 via-indigo-600/20 to-purple-600/20 hover:from-cyan-500/25 hover:via-indigo-600/30 hover:to-purple-600/30 border-cyan-500/30 hover:border-cyan-500/50 shadow-cyan-500/5 text-cyan-200',
-      chevron: 'text-cyan-400',
-      metric1Box: 'bg-gradient-to-b from-cyan-500/10 to-cyan-500/5 border-cyan-500/25 text-cyan-300',
-      metric1Label: 'text-cyan-200/70',
-      statementBox: 'from-cyan-500/10 via-indigo-600/10 to-purple-600/10 border-cyan-500/30 shadow-cyan-500/5',
-      statementText: 'from-cyan-300 via-white to-indigo-300',
-      headingAccent: 'text-cyan-400',
-      dot: 'bg-cyan-400',
-      hoverMediaBorder: 'hover:border-cyan-500/40'
+      bar: 'from-[#FF5A1F] via-[#FF7A18] to-transparent',
+      border: 'border-white/10 hover:border-[#FF5A1F]/40',
+      shadow: 'shadow-[0_0_35px_rgba(255,90,31,0.08)]',
+      awardText: 'text-[#FF7A18]',
+      badge1: 'bg-[#FF5A1F]/20 text-[#FFA87D] border-[#FF5A1F]/30',
+      badge2: 'bg-white/10 text-slate-300 border-white/15',
+      button: 'bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] hover:from-[#FF7A18] hover:to-[#D9361E] text-white',
     },
     metrics: [
       { value: 'President', label: 'Influencers Club' },
@@ -285,24 +249,13 @@ const ACHIEVEMENTS_DATA = [
       'Student Excellence'
     ],
     accent: {
-      bar: 'from-transparent via-orange-400 to-transparent',
-      glowTop: 'from-orange-500/10 via-amber-500/5 to-transparent',
-      glowBottom: 'from-rose-500/10 via-purple-500/5 to-transparent',
-      border: 'border-orange-500/25 hover:border-orange-500/40',
-      shadow: 'shadow-[0_0_35px_rgba(249,115,22,0.08)]',
-      awardText: 'text-orange-300 drop-shadow-[0_0_12px_rgba(249,115,22,0.3)]',
-      badge1: 'bg-orange-500/20 text-orange-300 border-orange-500/35',
-      badge2: 'bg-rose-500/15 text-rose-300 border-rose-500/25',
-      issuerText: 'text-orange-400/90',
-      button: 'bg-gradient-to-r from-orange-500/15 via-rose-600/20 to-amber-600/20 hover:from-orange-500/25 hover:via-rose-600/30 hover:to-amber-600/30 border-orange-500/30 hover:border-orange-500/50 shadow-orange-500/5 text-orange-200',
-      chevron: 'text-orange-400',
-      metric1Box: 'bg-gradient-to-b from-orange-500/10 to-orange-500/5 border-orange-500/25 text-orange-300',
-      metric1Label: 'text-orange-200/70',
-      statementBox: 'from-orange-500/10 via-rose-600/10 to-amber-600/10 border-orange-500/30 shadow-orange-500/5',
-      statementText: 'from-orange-300 via-white to-amber-300',
-      headingAccent: 'text-orange-400',
-      dot: 'bg-orange-400',
-      hoverMediaBorder: 'hover:border-orange-500/40'
+      bar: 'from-[#FF7A18] via-amber-400 to-transparent',
+      border: 'border-white/10 hover:border-[#FF5A1F]/40',
+      shadow: 'shadow-[0_0_35px_rgba(255,90,31,0.08)]',
+      awardText: 'text-[#FFA87D]',
+      badge1: 'bg-[#FF5A1F]/20 text-[#FFA87D] border-[#FF5A1F]/30',
+      badge2: 'bg-white/10 text-slate-300 border-white/15',
+      button: 'bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] hover:from-[#FF7A18] hover:to-[#D9361E] text-white',
     },
     metrics: [
       { value: 'Top', label: 'Student Honor' },
@@ -373,24 +326,13 @@ const ACHIEVEMENTS_DATA = [
       'Video Editing'
     ],
     accent: {
-      bar: 'from-transparent via-fuchsia-400 to-transparent',
-      glowTop: 'from-fuchsia-500/10 via-pink-500/5 to-transparent',
-      glowBottom: 'from-purple-500/10 via-indigo-500/5 to-transparent',
-      border: 'border-fuchsia-500/25 hover:border-fuchsia-500/40',
-      shadow: 'shadow-[0_0_35px_rgba(217,70,239,0.08)]',
-      awardText: 'text-fuchsia-300 drop-shadow-[0_0_12px_rgba(217,70,239,0.3)]',
-      badge1: 'bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/35',
-      badge2: 'bg-pink-500/15 text-pink-300 border-pink-500/25',
-      issuerText: 'text-fuchsia-400/90',
-      button: 'bg-gradient-to-r from-fuchsia-500/15 via-purple-600/20 to-pink-600/20 hover:from-fuchsia-500/25 hover:via-purple-600/30 hover:to-pink-600/30 border-fuchsia-500/30 hover:border-fuchsia-500/50 shadow-fuchsia-500/5 text-fuchsia-200',
-      chevron: 'text-fuchsia-400',
-      metric1Box: 'bg-gradient-to-b from-fuchsia-500/10 to-fuchsia-500/5 border-fuchsia-500/25 text-fuchsia-300',
-      metric1Label: 'text-fuchsia-200/70',
-      statementBox: 'from-fuchsia-500/10 via-purple-600/10 to-pink-600/10 border-fuchsia-500/30 shadow-fuchsia-500/5',
-      statementText: 'from-fuchsia-300 via-white to-pink-300',
-      headingAccent: 'text-fuchsia-400',
-      dot: 'bg-fuchsia-400',
-      hoverMediaBorder: 'hover:border-fuchsia-500/40'
+      bar: 'from-[#FF5A1F] via-[#FF7A18] to-transparent',
+      border: 'border-white/10 hover:border-[#FF5A1F]/40',
+      shadow: 'shadow-[0_0_35px_rgba(255,90,31,0.08)]',
+      awardText: 'text-[#FF7A18]',
+      badge1: 'bg-[#FF5A1F]/20 text-[#FFA87D] border-[#FF5A1F]/30',
+      badge2: 'bg-white/10 text-slate-300 border-white/15',
+      button: 'bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] hover:from-[#FF7A18] hover:to-[#D9361E] text-white',
     },
     metrics: [
       { value: '1st', label: 'Contest Win' },
@@ -445,11 +387,8 @@ export default function AchievementsSection() {
   const [isInteracting, setIsInteracting] = useState(false);
   const [selectedAchievement, setSelectedAchievement] = useState(null);
   const [lightboxData, setLightboxData] = useState(null);
-  const [isZoomed, setIsZoomed] = useState(false);
   const lightboxVideoRef = useRef(null);
-  const modalVideoRef = useRef(null);
 
-  // Merge live achievements order from Supabase/admin with rich styling template
   const displayedAchievements = useMemo(() => {
     if (!publicAchievements || publicAchievements.length === 0) return ACHIEVEMENTS_DATA;
     return publicAchievements.map(liveItem => {
@@ -488,7 +427,6 @@ export default function AchievementsSection() {
     });
   }, [publicAchievements]);
 
-  // Responsive cards visible calculation
   const [cardsVisible, setCardsVisible] = useState(3);
 
   useEffect(() => {
@@ -496,7 +434,7 @@ export default function AchievementsSection() {
       const w = window.innerWidth;
       if (w < 768) {
         setCardsVisible(1);
-      } else if (w < 1280) {
+      } else if (w < 1200) {
         setCardsVisible(2);
       } else {
         setCardsVisible(3);
@@ -509,15 +447,10 @@ export default function AchievementsSection() {
   }, []);
 
   const totalCards = displayedAchievements.length;
-  const maxIndex = Math.max(0, totalCards - cardsVisible);
 
-  // Touch / Drag handling state
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStartX, setDragStartX] = useState(0);
 
-  // Check prefers-reduced-motion
   const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const handleNext = useCallback(() => {
@@ -528,20 +461,18 @@ export default function AchievementsSection() {
     setCurrentIndex((prev) => (prev <= 0 ? totalCards - 1 : prev - 1));
   }, [totalCards]);
 
-  // Auto-scroll loop timer (3.5s per slide)
   useEffect(() => {
-    if (prefersReducedMotion || isHovered || isInteracting || isDragging || selectedAchievement || lightboxData) {
+    if (prefersReducedMotion || isHovered || isInteracting || selectedAchievement || lightboxData) {
       return;
     }
 
     const timer = setInterval(() => {
       handleNext();
-    }, 3500);
+    }, 4000);
 
     return () => clearInterval(timer);
-  }, [handleNext, prefersReducedMotion, isHovered, isInteracting, isDragging, selectedAchievement, lightboxData]);
+  }, [handleNext, prefersReducedMotion, isHovered, isInteracting, selectedAchievement, lightboxData]);
 
-  // Touch event handlers for mobile
   const handleTouchStart = (e) => {
     setIsInteracting(true);
     setTouchStart(e.targetTouches[0].clientX);
@@ -562,28 +493,6 @@ export default function AchievementsSection() {
     }
   };
 
-  // Mouse drag event handlers
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setDragStartX(e.clientX);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-  };
-
-  const handleMouseUp = (e) => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    const diff = dragStartX - e.clientX;
-    if (diff > 50) {
-      handleNext();
-    } else if (diff < -50) {
-      handlePrev();
-    }
-  };
-
-  // Keyboard navigation for lightbox & modal
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (lightboxData) {
@@ -595,14 +504,12 @@ export default function AchievementsSection() {
             const nextIndex = prev.index === 0 ? prev.items.length - 1 : prev.index - 1;
             return { ...prev, index: nextIndex };
           });
-          setIsZoomed(false);
         } else if (e.key === 'ArrowRight') {
           setLightboxData((prev) => {
             if (!prev) return null;
             const nextIndex = prev.index === prev.items.length - 1 ? 0 : prev.index + 1;
             return { ...prev, index: nextIndex };
           });
-          setIsZoomed(false);
         }
       } else if (selectedAchievement) {
         if (e.key === 'Escape') {
@@ -626,37 +533,28 @@ export default function AchievementsSection() {
 
   const openLightbox = (items, index) => {
     setLightboxData({ items, index });
-    setIsZoomed(false);
   };
 
   const closeLightbox = () => {
     if (lightboxVideoRef.current) {
       lightboxVideoRef.current.pause();
     }
-    setIsZoomed(false);
     setLightboxData(null);
   };
-
-  // Active indicator dot calculation
-  const activeDotIndex = currentIndex % totalCards;
 
   return (
     <div 
       className="w-full relative"
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        setIsDragging(false);
-      }}
+      onMouseLeave={() => setIsHovered(false)}
       role="region"
-      aria-roledescription="carousel"
-      aria-label="College Achievements Showcase Carousel"
+      aria-label="Achievements Showcase"
     >
-      {/* Top Carousel Controls Strip */}
-      <div className="flex items-center justify-between gap-4 mb-5 px-1 sm:px-2">
+      {/* Top Carousel Navigation Controls */}
+      <div className="flex items-center justify-between gap-4 mb-6 px-1">
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
-            <Trophy size={11} className="text-indigo-400" />
+          <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#FF7A18] bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 px-3 py-1 rounded-full flex items-center gap-1.5">
+            <Trophy size={11} className="text-[#FF5A1F]" />
             <span>Honors & Recognitions ({totalCards})</span>
           </span>
           {isHovered && (
@@ -666,19 +564,18 @@ export default function AchievementsSection() {
           )}
         </div>
 
-        {/* Previous / Next Desktop Nav Buttons */}
         <div className="flex items-center gap-2">
           <button
             onClick={handlePrev}
             aria-label="Previous achievement card"
-            className="p-2 rounded-xl bg-slate-900/80 hover:bg-indigo-600 border border-white/10 hover:border-indigo-400 text-slate-300 hover:text-white transition-all shadow-md active:scale-95 cursor-pointer"
+            className="p-2.5 rounded-xl bg-[#171717] hover:bg-[#222222] border border-white/10 hover:border-[#FF5A1F]/40 text-slate-300 hover:text-white transition-all shadow-md active:scale-95 cursor-pointer"
           >
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={handleNext}
             aria-label="Next achievement card"
-            className="p-2 rounded-xl bg-slate-900/80 hover:bg-indigo-600 border border-white/10 hover:border-indigo-400 text-slate-300 hover:text-white transition-all shadow-md active:scale-95 cursor-pointer"
+            className="p-2.5 rounded-xl bg-[#171717] hover:bg-[#222222] border border-white/10 hover:border-[#FF5A1F]/40 text-slate-300 hover:text-white transition-all shadow-md active:scale-95 cursor-pointer"
           >
             <ChevronRight size={16} />
           </button>
@@ -687,24 +584,18 @@ export default function AchievementsSection() {
 
       {/* HORIZONTAL CAROUSEL VIEWPORT */}
       <div 
-        className="relative overflow-hidden w-full rounded-3xl cursor-grab active:cursor-grabbing select-none"
+        className="relative overflow-hidden w-full rounded-3xl select-none"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
       >
         <div 
           className="flex transition-transform duration-500 ease-out"
           style={{
             transform: `translateX(-${currentIndex * (100 / cardsVisible)}%)`,
-            gap: '0px'
           }}
         >
-          {displayedAchievements.map((achievement, idx) => {
-            const accent = achievement.accent;
-            const isTopFeatured = achievement.priority <= 2;
+          {displayedAchievements.map((achievement) => {
             const previewMedia = achievement.media?.[0];
 
             return (
@@ -716,16 +607,16 @@ export default function AchievementsSection() {
                 }}
               >
                 <div 
-                  className={`w-full glass-panel rounded-3xl border ${accent.border} ${accent.shadow} hover:border-indigo-400/50 transition-all duration-300 flex flex-col justify-between overflow-hidden group/card relative`}
+                  className="w-full bg-[#171717] rounded-3xl border border-white/10 hover:border-[#FF5A1F]/40 transition-all duration-300 flex flex-col justify-between overflow-hidden group/card relative shadow-xl"
                 >
                   {/* Subtle top accent bar */}
-                  <div className={`h-1 w-full bg-gradient-to-r ${accent.bar} opacity-90`} />
+                  <div className="h-1 w-full bg-gradient-to-r from-[#FF5A1F] via-[#FF7A18] to-transparent opacity-90" />
 
                   <div>
                     {/* Media Preview Container */}
                     <div 
                       onClick={() => setSelectedAchievement(achievement)}
-                      className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 cursor-pointer"
+                      className="relative h-48 sm:h-52 w-full overflow-hidden bg-[#111111] cursor-pointer"
                     >
                       {previewMedia?.type === 'video' ? (
                         <>
@@ -736,13 +627,13 @@ export default function AchievementsSection() {
                               className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" 
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-900 via-sky-950 to-slate-950">
-                              <Film size={36} className="text-sky-400/50" />
+                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1A1A1A] to-[#121212]">
+                              <Film size={36} className="text-[#FF7A18]/50" />
                             </div>
                           )}
-                          <div className="absolute inset-0 bg-slate-950/40 group-hover/card:bg-slate-950/20 transition-colors" />
+                          <div className="absolute inset-0 bg-black/40 group-hover/card:bg-black/20 transition-colors" />
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-12 h-12 rounded-full bg-amber-500/90 group-hover/card:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg group-hover/card:scale-110 transition-transform">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] text-white flex items-center justify-center shadow-lg group-hover/card:scale-110 transition-transform">
                               <Play size={18} className="ml-1 fill-current" />
                             </div>
                           </div>
@@ -755,13 +646,13 @@ export default function AchievementsSection() {
                             className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
                             loading="lazy"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover/card:opacity-60 transition-opacity" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#171717] via-transparent to-transparent opacity-80" />
                         </>
                       )}
 
-                      {/* Top badges on media */}
+                      {/* Badges on media */}
                       <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
-                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider backdrop-blur-md ${accent.badge1} shadow-sm`}>
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider backdrop-blur-md bg-[#FF5A1F]/20 text-[#FFA87D] border border-[#FF5A1F]/30 shadow-sm">
                           {achievement.awardBadgeText}
                         </span>
 
@@ -770,51 +661,46 @@ export default function AchievementsSection() {
                         </span>
                       </div>
 
-                      {/* Bottom media title hint */}
                       <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between z-10">
                         <span className="text-[10px] font-bold text-white/90 drop-shadow-md truncate">
                           {achievement.issuer}
                         </span>
-                        <span className="p-1 rounded-md bg-black/50 text-white shrink-0 group-hover/card:bg-indigo-600 transition">
+                        <span className="p-1 rounded-md bg-black/50 text-white shrink-0 group-hover/card:bg-[#FF5A1F] transition">
                           <Eye size={12} />
                         </span>
                       </div>
                     </div>
 
-                    {/* Card Content Body */}
+                    {/* Content Body */}
                     <div className="p-5 sm:p-6 space-y-3">
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-1">
-                          <span className="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">
+                          <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#FF7A18]">
                             {achievement.issuer}
                           </span>
                           {achievement.creator && (
-                            <span className="text-[9px] font-mono text-sky-300 font-bold">
+                            <span className="text-[9px] font-mono text-slate-400 font-bold">
                               {achievement.creator}
                             </span>
                           )}
                         </div>
 
-                        <h3 className="text-lg sm:text-xl font-black text-white group-hover/card:text-indigo-200 transition-colors line-clamp-1 font-display">
+                        <h3 className="text-lg sm:text-xl font-extrabold text-white group-hover/card:text-[#FFA87D] transition-colors line-clamp-1 font-display">
                           {achievement.title}
                         </h3>
-                        
-                        <p className="text-xs font-semibold text-indigo-300/90 italic truncate mt-0.5">
+                        <p className="text-xs font-semibold text-slate-300 line-clamp-1 mt-0.5">
                           {achievement.subtitle}
                         </p>
                       </div>
 
-                      <p className="text-slate-300 text-xs leading-relaxed line-clamp-2 font-light">
-                        {achievement.shortDesc}
+                      <p className="text-slate-400 text-xs leading-relaxed line-clamp-2 font-light">
+                        {achievement.shortDesc || achievement.description}
                       </p>
 
-                      {/* Compact Tags */}
+                      {/* Tags */}
                       <div className="flex flex-wrap gap-1 pt-1">
-                        {(achievement.tags || []).slice(0, 3).map((tag, tIdx) => (
-                          <span 
-                            key={tIdx}
-                            className="text-[9px] font-medium text-slate-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md"
-                          >
+                        {achievement.tags?.slice(0, 3).map((tag, tIdx) => (
+                          <span key={tIdx} className="text-[9px] px-2 py-0.5 rounded-md bg-[#222222] text-slate-300 border border-white/5 font-medium">
                             {tag}
                           </span>
                         ))}
@@ -822,14 +708,14 @@ export default function AchievementsSection() {
                     </div>
                   </div>
 
-                  {/* Card Action Footer */}
-                  <div className="p-5 sm:p-6 pt-0 border-t border-white/5 mt-2">
+                  {/* Card Footer Button */}
+                  <div className="p-5 sm:p-6 pt-0">
                     <button
                       onClick={() => setSelectedAchievement(achievement)}
-                      className={`w-full py-2.5 rounded-xl ${accent.button} text-xs font-bold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-sm group-hover/card:scale-[1.01]`}
+                      className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#FF5A1F] to-[#D9361E] hover:from-[#FF7A18] hover:to-[#D9361E] text-white text-xs font-bold transition shadow-md shadow-[#FF5A1F]/20 flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      <span>View Achievement Details</span>
-                      <ArrowRight size={13} className="group-hover/card:translate-x-1 transition-transform" />
+                      <span>Explore Honor Details</span>
+                      <ArrowRight size={13} />
                     </button>
                   </div>
                 </div>
@@ -839,302 +725,185 @@ export default function AchievementsSection() {
         </div>
       </div>
 
-      {/* PROGRESS INDICATOR DOTS */}
-      <div className="flex items-center justify-center gap-2 mt-6">
-        {displayedAchievements.map((item, dotIdx) => {
-          const isActive = dotIdx === activeDotIndex;
-          return (
-            <button
-              key={dotIdx}
-              onClick={() => setCurrentIndex(dotIdx)}
-              aria-label={`Jump to slide ${dotIdx + 1}: ${item.title}`}
-              aria-current={isActive ? 'true' : 'false'}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                isActive 
-                  ? 'w-7 h-2 bg-gradient-to-r from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30' 
-                  : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-              }`}
-            />
-          );
-        })}
-      </div>
-
-      {/* FULL ACHIEVEMENT STORY & MEDIA DETAILS MODAL */}
+      {/* DETAIL MODAL */}
       {selectedAchievement && (
         <div 
-          className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6 md:p-8 bg-slate-950/90 backdrop-blur-md overflow-y-auto animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md overflow-y-auto animate-fade-in"
           onClick={() => setSelectedAchievement(null)}
           role="dialog"
           aria-modal="true"
         >
           <div 
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-panel border border-white/10 rounded-3xl shadow-2xl animate-scale-in my-auto text-left"
+            className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#171717] border border-white/10 rounded-3xl shadow-2xl animate-scale-in my-auto text-left"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Sticky Header */}
-            <div className="sticky top-0 bg-slate-950/90 backdrop-blur-xl border-b border-white/10 px-5 sm:px-8 py-4 flex items-center justify-between z-30">
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-[#171717]/95 backdrop-blur-xl border-b border-white/10 px-5 sm:px-8 py-4 flex items-center justify-between z-20">
               <div className="flex items-center gap-2 overflow-hidden">
-                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${selectedAchievement.accent.badge1}`}>
+                <span className="text-[10px] font-bold uppercase text-[#FF7A18] bg-[#FF5A1F]/15 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/30 shrink-0">
                   {selectedAchievement.awardBadgeText}
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-white truncate">
+                <h3 className="text-sm sm:text-base font-bold text-white truncate">
                   {selectedAchievement.title}
-                </span>
+                </h3>
               </div>
-
               <button
                 onClick={() => setSelectedAchievement(null)}
-                className="p-2 text-slate-400 hover:text-white rounded-full bg-white/5 hover:bg-white/10 transition border border-white/10 shrink-0 cursor-pointer ml-3"
-                aria-label="Close details modal"
+                className="p-1.5 text-slate-400 hover:text-white rounded-full bg-white/5 hover:bg-white/10 transition border border-white/10 cursor-pointer ml-3 shrink-0"
               >
                 <X size={18} />
               </button>
             </div>
 
-            {/* Modal Content Details */}
-            <div className="p-6 sm:p-8 md:p-10 space-y-8">
-              
-              {/* Header Titles */}
-              <div className="space-y-2">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] font-extrabold uppercase tracking-widest text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-full">
-                    {selectedAchievement.issuer}
-                  </span>
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                    {selectedAchievement.badgeSecondary}
-                  </span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white font-display">
+            {/* Modal Body */}
+            <div className="p-6 sm:p-8 space-y-6 bg-[#111111]">
+              <div>
+                <span className="text-[10px] font-extrabold uppercase text-[#FF7A18] tracking-widest block mb-1">
+                  {selectedAchievement.issuer}
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
                   {selectedAchievement.title}
                 </h2>
-                
-                <p className="text-sm sm:text-base text-indigo-300 font-medium italic">
+                <p className="text-sm font-semibold text-slate-300 mt-1">
                   {selectedAchievement.subtitle}
                 </p>
               </div>
 
-              {/* 1. KEY METRICS ROW */}
-              <div className="grid grid-cols-3 gap-3 sm:gap-5">
-                <div className={`p-4 rounded-2xl ${selectedAchievement.accent.metric1Box} text-center`}>
-                  <div className="text-xl sm:text-3xl font-extrabold font-display mb-0.5">
-                    {selectedAchievement.metrics[0].value}
-                  </div>
-                  <p className="text-[10px] font-semibold text-slate-300 uppercase tracking-wider">
-                    {selectedAchievement.metrics[0].label}
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-center">
-                  <div className="text-xl sm:text-3xl font-extrabold text-indigo-300 font-display mb-0.5">
-                    {selectedAchievement.metrics[1].value}
-                  </div>
-                  <p className="text-[10px] font-semibold text-indigo-200/70 uppercase tracking-wider">
-                    {selectedAchievement.metrics[1].label}
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-center">
-                  <div className="text-lg sm:text-2xl font-extrabold text-purple-300 font-display mb-0.5 truncate">
-                    {selectedAchievement.metrics[2].value}
-                  </div>
-                  <p className="text-[10px] font-semibold text-purple-200/70 uppercase tracking-wider">
-                    {selectedAchievement.metrics[2].label}
-                  </p>
-                </div>
-              </div>
-
-              {/* 2. PROMINENT STATEMENT */}
-              <div className={`p-5 sm:p-6 rounded-2xl bg-gradient-to-r ${selectedAchievement.accent.statementBox} text-center`}>
-                <p className={`text-base sm:text-lg md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r ${selectedAchievement.accent.statementText} font-display leading-snug`}>
+              {/* Prominent Statement */}
+              {selectedAchievement.prominentStatement && (
+                <div className="p-4 rounded-2xl bg-[#1C1513] border border-[#FF5A1F]/30 text-[#FFA87D] text-xs sm:text-sm font-bold italic leading-relaxed">
                   {selectedAchievement.prominentStatement}
+                </div>
+              )}
+
+              {/* Description */}
+              <div className="space-y-2">
+                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                  {selectedAchievement.descriptionLabel || 'Overview'}
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                  {selectedAchievement.description}
                 </p>
               </div>
 
-              {/* 3. DESCRIPTION & STORY GRID */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="space-y-4">
-                  <div className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-400">
-                      {selectedAchievement.descriptionLabel}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                      {selectedAchievement.description}
-                    </p>
-                  </div>
-
-                  <div className="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 flex items-start gap-3">
-                    <Lightbulb size={18} className="text-emerald-300 shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-300 mb-1">
-                        {selectedAchievement.coreReflectionLabel}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-white font-medium leading-relaxed">
-                        {selectedAchievement.coreReflection}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                    <h4 className={`text-xs font-bold uppercase tracking-wider ${selectedAchievement.accent.headingAccent}`}>
-                      {selectedAchievement.storyLabel}
-                    </h4>
+              {/* Story */}
+              {(selectedAchievement.storyP1 || selectedAchievement.storyP2) && (
+                <div className="space-y-2 p-4 rounded-2xl bg-[#171717] border border-white/5">
+                  <h4 className="text-xs font-bold text-[#FF7A18] uppercase tracking-wider">
+                    {selectedAchievement.storyLabel || 'Achievement Story'}
+                  </h4>
+                  {selectedAchievement.storyP1 && (
                     <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                       {selectedAchievement.storyP1}
                     </p>
-                    <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">
+                  )}
+                  {selectedAchievement.storyP2 && (
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                       {selectedAchievement.storyP2}
                     </p>
-                  </div>
-
-                  <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/15">
-                    <div className="flex items-center gap-1.5 mb-1 text-xs font-bold uppercase tracking-wider text-indigo-300">
-                      <ShieldCheck size={14} />
-                      <span>{selectedAchievement.takeawayLabel}</span>
-                    </div>
-                    <p className="text-xs text-slate-300 leading-relaxed font-light">
-                      {selectedAchievement.takeaway}
-                    </p>
-                  </div>
+                  )}
                 </div>
-              </div>
+              )}
 
-              {/* 4. MEDIA GALLERY */}
+              {/* Media Gallery Grid */}
               {selectedAchievement.media && selectedAchievement.media.length > 0 && (
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                      <span className={`w-2 h-2 rounded-full ${selectedAchievement.accent.dot}`} />
-                      Media Gallery &amp; Honors ({selectedAchievement.media.length})
-                    </h4>
-                    <span className="text-[10px] text-slate-400">Click to enlarge</span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                    Documentation & Media ({selectedAchievement.media.length})
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {selectedAchievement.media.map((med, mIdx) => (
-                      <div
+                      <div 
                         key={mIdx}
                         onClick={() => openLightbox(selectedAchievement.media, mIdx)}
-                        className="h-44 rounded-2xl overflow-hidden bg-slate-900 border border-white/10 hover:border-indigo-400 transition-all cursor-pointer relative group/med"
+                        className="h-44 rounded-2xl overflow-hidden border border-white/10 relative group cursor-pointer bg-[#171717] shadow-md"
                       >
                         {med.type === 'video' ? (
-                          <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-slate-900 to-sky-950/40">
-                            <div className="w-10 h-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center mb-2 group-hover/med:scale-110 transition-transform">
-                              <Play size={16} className="ml-0.5 fill-current" />
+                          <div className="w-full h-full flex items-center justify-center bg-black/60 relative">
+                            {med.poster && (
+                              <img src={med.poster} alt={med.title} className="w-full h-full object-cover opacity-60" />
+                            )}
+                            <div className="absolute w-11 h-11 rounded-full bg-[#FF5A1F] text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                              <Play size={18} className="ml-0.5 fill-current" />
                             </div>
-                            <span className="text-[10px] font-bold text-white uppercase truncate">
-                              {med.title}
-                            </span>
-                            <span className="text-[9px] text-slate-400 mt-0.5">Click to play video</span>
                           </div>
                         ) : (
-                          <>
-                            <img 
-                              src={med.url} 
-                              alt={med.title} 
-                              className="w-full h-full object-cover group-hover/med:scale-105 transition-transform duration-300"
-                              loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80 group-hover/med:opacity-100 transition-opacity" />
-                            <div className="absolute bottom-2 left-2.5 right-2.5 flex justify-between items-center text-[10px] text-slate-200">
-                              <span className="truncate">{med.title}</span>
-                              <Maximize2 size={11} className="shrink-0 ml-1" />
-                            </div>
-                          </>
+                          <img 
+                            src={med.url} 
+                            alt={med.title || selectedAchievement.title} 
+                            className="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+                          />
                         )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <div className="absolute bottom-2 left-3 right-3 text-[10px] text-slate-200 font-medium truncate">
+                          {med.caption || med.title}
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* 5. DETAILS & TEAM */}
+              {/* Details & Acknowledgements */}
               {selectedAchievement.details && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-indigo-300 mb-2">
-                      {selectedAchievement.details.leftTitle}
-                    </h5>
-                    {selectedAchievement.details.teamList && (
-                      <div className="flex flex-wrap gap-1.5">
-                        {selectedAchievement.details.teamList.map((tm, tIdx) => (
-                          <span key={tIdx} className="text-xs text-slate-300 bg-white/5 px-2.5 py-1 rounded-lg border border-white/5">
-                            {tm}
-                          </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  {selectedAchievement.details.teamList && (
+                    <div className="p-4 rounded-2xl bg-[#171717] border border-white/5 space-y-2">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                        Team Members
+                      </span>
+                      <ul className="space-y-1">
+                        {selectedAchievement.details.teamList.map((tm, idx) => (
+                          <li key={idx} className="text-xs text-white font-medium flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]"></span>
+                            <span>{tm}</span>
+                          </li>
                         ))}
-                      </div>
-                    )}
-                    {selectedAchievement.details.ackList && (
-                      <div className="space-y-1 text-xs text-slate-300">
-                        {selectedAchievement.details.ackList.map((it, iIdx) => (
-                          <div key={iIdx} className="flex justify-between">
-                            <span className="font-semibold">{it.name}</span>
-                            <span className="text-slate-500">{it.role}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                      </ul>
+                    </div>
+                  )}
 
-                  <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-purple-300 mb-2">
-                      {selectedAchievement.details.rightTitle}
-                    </h5>
-                    {selectedAchievement.details.ackList && selectedAchievement.details.ackListRight ? (
-                      <div className="space-y-1 text-xs text-slate-300">
-                        {selectedAchievement.details.ackListRight.map((it, iIdx) => (
-                          <div key={iIdx} className="flex justify-between">
-                            <span className="font-semibold">{it.name}</span>
-                            <span className="text-slate-500">{it.role}</span>
-                          </div>
+                  {selectedAchievement.details.ackList && (
+                    <div className="p-4 rounded-2xl bg-[#171717] border border-white/5 space-y-2">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                        {selectedAchievement.details.rightTitle || 'Acknowledgements'}
+                      </span>
+                      <ul className="space-y-1.5">
+                        {selectedAchievement.details.ackList.map((ack, idx) => (
+                          <li key={idx} className="text-xs text-slate-200 leading-snug">
+                            <span className="font-bold text-white block">{ack.name}</span>
+                            <span className="text-[10px] text-slate-400">{ack.role}</span>
+                          </li>
                         ))}
-                      </div>
-                    ) : selectedAchievement.details.ackList ? (
-                      <div className="space-y-1 text-xs text-slate-300">
-                        {selectedAchievement.details.ackList.map((it, iIdx) => (
-                          <div key={iIdx} className="flex justify-between">
-                            <span className="font-semibold">{it.name}</span>
-                            <span className="text-slate-500">{it.role}</span>
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* Close Button */}
-              <div className="pt-4 border-t border-white/10 flex justify-end">
-                <button
-                  onClick={() => setSelectedAchievement(null)}
-                  className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-xl transition cursor-pointer"
-                >
-                  Close Achievement
-                </button>
-              </div>
-
+              {/* Takeaway */}
+              {selectedAchievement.takeaway && (
+                <div className="p-4 rounded-2xl bg-[#171717] border border-white/10 text-xs text-slate-300 leading-relaxed">
+                  <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-wider block mb-1">
+                    Key Takeaway
+                  </span>
+                  <p>{selectedAchievement.takeaway}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
       )}
 
-      {/* FULL-SCREEN LIGHTBOX MODAL */}
-      {lightboxData && lightboxData.items[lightboxData.index] && (
+      {/* FULL-SCREEN LIGHTBOX */}
+      {lightboxData && (
         <div 
           className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6 bg-black/95 backdrop-blur-xl animate-fade-in"
           onClick={closeLightbox}
         >
-          {/* Lightbox Controls */}
-          <div className="absolute top-4 sm:top-6 left-4 sm:left-6 text-xs text-white/80 font-mono bg-black/50 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
-            Item {lightboxData.index + 1} of {lightboxData.items.length}
-          </div>
-
           <button
             onClick={closeLightbox}
-            className="absolute top-4 sm:top-6 right-4 sm:right-6 p-2 text-white/80 hover:text-white rounded-full bg-black/50 hover:bg-black/80 transition border border-white/10 backdrop-blur-md z-50 cursor-pointer"
-            aria-label="Close lightbox"
+            className="absolute top-4 sm:top-6 right-4 sm:right-6 p-2 text-white/80 hover:text-white rounded-full bg-black/50 hover:bg-black/80 transition border border-white/10 z-50 cursor-pointer"
           >
             <X size={22} />
           </button>
@@ -1144,65 +913,52 @@ export default function AchievementsSection() {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  setLightboxData((prev) => ({
+                  setLightboxData(prev => ({
                     ...prev,
                     index: prev.index === 0 ? prev.items.length - 1 : prev.index - 1
                   }));
                 }}
-                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white rounded-full bg-black/50 hover:bg-black/80 transition border border-white/10 backdrop-blur-md z-50 cursor-pointer"
-                aria-label="Previous item"
+                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white rounded-full bg-black/50 hover:bg-black/80 transition border border-white/10 z-50 cursor-pointer"
               >
                 <ChevronLeft size={24} />
               </button>
-
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  setLightboxData((prev) => ({
+                  setLightboxData(prev => ({
                     ...prev,
                     index: prev.index === prev.items.length - 1 ? 0 : prev.index + 1
                   }));
                 }}
-                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white rounded-full bg-black/50 hover:bg-black/80 transition border border-white/10 backdrop-blur-md z-50 cursor-pointer"
-                aria-label="Next item"
+                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white rounded-full bg-black/50 hover:bg-black/80 transition border border-white/10 z-50 cursor-pointer"
               >
                 <ChevronRight size={24} />
               </button>
             </>
           )}
 
-          {/* Media Presentation */}
           <div 
-            className="relative max-w-5xl max-h-[85vh] flex flex-col items-center justify-center animate-scale-in"
+            className="relative max-w-4xl max-h-[85vh] flex flex-col items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             {lightboxData.items[lightboxData.index].type === 'video' ? (
-              <div className="w-full max-w-2xl bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                <video
-                  ref={lightboxVideoRef}
-                  src={lightboxData.items[lightboxData.index].url}
-                  poster={lightboxData.items[lightboxData.index].poster}
-                  controls
-                  playsInline
-                  className="w-full max-h-[70vh] object-contain mx-auto"
-                />
-              </div>
+              <video 
+                ref={lightboxVideoRef}
+                src={lightboxData.items[lightboxData.index].url}
+                controls 
+                autoPlay 
+                className="max-w-full max-h-[70vh] rounded-2xl border border-white/10 shadow-2xl"
+              />
             ) : (
               <img 
                 src={lightboxData.items[lightboxData.index].url} 
                 alt={lightboxData.items[lightboxData.index].title}
-                className="max-w-full max-h-[72vh] object-contain rounded-2xl border border-white/10 shadow-2xl select-none"
+                className="max-w-full max-h-[72vh] object-contain rounded-2xl border border-white/10 shadow-2xl"
               />
             )}
-
-            <div className="mt-4 text-center max-w-xl px-4">
-              <p className="text-xs sm:text-sm font-semibold text-white">
-                {lightboxData.items[lightboxData.index].title}
-              </p>
-              <p className="text-[11px] text-slate-400 mt-0.5">
-                {lightboxData.items[lightboxData.index].caption}
-              </p>
-            </div>
+            <p className="mt-4 text-xs sm:text-sm text-slate-200 text-center font-medium max-w-lg px-4">
+              {lightboxData.items[lightboxData.index].caption || lightboxData.items[lightboxData.index].title}
+            </p>
           </div>
         </div>
       )}

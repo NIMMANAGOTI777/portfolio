@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Lock, Mail, ArrowRight, ShieldCheck, KeyRound, X, CheckCircle2 } from 'lucide-react';
+import { Lock, Mail, ArrowRight, X, CheckCircle2 } from 'lucide-react';
 
 export default function AdminLogin({ onLoginSuccess }) {
   const [email, setEmail] = useState('');

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, ChevronLeft, ChevronRight, Calendar, MapPin, 
-  Sparkles, CheckCircle2, ArrowRight, Maximize2, 
-  Layers, Palette, PenTool, Award, Shield, Eye, ArrowUpRight
+  Sparkles, Maximize2
 } from 'lucide-react';
 
 export default function ProjectCaseStudyModal({ project, isOpen, onClose, initialView = 'study' }) {
@@ -53,7 +52,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-8 bg-slate-950/90 backdrop-blur-md overflow-y-auto animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-8 bg-black/90 backdrop-blur-md overflow-y-auto animate-fade-in"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -61,13 +60,13 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
     >
       <div 
         ref={modalContentRef}
-        className="relative w-full max-w-5xl max-h-[92vh] overflow-y-auto glass-panel border border-white/10 rounded-3xl shadow-2xl animate-scale-in my-auto text-left"
+        className="relative w-full max-w-5xl max-h-[92vh] overflow-y-auto bg-[#111111] border border-white/10 rounded-3xl shadow-2xl animate-scale-in my-auto text-left"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Sticky Header Bar */}
-        <div className="sticky top-0 bg-slate-950/90 backdrop-blur-xl border-b border-white/10 px-5 sm:px-8 py-4 flex items-center justify-between z-30">
+        <div className="sticky top-0 bg-[#171717]/95 backdrop-blur-xl border-b border-white/10 px-5 sm:px-8 py-4 flex items-center justify-between z-30">
           <div className="flex items-center gap-2.5 overflow-hidden">
-            <span className="text-[10px] font-extrabold uppercase text-indigo-400 bg-indigo-500/15 border border-indigo-500/30 px-2.5 py-0.5 rounded-full shrink-0">
+            <span className="text-[10px] font-extrabold uppercase text-[#FF7A18] bg-[#FF5A1F]/15 border border-[#FF5A1F]/30 px-2.5 py-0.5 rounded-full shrink-0">
               {project.eyebrow || 'Featured Project'}
             </span>
             {project.badgeSecondary && (
@@ -90,13 +89,13 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
         </div>
 
         {/* Modal Body */}
-        <div className="p-5 sm:p-8 md:p-10 space-y-12">
+        <div className="p-5 sm:p-8 md:p-10 space-y-12 bg-[#0E0E0E]">
           
           {/* HERO SECTION */}
           <section className="space-y-6">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[11px] font-extrabold uppercase tracking-widest text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full">
+                <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#FF7A18] bg-[#FF5A1F]/10 border border-[#FF5A1F]/20 px-3 py-1 rounded-full">
                   {project.eyebrow || 'FEATURED PROJECT'}
                 </span>
                 <span className="text-[11px] font-extrabold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">
@@ -104,17 +103,17 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight font-display bg-gradient-to-r from-white via-indigo-100 to-purple-200 bg-clip-text text-transparent">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight font-display">
                 {cs?.title || project.title}
               </h1>
               
-              <p className="text-base sm:text-lg font-bold text-indigo-300">
+              <p className="text-base sm:text-lg font-bold text-[#FF7A18]">
                 {cs?.subtitle || project.sub}
               </p>
             </div>
 
             {/* Hero Introductions */}
-            <div className="space-y-3 border-l-2 border-indigo-500/40 pl-4 sm:pl-5 py-1">
+            <div className="space-y-3 border-l-2 border-[#FF5A1F] pl-4 sm:pl-5 py-1">
               {cs?.heroIntros?.map((intro, idx) => (
                 <p key={idx} className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
                   "{intro}"
@@ -124,8 +123,8 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
 
             {/* Event Key Highlights Row */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/5 flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 shrink-0">
+              <div className="p-4 rounded-2xl bg-[#171717] border border-white/5 flex items-start gap-3">
+                <div className="p-2.5 rounded-xl bg-[#FF5A1F]/10 text-[#FF7A18] shrink-0">
                   <Calendar size={18} />
                 </div>
                 <div>
@@ -134,8 +133,8 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/5 flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-purple-500/10 text-purple-400 shrink-0">
+              <div className="p-4 rounded-2xl bg-[#171717] border border-white/5 flex items-start gap-3">
+                <div className="p-2.5 rounded-xl bg-[#D9361E]/10 text-[#FF5A1F] shrink-0">
                   <MapPin size={18} />
                 </div>
                 <div>
@@ -144,13 +143,13 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/5 flex items-start gap-3">
-                <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 shrink-0">
+              <div className="p-4 rounded-2xl bg-[#171717] border border-white/5 flex items-start gap-3">
+                <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 shrink-0">
                   <Sparkles size={18} />
                 </div>
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Summit Theme</span>
-                  <p className="text-xs sm:text-sm font-bold text-emerald-200 mt-0.5">{cs?.theme || '“Catalyzing Innovation for Swarna Andhra Vision 2047”'}</p>
+                  <p className="text-xs sm:text-sm font-bold text-slate-200 mt-0.5">{cs?.theme || '“Catalyzing Innovation for Swarna Andhra Vision 2047”'}</p>
                 </div>
               </div>
             </div>
@@ -158,18 +157,18 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
             {/* Featured Hero Image */}
             <div 
               onClick={() => setLightboxIndex(0)}
-              className="relative w-full h-72 sm:h-96 md:h-[460px] rounded-3xl overflow-hidden border border-white/10 group cursor-pointer bg-slate-900 shadow-2xl"
+              className="relative w-full h-72 sm:h-96 md:h-[460px] rounded-3xl overflow-hidden border border-white/10 group cursor-pointer bg-[#171717] shadow-2xl"
             >
               <img 
                 src={gallery[0]?.url || project.image} 
                 alt={gallery[0]?.alt || "PanIIT Andhra Pradesh Summit 2026 featured hero image"}
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20 group-hover:opacity-90 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 group-hover:opacity-90 transition-opacity"></div>
               
               <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex items-end justify-between gap-4">
-                <div className="glass-panel px-4 py-2 rounded-xl border border-white/10 max-w-lg">
-                  <span className="text-[10px] font-extrabold uppercase text-indigo-300 tracking-wider block">
+                <div className="bg-[#171717]/90 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 max-w-lg">
+                  <span className="text-[10px] font-extrabold uppercase text-[#FF7A18] tracking-wider block">
                     Featured Installation Preview
                   </span>
                   <p className="text-xs text-slate-200 font-medium truncate">
@@ -177,7 +176,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                   </p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-black/60 backdrop-blur-md text-white border border-white/15 group-hover:bg-indigo-600 transition shrink-0">
+                <div className="p-3 rounded-xl bg-black/70 backdrop-blur-md text-white border border-white/15 group-hover:bg-[#FF5A1F] transition shrink-0">
                   <Maximize2 size={16} />
                 </div>
               </div>
@@ -185,15 +184,15 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
           </section>
 
           {/* COMPACT INFORMATION SECTION / METADATA GRID */}
-          <section className="p-6 sm:p-8 rounded-3xl bg-slate-900/40 border border-white/5 space-y-5">
-            <h3 className="text-xs font-bold text-indigo-400 uppercase tracking-widest flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
+          <section className="p-6 sm:p-8 rounded-3xl bg-[#141414] border border-white/5 space-y-5">
+            <h3 className="text-xs font-bold text-[#FF7A18] uppercase tracking-widest flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#FF5A1F]"></span>
               <span>Project Information & Specification</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {cs?.metadata?.map((meta, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-slate-950/50 border border-white/5 space-y-1">
+                <div key={idx} className="p-4 rounded-2xl bg-[#1A1A1A] border border-white/5 space-y-1">
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">{meta.label}</span>
                   <p className="text-xs sm:text-sm font-semibold text-white leading-snug">{meta.value}</p>
                 </div>
@@ -204,7 +203,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
           {/* MY ROLE & RESPONSIBILITIES */}
           <section className="space-y-6">
             <div className="space-y-2">
-              <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block">
+              <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block">
                 01 — SCOPE & OWNERSHIP
               </span>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
@@ -220,9 +219,9 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
               {cs?.myRole?.responsibilities?.map((resp, idx) => (
                 <div 
                   key={idx} 
-                  className="p-3.5 rounded-2xl bg-slate-900/50 border border-white/5 hover:border-indigo-500/30 transition-all flex items-start gap-2.5 group"
+                  className="p-3.5 rounded-2xl bg-[#171717] border border-white/5 hover:border-[#FF5A1F]/40 transition-all flex items-start gap-2.5 group"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0 group-hover:scale-125 transition-transform"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F] mt-2 shrink-0 group-hover:scale-125 transition-transform"></span>
                   <span className="text-xs font-medium text-slate-200 leading-snug group-hover:text-white transition-colors">
                     {resp}
                   </span>
@@ -234,7 +233,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
           {/* FROM FIGMA TO THE VENUE */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div className="lg:col-span-7 space-y-4">
-              <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block">
+              <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block">
                 02 — DESIGN EXECUTION
               </span>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
@@ -252,26 +251,26 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
 
             <div 
               onClick={() => setLightboxIndex(1)}
-              className="lg:col-span-5 h-64 sm:h-72 rounded-3xl overflow-hidden border border-white/10 relative group cursor-pointer bg-slate-900 shadow-xl"
+              className="lg:col-span-5 h-64 sm:h-72 rounded-3xl overflow-hidden border border-white/10 relative group cursor-pointer bg-[#171717] shadow-xl"
             >
               <img 
                 src={gallery[1]?.url} 
                 alt={gallery[1]?.alt || "Karthik Nimmanagoti event branding work at PanIIT Andhra Pradesh Summit 2026"} 
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-              <div className="absolute bottom-3 left-3 right-3 text-xs text-slate-300 font-medium glass-panel p-2.5 rounded-xl border border-white/10">
-                <span className="text-[9px] font-bold text-indigo-300 uppercase block">Venue Implementation</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent"></div>
+              <div className="absolute bottom-3 left-3 right-3 text-xs text-slate-300 font-medium bg-[#171717]/90 p-2.5 rounded-xl border border-white/10">
+                <span className="text-[9px] font-bold text-[#FF7A18] uppercase block">Venue Implementation</span>
                 <p className="truncate text-[11px] text-slate-200">{gallery[1]?.caption}</p>
               </div>
             </div>
           </section>
 
           {/* A STATE-LEVEL PLATFORM */}
-          <section className="p-6 sm:p-8 rounded-3xl glass-panel border border-indigo-500/20 relative overflow-hidden space-y-4">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+          <section className="p-6 sm:p-8 rounded-3xl bg-[#141414] border border-[#FF5A1F]/25 relative overflow-hidden space-y-4">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#FF5A1F]/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
             
-            <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block">
+            <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block">
               03 — IMPACT & REACH
             </span>
             
@@ -281,7 +280,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
               {cs?.stateLevelPlatform?.paragraphs?.map((p, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-slate-900/60 border border-white/5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <div key={idx} className="p-4 rounded-2xl bg-[#1A1A1A] border border-white/5 text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {p}
                 </div>
               ))}
@@ -291,9 +290,9 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
           {/* THE EVENT EXPERIENCE & THE PEOPLE BEHIND */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Event Experience */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/40 border border-white/5 space-y-4 flex flex-col justify-between">
+            <div className="p-6 sm:p-7 rounded-3xl bg-[#141414] border border-white/5 space-y-4 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-3">
+                <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block mb-3">
                   04 — ON-GROUND
                 </span>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-3 font-display">
@@ -310,14 +309,14 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
 
               <div 
                 onClick={() => setLightboxIndex(2)}
-                className="h-44 rounded-2xl overflow-hidden border border-white/10 relative group cursor-pointer bg-slate-900 mt-4"
+                className="h-44 rounded-2xl overflow-hidden border border-white/10 relative group cursor-pointer bg-[#171717] mt-4"
               >
                 <img 
                   src={gallery[2]?.url} 
                   alt={gallery[2]?.alt} 
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                 <div className="absolute bottom-2 left-3 right-3 text-[10px] text-slate-300 truncate">
                   {gallery[2]?.caption}
                 </div>
@@ -325,9 +324,9 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
             </div>
 
             {/* People Behind The Experience */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/40 border border-white/5 space-y-4 flex flex-col justify-between">
+            <div className="p-6 sm:p-7 rounded-3xl bg-[#141414] border border-white/5 space-y-4 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-3">
+                <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block mb-3">
                   05 — COMMUNITY
                 </span>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-3 font-display">
@@ -344,14 +343,14 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
 
               <div 
                 onClick={() => setLightboxIndex(4)}
-                className="h-44 rounded-2xl overflow-hidden border border-white/10 relative group cursor-pointer bg-slate-900 mt-4"
+                className="h-44 rounded-2xl overflow-hidden border border-white/10 relative group cursor-pointer bg-[#171717] mt-4"
               >
                 <img 
                   src={gallery[4]?.url} 
                   alt={gallery[4]?.alt} 
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                 <div className="absolute bottom-2 left-3 right-3 text-[10px] text-slate-300 truncate">
                   {gallery[4]?.caption}
                 </div>
@@ -362,7 +361,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
           {/* WHAT I LEARNED (6 Clean Cards) */}
           <section className="space-y-6">
             <div className="space-y-2">
-              <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block">
+              <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block">
                 06 — KEY TAKEAWAYS
               </span>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
@@ -377,9 +376,9 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
               {cs?.learnings?.map((item, idx) => (
                 <div 
                   key={idx} 
-                  className="p-5 rounded-2xl bg-slate-900/50 border border-white/5 hover:border-indigo-500/30 transition-all space-y-2 group"
+                  className="p-5 rounded-2xl bg-[#171717] border border-white/5 hover:border-[#FF5A1F]/40 transition-all space-y-2 group"
                 >
-                  <span className="text-xs font-black text-indigo-400 font-mono block group-hover:translate-x-1 transition-transform">
+                  <span className="text-xs font-black text-[#FF7A18] font-mono block group-hover:translate-x-1 transition-transform">
                     {item.num}
                   </span>
                   <p className="text-xs sm:text-sm font-medium text-slate-200 leading-relaxed group-hover:text-white transition-colors">
@@ -391,9 +390,9 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
           </section>
 
           {/* A MEANINGFUL MILESTONE */}
-          <section className="p-6 sm:p-8 md:p-10 rounded-3xl bg-gradient-to-br from-indigo-950/30 via-slate-900/60 to-purple-950/30 border border-indigo-500/30 space-y-6">
+          <section className="p-6 sm:p-8 md:p-10 rounded-3xl bg-gradient-to-br from-[#1C1412] via-[#171717] to-[#121212] border border-[#FF5A1F]/30 space-y-6">
             <div className="space-y-3">
-              <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block">
+              <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block">
                 07 — REFLECTION
               </span>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
@@ -411,9 +410,9 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
               {cs?.milestone?.prominentStatements?.map((stmt, idx) => (
                 <div 
                   key={idx} 
-                  className="p-4 sm:p-5 rounded-2xl glass-panel border border-indigo-500/30 text-center flex items-center justify-center bg-indigo-500/5"
+                  className="p-4 sm:p-5 rounded-2xl bg-[#171717] border border-[#FF5A1F]/30 text-center flex items-center justify-center"
                 >
-                  <p className="text-xs sm:text-sm font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 via-white to-purple-200 font-display">
+                  <p className="text-xs sm:text-sm font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FFA87D] to-[#FF5A1F] font-display">
                     "{stmt}"
                   </p>
                 </div>
@@ -422,8 +421,8 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
           </section>
 
           {/* RECOGNITION */}
-          <section className="p-6 sm:p-7 rounded-3xl bg-slate-900/40 border border-white/5 space-y-3">
-            <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block">
+          <section className="p-6 sm:p-7 rounded-3xl bg-[#141414] border border-white/5 space-y-3">
+            <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block">
               08 — VALIDATION
             </span>
             <h3 className="text-xl sm:text-2xl font-extrabold text-white font-display">
@@ -440,7 +439,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
           <section ref={galleryRef} className="space-y-6 pt-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 inline-block mb-1">
+                <span className="text-[10px] font-bold text-[#FF7A18] uppercase tracking-widest bg-[#FF5A1F]/10 px-2.5 py-0.5 rounded-full border border-[#FF5A1F]/20 inline-block mb-1">
                   09 — EDITORIAL GALLERY
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
@@ -464,7 +463,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                 {gallery[0] && (
                   <div 
                     onClick={() => setLightboxIndex(0)}
-                    className="lg:col-span-7 h-72 sm:h-96 rounded-3xl overflow-hidden border border-white/10 relative group cursor-pointer bg-slate-900 shadow-xl"
+                    className="lg:col-span-7 h-72 sm:h-96 rounded-3xl overflow-hidden border border-white/10 relative group cursor-pointer bg-[#171717] shadow-xl"
                   >
                     <img 
                       src={gallery[0].url} 
@@ -472,13 +471,13 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
-                    <div className="absolute top-3 left-3 bg-indigo-600/90 backdrop-blur-md text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="absolute top-3 left-3 bg-[#FF5A1F] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-md">
                       Featured On-Ground View
                     </div>
                     <div className="absolute bottom-3 left-4 right-4 flex justify-between items-end">
                       <p className="text-xs text-white font-medium max-w-md truncate">{gallery[0].caption}</p>
-                      <span className="p-2 rounded-lg bg-black/60 text-white text-xs shrink-0 flex items-center gap-1 group-hover:bg-indigo-600 transition">
+                      <span className="p-2 rounded-lg bg-black/60 text-white text-xs shrink-0 flex items-center gap-1 group-hover:bg-[#FF5A1F] transition">
                         <Maximize2 size={13} />
                       </span>
                     </div>
@@ -493,7 +492,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                       <div 
                         key={absIdx}
                         onClick={() => setLightboxIndex(absIdx)}
-                        className="h-44 sm:h-46 rounded-3xl overflow-hidden border border-white/10 relative group cursor-pointer bg-slate-900 shadow-lg"
+                        className="h-44 sm:h-46 rounded-3xl overflow-hidden border border-white/10 relative group cursor-pointer bg-[#171717] shadow-lg"
                       >
                         <img 
                           src={item.url} 
@@ -501,10 +500,10 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                           className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
                         <div className="absolute bottom-2.5 left-3 right-3 flex justify-between items-center">
                           <p className="text-[11px] text-slate-200 font-medium truncate">{item.caption}</p>
-                          <span className="p-1.5 rounded-md bg-black/60 text-white shrink-0 group-hover:bg-indigo-600 transition ml-2">
+                          <span className="p-1.5 rounded-md bg-black/60 text-white shrink-0 group-hover:bg-[#FF5A1F] transition ml-2">
                             <Maximize2 size={11} />
                           </span>
                         </div>
@@ -522,7 +521,7 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                     <div 
                       key={absIdx}
                       onClick={() => setLightboxIndex(absIdx)}
-                      className="h-48 sm:h-52 rounded-2xl overflow-hidden border border-white/10 relative group cursor-pointer bg-slate-900 shadow-md"
+                      className="h-48 sm:h-52 rounded-2xl overflow-hidden border border-white/10 relative group cursor-pointer bg-[#171717] shadow-md"
                     >
                       <img 
                         src={item.url} 
@@ -530,10 +529,10 @@ export default function ProjectCaseStudyModal({ project, isOpen, onClose, initia
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
                       <div className="absolute bottom-2.5 left-3 right-3 flex justify-between items-center">
                         <p className="text-[11px] text-slate-200 font-medium truncate">{item.caption}</p>
-                        <span className="p-1.5 rounded-md bg-black/60 text-white shrink-0 group-hover:bg-indigo-600 transition ml-2">
+                        <span className="p-1.5 rounded-md bg-black/60 text-white shrink-0 group-hover:bg-[#FF5A1F] transition ml-2">
                           <Maximize2 size={11} />
                         </span>
                       </div>

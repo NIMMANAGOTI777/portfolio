@@ -32,6 +32,21 @@ export default defineConfig({
     sourcemap: false, // Disables production source maps
     minify: true, // Minifies production bundles
     cssMinify: true,
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
+            return 'vendor-react';
+          }
+          if (id.includes('node_modules/@supabase')) {
+            return 'vendor-supabase';
+          }
+          if (id.includes('node_modules/framer-motion')) {
+            return 'vendor-motion';
+          }
+        }
+      }
+    }
   }
 });
